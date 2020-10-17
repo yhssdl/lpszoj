@@ -29,29 +29,11 @@ AppAsset::register($this);
 <?php $this->beginBody() ?>
 
 <div class="wrap">
-    <header id="header" class="hidden-xs">
-        <div class="container">
-            <div class="page-header">
-                <div class="logo pull-left">
-                    <div class="pull-left">
-                        <a class="navbar-brand" href="<?= Yii::$app->request->baseUrl ?>">
-                            <img src="<?= Yii::getAlias('@web') ?>/images/logo.png" />
-                        </a>
-                    </div>
-                    <div class="brand">
-                        Online Judge
-                    </div>
-                </div>
-                <div class="clearfix"></div>
-            </div>
-        </div>
-    </header>
     <?php
     NavBar::begin([
-        'brandLabel' => Yii::$app->setting->get('ojName'),
-        'brandUrl' => Yii::$app->homeUrl,
+        'brandLabel' =>  '<img src="/images/logo.png" height="54px"/>',
         'options' => [
-            'class' => 'navbar-default',
+            'class' => 'navbar-default boxshow5',
         ],
     ]);
     $menuItems = [
