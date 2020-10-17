@@ -33,7 +33,7 @@ $this->params['model'] = $model;
         <?php if ($model->getRunStatus() == \app\models\Contest::STATUS_RUNNING): ?>
         <?php $form = ActiveForm::begin(); ?>
 
-        <?= $form->field($newClarify, 'content')->widget('app\widgets\editormd\Editormd'); ?>
+        <?= $form->field($newClarify, 'content')->widget(Yii::$app->setting->get('ojEditor')); ?>
 
         <div class="form-group">
             <?= Html::submitButton(Yii::t('app', 'Reply'), ['class' => 'btn btn-primary']) ?>

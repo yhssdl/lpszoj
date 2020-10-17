@@ -28,7 +28,7 @@ $this->params['breadcrumbs'][] = $this->title;
         ])->textInput(['maxlength' => 128, 'autocomplete'=>'off'])
         ?>
 
-        <?= $form->field($newDiscuss, 'content')->widget('app\widgets\editormd\Editormd'); ?>
+        <?= $form->field($newDiscuss, 'content')->widget(Yii::$app->setting->get('ojEditor')); ?>
 
         <div class="form-group">
             <?= Html::submitButton(Yii::t('app', 'Create'), ['class' => 'btn btn-success']) ?>

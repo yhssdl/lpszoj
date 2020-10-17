@@ -21,6 +21,7 @@ class m190309_123832_setting extends Migration
         $this->insert('{{%setting}}', ['key' => 'isUserReg', 'value' => '1']);
         $this->insert('{{%setting}}', ['key' => 'isDiscuss', 'value' => '1']);
         $this->insert('{{%setting}}', ['key' => 'isDefGroup', 'value' => '3']);
+        $this->insert('{{%setting}}', ['key' => 'ojEditor', 'value' => 'app\widgets\kindeditor\KindEditor']);        
         $this->insert('{{%setting}}', ['key' => 'isChangeNickName', 'value' => '2']);
     }
 
@@ -37,6 +38,7 @@ class m190309_123832_setting extends Migration
         $this->delete('{{%setting}}', ['key' => 'isUserReg']);
         $this->delete('{{%setting}}', ['key' => 'isDiscuss']);
         $this->delete('{{%setting}}', ['key' => 'isDefGroup']);
+        $this->delete('{{%setting}}', ['key' => 'ojEditor']);    
         $this->delete('{{%setting}}', ['key' => 'isChangeNickName']);
         $this->dropColumn('{{%setting}}', 'id');
     }

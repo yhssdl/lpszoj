@@ -64,7 +64,7 @@ $this->params['breadcrumbs'][] = ['label' => Html::encode($model->problem->title
         <div class="well">
             <?php $form = ActiveForm::begin(); ?>
 
-            <?= $form->field($newDiscuss, 'content')->widget('app\widgets\editormd\Editormd')->label(false); ?>
+            <?= $form->field($newDiscuss, 'content')->widget(Yii::$app->setting->get('ojEditor'))->label(false); ?>
 
             <div class="form-group">
                 <?= Html::submitButton(Yii::t('app', 'Reply'), ['class' => 'btn btn-primary']) ?>
