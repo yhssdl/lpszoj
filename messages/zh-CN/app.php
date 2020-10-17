@@ -161,7 +161,7 @@ return [
     'Copy these accounts to distribute' => '导出用户名和密码',
     'Add participating user' => '添加参赛用户',
     'Generate' => '生成',
-
+    'Solved' => '通过数量',
     'Problem' => '问题',
     'Tags' => '标签',
     'Problems' => '问题列表',
