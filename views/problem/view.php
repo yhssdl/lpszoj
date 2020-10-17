@@ -29,9 +29,7 @@ $this->registerCss("
         margin: 0;
         height: 100%;
     }
-    .wrap > .navbar {
-        margin-bottom: 0;
-    }
+  
     .wrap > .container {
         padding: 0;
         display: flex;
