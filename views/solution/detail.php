@@ -79,18 +79,15 @@ $this->params['breadcrumbs'][] = $this->title;
 </div>
 <?php if ($model->canViewResult()): ?>
     <hr>
-    <h3>Tests(<?= $model->getPassedTestCount() ?>/<?= $model->getTestCount() ?>):</h3>
+    <h3>测试点：<?= $model->getTestCount() ?> 个，通过：<?= $model->getPassedTestCount() ?> 个</h3>
     <h3>
-        <?php for ($i = 1; $i <= $model->getPassedTestCount(); $i++): ?>
-            <?php if ($i <= $model->getTestCount()) : ?>
-                <span class="glyphicon glyphicon-ok-circle text-success"></span>
-            <?php else: ?>
-                <span class="glyphicon glyphicon-remove-circle text-danger"></span>
-            <?php endif; ?>
-        <?php endfor; ?>
-        <?php if ($model->getPassedTestCount() < $model->getTestCount()) : ?>
-            <span class="glyphicon glyphicon-remove-circle text-danger"></span>
-        <?php endif; ?>
+    <?php for ($i = 1; $i <= $model->getTestCount(); $i++): ?>
+    <?php if ($i <= $model->getPassedTestCount()) : ?>
+    <span class="glyphicon glyphicon-ok-circle text-success"></span>
+    <?php else: ?>
+    <span class="glyphicon glyphicon-remove-circle text-danger"></span>
+    <?php endif; ?>
+    <?php endfor; ?>
     </h3>
 <?php endif; ?>
 
