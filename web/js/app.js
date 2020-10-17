@@ -33,44 +33,57 @@ var OJ_VERDICT_COLOR = new Array(
 );
 function testHtml(id, caseJsonObject)
 {
+  if(OJ_VERDICT[caseJsonObject.verdict]==OJ_VERDICT[4]) {
   return '<div class="panel panel-default test-for-popup"> \
         <div class="panel-heading" role="tab" id="heading' + id + '"> \
-            <h4 class="panel-title"> \
-                <a class="collapsed" role="button" data-toggle="collapse" \
-                   href="#test-' + id + '" aria-expanded="false" aria-controls="test-' + id + '"> \
-                    <div class="' + OJ_VERDICT_COLOR[caseJsonObject.verdict] +  '">\
-                    测试点<span class="test" style="width: 50px">' + id + '</span>： \
-                    <span class="verdict">' + OJ_VERDICT[caseJsonObject.verdict] + '</span>， \
-                    用时: <span class="time">' + caseJsonObject.time + '</span> ms， \
-                    内存: <span class="memory">' + caseJsonObject.memory + '</span> KB \
-                    </div> \
-                </a> \
-            </h4> \
+        <b class="text-success">  \
+                    测试点' + id + ' \
+                    : ' + OJ_VERDICT[caseJsonObject.verdict] + ', \
+                    时间: ' + caseJsonObject.time + ' 毫秒, \
+                    内存: ' + caseJsonObject.memory + ' KB \
+                </b> \
+        </div>';
+  }else{
+    return '<div class="panel panel-default test-for-popup"> \
+        <div class="panel-heading" role="tab" id="heading' + id + '"> \
+                <a class="collapsed" role="button" data-toggle="collapse" data-parent="#accordion" \
+                   href="#test-' + id + '" aria-expanded="false" aria-controls="test-' + id + '"><b class=" text-danger">  \
+                    测试点' + id + ' \
+                    : ' + OJ_VERDICT[caseJsonObject.verdict] + ', \
+                    时间: ' + caseJsonObject.time + ' 毫秒, \
+                    内存: ' + caseJsonObject.memory + ' KB \
+         </b></a> \
         </div> \
         <div id="test-' + id + '" class="panel-collapse collapse" role="tabpanel" aria-labelledby="heading' + id + '"> \
             <div class="panel-body">\
                 <div class="sample-test">\
                     <div class="input">\
-                        <h4>输入</h4>\
+                        <b>&nbsp;输入数据</b>\
                         <pre>' + caseJsonObject.input + '</pre>\
                     </div>\
                     <div class="output">\
-                        <h4>输出</h4>\
+                        <b>&nbsp;标准答案</b>\
+                        <pre>' + caseJsonObject.output + '</pre>\
+                    </div>\
+                    <div class="output">\
+                        <b>&nbsp;你的答案</b>\
                         <pre>' + caseJsonObject.user_output + '</pre>\
                     </div>\
                     <div class="output">\
-                        <h4>答案</h4>\
-                        <pre>' + caseJsonObject.output + '</pre>\
-                    </div>' + (caseJsonObject.checker_log == "" ? "" :  '<div class="output"><h4>检查日志</h4><pre>' + caseJsonObject.checker_log + '</pre></div>')
-      + '<div class="output">\
-                        <h4>系统信息</h4>\
+                        <b>&nbsp;检查日志</b>\
+                        <pre>' + caseJsonObject.checker_log + '</pre>\
+                    </div>\
+                    <div class="output">\
+                        <b>&nbsp;系统信息</b>\
                         <pre>exit code: ' + caseJsonObject.exit_code + ', checker exit code: ' + caseJsonObject.checker_exit_code + '</pre>\
                     </div>\
                 </div>\
             </div>\
         </div>\
     </div>';
+	}
 }
+
 function subtaskHtml(id, score, verdict)
 {
   var scoregot = score;
