@@ -1,5 +1,6 @@
 <?php
 
+use app\models\User;
 use yii\bootstrap\Nav;
 use yii\widgets\ListView;
 
@@ -7,6 +8,22 @@ use yii\widgets\ListView;
 /* @var $dataProvider yii\data\ActiveDataProvider */
 
 $this->title = Yii::t('app', 'Groups');
+?>
+<?php
+    $DefGp = false;
+    if(Yii::$app->user->isGuest || Yii::$app->setting->get('isDefGroup') == 0)
+    {
+       $DefGp = false; 
+    }
+    elseif ((Yii::$app->setting->get('isDefGroup')==2) && (Yii::$app->user->identity->role === User::ROLE_ADMIN) ) {
+        $DefGp = true; 
+    }
+    elseif(Yii::$app->setting->get('isDefGroup')==3 && (Yii::$app->user->identity->role === User::ROLE_ADMIN || Yii::$app->user->identity->role === User::ROLE_VIP)){
+        $DefGp = true; 
+    }
+    else{
+        $DefGp = false;  
+    }
 ?>
 <?= Nav::widget([
     'items' => [
@@ -22,7 +39,7 @@ $this->title = Yii::t('app', 'Groups');
         [
             'label' => Yii::t('app', 'Create'),
             'url' => 'create',
-            'visible' => !Yii::$app->user->isGuest,
+            'visible' => $DefGp,
             'options' => ['class' => 'pull-right']
         ]
     ],
