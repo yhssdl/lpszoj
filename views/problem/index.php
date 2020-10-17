@@ -17,7 +17,14 @@ $this->title = Yii::t('app', 'Problems');
     <?php Pjax::begin(); ?>
     <div class="col-md-9">
         <?= GridView::widget([
-            'layout' => '{items}{pager}',
+            'layout' => '{pager}{items}{pager}',
+            'pager' =>[
+                'firstPageLabel' => '首页',
+                'prevPageLabel' => '« ',
+                'nextPageLabel' => '» ',
+                'lastPageLabel' => '尾页',
+                'maxButtonCount' => 15
+            ],
             'dataProvider' => $dataProvider,
             'options' => ['class' => 'table-responsive problem-index-list'],
             'columns' => [
