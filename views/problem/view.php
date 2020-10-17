@@ -15,7 +15,7 @@ $this->title = $model->id . ' - ' . $model->title;
 $this->registerJsFile(Yii::getAlias('@web/js/splitter.min.js'));
 $this->registerJs("
 Split(['.problem-left', '.problem-right'], {
-    sizes: [50, 50],
+    sizes: [60, 40],
 });
 ");
 $this->registerCss("
