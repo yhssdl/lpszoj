@@ -45,7 +45,7 @@ $this->title = Yii::$app->setting->get('ojName');
             </ol>
         </div>
         <?php endif; ?>
-        <?php if (!empty($discusses)): ?>
+        <?php if ((Yii::$app->setting->get('isDiscuss')) && (!empty($discusses))): ?>
             <div class="sidebar-module">
                 <h4>最近讨论</h4>
                 <ol class="list-unstyled">

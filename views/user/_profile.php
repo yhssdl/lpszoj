@@ -11,7 +11,16 @@ use yii\bootstrap\ActiveForm;
 
 <?php $form = ActiveForm::begin(); ?>
 
-<?= $form->field($model, 'nickname')->textInput() ?>
+<?php if (Yii::$app->setting->get('isChangeNickName')==1): ?>
+	<?= $form->field($model, 'nickname')->textInput() ?>
+<?php elseif(Yii::$app->setting->get('isChangeNickName')==2 && $model->username === $model->nickname ): ?>
+	<?= $form->field($model, 'nickname')->textInput() ?>
+     	<p class="hint-block">
+           昵称只能修改一次，请谨慎修改。<br>
+      </p>
+<?php else: ?>
+	<?= $form->field($model, 'nickname')->dropDownList([$model->nickname=>$model->nickname]) ?>	
+<?php endif; ?>	
 
 <?= $form->field($profile, 'qq_number')->textInput() ?>
 

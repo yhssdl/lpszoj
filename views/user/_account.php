@@ -20,7 +20,7 @@ if ($model->isVerifyEmail()) {
 
 <?php $form = ActiveForm::begin(); ?>
 
-<?= $form->field($model, 'username')->textInput() ?>
+<?= $form->field($model, 'username')->dropDownList([$model->username=>$model->username]) ?>
 
 <?= $form->field($model, 'email', [
         'template' => $emailTemplate

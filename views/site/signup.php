@@ -10,6 +10,7 @@ $this->params['breadcrumbs'][] = $this->title;
 ?>
 
 <div class="form-signin">
+    <?php if (Yii::$app->setting->get('isUserReg')): ?>    
     <h1><?= Html::encode($this->title) ?></h1>
 
     <?php $form = ActiveForm::begin(['id' => 'form-signup']); ?>
@@ -28,5 +29,8 @@ $this->params['breadcrumbs'][] = $this->title;
         <?= Html::submitButton(Yii::t('app', 'Signup'), ['class' => 'btn btn-primary', 'name' => 'signup-button']) ?>
     </div>
     <?php ActiveForm::end(); ?>
+    <?php else: ?>
+       <h3> 当前未开放注册！</h3>
+    <?php endif; ?>    
 </div>
 
