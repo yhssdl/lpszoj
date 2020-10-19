@@ -103,11 +103,14 @@ class GenerateUserForm extends Model
         $this->names = str_replace("\r","",$this->names);
         $pieces = explode("\n", trim($this->names));
         $count = count($pieces);
-
+        $savePassword = "";
+        $saveAuthKey = "";
+        $savePassHansh="";
         set_time_limit(0);
         ob_end_clean();
         echo "生成帐号需要一定时间，在此期间请勿刷新或关闭该页面<br>";
-        for ($i = 1; $i <= count($pieces); ++$i) {
+        $cnt = count($pieces);
+        for ($i = 1; $i <= $cnt; ++$i) {
             if (empty($pieces[$i - 1]))
                 continue;
             $u = explode(' ', trim($pieces[$i - 1]));
@@ -118,8 +121,16 @@ class GenerateUserForm extends Model
             $user->nickname = $username;
             $user->email = $username . '@jnoj.org';
             $user->role = User::ROLE_USER;
-            $user->setPassword($password);
-            $user->generateAuthKey();
+            if($savePassword==$password){
+                $user->auth_key = $saveAuthKey;
+                $user->password_hash = $savePassHansh;
+            }else {
+                $user->setPassword($password);
+                $user->generateAuthKey();
+                $saveAuthKey = $user->auth_key;
+                $savePassHansh = $user->password_hash;
+                $savePassword = $password;
+            }
             if ($user->save()) {
                 echo "帐号数{$i}/{$count}：帐号 {$username} 创建成功";
                 Yii::$app->db->createCommand()->insert('{{%user_profile}}', [
