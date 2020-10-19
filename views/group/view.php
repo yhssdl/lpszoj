@@ -170,7 +170,7 @@ $scoreboardFrozenTime = Yii::$app->setting->get('scoreboardFrozenTime') / 3600;
                     [
                         'attribute' => Yii::t('app', 'Nickname'),
                         'value' => function ($model, $key, $index, $column) {
-                            return Html::a(Html::encode($model->user->nickname), ['/user/view', 'id' => $model->user->id]);
+                            return Html::a(Html::encode($model->user->nickname), ['/user/view', 'id' => $model->user->id], ['title' => $model->user->username]);
                         },
                         'format' => 'raw',
                     ],
