@@ -74,6 +74,7 @@ class SignupForm extends Model
         $user->nickname = $this->username;
         $user->email = $this->email;
         $user->is_verify_email = User::VERIFY_EMAIL_NO;
+        //$user->language = 3;
         $user->setPassword($this->password);
         $user->generateAuthKey();
         if (Yii::$app->setting->get('mustVerifyEmail')) {
