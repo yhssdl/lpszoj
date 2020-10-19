@@ -121,6 +121,7 @@ class GenerateUserForm extends Model
             $user->nickname = $username;
             $user->email = $username . '@jnoj.org';
             $user->role = User::ROLE_USER;
+            //$user->language = 3;
             if($savePassword==$password){
                 $user->auth_key = $saveAuthKey;
                 $user->password_hash = $savePassHansh;
