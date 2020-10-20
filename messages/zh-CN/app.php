@@ -253,6 +253,7 @@ return [
     'Sample Input 2' => '输入样例2',
     'Sample Output 2' => '输出样例2',
     'Sample Input 3' => '输入样例3',
-    'Sample Output 3' => '输出样例3'    
+    'Sample Output 3' => '输出样例3',
+    'Users' => '用户'
 
 ];
