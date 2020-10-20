@@ -170,7 +170,7 @@ class GroupController extends BaseController
         }
         $newGroupUser = new GroupUser();
         $newContest = new Contest();
-        $newContest->type = Contest::TYPE_RANK_GROUP;
+        $newContest->type = Contest::TYPE_HOMEWORK;
         $contestDataProvider = new ActiveDataProvider([
             'query' => Contest::find()->where([
                 'group_id' => $model->id
