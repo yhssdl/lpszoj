@@ -4,7 +4,7 @@
     <table class="table table-bordered">
         <thead>
         <tr>
-            <th style="min-width: 130px">Contest</th>
+            <th style="min-width: 130px">比赛</th>
             <th>比赛榜单计分方式</th>
             <th>备注</th>
         </tr>

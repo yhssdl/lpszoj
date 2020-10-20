@@ -1,10 +1,10 @@
-<h3>Compile</h3>
+<h3>编译</h3>
 <div class="table-responsive">
     <table class="table table-bordered">
         <thead>
         <tr>
-            <th>Language</th>
-            <th>Compile method</th>
+            <th>语言</th>
+            <th>编译参数</th>
         </tr>
         </thead>
         <tbody>
@@ -26,14 +26,14 @@
 
 <hr>
 
-<h3>Result</h3>
+<h3>运行结果</h3>
 <div class="table-responsive">
     <table class="table table-bordered">
         <thead>
         <tr>
-            <th>Result</th>
+            <th>结果</th>
             <th width="120">中文</th>
-            <th>Information</th>
+            <th>信息</th>
         </tr>
         </thead>
         <tbody>
