@@ -246,7 +246,7 @@ $nextProblemID = $model->getNextProblemID();
                     <?= Html::a('<span class="glyphicon glyphicon-arrow-left"></span> 上一题',
                         $previousProblemID ? ['/problem/view', 'id' => $previousProblemID] : 'javascript:void(0);',
                         ['class' => 'btn btn-default', 'disabled' => !$previousProblemID]
-                    )?>
+                    )?>&nbsp;
 
                     <?= Html::a('下一题 <span class="glyphicon glyphicon-arrow-right"></span>',
                         $nextProblemID ? ['/problem/view', 'id' => $nextProblemID] : 'javascript:void(0);',
