@@ -110,7 +110,7 @@ $loadingImgUrl = Yii::getAlias('@web/images/loading.gif');
                 <?php $this->endCache(); ?>
             <?php endif; ?>
             <hr>
-            <h3 id="submit-code">Submit</h3>
+            <h3 id="submit-code"><?= Yii::t('app', 'Submit') ?></h3>
             <div class="content-wrapper">
                 <?php if ($model->isContestEnd() && time() < strtotime($model->end_time) + 5 * 60): ?>
                     比赛已结束。比赛结束五分钟后开放提交。
