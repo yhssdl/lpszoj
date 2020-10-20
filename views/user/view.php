@@ -173,7 +173,7 @@ $this->registerJs($plotJS);
         <h3>已解答 <small>(<?= count($solutionStats['solved_problem']) ?>)</small></h3>
         <ul>
             <?php foreach ($solutionStats['solved_problem'] as $p): ?>
-                <li class="label label-default"><?= Html::a($p, ['/problem/view', 'id' => $p], ['style' => 'color:#fff']) ?></li>
+                <li class="label label-default"><?= Html::a($p, ['/problem/view', 'id' => $p], ['style' => 'color:#555']) ?></li>
             <?php endforeach; ?>
         </ul>
         <hr>
