@@ -180,7 +180,7 @@ $this->registerJs($plotJS);
         <h3>未解答 <small>(<?= count($solutionStats['unsolved_problem']) ?>)</small></h3>
         <ul>
             <?php foreach ($solutionStats['unsolved_problem'] as $p): ?>
-                <li class="label label-default"><?= Html::a($p, ['/problem/view', 'id' => $p], ['style' => 'color:#fff']) ?></li>
+                <li class="label label-default"><?= Html::a($p, ['/problem/view', 'id' => $p], ['style' => 'color:#555']) ?></li>
             <?php endforeach; ?>
         </ul>
 
