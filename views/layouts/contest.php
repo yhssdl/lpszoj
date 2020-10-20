@@ -43,10 +43,9 @@ $status = $model->getRunStatus();
 <div class="wrap">
     <?php
     NavBar::begin([
-        'brandLabel' => Yii::$app->setting->get('ojName') . ' OJ',
-        'brandUrl' => Yii::$app->homeUrl,
+        'brandLabel' =>  '<img src="/images/logo.png" height="54px"/>',
         'options' => [
-            'class' => 'navbar-default',
+            'class' => 'navbar-default boxshow5',
         ],
     ]);
     $menuItems = [
@@ -84,7 +83,7 @@ $status = $model->getRunStatus();
     NavBar::end();
     ?>
 
-    <div class="container">
+    <div class="container  radius">
         <?= Breadcrumbs::widget([
             'links' => isset($this->params['breadcrumbs']) ? $this->params['breadcrumbs'] : [],
         ]) ?>
