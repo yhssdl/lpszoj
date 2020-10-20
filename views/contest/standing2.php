@@ -11,14 +11,14 @@ $this->title = $model->title;
     <div class="container">
         <div class="row">
             <div class="col-md-3 text-left">
-                <strong>Start </strong>
+                <strong><?= Yii::t('app', 'Start') ?></strong>
                 <?= $model->start_time ?>
             </div>
             <div class="col-md-6 text-center">
                 <h2 class="contest-title"><?= Html::a(Html::encode($model->title), ['/contest/view', 'id' => $model->id]) ?></h2>
             </div>
             <div class="col-md-3 text-right">
-                <strong>End </strong>
+                <strong><?= Yii::t('app', 'End') ?></strong>
                 <?= $model->end_time ?>
             </div>
         </div>

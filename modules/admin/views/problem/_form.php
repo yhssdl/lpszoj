@@ -20,11 +20,11 @@ use yii\helpers\Url;
     <?= $form->field($model, 'title')->textInput() ?>
 
     <?= $form->field($model, 'time_limit', [
-        'template' => "{label}\n<div class=\"input-group\">{input}<span class=\"input-group-addon\">s</span></div>",
+        'template' => "{label}\n<div class=\"input-group\">{input}<span class=\"input-group-addon\">".Yii::t('app', 'Second')."</span></div>",
     ])->textInput(['maxlength' => 128, 'autocomplete'=>'off']) ?>
 
     <?= $form->field($model, 'memory_limit', [
-        'template' => "{label}\n<div class=\"input-group\">{input}<span class=\"input-group-addon\">MByte</span></div>",
+        'template' => "{label}\n<div class=\"input-group\">{input}<span class=\"input-group-addon\">MB</span></div>",
     ])->textInput(['maxlength' => 128, 'autocomplete'=>'off']) ?>
 
     <?= $form->field($model, 'status')->radioList([
@@ -41,24 +41,24 @@ use yii\helpers\Url;
 
     <div class="row">
         <div class="col-md-6">
-            <?= $form->field($model, 'sample_input')->textarea(['rows' => 6]) ?>
+            <?= $form->field($model, 'sample_input')->label(Yii::t('app', 'Sample Input 1'))->textarea(['rows' => 6]) ?>
         </div>
         <div class="col-md-6">
-            <?= $form->field($model, 'sample_output')->textarea(['rows' => 6]) ?>
-        </div>
-
-        <div class="col-md-6">
-            <?= $form->field($model, 'sample_input_2')->textarea(['rows' => 6]) ?>
-        </div>
-        <div class="col-md-6">
-            <?= $form->field($model, 'sample_output_2')->textarea(['rows' => 6]) ?>
+            <?= $form->field($model, 'sample_output')->label(Yii::t('app', 'Sample Output 1'))->textarea(['rows' => 6]) ?>
         </div>
 
         <div class="col-md-6">
-            <?= $form->field($model, 'sample_input_3')->textarea(['rows' => 6]) ?>
+            <?= $form->field($model, 'sample_input_2')->label(Yii::t('app', 'Sample Input 2'))->textarea(['rows' => 6]) ?>
         </div>
         <div class="col-md-6">
-            <?= $form->field($model, 'sample_output_3')->textarea(['rows' => 6]) ?>
+            <?= $form->field($model, 'sample_output_2')->label(Yii::t('app', 'Sample Output 2'))->textarea(['rows' => 6]) ?>
+        </div>
+
+        <div class="col-md-6">
+            <?= $form->field($model, 'sample_input_3')->label(Yii::t('app', 'Sample Input 3'))->textarea(['rows' => 6]) ?>
+        </div>
+        <div class="col-md-6">
+            <?= $form->field($model, 'sample_output_3')->label(Yii::t('app', 'Sample Output 3'))->textarea(['rows' => 6]) ?>
         </div>
     </div>
 
@@ -75,7 +75,7 @@ use yii\helpers\Url;
     <?= $form->field($model, 'tags')->textarea(['maxlength' => true, 'placeholder' => '可不填'])
         ->hint('多标签用逗号隔开。如：dfs, bfs, dp, 暴力，贪心，最短路') ?>
 
-    <?= $form->field($model, 'contest_id')->dropDownList(\app\models\Contest::getContestList()) ?>
+    <?= $form->field($model, 'contest_id')->label(Yii::t('app', 'Contest ID'))->dropDownList(\app\models\Contest::getContestList()) ?>
 
     <div class="form-group">
         <?= Html::submitButton(Yii::t('app', 'Save'), ['class' => 'btn btn-success']) ?>

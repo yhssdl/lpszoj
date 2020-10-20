@@ -151,31 +151,31 @@ $this->title = Yii::t('app', 'Setting');
             </div>
         </div>
         <div class="form-group">
-            <?= Html::label('Host', 'emailHost', ['class' => 'col-sm-2 control-label']) ?>
+            <?= Html::label('SMTP发送服务器', 'emailHost', ['class' => 'col-sm-2 control-label']) ?>
             <div class="col-sm-10">
                 <?= Html::textInput('emailHost', $settings['emailHost'], ['class' => 'form-control', 'placeholder' => 'smtp.exmail.qq.com']) ?>
             </div>
         </div>
         <div class="form-group">
-            <?= Html::label('Username', 'emailUsername', ['class' => 'col-sm-2 control-label']) ?>
+            <?= Html::label('用户名', 'emailUsername', ['class' => 'col-sm-2 control-label']) ?>
             <div class="col-sm-10">
                 <?= Html::textInput('emailUsername', $settings['emailUsername'], ['class' => 'form-control', 'placeholder' => 'no-reply@jnoj.org']) ?>
             </div>
         </div>
         <div class="form-group">
-            <?= Html::label('Password', 'emailPassword', ['class' => 'col-sm-2 control-label']) ?>
+            <?= Html::label('密码', 'emailPassword', ['class' => 'col-sm-2 control-label']) ?>
             <div class="col-sm-10">
                 <?= Html::textInput('emailPassword', $settings['emailPassword'], ['class' => 'form-control', 'placeholder' => 'you_password']) ?>
             </div>
         </div>
         <div class="form-group">
-            <?= Html::label('Port', 'emailPort', ['class' => 'col-sm-2 control-label']) ?>
+            <?= Html::label('端口', 'emailPort', ['class' => 'col-sm-2 control-label']) ?>
             <div class="col-sm-10">
                 <?= Html::textInput('emailPort', $settings['emailPort'], ['class' => 'form-control', 'placeholder' => '465']) ?>
             </div>
         </div>
         <div class="form-group">
-            <?= Html::label('Encryption', 'emailEncryption', ['class' => 'col-sm-2 control-label']) ?>
+            <?= Html::label('加密方式', 'emailEncryption', ['class' => 'col-sm-2 control-label']) ?>
             <div class="col-sm-10">
                 <?= Html::textInput('emailEncryption', $settings['emailEncryption'], ['class' => 'form-control', 'placeholder' => 'ssl']) ?>
             </div>

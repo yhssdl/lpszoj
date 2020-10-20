@@ -17,11 +17,11 @@ use yii\helpers\Url;
     <?= $form->field($model, 'title')->textInput() ?>
 
     <?= $form->field($model, 'time_limit', [
-        'template' => "{label}\n<div class=\"input-group\">{input}<span class=\"input-group-addon\">s</span></div>",
+        'template' => "{label}\n<div class=\"input-group\">{input}<span class=\"input-group-addon\">". Yii::t('app', 'Second')." </span></div>",
     ])->textInput(['maxlength' => 128, 'autocomplete'=>'off']) ?>
 
     <?= $form->field($model, 'memory_limit', [
-        'template' => "{label}\n<div class=\"input-group\">{input}<span class=\"input-group-addon\">MByte</span></div>",
+        'template' => "{label}\n<div class=\"input-group\">{input}<span class=\"input-group-addon\">MB</span></div>",
     ])->textInput(['maxlength' => 128, 'autocomplete'=>'off']) ?>
 
     <?= $form->field($model, 'description')->widget(Yii::$app->setting->get('ojEditor')) ?>
@@ -33,24 +33,24 @@ use yii\helpers\Url;
     <hr>
     <div class="row">
         <div class="col-md-6">
-            <?= $form->field($model, 'sample_input')->textarea(['rows' => 6]) ?>
+            <?= $form->field($model, 'sample_input')->label(Yii::t('app', 'Sample Input 1'))->textarea(['rows' => 6]) ?>
         </div>
         <div class="col-md-6">
-            <?= $form->field($model, 'sample_output')->textarea(['rows' => 6]) ?>
-        </div>
-
-        <div class="col-md-6">
-            <?= $form->field($model, 'sample_input_2')->textarea(['rows' => 6]) ?>
-        </div>
-        <div class="col-md-6">
-            <?= $form->field($model, 'sample_output_2')->textarea(['rows' => 6]) ?>
+            <?= $form->field($model, 'sample_output')->label(Yii::t('app', 'Sample Output 1'))->textarea(['rows' => 6]) ?>
         </div>
 
         <div class="col-md-6">
-            <?= $form->field($model, 'sample_input_3')->textarea(['rows' => 6]) ?>
+            <?= $form->field($model, 'sample_input_2')->label(Yii::t('app', 'Sample Input 2'))->textarea(['rows' => 6]) ?>
         </div>
         <div class="col-md-6">
-            <?= $form->field($model, 'sample_output_3')->textarea(['rows' => 6]) ?>
+            <?= $form->field($model, 'sample_output_2')->label(Yii::t('app', 'Sample Output 2'))->textarea(['rows' => 6]) ?>
+        </div>
+
+        <div class="col-md-6">
+            <?= $form->field($model, 'sample_input_3')->label(Yii::t('app', 'Sample Input 3'))->textarea(['rows' => 6]) ?>
+        </div>
+        <div class="col-md-6">
+            <?= $form->field($model, 'sample_output_3')->label(Yii::t('app', 'Sample Output 3'))->textarea(['rows' => 6]) ?>
         </div>
     </div>
     <hr>

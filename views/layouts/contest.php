@@ -116,9 +116,9 @@ $status = $model->getRunStatus();
                         Not start
                         <p><?= date('y-m-d H:i:s', time()) ?></p>
                     <?php elseif ($status == $model::STATUS_RUNNING): ?>
-                        Running
+                        <?= Yii::t('app', 'Running') ?>
                     <?php else: ?>
-                        Contest is over.
+                        <?= Yii::t('app', 'Contest is over.') ?>
                     <?php endif; ?>
                 </div>
             </div>

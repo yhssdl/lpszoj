@@ -18,7 +18,7 @@ $this->params['breadcrumbs'][] = $this->title;
     <div class="form-group">
         <p>单个添加</p>
         <div class="input-group">
-            <span class="input-group-addon" id="polygon_problem_id"><?= Yii::t('app', 'Polygon Problem ID') ?></span>
+            <span class="input-group-addon" id="polygon_problem_id"><?= Yii::t('app', 'Polygon '.Yii::t('app', 'Problem ID')) ?></span>
             <?= Html::textInput('polygon_problem_id', '', ['class' => 'form-control']) ?>
         </div>
         <p class="help-block">请提供位于 <?= Html::a(Yii::t('app', 'Polygon System'), ['/polygon/problem']) ?> 问题对应 ID</p>
@@ -27,9 +27,9 @@ $this->params['breadcrumbs'][] = $this->title;
     <div class="form-group">
         <p>批量添加</p>
         <div class="input-group">
-            <span class="input-group-addon">From</span>
+            <span class="input-group-addon"><?= Yii::t('app', 'From') ?></span>
             <?= Html::textInput('polygon_problem_id_from', '', ['class' => 'form-control']) ?>
-            <span class="input-group-addon">to</span>
+            <span class="input-group-addon"><?= Yii::t('app', 'to') ?></span>
             <?= Html::textInput('polygon_problem_id_to', '', ['class' => 'form-control']) ?>
         </div>
         <p class="help-block">请提供位于 <?= Html::a(Yii::t('app', 'Polygon System'), ['/polygon/problem']) ?> 问题对应 ID 的范围</p>

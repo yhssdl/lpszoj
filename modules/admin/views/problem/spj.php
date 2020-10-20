@@ -41,6 +41,6 @@ $this->params['model'] = $model;
         </div>
         <?= Html::endForm(); ?>
     <?php else: ?>
-        <p>当前题目不是 SPJ 判题，如需启用 SPJ 判题，请先到题目信息编辑页面将 Special Judge 改为是。</p>
+        <p>当前题目不是 SPJ 判题，如需启用 SPJ 判题，请先到题目信息编辑页面将“特殊裁决”改为是。</p>
     <?php endif; ?>
 </div>

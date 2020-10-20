@@ -21,7 +21,7 @@ use yii\widgets\ActiveForm;
 
     <?= $form->field($model, 'id', [
         'template' => "{label}\n<div class=\"input-group\"><span class=\"input-group-addon\"><span class='glyphicon glyphicon-sunglasses'></span> pid</span>{input}</div>",
-    ])->textInput(['maxlength' => 128, 'autocomplete'=>'off', 'placeholder' => 'Problem ID'])->label(false) ?>
+    ])->textInput(['maxlength' => 128, 'autocomplete'=>'off', 'placeholder' => Yii::t('app', 'Problem ID')])->label(false) ?>
 
     <?= $form->field($model, 'title', [
         'template' => "{label}\n<div class=\"input-group\"><span class=\"input-group-addon\">标题</span>{input}</div>",

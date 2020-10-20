@@ -81,13 +81,13 @@ $this->params['model'] = $model;
     </div>
     <div class="col-md-3 problem-info">
         <div class="panel panel-default">
-            <div class="panel-heading">Information</div>
+            <div class="panel-heading"><?= Yii::t('app', 'Information') ?></div>
             <!-- Table -->
             <table class="table">
                 <tbody>
                 <tr>
                     <td><?= Yii::t('app', 'Time Limit') ?></td>
-                    <td><?= $model->time_limit ?> Second</td>
+                    <td><?= $model->time_limit ?> <?= Yii::t('app', 'Second') ?></td>
                 </tr>
                 <tr>
                     <td><?= Yii::t('app', 'Memory Limit') ?></td>

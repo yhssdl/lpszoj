@@ -23,8 +23,8 @@ if (Yii::$app->user->isGuest || !Yii::$app->user->identity->isAdmin()) {
 <table class="table table-bordered table-rank" style="margin-top: 15px">
     <thead>
     <tr>
-        <th width="60px">Rank</th>
-        <th width="200px">Who</th>
+        <th width="60px"><?= Yii::t('app', 'Rank') ?></th>
+        <th width="200px"><?= Yii::t('app', 'Who') ?></th>
         <?php if ($model->type == Contest::TYPE_OI): ?>
         <th width="80px">测评总分</th>
         <th width="80px">订正总分</th>

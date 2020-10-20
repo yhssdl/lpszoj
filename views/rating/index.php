@@ -54,9 +54,9 @@ $this->title = Yii::t('app', 'Rating');
                     <thead>
                     <tr>
                         <th>#</th>
-                        <th>Who</th>
+                        <th><?= Yii::t('app', 'Who') ?></th>
                         <th>=</th>
-                        <th>Level</th>
+                        <th><?= Yii::t('app', 'Level') ?></th>
                     </tr>
                     </thead>
                     <tbody>

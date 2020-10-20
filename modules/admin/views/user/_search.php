@@ -21,23 +21,23 @@ use yii\bootstrap\ActiveForm;
     ]); ?>
 
     <?= $form->field($model, 'id', [
-        'template' => "{label}\n<div class=\"input-group\"><span class=\"input-group-addon\"><span class='glyphicon glyphicon-sunglasses'></span> User ID</span>{input}</div>",
-    ])->textInput(['maxlength' => 128, 'autocomplete'=>'off', 'placeholder' => 'User ID'])->label(false) ?>
+        'template' => "{label}\n<div class=\"input-group\"><span class=\"input-group-addon\"><span class='glyphicon glyphicon-sunglasses'></span></span>{input}</div>",
+    ])->textInput(['maxlength' => 128, 'autocomplete'=>'off', 'placeholder' => Yii::t('app', 'User ID')])->label(false) ?>
 
     <?= $form->field($model, 'username', [
         'template' => "{label}\n<div class=\"input-group\"><span class=\"input-group-addon\"><span class='glyphicon glyphicon-user'></span></span>{input}</div>",
-    ])->textInput(['maxlength' => 128, 'autocomplete'=>'off', 'placeholder' => 'Username'])->label(false) ?>
+    ])->textInput(['maxlength' => 128, 'autocomplete'=>'off', 'placeholder' => Yii::t('app', 'Username')])->label(false) ?>
 
     <?= $form->field($model, 'nickname', [
         'template' => "{label}\n<div class=\"input-group\"><span class=\"input-group-addon\"><span class='glyphicon glyphicon-user'></span></span>{input}</div>",
-    ])->textInput(['maxlength' => 128, 'autocomplete'=>'off', 'placeholder' => 'Nickname'])->label(false) ?>
+    ])->textInput(['maxlength' => 128, 'autocomplete'=>'off', 'placeholder' => Yii::t('app', 'Nickname')])->label(false) ?>
 
     <?= $form->field($model, 'email', [
         'template' => "{label}\n<div class=\"input-group\"><span class=\"input-group-addon\"><span class='glyphicon glyphicon-envelope'></span></span>{input}</div>",
-    ])->textInput(['maxlength' => 128, 'autocomplete'=>'off', 'placeholder' => 'Email'])->label(false) ?>
+    ])->textInput(['maxlength' => 128, 'autocomplete'=>'off', 'placeholder' => Yii::t('app', 'Email')])->label(false) ?>
 
     <?= $form->field($model, 'role', [
-        'template' => "{label}\n<div class=\"input-group\"><span class=\"input-group-addon\">Role</span>{input}</div>",
+        'template' => "{label}\n<div class=\"input-group\"><span class=\"input-group-addon\">". Yii::t('app', 'Role')."</span>{input}</div>",
     ])->dropDownList([
         '' => '所有用户',
         User::ROLE_PLAYER => '参赛用户',

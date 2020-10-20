@@ -20,7 +20,7 @@ $maxFileSize = min(ini_get("upload_max_filesize"),ini_get("post_max_size"));
     <?php if (extension_loaded('xml')): ?>
     <?php $form = ActiveForm::begin(['options' => ['enctype' => 'multipart/form-data', 'target' => '_blank']]) ?>
 
-    <?= $form->field($model, 'problemFile')->fileInput()
+    <?= $form->field($model, 'problemFile')->label(Yii::t('app', 'Problem File'))->fileInput()
         ->hint("提交文件为zip或者xml格式，
         文件限制大小：{$maxFileSize}，该限制为系统限制，如需修改该大小限制，请修改php.ini文件的post_max_size、upload_max_filesize选项。")?>
 

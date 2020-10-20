@@ -19,9 +19,13 @@ $submit_count = $rankResult['submit_count'];
 <table class="table table-bordered table-rank">
     <thead>
     <tr>
-        <th width="60px">Rank</th>
-        <th width="200px">Who</th>
-        <th title="# solved / penalty time" colspan="2">Score</th>
+        <th width="60px"><?= Yii::t('app', 'Rank') ?></th>
+        <th width="200px"><?= Yii::t('app', 'Who') ?></th>
+        <th colspan="2"><?= Yii::t('app', 'Score') ?>
+            <span data-toggle="tooltip" data-placement="top" title="分别为通过数量以及得分,第一个解题成功的拿最高分，之后随时间减少得分，答错则扣分。">
+                <span class="glyphicon glyphicon-question-sign"></span>
+            </span>    
+        </th>
         <?php foreach($problems as $key => $p): ?>
             <th>
                 <?= Html::a(chr(65 + $key), ['/contest/problem', 'id' => $model->id, 'pid' => $key]) ?>

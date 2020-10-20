@@ -54,6 +54,7 @@ if ($discuss != null) {
         'columns' => [
             [
                 'attribute' => 'Who',
+                'label' => Yii::t('app', 'Who'),
                 'value' => function ($model, $key, $index, $column) {
                     return Html::a($model->user->colorname, ['/user/view', 'id' => $model->user->id]);
                 },

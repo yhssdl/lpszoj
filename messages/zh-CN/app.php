@@ -161,7 +161,7 @@ return [
     'Copy these accounts to distribute' => '导出用户名和密码',
     'Add participating user' => '添加参赛用户',
     'Generate' => '生成',
-    'Solved' => '通过数量',
+    'Solved' => '通过数',
     'Problem' => '问题',
     'Tags' => '标签',
     'Problems' => '问题列表',
@@ -232,5 +232,27 @@ return [
     'Runtime Error' => '运行出错',
     'Compile Error' => '编译错误',
     'System Error' => '系统错误',
-    'No Test Data' => '无测评数据'
+    'No Test Data' => '无测评数据',
+
+    'Level' => '等级',
+    'Contest is over.' => "比赛已经结束",
+    'solved/Penalty time' =>'通过数/惩罚时间',
+    'Polygon System' => 'Polygon系统',
+    'From' => '从',
+    'to' => '到',
+    'Imported Successfully' => '导入成功',
+    'User ID' => "用户ID",
+    'Contest ID' => "比赛ID",
+    'Problem File' => '题目文件',
+    'Special Judge' => '特殊裁决',
+    'Second' => '秒',
+    'Sample Input' => '输入样例',
+    'Sample Output' => '输出样例',
+    'Sample Input 1' => '输入样例1',
+    'Sample Output 1' => '输出样例1',
+    'Sample Input 2' => '输入样例2',
+    'Sample Output 2' => '输出样例2',
+    'Sample Input 3' => '输入样例3',
+    'Sample Output 3' => '输出样例3'    
+
 ];

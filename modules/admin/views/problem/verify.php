@@ -23,13 +23,13 @@ $this->params['model'] = $model;
         <table class="table table-bordered table-rank">
             <thead>
             <tr>
-                <th width="60px">Run ID</th>
-                <th width="60px">Submited Time</th>
-                <th width="100px">Result</th>
-                <th width="60px">Language</th>
-                <th width="70px">Time</th>
-                <th width="80px">Memory</th>
-                <th width="80px">Code Length</th>
+                <th width="60px"><?= Yii::t('app', 'Run ID') ?></th>
+                <th width="60px"><?= Yii::t('app', 'Submit Time') ?></th>
+                <th width="100px"><?= Yii::t('app', 'Result') ?></th>
+                <th width="60px"><?= Yii::t('app', 'Language') ?></th>
+                <th width="70px"><?= Yii::t('app', 'Time') ?></th>
+                <th width="80px"><?= Yii::t('app', 'Memory') ?></th>
+                <th width="80px"><?= Yii::t('app', 'Code Length') ?></th>
             </tr>
             </thead>
             <tbody>
