@@ -152,6 +152,16 @@ $nextProblemID = $model->getNextProblemID();
                 <h2><?= Html::encode($this->title) ?></h2>
             </div>
             <div class="problem-meta">
+                <div>
+                    <p><?= Yii::t('app', 'Time Limit') ?> </p>
+                    <p><?= intval($model->time_limit) ?> 秒</p>
+                </div>
+                <div class="separator"></div>
+                <div>
+                    <p><?= Yii::t('app', 'Memory Limit') ?> </p>
+                    <p><?= $model->memory_limit ?> MB</p>
+                </div>
+                <div class="separator"></div>                
                 <div class="problem-submit-count">
                     <p>通过次数</p>
                     <p><?= $model->accepted ?></p>
@@ -170,14 +180,6 @@ $nextProblemID = $model->getNextProblemID();
         <div class="problem-splitter">
             <div class="problem-left">
                 <div class="problem-description">
-                    <div class="problem-limit">
-                        <div class="time-limit">
-                            <?= Yii::t('app', 'Time Limit') ?> : <?= intval($model->time_limit) ?> 秒
-                        </div>
-                        <div class="memory-limit">
-                            <?= Yii::t('app', 'Memory Limit') ?> : <?= $model->memory_limit ?> MB
-                        </div>
-                    </div>
                     <div class="content-wrapper">
                         <?= Yii::$app->formatter->asMarkdown($model->description) ?>
                     </div>
