@@ -94,10 +94,13 @@ sudo bash install.sh
     此时还不能进行判题，需配置判题机才能判题。
     
 3. 配置判题机
-    1. 安装编译的依赖，运行命令：`sudo apt install libmysqlclient-dev libmysql++-dev`
+    1. 安装编译的依赖，运行命令：`sudo apt install libmysqlclient-dev libmysql++-dev`（如果是CentOS，可以运行 `yum install -y mysql-devel`）
     2. 创建一个用于判题的用户，运行命令：`sudo useradd -m -u 1536 judge`
     3. 将控制台切换到 `judge` 目录（即运行 `cd judge`命令），然后运行 `make` 命令
     4. 运行 `sudo ./dispatcher` 命令
+    5. 如果在CentOS中编译C或C++程序时，出现“示找不到-lm，-lc”等情况，可以安装一下内容：
+        yum install glibc-static
+        yum install libstdc++-static
 
 4. 配置配置多边形系统
     
