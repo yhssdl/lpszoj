@@ -202,7 +202,7 @@ function __($message)
         </tr>
     </table>
 
-    <p>Processed in <?php printf('%0.1f', (microtime(true) - $time_start)*1000);?> ms, <?= round(memory_get_usage() / 1024, 0).' KB';?> memory usage.</p>
+    <p>处理时间为 <?php printf('%0.1f', (microtime(true) - $time_start)*1000);?> 毫秒，内存使用量为 <?= round(memory_get_usage() / 1024, 0).' KB';?>。</p>
 </div>
 
 <script type="text/javascript">
