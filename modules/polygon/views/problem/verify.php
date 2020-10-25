@@ -63,7 +63,7 @@ $solution->language = Yii::$app->user->identity->language;
         [
             'attribute' => 'time',
             'value' => function ($model, $key, $index, $column) {
-                return $model->time . ' MS';
+                return $model->time  .' '. Yii::t('app', 'MS');
             },
             'format' => 'raw'
         ],

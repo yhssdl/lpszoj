@@ -255,5 +255,6 @@ return [
     'Sample Input 3' => '输入样例3',
     'Sample Output 3' => '输出样例3',
     'Users' => '用户',
-    'The submission interval is %d seconds, and you can submit again after %d seconds.' => '提交间隔为 %d 秒，%d 秒后可以再次提交。'
+    'The submission interval is %d seconds, and you can submit again after %d seconds.' => '提交间隔为 %d 秒，%d 秒后可以再次提交。',
+    'MS' => '毫秒'
 ];

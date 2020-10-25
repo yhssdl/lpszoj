@@ -46,10 +46,10 @@ $this->params['model'] = $model;
                         <?= Html::a(Solution::getLanguageList($solution['language']), ['/solution/detail', 'id' => $solution['id']], ['target' => '_blank']) ?>
                     </th>
                     <th>
-                        <?= $solution['time'] ?>
+                        <?= $solution['time']  .' '. Yii::t('app', 'MS')?>
                     </th>
                     <th>
-                        <?= $solution['memory'] ?>
+                        <?= $solution['memory'] . ' KB'?>
                     </th>
                     <th>
                         <?= $solution['code_length'] ?>

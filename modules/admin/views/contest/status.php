@@ -117,7 +117,7 @@ foreach ($problems as $key => $p) {
                     [
                         'attribute' => 'time',
                         'value' => function ($model, $key, $index, $column) {
-                            return $model->time . ' MS';
+                            return $model->time  .' '. Yii::t('app', 'MS');
                         },
                         'format' => 'raw'
                     ],

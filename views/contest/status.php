@@ -102,7 +102,7 @@ $isContestEnd = $model->isContestEnd();
                     if ($model->type == \app\models\Contest::TYPE_OI && !$isContestEnd) {
                         return "－";
                     }
-                    return $solution->time . ' MS';
+                    return $solution->time  .' '. Yii::t('app', 'MS');
                 },
                 'format' => 'raw'
             ],
