@@ -601,14 +601,5 @@ class ProblemController extends Controller
             return true;
         }
         return false;
-    }
-
-    public function actions()
-	{
-	    return [
-	        'Kupload' => [
-	            'class' => 'app\widgets\kindeditor\KindEditorAction',
-	        ]
-	    ];
-	}    
+    }  
 }
