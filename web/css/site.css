@@ -727,3 +727,15 @@ line-height: 30px;
     border-radius: 4px;
     box-shadow: 0 1px 5px 0 rgba(0,0,0,.1);
 }
+
+
+a.vip {
+    color: #008800;
+    text-decoration: none;
+}
+
+a.vip:hover,
+a.vip:focus {
+    color: #000;
+    text-decoration: none;
+}

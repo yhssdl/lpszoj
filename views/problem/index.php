@@ -3,6 +3,7 @@
 use yii\helpers\Html;
 use yii\grid\GridView;
 use yii\widgets\Pjax;
+use app\models\Problem;
 use justinvoelker\tagging\TaggingWidget;
 
 /* @var $this yii\web\View */
@@ -43,7 +44,10 @@ $this->title = Yii::t('app', 'Problems');
                 [
                     'attribute' => 'title',
                     'value' => function ($model, $key, $index, $column) {
-                        $res = Html::a(Html::encode($model->title), ['/problem/view', 'id' => $key]);
+                        if($model->status==Problem::STATUS_PRIVATE)
+                        	$res = Html::a(Html::encode($model->title), ['/problem/view','id' => $key],['class'=>'vip' ]);
+                      	else
+                        	$res = Html::a(Html::encode($model->title), ['/problem/view', 'id' => $key]);                 
                         $tags = !empty($model->tags) ? explode(',', $model->tags) : [];
                         $tagsCount = count($tags);
                         if ($tagsCount > 0) {
