@@ -16,6 +16,7 @@ class GenerateUserForm extends Model
     public $team_number;
     public $contest_id;
     public $names;
+    public $language=1;
 
     /**
      * @return array the validation rules.
@@ -24,7 +25,7 @@ class GenerateUserForm extends Model
     {
         return [
             [['prefix', 'names'], 'string'],
-            [['team_number', 'contest_id'], 'integer'],
+            [['team_number', 'contest_id', 'language'], 'integer'],
         ];
     }
 
@@ -126,7 +127,7 @@ class GenerateUserForm extends Model
             $user->username = $username;
             $user->email = $username . '@jnoj.org';
             $user->role = User::ROLE_USER;
-            //$user->language = 3;
+            $user->language = $this->language;
             if($savePassword==$password){
                 $user->auth_key = $saveAuthKey;
                 $user->password_hash = $savePassHansh;

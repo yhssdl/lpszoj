@@ -32,6 +32,16 @@ $this->title = Yii::t('app', 'Users');
 
         <?= $form->field($generatorForm, 'names')->textarea(['rows' => 10])  ?>
 
+        <p class="hint-block">请选择默认语言类型</p>
+        <?= $form->field($generatorForm, 'language')->radioList( [
+                0 => 'C',
+                1 => 'C++',
+                2 => 'Java',	            
+                3 => 'Python3'	            
+            ])->label(false)  ?>
+
+
+
         <div class="form-group">
             <?= Html::submitButton(Yii::t('app', 'Generate'), ['class' => 'btn btn-success']) ?>
         </div>
