@@ -54,6 +54,11 @@ class ProblemController extends BaseController
                 ->orWhere(['like', 'source', $post['q']]);
         }
         $query->andWhere('status<>' . Problem::STATUS_HIDDEN);
+
+        if (Yii::$app->setting->get('isHideVIP') && (Yii::$app->user->isGuest || Yii::$app->user->identity->role === User::ROLE_USER)){
+            $query->andWhere('status<>' . Problem::STATUS_PRIVATE);
+        }
+
         $dataProvider = new ActiveDataProvider([
             'query' => $query,
             'pagination' => [

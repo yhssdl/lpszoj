@@ -25,7 +25,8 @@ class m190309_123832_setting extends Migration
         $this->insert('{{%setting}}', ['key' => 'isChangeNickName', 'value' => '2']);
         $this->insert('{{%setting}}', ['key' => 'isGroupJoin', 'value' => '0']);
         $this->insert('{{%setting}}', ['key' => 'isGroupReset', 'value' => '0']);        
-        $this->insert('{{%setting}}', ['key' => 'submitTime', 'value' => '0']);      
+        $this->insert('{{%setting}}', ['key' => 'submitTime', 'value' => '0']);     
+        $this->insert('{{%setting}}', ['key' => 'isHideVIP', 'value' => '1']); 
     }
 
     /**
@@ -45,7 +46,8 @@ class m190309_123832_setting extends Migration
         $this->delete('{{%setting}}', ['key' => 'isChangeNickName']);
         $this->delete('{{%setting}}', ['key' => 'isGroupJoin']);
         $this->delete('{{%setting}}', ['key' => 'isGroupReset']);    
-        $this->delete('{{%setting}}', ['key' => 'submitTime']);               
+        $this->delete('{{%setting}}', ['key' => 'submitTime']); 
+        $this->delete('{{%setting}}', ['key' => 'isHideVIP']);              
         $this->dropColumn('{{%setting}}', 'id');
     }
 

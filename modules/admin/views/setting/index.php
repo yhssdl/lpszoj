@@ -124,7 +124,15 @@ $this->title = Yii::t('app', 'Setting');
         <p class="hint-block">
             KindEditor编辑器：另行添加的一个编辑器，可以在IE上正常使用，可设置文字颜色。
         </p>                
-    </div>   
+    </div>
+    
+    <div class="form-group">
+        <?= Html::label(Yii::t('app', '私有(VIP)题目'), 'isHideVIP') ?>
+        <?= Html::radioList('isHideVIP', $settings['isHideVIP'], [
+            1 => '游客与普通用户不显示私有题目',
+            0 => '所有用户都显示私有题目'
+        ]) ?>
+	</div>
 
     <div class="form-group">
         <?= Html::label(Yii::t('app', '封榜时间'), 'scoreboardFrozenTime') ?>
