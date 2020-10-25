@@ -14,6 +14,24 @@ use app\components\MdUploader;
 class ImageController extends BaseController
 {
     public $enableCsrfValidation = false;
+
+    public function actionUpload()
+    {
+        if (Yii::$app->request->isPost && !Yii::$app->user->isGuest) {
+            $up = new Uploader('upload');
+            $info = $up->getFileInfo();
+            if ($info['state'] == 'SUCCESS') {
+                $info['url'] = Yii::getAlias('@web') . '/' . $info['url'];
+                $info['uploaded'] = true;
+            } else {
+                $info['uploaded'] = false;
+            }
+            echo json_encode($info);
+        } else {
+            throw new ForbiddenHttpException('You are not allowed to perform this action.');
+        }
+    }
+
     public function actionMdupload()
     {
         if (Yii::$app->request->isPost && !Yii::$app->user->isGuest) {
@@ -33,22 +51,23 @@ class ImageController extends BaseController
         }
     }
 
-    public function actionUpload()
+    public function actionKindupload()
     {
         if (Yii::$app->request->isPost && !Yii::$app->user->isGuest) {
-            $up = new Uploader('upload');
+            $up = new Uploader('imgFile');
             $info = $up->getFileInfo();
             if ($info['state'] == 'SUCCESS') {
                 $info['url'] = Yii::getAlias('@web') . '/' . $info['url'];
-                $info['uploaded'] = true;
+                $info['error'] = 0;
             } else {
-                $info['uploaded'] = false;
+                $info['error'] = 1;
             }
             echo json_encode($info);
         } else {
             throw new ForbiddenHttpException('You are not allowed to perform this action.');
         }
     }
+
 
 
 }
