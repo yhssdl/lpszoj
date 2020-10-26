@@ -53,7 +53,7 @@ $this->params['model'] = $model;
                         if ($solution['result'] == Solution::OJ_AC) {
                             $span = '<strong class="text-success"' . $innerHtml . '>' . Solution::getResultList($solution['result']) . '</strong>';
                             echo Html::a($span,
-                                ['/solution/source', 'id' => $sub['id']],
+                                ['/solution/source', 'id' => $solution['id']],
                                 ['onclick' => 'return false', 'data-click' => "solution_info", 'data-pjax' => 0]
                             );
                         } else {
