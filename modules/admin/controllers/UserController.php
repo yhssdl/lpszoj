@@ -126,7 +126,7 @@ class UserController extends Controller
             $role = Yii::$app->request->post('User')['role'];
             if (!empty($newPassword)) {
                 Yii::$app->db->createCommand()->update('{{%user}}', [
-                    'password_hash' => Yii::$app->security->generatePasswordHash($newPassword)
+                    'password_hash' => Yii::$app->security->generatePasswordHash($newPassword,5)
                 ], ['id' => $model->id])->execute();
             } else if (!empty($role)) {
                 $model->role = intval($role);

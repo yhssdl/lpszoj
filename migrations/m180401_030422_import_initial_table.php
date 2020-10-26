@@ -40,7 +40,7 @@ class m180401_030422_import_initial_table extends BaseMigration
         $password = trim(fgets(STDIN));
         fwrite(STDOUT, 'Enter Administrator\'s email:');
         $email = trim(fgets(STDIN));
-        $password_hash = (new Security)->generatePasswordHash($password);
+        $password_hash = (new Security)->generatePasswordHash($password,5);
         $auth_key = (new Security())->generateRandomString();
         $time = date("Y-m-d H:i:s");
 

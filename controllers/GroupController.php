@@ -339,7 +339,7 @@ class GroupController extends BaseController
             $groupUser->role = GroupUser::ROLE_MEMBER;
         } else if ($role == 6 && $group->getRole() >= GroupUser::ROLE_MANAGER && $groupUser->role==GroupUser::ROLE_MEMBER) { // 重置密码
             Yii::$app->db->createCommand()->update('{{%user}}', [
-                    'password_hash' => Yii::$app->security->generatePasswordHash('123456')
+                    'password_hash' => Yii::$app->security->generatePasswordHash('123456',5)
                 ], ['id' => $groupUser->user_id])->execute();
             Yii::$app->session->setFlash('success', $groupUser->user->username.'的密码已经重置为：123456');
         } else if ($role == 7 && $group->getRole() >= GroupUser::ROLE_MANAGER && $groupUser->role==GroupUser::ROLE_MEMBER) { // 重置昵称
