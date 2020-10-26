@@ -48,6 +48,7 @@ function __($message)
         'Prober' => '探针',
         'Turbo Version' => '极速版',
         'Back to top' => '返回顶部',
+        'Hello' => '您好',
     );
 
     if (substr($_SERVER['HTTP_ACCEPT_LANGUAGE'], 0, 2) === 'zh') {
@@ -58,7 +59,7 @@ function __($message)
 }
 ?>
 <div class="admin-default-index">
-    <h1>Hello, <?= Yii::$app->user->identity->nickname ?></h1>
+    <h1><?php __('Hello'); ?>, <?= Yii::$app->user->identity->nickname ?></h1>
 </div>
 <hr>
 <div class="table-responsive">
