@@ -7,7 +7,7 @@ use yii\widgets\ActiveForm;
 /* @var $rejudge app\modules\admin\models\Rejudge */
 /* @var $form yii\widgets\ActiveForm */
 
-$this->title = 'Rejudge';
+$this->title = Yii::t('app', 'Rejudge');
 ?>
 
 <div class="contest-form">
