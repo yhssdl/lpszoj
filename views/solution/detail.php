@@ -15,7 +15,7 @@ $this->params['breadcrumbs'][] = $this->title;
     <table class="table table-bordered table-rank">
         <thead>
         <tr>
-            <th width="120px">Run ID</th>
+            <th width="120px"><?= Yii::t('app', 'Run ID') ?></th>
             <th width="120px"><?= Yii::t('app', 'Author') ?></th>
             <th width="200px"><?= Yii::t('app', 'Problem') ?></th>
             <th width="80px"><?= Yii::t('app', 'Lang') ?></th>
