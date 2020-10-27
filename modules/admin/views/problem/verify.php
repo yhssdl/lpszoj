@@ -76,7 +76,7 @@ $this->params['model'] = $model;
                         <?= $solution['code_length'] ?>
                     </th>
                     <th>
-                    <?= Html::tag('span', Yii::$app->formatter->asRelativeTime($solution['created_at']), ['title' => $solution['created_at']])?>
+                        <?= Html::tag('span', Yii::$app->formatter->asRelativeTime($solution['created_at']), ['title' => $solution['created_at']])?>
                     </th>                    
                 </tr>
             <?php endforeach; ?>
