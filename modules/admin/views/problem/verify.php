@@ -24,21 +24,18 @@ $this->params['model'] = $model;
             <thead>
             <tr>
                 <th width="60px"><?= Yii::t('app', 'Run ID') ?></th>
-                <th width="60px"><?= Yii::t('app', 'Submit Time') ?></th>
                 <th width="100px"><?= Yii::t('app', 'Result') ?></th>
                 <th width="60px"><?= Yii::t('app', 'Language') ?></th>
                 <th width="70px"><?= Yii::t('app', 'Time') ?></th>
                 <th width="80px"><?= Yii::t('app', 'Memory') ?></th>
                 <th width="80px"><?= Yii::t('app', 'Code Length') ?></th>
+                <th width="60px"><?= Yii::t('app', 'Submit Time') ?></th>                
             </tr>
             </thead>
             <tbody>
             <?php foreach ($solutions as $solution): ?>
                 <tr>
                     <th><?= $solution['id'] ?></th>
-                    <th>
-                        <?= $solution['created_at'] ?>
-                    </th>
                     <th>
                     <?php
                         $loadingImgUrl = Yii::getAlias('@web/images/loading.gif');
@@ -78,6 +75,9 @@ $this->params['model'] = $model;
                     <th>
                         <?= $solution['code_length'] ?>
                     </th>
+                    <th>
+                    <?= Html::tag('span', Yii::$app->formatter->asRelativeTime($solution['created_at']), ['title' => $solution['created_at']])?>
+                    </th>                    
                 </tr>
             <?php endforeach; ?>
             </tbody>

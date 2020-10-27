@@ -72,7 +72,7 @@ $this->params['breadcrumbs'][] = $this->title;
                 ?> KB
             </th>
             <th><?= $model->code_length ?></th>
-            <th><?= $model->created_at ?></th>
+            <th><?= Html::tag('span', Yii::$app->formatter->asRelativeTime($model->created_at), ['title' => $model->created_at]) ?></th>
         </tr>
         </tbody>
     </table>
