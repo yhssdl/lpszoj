@@ -25,6 +25,93 @@ $scoreboardFrozenTime = Yii::$app->setting->get('scoreboardFrozenTime') / 3600;
 
         <h1><?= Html::encode($model->title) ?></h1>
 
+        <h3><?= Yii::t('app', 'Problems') ?></h3>
+            <div class="table-responsive">
+                <table class="table table-bordered">
+                    <thead>
+                    <tr>
+                        <th width="70px">#</th>
+                        <th width="120px"><?= Yii::t('app', 'Problem ID') ?></th>
+                        <th><?= Yii::t('app', 'Problem Name') ?></th>
+                        <th width="200px"><?= Yii::t('app', 'Operation') ?></th>
+                    </tr>
+                    </thead>
+                    <tbody>
+                    <?php foreach ($problems as $key => $p): ?>
+                        <tr>
+                            <th><?= Html::a(chr(65 + $key), ['view', 'id' => $model->id, 'action' => 'problem', 'problem_id' => $key]) ?></th>
+                            <th><?= Html::a($p['problem_id'], '') ?></th>
+                            <td><?= Html::a(Html::encode($p['title']), ['view', 'id' => $model->id, 'action' => 'problem', 'problem_id' => $key]) ?></td>
+                            <th>
+                                <?php Modal::begin([
+                                    'header' => '<h3>'. Yii::t('app','Modify') . ' : ' . chr(65 + $key) . '</h3>',
+                                    'toggleButton' => ['label' => Yii::t('app','Modify'), 'class' => 'btn btn-success'],
+                                ]); ?>
+
+                                <?= Html::beginForm(['/homework/updateproblem', 'id' => $model->id]) ?>
+
+                                <div class="form-group">
+                                    <?= Html::label(Yii::t('app', 'Current Problem ID'), 'problem_id') ?>
+                                    <?= Html::textInput('problem_id', $p['problem_id'],['class' => 'form-control', 'readonly' => 1]) ?>
+                                </div>
+
+                                <div class="form-group">
+                                    <?= Html::label(Yii::t('app', 'New Problem ID'), 'new_problem_id') ?>
+                                    <?= Html::textInput('new_problem_id', $p['problem_id'],['class' => 'form-control']) ?>
+                                </div>
+
+                                <div class="form-group">
+                                    <?= Html::submitButton(Yii::t('app', 'Submit'), ['class' => 'btn btn-primary']) ?>
+                                </div>
+                                <?= Html::endForm(); ?>
+
+                                <?php Modal::end(); ?>
+
+                                <?= Html::a(Yii::t('app', 'Delete'), [
+                                    'deleteproblem',
+                                    'id' => $model->id,
+                                    'pid' => $p['problem_id']
+                                ],[
+                                    'class' => 'btn btn-danger',
+                                    'data' => [
+                                        'confirm' => Yii::t('app', 'Are you sure you want to delete this item?'),
+                                        'method' => 'post',
+                                    ],
+                                ]) ?>
+                            </th>
+                        </tr>
+                    <?php endforeach; ?>
+                    <tr>
+                        <th></th>
+                        <th></th>
+                        <th>
+                            <?php Modal::begin([
+                                'header' => '<h3>' . Yii::t('app','Add a problem') . '</h3>',
+                                'toggleButton' => ['label' => Yii::t('app','Add a problem'), 'class' => 'btn btn-success'],
+                            ]); ?>
+
+                            <?= Html::beginForm(['/homework/addproblem', 'id' => $model->id]) ?>
+
+                            <div class="form-group">
+                                <p class="hint-block">1.如果有多个题目，可以用空格或逗号键分开。</p>
+                                <p class="hint-block">2.如果有连续多个题目，可以用1001-1005这样的格式。</p>
+                                <?= Html::label(Yii::t('app', 'Problem ID'), 'problem_id') ?>
+                                <?= Html::textInput('problem_id', '',['class' => 'form-control']) ?>
+                            </div>
+
+                            <div class="form-group">
+                                <?= Html::submitButton(Yii::t('app', 'Submit'), ['class' => 'btn btn-primary']) ?>
+                            </div>
+                            <?= Html::endForm(); ?>
+
+                            <?php Modal::end(); ?>
+                        </th>
+                        <th></th>
+                    </tr>
+                    </tbody>
+                </table>
+            </div>        
+
         <div class="homework-form">
 
             <?php $form = ActiveForm::begin(); ?>
@@ -53,6 +140,9 @@ $scoreboardFrozenTime = Yii::$app->setting->get('scoreboardFrozenTime') / 3600;
             ])->hint("如果不需要封榜请留空，当前会在比赛结束{$scoreboardFrozenTime}小时后才会自动在前台页面解除封榜限制。
                 如需提前结束封榜也可选择清空该表单项。
                 <p class='text-danger'>注意：比赛类型为OI时，如果不填写“封榜时间”则会成为实时榜单。如需要非实时榜单，则填写为开始时间或开始时间之前的时间即可。</p>") ?>
+
+
+             
 
             <?= $form->field($model, 'description')->widget(Yii::$app->setting->get('ojEditor')); ?>
 
@@ -102,93 +192,7 @@ $scoreboardFrozenTime = Yii::$app->setting->get('scoreboardFrozenTime') / 3600;
         ]) ?>
 
         <hr>
-        <h3><?= Yii::t('app', 'Problems') ?></h3>
-        <div class="table-responsive">
-            <table class="table table-bordered">
-                <thead>
-                <tr>
-                    <th width="70px">#</th>
-                    <th width="120px"><?= Yii::t('app', 'Problem ID') ?></th>
-                    <th><?= Yii::t('app', 'Problem Name') ?></th>
-                    <th width="200px"><?= Yii::t('app', 'Operation') ?></th>
-                </tr>
-                </thead>
-                <tbody>
-                <?php foreach ($problems as $key => $p): ?>
-                    <tr>
-                        <th><?= Html::a(chr(65 + $key), ['view', 'id' => $model->id, 'action' => 'problem', 'problem_id' => $key]) ?></th>
-                        <th><?= Html::a($p['problem_id'], '') ?></th>
-                        <td><?= Html::a(Html::encode($p['title']), ['view', 'id' => $model->id, 'action' => 'problem', 'problem_id' => $key]) ?></td>
-                        <th>
-                            <?php Modal::begin([
-                                'header' => '<h3>'. Yii::t('app','Modify') . ' : ' . chr(65 + $key) . '</h3>',
-                                'toggleButton' => ['label' => Yii::t('app','Modify'), 'class' => 'btn btn-success'],
-                            ]); ?>
 
-                            <?= Html::beginForm(['/homework/updateproblem', 'id' => $model->id]) ?>
-
-                            <div class="form-group">
-                                <?= Html::label(Yii::t('app', 'Current Problem ID'), 'problem_id') ?>
-                                <?= Html::textInput('problem_id', $p['problem_id'],['class' => 'form-control', 'readonly' => 1]) ?>
-                            </div>
-
-                            <div class="form-group">
-                                <?= Html::label(Yii::t('app', 'New Problem ID'), 'new_problem_id') ?>
-                                <?= Html::textInput('new_problem_id', $p['problem_id'],['class' => 'form-control']) ?>
-                            </div>
-
-                            <div class="form-group">
-                                <?= Html::submitButton(Yii::t('app', 'Submit'), ['class' => 'btn btn-primary']) ?>
-                            </div>
-                            <?= Html::endForm(); ?>
-
-                            <?php Modal::end(); ?>
-
-                            <?= Html::a(Yii::t('app', 'Delete'), [
-                                'deleteproblem',
-                                'id' => $model->id,
-                                'pid' => $p['problem_id']
-                            ],[
-                                'class' => 'btn btn-danger',
-                                'data' => [
-                                    'confirm' => Yii::t('app', 'Are you sure you want to delete this item?'),
-                                    'method' => 'post',
-                                ],
-                            ]) ?>
-                        </th>
-                    </tr>
-                <?php endforeach; ?>
-                <tr>
-                    <th></th>
-                    <th></th>
-                    <th>
-                        <?php Modal::begin([
-                            'header' => '<h3>' . Yii::t('app','Add a problem') . '</h3>',
-                            'toggleButton' => ['label' => Yii::t('app','Add a problem'), 'class' => 'btn btn-success'],
-                        ]); ?>
-
-                        <?= Html::beginForm(['/homework/addproblem', 'id' => $model->id]) ?>
-
-                        <div class="form-group">
-                            <p class="hint-block">1.如果有多个题目，可以用空格或逗号键分开。</p>
-                            <p class="hint-block">2.如果有连续多个题目，可以用1001-1005这样的格式。</p>
-                            <?= Html::label(Yii::t('app', 'Problem ID'), 'problem_id') ?>
-                            <?= Html::textInput('problem_id', '',['class' => 'form-control']) ?>
-                        </div>
-
-                        <div class="form-group">
-                            <?= Html::submitButton(Yii::t('app', 'Submit'), ['class' => 'btn btn-primary']) ?>
-                        </div>
-                        <?= Html::endForm(); ?>
-
-                        <?php Modal::end(); ?>
-                    </th>
-                    <th></th>
-                </tr>
-                </tbody>
-            </table>
-        </div>
-        <hr>
         <?= Html::a('删除该比赛', ['/homework/delete', 'id' => $model->id], [
             'class' => 'btn btn-danger',
             'data-confirm' => '此操作不可恢复，你确定要删除吗？',
