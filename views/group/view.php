@@ -126,6 +126,14 @@ $scoreboardFrozenTime = Yii::$app->setting->get('scoreboardFrozenTime') / 3600;
                         'attribute' => 'end_time',
                         'options' => ['width' => '150px']
                     ],
+                    [
+                        'value' => function ($model, $key, $index, $column) {
+                            return Html::a('<span class="glyphicon glyphicon-cog"></span>', ['/homework/update', 'id' => $key],['title' => Yii::t('app', 'Setting')]);
+                        },
+                        'format' => 'raw',
+                        'visible' => $model->hasPermission(),
+                        'options' => ['width' => '50px']
+                    ]
                 ],
             ]); ?>
 
