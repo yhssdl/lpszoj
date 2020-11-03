@@ -41,9 +41,13 @@ class CodeMirror extends InputWidget
         $id = $this->options['id'];
         $script = <<<EOF
         CodeMirror.fromTextArea(document.getElementById("{$id}"),{
+            mode: 'text/x-c++src',
+            //mode: 'python',
             theme: "darcula",
             lineNumbers: true,
             styleActiveLine: true,
+            smartIndent: true,
+            indentWithTabs: true,
             indentUnit: 4,
             autofocus: true,
             matchBrackets: true,

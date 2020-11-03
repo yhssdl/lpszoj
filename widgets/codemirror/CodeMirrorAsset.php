@@ -14,7 +14,9 @@ class CodeMirrorAsset extends AssetBundle
         'addon/selection/active-line.js',
         'addon/edit/matchbrackets.js',
         'addon/display/autorefresh.js',
-        'mode/javascript/javascript.js'
+        'mode/javascript/javascript.js',
+        'mode/clike/clike.js',
+        'mode/python/python.js'
     ];
     public $css = [
         'lib/codemirror.css',
