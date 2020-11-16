@@ -184,7 +184,7 @@ $problems = $model->problems;
             <thead>
             <tr>
                 <th width="70px">#</th>
-                <th width="120px">Problem ID</th>
+                <th width="120px"><?= Yii::t('app', 'Problem ID') ?></th>
                 <th><?= Yii::t('app', 'Problem Name') ?></th>
                 <th width="200px"><?= Yii::t('app', 'Operation') ?></th>
             </tr>

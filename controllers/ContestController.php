@@ -447,6 +447,9 @@ class ContestController extends BaseController
             }
             $solution->problem_id = $problem['id'];
             $solution->contest_id = $model->id;
+            if($model->language!=-1){
+                $solution->language = $model->language;
+            }
             $solution->status = Solution::STATUS_HIDDEN;
             $solution->save();
             Yii::$app->session->setFlash('success', Yii::t('app', 'Submitted successfully'));

@@ -16,7 +16,10 @@ $this->title = Html::encode($model->title) . ' - ' . $problem['title'];
 $this->params['model'] = $model;
 
 if (!Yii::$app->user->isGuest) {
-    $solution->language = Yii::$app->user->identity->language;
+    if($model->language==-1)
+        $solution->language = Yii::$app->user->identity->language;
+    else
+        $solution->language = $model->language;
 }
 $problems = $model->problems;
 if (empty($problems)) {
@@ -119,9 +122,11 @@ $loadingImgUrl = Yii::getAlias('@web/images/loading.gif');
                         <?= app\widgets\login\Login::widget(); ?>
                     <?php else: ?>
                         <?php $form = ActiveForm::begin(); ?>
-
-                        <?= $form->field($solution, 'language')->dropDownList($solution::getLanguageList()) ?>
-
+                        <?php if ($model->language==-1): ?>
+                            <?= $form->field($solution, 'language')->dropDownList($solution::getLanguageList()) ?>
+                        <?php else: ?>
+                            <?= $form->field($solution, 'language')->dropDownList($solution::getLanguageList(),['disabled'=>"disabled"]) ?>
+                        <?php endif; ?>
                         <?= $form->field($solution, 'source')->widget('app\widgets\codemirror\CodeMirror'); ?>
 
                         <div class="form-group">

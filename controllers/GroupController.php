@@ -171,6 +171,7 @@ class GroupController extends BaseController
         $newGroupUser = new GroupUser();
         $newContest = new Contest();
         $newContest->type = Contest::TYPE_HOMEWORK;
+        $newContest->language = -1;
         $contestDataProvider = new ActiveDataProvider([
             'query' => Contest::find()->where([
                 'group_id' => $model->id

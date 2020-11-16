@@ -58,6 +58,15 @@ $scoreboardFrozenTime = Yii::$app->setting->get('scoreboardFrozenTime') / 3600;
         Contest::TYPE_IOI => Yii::t('app', 'IOI'),
     ])->hint('不同类型的区别只在于榜单的排名方式。详见：' . Html::a('比赛类型', ['/wiki/contest'], ['target' => '_blank']) . '。如需使用OI比赛，请在后台设置页面启用OI模式。') ?>
 
+
+    <?= $form->field($model, 'language')->radioList([
+                                  -1 => 'All',
+                                  0 => 'C',
+                                  1 => 'C++',
+                                  2 => 'Java',
+                                  3 => 'Python3',
+    ])->hint('为 All 时可以使用任意的语言编程，否则在比赛中只能以指定的语言编程并提交。') ?>
+
     <?= $form->field($model, 'description')->widget(Yii::$app->setting->get('ojEditor'))->label(); ?>
     <div class="form-group">
         <?= Html::submitButton(Yii::t('app', 'Save'), ['class' => 'btn btn-success']) ?>

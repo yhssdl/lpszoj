@@ -27,7 +27,7 @@ class Homework extends Contest
             [['created_by'], 'integer'],
             [['start_time', 'end_time', 'lock_board_time'], 'safe'],
             [['title'], 'string', 'max' => 255],
-            [['id', 'status', 'type', 'scenario', 'created_by', 'group_id'], 'integer'],
+            [['id', 'status', 'type', 'scenario', 'created_by', 'group_id','language'], 'integer'],
         ];
     }
 
@@ -47,6 +47,7 @@ class Homework extends Contest
             'description' => Yii::t('app', 'Description'),
             'editorial' => Yii::t('app', 'Editorial'),
             'lock_board_time' => Yii::t('app', 'Lock Board Time'),
+            'language' => Yii::t('app', 'Language'),
         ];
     }
 

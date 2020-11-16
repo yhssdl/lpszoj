@@ -529,6 +529,7 @@ class ContestController extends Controller
     public function actionCreate()
     {
         $model = new Contest();
+        $model->language = -1;
 
         if ($model->load(Yii::$app->request->post()) && $model->save()) {
             return $this->redirect(['view', 'id' => $model->id]);

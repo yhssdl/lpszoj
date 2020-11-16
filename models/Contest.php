@@ -23,6 +23,7 @@ use yii\caching\TagDependency;
  * @property int $type
  * @property int $scenario
  * @property int $created_by
+ * @property int $language
  */
 class Contest extends \yii\db\ActiveRecord
 {
@@ -83,7 +84,7 @@ class Contest extends \yii\db\ActiveRecord
             [['title', 'start_time', 'end_time'], 'required'],
             [['start_time', 'end_time', 'lock_board_time'], 'safe'],
             [['description', 'editorial'], 'string'],
-            [['id', 'status', 'type', 'scenario', 'created_by', 'group_id'], 'integer'],
+            [['id', 'status', 'type', 'scenario', 'created_by', 'group_id','language'], 'integer'],
             [['title'], 'string', 'max' => 255],
         ];
     }
@@ -103,7 +104,8 @@ class Contest extends \yii\db\ActiveRecord
             'description' => Yii::t('app', 'Description'),
             'status' => Yii::t('app', 'Status'),
             'type' => Yii::t('app', 'Type'),
-            'scenario' => Yii::t('app', 'Scenario')
+            'scenario' => Yii::t('app', 'Scenario'),
+            'language' => Yii::t('app', 'Language')
         ];
     }
 
