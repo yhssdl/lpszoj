@@ -64,6 +64,7 @@ $this->title = Yii::t('app', 'Problems');
                 'value' => function ($model, $key, $index, $column) {
                     return Html::a(Html::encode($model->title), ['problem/view', 'id' => $key]);
                 },
+                'enableSorting' => false,
                 'format' => 'raw'
             ],
             [
@@ -77,6 +78,7 @@ $this->title = Yii::t('app', 'Problems');
                         return Yii::t('app', 'Private');
                     }
                 },
+                'enableSorting' => false,
                 'format' => 'raw',
             ],
             [
@@ -87,6 +89,7 @@ $this->title = Yii::t('app', 'Problems');
                     }
                     return '';
                 },
+                'enableSorting' => false,
                 'format' => 'raw',
             ],
             [
@@ -94,6 +97,7 @@ $this->title = Yii::t('app', 'Problems');
                 'value' => function ($model, $key, $index, $column) {
                     return Html::a($model->polygon_problem_id, ['/polygon/problem/view', 'id' => $model->polygon_problem_id]);
                 },
+                'enableSorting' => false,
                 'format' => 'raw',
             ],
             ['class' => 'yii\grid\ActionColumn'],

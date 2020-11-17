@@ -42,6 +42,7 @@ $this->title = Yii::t('app', 'Status');
                         return Html::a($model->problem_id . ' - ' . Html::encode($model->problem->title), ['/problem/view', 'id' => $model->problem_id]);
                     }
                 },
+                'enableSorting' => false,
                 'format' => 'raw'
             ],
             [
@@ -56,10 +57,12 @@ $this->title = Yii::t('app', 'Status');
                         return $model->getResult();
                     }
                 },
+                'enableSorting' => false,
                 'format' => 'raw'
             ],
             [
                 'attribute' => 'score',
+                'enableSorting' => false,
                 'visible' => Yii::$app->setting->get('oiMode')
             ],
             [
@@ -67,6 +70,7 @@ $this->title = Yii::t('app', 'Status');
                 'value' => function ($model, $key, $index, $column) {
                     return $model->time .' '. Yii::t('app', 'MS');
                 },
+                'enableSorting' => false,
                 'format' => 'raw'
             ],
             [
@@ -74,6 +78,7 @@ $this->title = Yii::t('app', 'Status');
                 'value' => function ($model, $key, $index, $column) {
                     return $model->memory . ' KB';
                 },
+                'enableSorting' => false,
                 'format' => 'raw'
             ],
             [
@@ -88,14 +93,20 @@ $this->title = Yii::t('app', 'Status');
                         return $model->getLang();
                     }
                 },
+                'enableSorting' => false,
                 'format' => 'raw'
             ],
-            'code_length',
+            [
+                'attribute' => 'code_length',
+                'format' => 'raw',
+                'enableSorting' => false,
+            ],
             [
                 'attribute' => 'created_at',
                 'value' => function ($model, $key, $index, $column) {
                     return Html::tag('span', Yii::$app->formatter->asRelativeTime($model->created_at), ['title' => $model->created_at]);
                 },
+                'enableSorting' => false,
                 'format' => 'raw'
             ]
         ],

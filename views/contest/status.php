@@ -88,12 +88,14 @@ $isContestEnd = $model->isContestEnd();
                         return $solution->getResult();
                     }
                 },
+                'enableSorting' => false,
                 'format' => 'raw'
             ],
             [
                 'attribute' => 'score',
                 'visible' => $model->type == Contest::TYPE_IOI || $model->type == Contest::TYPE_HOMEWORK ||
-                            ($model->type == Contest::TYPE_OI && $isContestEnd)
+                            ($model->type == Contest::TYPE_OI && $isContestEnd),
+                'enableSorting' => false
             ],
             [
                 'attribute' => 'time',
@@ -104,6 +106,7 @@ $isContestEnd = $model->isContestEnd();
                     }
                     return $solution->time  .' '. Yii::t('app', 'MS');
                 },
+                'enableSorting' => false,
                 'format' => 'raw'
             ],
             [
@@ -115,6 +118,7 @@ $isContestEnd = $model->isContestEnd();
                     }
                     return $solution->memory . ' KB';
                 },
+                'enableSorting' => false,
                 'format' => 'raw'
             ],
             [
@@ -130,14 +134,20 @@ $isContestEnd = $model->isContestEnd();
                         return $solution->getLang();
                     }
                 },
+                'enableSorting' => false,
                 'format' => 'raw'
             ],
-            'code_length',
+            [
+                'attribute' => 'code_length',
+                'format' => 'raw',
+                'enableSorting' => false,
+            ],
             [
                 'attribute' => 'created_at',
                 'value' => function ($model, $key, $index, $column) {
                     return Html::tag('span', Yii::$app->formatter->asRelativeTime($model->created_at), ['title' => $model->created_at]);
                 },
+                'enableSorting' => false,
                 'format' => 'raw'
             ]
         ],

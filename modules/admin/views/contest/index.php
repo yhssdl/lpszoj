@@ -32,10 +32,19 @@ $this->title = Yii::t('app', 'Contests');
                 'value' => function ($model, $key, $index, $column) {
                     return Html::a(Html::encode($model->title), ['contest/view', 'id' => $key]);
                 },
+                'enableSorting' => false,
                 'format' => 'raw'
             ],
-            'start_time',
-            'end_time',
+            [
+                'attribute' => 'start_time',
+                'format' => 'raw',
+                'enableSorting' => false,
+            ],
+            [
+                'attribute' => 'end_time',
+                'format' => 'raw',
+                'enableSorting' => false,
+            ],
             [
                 'attribute' => 'status',
                 'value' => function ($model, $key, $index, $column) {
@@ -47,6 +56,7 @@ $this->title = Yii::t('app', 'Contests');
                         return Yii::t('app', 'Hidden');
                     }
                 },
+                'enableSorting' => false,
                 'format' => 'raw',
             ],
             [
@@ -58,6 +68,7 @@ $this->title = Yii::t('app', 'Contests');
                         return Yii::t('app', 'Offline');
                     }
                 },
+                'enableSorting' => false,
                 'format' => 'raw',
             ],
             ['class' => 'yii\grid\ActionColumn'],
