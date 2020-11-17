@@ -66,9 +66,21 @@ $this->title = Yii::t('app', 'Users');
                 'name' => 'id',
             ],
             'id',
-            'username',
-            'nickname',
-            'email:email',
+            [
+                'attribute' => 'username',
+                'format' => 'raw',
+                'enableSorting' => false,
+            ],
+            [
+                'attribute' => 'nickname',
+                'format' => 'raw',
+                'enableSorting' => false,
+            ],
+            [
+                'attribute' => 'email',
+                'format' => 'raw',
+                'enableSorting' => false,
+            ],
             [
                 'attribute' => 'role',
                 'value' => function ($model, $key, $index, $column) {
@@ -83,6 +95,7 @@ $this->title = Yii::t('app', 'Users');
                     }
                     return 'not set';
                 },
+                'enableSorting' => false,
                 'format' => 'raw'
             ],
             // 'status',
