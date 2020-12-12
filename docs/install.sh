@@ -277,8 +277,9 @@ install_jnoj(){
 
     /usr/sbin/useradd -m -u 1536 judge
     cd /home/judge/
-    git clone https://gitee.com/shi-yang/jnoj.git
-
+    git clone https://gitee.com/yhssdl/lpszoj.git
+	mv lpszoj jnoj
+	
     config_jnoj
     if check_sys packageManager yum; then
         config_firewall
