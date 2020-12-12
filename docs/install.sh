@@ -143,7 +143,7 @@ install_dependencies(){
             python36
         )
         for depend in ${yum_depends[@]}; do
-            error_detect_depends "yum -y install ${depend}"
+            error_detect_depends "yum install ${depend}"
         done
         ln -s /usr/bin/python3.6 /usr/bin/python3 > /dev/null 2>&1
     elif check_sys packageManager apt; then
@@ -162,7 +162,7 @@ install_dependencies(){
 
         apt -y update
         for depend in ${apt_depends[@]}; do
-            error_detect_depends "apt -y install ${depend}"
+            error_detect_depends "apt install ${depend}"
         done
     fi
 }
