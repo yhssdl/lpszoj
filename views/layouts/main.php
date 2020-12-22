@@ -98,6 +98,9 @@ AppAsset::register($this);
             'links' => isset($this->params['breadcrumbs']) ? $this->params['breadcrumbs'] : [],
         ]) ?>
         <?= Alert::widget() ?>
+            <?php if (Yii::$app->setting->get('isNotice')): ?>    
+                <div class="alert alert-info"><?= Yii::$app->setting->get('notice') ?></div>
+            <?php endif; ?>
         <?= $content ?>
     </div>
 </div>

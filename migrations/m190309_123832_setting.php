@@ -27,6 +27,8 @@ class m190309_123832_setting extends Migration
         $this->insert('{{%setting}}', ['key' => 'isGroupReset', 'value' => '0']);        
         $this->insert('{{%setting}}', ['key' => 'submitTime', 'value' => '20']);     
         $this->insert('{{%setting}}', ['key' => 'isHideVIP', 'value' => '1']); 
+        $this->insert('{{%setting}}', ['key' => 'isNotice', 'value' => '1']); 
+        $this->insert('{{%setting}}', ['key' => 'notice', 'value' => '请注意，本OJ系统正在试运行中。']);           
     }
 
     /**
@@ -47,7 +49,9 @@ class m190309_123832_setting extends Migration
         $this->delete('{{%setting}}', ['key' => 'isGroupJoin']);
         $this->delete('{{%setting}}', ['key' => 'isGroupReset']);    
         $this->delete('{{%setting}}', ['key' => 'submitTime']); 
-        $this->delete('{{%setting}}', ['key' => 'isHideVIP']);              
+        $this->delete('{{%setting}}', ['key' => 'isHideVIP']);    
+        $this->delete('{{%setting}}', ['key' => 'isNotice']);   
+        $this->delete('{{%setting}}', ['key' => 'notice']);                    
         $this->dropColumn('{{%setting}}', 'id');
     }
 
