@@ -212,5 +212,4 @@ $this->title = Yii::t('app', 'Setting');
         <?= Html::submitButton(Yii::t('app', 'Save'), ['class' => 'btn btn-primary']) ?>
     </div>
     <?= Html::endForm(); ?>
-
 </div>
