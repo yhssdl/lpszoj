@@ -631,6 +631,7 @@ a.desc:after {
     padding: 1.25rem;
 }
 .card-title {
+    margin-top: 0;
     margin-bottom: .75rem;
 }
 .card-footer:last-child {
