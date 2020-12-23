@@ -44,14 +44,14 @@
 
 1. [安装教程](docs/install.md)
 2. [更新教程](docs/update.md)
-3. [https://github.com/shi-yang/jnoj/wiki](https://github.com/shi-yang/jnoj/wiki)
+3. [https://gitee.com/yhssdl/lpszoj/wikis](https://gitee.com/yhssdl/lpszoj/wikis)
 
 
 开发者支持
 ---------
-Issues: [https://github.com/shi-yang/jnoj/issues](https://github.com/shi-yang/jnoj/issues)
+Issues: [https://gitee.com/yhssdl/lpszoj/issues](https://gitee.com/yhssdl/lpszoj/issues)
 
-Wiki: [https://github.com/shi-yang/jnoj/wiki](https://github.com/shi-yang/jnoj/wiki)
+Wiki: [https://gitee.com/yhssdl/lpszoj/wikis](https://gitee.com/yhssdl/lpszoj/wikis)
 
 QQ、微信：
 

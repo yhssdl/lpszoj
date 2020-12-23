@@ -9,7 +9,7 @@ export PATH
 # System Required:  CentOS 6+, Debian7+, Ubuntu16+
 #
 # Reference URL:
-# https://github.com/shi-yang/jnoj
+# https://gitee.com/yhssdl/lpszoj
 #
 
 red='\033[0;31m'
@@ -116,7 +116,7 @@ error_detect_depends(){
     ${command} > /dev/null 2>&1
     if [ $? -ne 0 ]; then
         echo -e "[${red}Error${plain}] Failed to install ${red}${depend}${plain}"
-        echo "Please visit: https://github.com/shi-yang/jnoj/wiki and contact."
+        echo "Please visit: https://gitee.com/yhssdl/lpszoj/wikis and contact."
         exit 1
     fi
 }
@@ -175,19 +175,19 @@ install_check(){
     fi
 }
 
-config_jnoj(){
-    DBNAME="jnoj"
+config_lpszoj(){
+    DBNAME="ojdate"
     DBUSER="root"
     DBPASS="123456"
     PHP_VERSION=7.`php -v>&1|awk '{print $2}'|awk -F '.' '{print $2}'`
 
     if check_sys sysRelease centos; then
         mv /etc/nginx/conf.d/default.conf /etc/nginx/conf.d/default.back
-        cat>/etc/nginx/conf.d/jnoj.conf<<EOF
+        cat>/etc/nginx/conf.d/lpszoj.conf<<EOF
 server {
         listen 80 default_server;
         listen [::]:80 default_server;
-        root /home/judge/jnoj/web;
+        root /home/judge/lpszoj/web;
         index index.php;
         server_name _;
         client_max_body_size    128M;
@@ -207,13 +207,13 @@ EOF
         sed -i "s/post_max_size = 8M/post_max_size = 128M/g" /etc/php.ini
         sed -i "s/upload_max_filesize = 2M/upload_max_filesize = 128M/g" /etc/php.ini
         chmod 755 /home/judge
-        chown nginx -R /home/judge/jnoj
+        chown nginx -R /home/judge/lpszoj
     else
-        cat>/etc/nginx/conf.d/jnoj.conf<<EOF
+        cat>/etc/nginx/conf.d/lpszoj.conf<<EOF
 server {
         listen 80 default_server;
         listen [::]:80 default_server;
-        root /home/judge/jnoj/web;
+        root /home/judge/lpszoj/web;
         index index.php;
         server_name _;
         client_max_body_size    128M;
@@ -235,11 +235,11 @@ EOF
         systemctl restart php${PHP_VERSION}-fpm
     fi
     
-    mysql -h localhost -u$DBUSER -p$DBPASS -e "create database jnoj;"
+    mysql -h localhost -u$DBUSER -p$DBPASS -e "create database ojdate;"
     if [ $? -eq 0 ]; then
         # Modify database information
-        sed -i "s/root/$DBUSER/g" /home/judge/jnoj/config/db.php
-        sed -i "s/123456/$DBPASS/g" /home/judge/jnoj/config/db.php
+        sed -i "s/root/$DBUSER/g" /home/judge/lpszoj/config/db.php
+        sed -i "s/123456/$DBPASS/g" /home/judge/lpszoj/config/db.php
     fi
 }
 
@@ -270,27 +270,27 @@ enable_server(){
     fi
 }
 
-install_jnoj(){
+install_lpszoj(){
     disable_selinux
     install_check
     install_dependencies
 
     /usr/sbin/useradd -m -u 1536 judge
     cd /home/judge/
-    git clone https://gitee.com/shi-yang/jnoj.git
+    git clone https://gitee.com/yhssdl/lpszoj.git
 
-    config_jnoj
+    config_lpszoj
     if check_sys packageManager yum; then
         config_firewall
     fi
     enable_server
 
-    cd /home/judge/jnoj
-    echo -e "yes" "\n" "admin" "\n" "123456" "\n" "admin@jnoj.org" | ./yii install
-    cd /home/judge/jnoj/judge
+    cd /home/judge/lpszoj
+    echo -e "yes" "\n" "admin" "\n" "123456" "\n" "admin@lpszoj.org" | ./yii install
+    cd /home/judge/lpszoj/judge
     make
     ./dispatcher
-    cd /home/judge/jnoj/polygon
+    cd /home/judge/lpszoj/polygon
     make
     ./polygon
 
@@ -307,4 +307,4 @@ install_jnoj(){
     echo
 }
 
-install_jnoj
+install_lpszoj
