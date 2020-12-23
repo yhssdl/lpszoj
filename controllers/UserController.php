@@ -50,9 +50,15 @@ class UserController extends BaseController
      * @param integer $id
      * @return mixed
      */
-    public function actionView($id)
+    public function actionView($id, $reset=0)
     {
         $model = $this->findModel($id);
+
+        if($reset==1 && $model->username != $model->nickname){
+            $model->nickname = $model->username;
+            $model->save();
+            Yii::$app->session->setFlash('success', '该用户昵称已经重置');
+        }
 
         $contests = Yii::$app->db->createCommand('
                 SELECT `cu`.`rating_change`, `cu`.`rank`, `cu`.`contest_id`, `c`.`start_time`, `c`.title

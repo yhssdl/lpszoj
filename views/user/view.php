@@ -2,6 +2,7 @@
 
 use yii\helpers\Html;
 use yii\widgets\DetailView;
+use app\models\User;
 
 /* @var $this yii\web\View */
 /* @var $model app\models\User */
@@ -118,12 +119,24 @@ $this->registerJs($plotJS);
     <hr>
     <?php if ($model->role != \app\models\User::ROLE_PLAYER): ?>
         <div class="row">
-            <div class="col-md-3">
+            <div class="col-md-4">
                 <?= DetailView::widget([
                     'model' => $model,
                     'attributes' => [
                         'username',
-                        'nickname',
+                        [
+                            'attribute' => Yii::t('app', 'nickname'),
+                            'value' => function ($model,  $widget) {
+                                $resetNickname = '';
+                                if (Yii::$app->user->identity->role == User::ROLE_ADMIN) {
+                                    
+                                    $resetNickname = Html::a('<span class="glyphicon glyphicon-repeat" style="float:right"></span>', ['/user/view', 'id' => $model->id, 'reset' => '1'], ['title' =>'重置昵称']);
+                                }
+                                return $model->nickname.$resetNickname;
+                            },
+                            'format' => 'raw'
+                        ],
+
                         [
                             'attribute' => Yii::t('app', 'QQ'),
                             'value' => function ($model, $widget) {
@@ -148,7 +161,7 @@ $this->registerJs($plotJS);
                     ],
                 ]) ?>
             </div>
-            <div class="col-md-9">
+            <div class="col-md-8">
                 <?php if ($contestCnt): ?>
                 <div id="placeholder" style="width:100%;height:300px;"></div>
                     <hr>
