@@ -132,30 +132,45 @@ $this->registerJs($plotJS);
                                     
                                     $resetNickname = Html::a('<span class="glyphicon glyphicon-repeat" style="float:right"></span>', ['/user/view', 'id' => $model->id, 'reset' => '1'], ['title' =>'重置昵称']);
                                 }
-                                return $model->nickname.$resetNickname;
+                                return Html::encode($model->nickname).$resetNickname;
                             },
                             'format' => 'raw'
                         ],
 
                         [
                             'attribute' => Yii::t('app', 'QQ'),
-                            'value' => function ($model, $widget) {
-                                return Html::encode($model->profile->qq_number);
+                            'value' => function ($model,  $widget) {
+                                $resetQQ = '';
+                                if (Yii::$app->user->identity->role == User::ROLE_ADMIN) {
+                                    
+                                    $resetQQ = Html::a('<span class="glyphicon glyphicon-repeat" style="float:right"></span>', ['/user/view', 'id' => $model->id, 'reset' => '2'], ['title' =>'重置QQ']);
+                                }
+                                return Html::encode($model->profile->qq_number).$resetQQ;
                             },
                             'format' => 'raw'
                         ],
                         [
                             'attribute' => Yii::t('app', 'Major'),
-                            'value' => function ($model, $widget) {
-                                return Html::encode($model->profile->major);
-                            },
+                            'value' => function ($model,  $widget) {
+                                $resetMajor = '';
+                                if (Yii::$app->user->identity->role == User::ROLE_ADMIN) {
+                                    
+                                    $resetMajor = Html::a('<span class="glyphicon glyphicon-repeat" style="float:right"></span>', ['/user/view', 'id' => $model->id, 'reset' => '3'], ['title' =>'重置专业']);
+                                }
+                                return Html::encode($model->profile->major).$resetMajor;
+                            },                            
                             'format' => 'raw'
                         ],
                         [
                             'attribute' => Yii::t('app', 'Student Number'),
-                            'value' => function ($model, $widget) {
-                                return $model->profile->student_number;
-                            },
+                            'value' => function ($model,  $widget) {
+                                $resetNumber = '';
+                                if (Yii::$app->user->identity->role == User::ROLE_ADMIN) {
+                                    
+                                    $resetNumber = Html::a('<span class="glyphicon glyphicon-repeat" style="float:right"></span>', ['/user/view', 'id' => $model->id, 'reset' => '4'], ['title' =>'重置学号']);
+                                }
+                                return Html::encode($model->profile->student_number).$resetNumber;
+                            },                               
                             'format' => 'raw'
                         ]
                     ],

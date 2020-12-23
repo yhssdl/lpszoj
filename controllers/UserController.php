@@ -54,12 +54,25 @@ class UserController extends BaseController
     {
         $model = $this->findModel($id);
 
-        if(Yii::$app->user->identity->role == User::ROLE_ADMIN && $reset==1 && $model->username != $model->nickname){
-            $model->nickname = $model->username;
-            $model->save();
-            Yii::$app->session->setFlash('success', '该用户昵称已经重置');
+        if(Yii::$app->user->identity->role == User::ROLE_ADMIN){
+            if($reset==1 && $model->username != $model->nickname){
+                $model->nickname = $model->username;
+                $model->save();
+                Yii::$app->session->setFlash('success', '该用户昵称已经重置');
+            }else if($reset==2 && $model->profile->qq_number != ''){
+                $model->profile->qq_number = '';
+                $model->profile->save();
+                Yii::$app->session->setFlash('success', '该用户QQ已经重置');
+            }else if($reset==3 && $model->profile->major != ''){
+                $model->profile->major = '';
+                $model->profile->save();
+                Yii::$app->session->setFlash('success', '该用户专业已经重置');
+            }else if($reset==4 && $model->profile->student_number != 0){
+                $model->profile->student_number = '';
+                $model->profile->save();
+                Yii::$app->session->setFlash('success', '该用户学号已经重置');
+            }
         }
-
         $contests = Yii::$app->db->createCommand('
                 SELECT `cu`.`rating_change`, `cu`.`rank`, `cu`.`contest_id`, `c`.`start_time`, `c`.title
                 FROM `contest_user` `cu`
