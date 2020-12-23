@@ -54,7 +54,7 @@ class UserController extends BaseController
     {
         $model = $this->findModel($id);
 
-        if($reset==1 && $model->username != $model->nickname){
+        if(Yii::$app->user->identity->role == User::ROLE_ADMIN && $reset==1 && $model->username != $model->nickname){
             $model->nickname = $model->username;
             $model->save();
             Yii::$app->session->setFlash('success', '该用户昵称已经重置');
