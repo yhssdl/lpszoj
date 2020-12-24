@@ -317,6 +317,10 @@ class Solution extends ActiveRecord
      */
     public function canViewResult()
     {
+        //游客不能查看
+        if (Yii::$app->user->isGuest){
+            return false;
+        }
         // 状态可见且设置了分享状态可以查看。以下代码中 isShareCode 的说明参见后台设置页面。
         // 对于比赛中的提交， status 的值默认为 STATUS_HIDDEN，比赛结束时可以在后台设为 STATUS_VISIBLE 以供普通用户查看
         // 对于后台验题时的提交，status 的值为 STATUS_HIDDEN
@@ -324,7 +328,7 @@ class Solution extends ActiveRecord
             return true;
         }
         // 管理员有权限查看
-        if (!Yii::$app->user->isGuest && Yii::$app->user->identity->role == User::ROLE_ADMIN) {
+        if (Yii::$app->user->identity->role == User::ROLE_ADMIN) {
             return true;
         }
 
@@ -428,6 +432,11 @@ class Solution extends ActiveRecord
      */
     public function canViewErrorInfo()
     {
+
+        //游客不能查看
+        if (Yii::$app->user->isGuest){
+            return false;
+        }
         // 状态可见且设置了分享状态可以查看。以下代码中 isShareCode 的说明参见后台设置页面。
         // 对于比赛中的提交， status 的值默认为 STATUS_HIDDEN，比赛结束时可以在后台设为 STATUS_VISIBLE 以供普通用户查看
         // 对于后台验题时的提交，status 的值为 STATUS_HIDDEN
@@ -435,7 +444,7 @@ class Solution extends ActiveRecord
             return true;
         }
         // 管理员有权限查看所有情况
-        if (!Yii::$app->user->isGuest && Yii::$app->user->identity->role == User::ROLE_ADMIN) {
+        if (Yii::$app->user->identity->role == User::ROLE_ADMIN) {
             return true;
         }
         if (!empty($this->contest_id)) {
