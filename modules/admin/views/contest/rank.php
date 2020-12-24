@@ -28,24 +28,24 @@ $this->registerAssetBundle('yii\bootstrap\BootstrapPluginAsset');
         </div>
         <div class="row">
             <div class="col-md-3 text-left">
-                <strong>Start </strong>
+                <strong><?= Yii::t('app', 'Start') ?>: </strong>
                 <?= $model->start_time ?>
             </div>
             <div class="col-md-6 text-center">
                 <h2 class="contest-title"><?= Html::encode($model->title) ?></h2>
             </div>
             <div class="col-md-3 text-right">
-                <strong>End </strong>
+                <strong><?= Yii::t('app', 'End') ?>: </strong>
                 <?= $model->end_time ?>
             </div>
         </div>
         <table class="table table-bordered table-rank">
             <thead>
             <tr>
-                <th width="60px">Rank</th>
-                <th width="120px">Username</th>
-                <th width="120px">Nickname</th>
-                <th title="# solved / penalty time" colspan="2">Score</th>
+                <th width="60px"><?= Yii::t('app', 'Rank') ?></th>
+                <th width="120px"><?= Yii::t('app', 'Username') ?></th>
+                <th width="120px"><?= Yii::t('app', 'Nickname') ?></th>
+                <th title="# solved / penalty time" colspan="2"><?= Yii::t('app', 'Score') ?></th>
                 <?php foreach($problems as $key => $p): ?>
                     <th>
                         <?= chr(65 + $key) ?>

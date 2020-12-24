@@ -30,6 +30,7 @@ if ($discuss != null) {
         'columns' => [
             [
                 'attribute' => 'who',
+                'label' => Yii::t('app', 'Who'),
                 'value' => function ($model, $key, $index, $column) {
                     return Html::a($model->user->username . ' [' . $model->user->nickname . ']', ['/user/view', 'id' => $model->user->id]);
                 },

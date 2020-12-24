@@ -32,10 +32,10 @@ $this->registerAssetBundle('yii\bootstrap\BootstrapPluginAsset');
         <?php foreach ($problems as $key => $problem): ?>
         <h3><?= Html::encode(chr(65 + $problem['num']) . '. ' . $problem['title']) ?></h3>
         <p class="limit">
-            Time limit: <?= Yii::t('app', '{t, plural, =1{# second} other{# seconds}}', ['t' => intval($problem['time_limit'])]); ?>
+         <?= Yii::t('app', 'Time Limit').":".Yii::t('app', '{t, plural, =1{# second} other{# seconds}}', ['t' => intval($problem['time_limit'])]); ?>
         </p>
         <p class="limit">
-            Memory limit: <?= $problem['memory_limit'] ?> MB
+            <?= Yii::t('app', 'Memory Limit').":".$problem['memory_limit'] ?> MB
         </p>
         <div class="content-wrapper">
             <?= Yii::$app->formatter->asMarkdown($problem['description']) ?>
