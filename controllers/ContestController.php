@@ -445,14 +445,23 @@ class ContestController extends BaseController
                 Yii::$app->session->setFlash('error', '比赛已结束。比赛结束五分钟后开放提交。');
                 return $this->refresh();
             }
-            $solution->problem_id = $problem['id'];
-            $solution->contest_id = $model->id;
-            if($model->language!=-1){
-                $solution->language = $model->language;
+            $st = time() - Yii::$app->session['Submit_time'];
+            $jt = intval(Yii::$app->setting->get('submitTime'));
+            if($st > $jt) {            
+                $solution->problem_id = $problem['id'];
+                $solution->contest_id = $model->id;
+                if($model->language!=-1){
+                    $solution->language = $model->language;
+                }
+                $solution->status = Solution::STATUS_HIDDEN;
+                $solution->save();
+                Yii::$app->session->setFlash('success', Yii::t('app', 'Submitted successfully'));
+                Yii::$app->session['Submit_time']= time();
+            } else {
+                $st = $jt - $st;
+                $tip = sprintf(Yii::t('app', 'The submission interval is %d seconds, and you can submit again after %d seconds.'),$jt,$st);
+                Yii::$app->session->setFlash('error', $tip);
             }
-            $solution->status = Solution::STATUS_HIDDEN;
-            $solution->save();
-            Yii::$app->session->setFlash('success', Yii::t('app', 'Submitted successfully'));
             return $this->refresh();
         }
         $submissions = [];
