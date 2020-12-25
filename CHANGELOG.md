@@ -1,4 +1,4 @@
-JNOJ Change Log
+LPSZOJ Change Log
 ===============
 
 该文件显示了各版本间的改变。`Enh` 表示添加新功能，`Chg` 表示修改功能，`Bug` 表示修复 Bug。
@@ -6,13 +6,14 @@ JNOJ Change Log
 方括号内标注的 `web` 表示只修改了 Web 端；`db` 表示修改了数据库；`judge` 表示修改了判题部分。
 
 - `web`: 意味着你只需要获取最新 Github 文件来更新即可。
-- `db`: 意味着需要你在 `jnoj` 目录下执行 `./yii migrate` 来更新数据库
+- `db`: 意味着需要你在 `lpszoj` 目录下执行 `./yii migrate` 来更新数据库
 - `judge`: 意味着需要你重新编译判题机并重新启动
 
-请阅读 [update.md](https://github.com/shi-yang/jnoj/blob/master/docs/update.md) 来获取更新方法。
+请阅读 [update.md](https://gitee.com/yhssdl/lpszoj/raw/master/docs/update.md) 来获取更新方法。
 
 自 2019.9.28 起，每次修改会添加相应的修改日期
 ---------------------------------------
+- 2020.12.24 Chg: [Bug] 修正小组中做题提交间隔无效的BUG、后台验题一个BUG
 - 2020.12.23 Chg: [Enh] 管理员在查看用户信息页面时，增加了重置用户昵称、专业等功能
 - 2020.12.22 Chg: [Enh] 增加了网站公告显示功能以及后台选项。（数据库setting表中，需要增加两项内容）
 - 2020.12.22 Chg: [web] 首页新闻内容展示方式进行更改，直接将新闻内容显示在首页上
@@ -60,9 +61,9 @@ JNOJ Change Log
 
 - 2019.12.26 Enh: [web、db] 添加找回密码、验证用户邮箱的功能。您可能需要到 `后台-设置` 管理配置 SMTP 发送邮件。
 
-    此更新涉及到数据库，需要你在 `jnoj` 目录下执行 `./yii migrate` 来更新数据库。
+    此更新涉及到数据库，需要你在 `lpszoj` 目录下执行 `./yii migrate` 来更新数据库。
     
-    需要你执行 `sudo rm -rf jnoj/runtime/*` 清空缓存 (注意此处路径是删除 `jnoj/runtime` 目录下所有文件)
+    需要你执行 `sudo rm -rf lpszoj/runtime/*` 清空缓存 (注意此处路径是删除 `lpszoj/runtime` 目录下所有文件)
 - 2019.12.24 Enh: [web] 在前台的问题详情页加入 "上一题、下一题" 功能
 - 2019.12.22 Enh: [web] 新增后台批量删除题目
 - 2019.12.22 Enh: [web] 给 IOI 榜单加入题目通过总时间的排名显示
@@ -73,7 +74,7 @@ JNOJ Change Log
 - 2019.12.12 Enh: [web] 首页新闻分页按钮
 - 2019.12.12 Chg: [web] 前台的 OI 榜单对管理员用户可见
 - 2019.12.11 Enh: [web] 优化与 OI 榜单相关设置
-- 2019.12.2 Chg: [polygon] 修改 Polygon 时间、内存限制为题面限制。更新时需要在 `jnoj/polygon` 目录下执行 `make` 命令。
+- 2019.12.2 Chg: [polygon] 修改 Polygon 时间、内存限制为题面限制。更新时需要在 `lpszoj/polygon` 目录下执行 `make` 命令。
 - 2019.12.1 Chg: [web] 默认显示比赛期间的榜单
 - 2019.12.1 Bug: [web] 修复一个滚榜数据榜单不对的 Bug
 - 2019.12.1 Enh: [web] 更新 vendor
