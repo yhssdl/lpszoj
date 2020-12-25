@@ -13,6 +13,7 @@ $this->title = $model->title;
 $this->params['breadcrumbs'][] = ['label' => Yii::t('app', 'Problems'), 'url' => ['index']];
 $this->params['breadcrumbs'][] = $this->title;
 $this->params['model'] = $model;
+$loadingImgUrl = Yii::getAlias('@web/images/loading.gif');
 ?>
 <div class="solutions-view">
     <h1>
@@ -38,7 +39,6 @@ $this->params['model'] = $model;
                     <th><?= $solution['id'] ?></th>
                     <th>
                     <?php
-                        $loadingImgUrl = Yii::getAlias('@web/images/loading.gif');
                         if ($solution['result'] <= Solution::OJ_WAITING_STATUS) {
                             $waitingHtmlDom = 'waiting="true"';
                             $loadingImg = "<img src=\"{$loadingImgUrl}\">";
