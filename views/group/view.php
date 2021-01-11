@@ -191,12 +191,30 @@ $scoreboardFrozenTime = Yii::$app->setting->get('scoreboardFrozenTime') / 3600;
                         'options' => ['width' => '150px']
                     ],
                     [
+                        'attribute' => Yii::t('app', 'username'),
+                        'value' => function ($model, $key, $index, $column) {
+                            return Html::a(Html::encode($model->user->username), ['/user/view', 'id' => $model->user->id]);
+                        },
+                        'format' => 'raw',
+                        'visible' => $model->hasPermission(),
+                    ],
+                    [
                         'attribute' => Yii::t('app', 'Nickname'),
                         'value' => function ($model, $key, $index, $column) {
                             return Html::a(Html::encode($model->user->nickname), ['/user/view', 'id' => $model->user->id], ['title' => $model->user->username]);
                         },
                         'format' => 'raw',
-                    ],
+                    ],  
+                    [
+                        'attribute' => 'solved',
+                        'value' => function ($model, $key, $index, $column) {
+                            if($model->solved=="") 
+                                return "0";
+                            else
+                                return $model->solved;
+                        },
+                        'format' => 'raw',
+                    ],                
                     [
                         'attribute' => 'created_at',
                         'value' => function ($model, $key, $index, $column) {
