@@ -156,7 +156,7 @@ class GroupController extends BaseController
      * @throws NotFoundHttpException if the model cannot be found
      * @throws ForbiddenHttpException
      */
-    public function actionView($id,$sort='role')
+    public function actionView($id)
     {
         $model = $this->findModel($id);
         $role = $model->getRole();
@@ -177,22 +177,12 @@ class GroupController extends BaseController
                 'group_id' => $model->id
             ])->orderBy(['id' => SORT_DESC]),
         ]);
-        
-        if($sort=='solved')
-            $query = GroupUser::findBySql("SELECT u.*, s.solved FROM group_user as u LEFT JOIN (SELECT  COUNT(DISTINCT problem_id) AS solved, created_by FROM solution WHERE result=4 GROUP BY created_by) AS s ON u.user_id = s.created_by WHERE u.group_id = $model->id ORDER BY s.solved DESC,u.user_id ASC");
-        else if($sort=='-solved')
-            $query = GroupUser::findBySql("SELECT u.*, s.solved FROM group_user as u LEFT JOIN (SELECT  COUNT(DISTINCT problem_id) AS solved, created_by FROM solution WHERE result=4 GROUP BY created_by) AS s ON u.user_id = s.created_by WHERE u.group_id = $model->id ORDER BY s.solved ASC,u.user_id ASC");        
-        else if($sort=='role')
-            $query = GroupUser::findBySql("SELECT u.*, s.solved FROM group_user as u LEFT JOIN (SELECT  COUNT(DISTINCT problem_id) AS solved, created_by FROM solution WHERE result=4 GROUP BY created_by) AS s ON u.user_id = s.created_by WHERE u.group_id = $model->id ORDER BY u.role DESC,u.user_id ASC");
-        else
-            $query = GroupUser::findBySql("SELECT u.*, s.solved FROM group_user as u LEFT JOIN (SELECT  COUNT(DISTINCT problem_id) AS solved, created_by FROM solution WHERE result=4 GROUP BY created_by) AS s ON u.user_id = s.created_by WHERE u.group_id = $model->id ORDER BY u.role DESC,u.user_id DESC");
-    
 
         $userDataProvider = new ActiveDataProvider([
-            'query' => $query,
-            'sort' => ['attributes' => ['role','solved']],
+            'query' => GroupUser::find()->where([
+                'group_id' => $model->id
+            ])->with('user')->orderBy(['role' => SORT_DESC,'user_id' => SORT_ASC])
         ]);
-
 
         if ($newContest->load(Yii::$app->request->post())) {
             if (!$model->hasPermission()) {

@@ -30,7 +30,6 @@ class GroupUser extends \yii\db\ActiveRecord
      * @var string 邀请用户时用到
      */
     public $username;
-    public $solved;
     /**
      * {@inheritdoc}
      */
@@ -49,7 +48,6 @@ class GroupUser extends \yii\db\ActiveRecord
             [['group_id', 'user_id', 'role'], 'integer'],
             ['username', 'string'],
             [['created_at'], 'safe'],
-            ['solved', 'integer'],
         ];
     }
 
@@ -64,8 +62,7 @@ class GroupUser extends \yii\db\ActiveRecord
             'user_id' => Yii::t('app', 'User ID'),
             'role' => Yii::t('app', 'Role'),
             'created_at' => Yii::t('app', 'Created At'),
-            'username' => Yii::t('app', 'Username'),
-            'solved' => Yii::t('app', 'Solved')
+            'username' => Yii::t('app', 'Username')
         ];
     }
 
