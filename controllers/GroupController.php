@@ -156,7 +156,7 @@ class GroupController extends BaseController
      * @throws NotFoundHttpException if the model cannot be found
      * @throws ForbiddenHttpException
      */
-    public function actionView($id,$sort=id)
+    public function actionView($id,$sort='role')
     {
         $model = $this->findModel($id);
         $role = $model->getRole();
