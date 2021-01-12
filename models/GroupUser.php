@@ -105,4 +105,28 @@ class GroupUser extends \yii\db\ActiveRecord
         ];
         return '<span class="' . $rolesColor[$this->role] . '">' . $roles[$this->role] . '</span>' ;
     }
+
+    public static function getRoleName($role)
+    {
+        $roles = [
+            Yii::t('app', 'Refuse to join'),
+            Yii::t('app', 'Refuse to apply'),
+            Yii::t('app', 'Inviting'),
+            Yii::t('app', 'Apply to join'),
+            Yii::t('app', 'Member'),
+            Yii::t('app', 'Manager'),
+            Yii::t('app', 'Leader')
+        ];
+
+        $rolesColor = [
+            'text-danger',
+            'text-warning',
+            'text-info',
+            'text-info',
+            'text-info',
+            'text-primary',
+            'text-success'
+        ];
+        return '<span class="' . $rolesColor[$role] . '">' . $roles[$role] . '</span>' ;
+    }
 }

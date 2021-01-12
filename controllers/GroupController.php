@@ -156,7 +156,7 @@ class GroupController extends BaseController
      * @throws NotFoundHttpException if the model cannot be found
      * @throws ForbiddenHttpException
      */
-    public function actionView($id)
+    public function actionView($id,$sort=0)
     {
         $model = $this->findModel($id);
         $role = $model->getRole();
@@ -178,11 +178,26 @@ class GroupController extends BaseController
             ])->orderBy(['id' => SORT_DESC]),
         ]);
 
-        $userDataProvider = new ActiveDataProvider([
-            'query' => GroupUser::find()->where([
-                'group_id' => $model->id
-            ])->with('user')->orderBy(['role' => SORT_DESC,'user_id' => SORT_ASC])
+        $count = Yii::$app->db->createCommand('
+            SELECT COUNT(*) FROM {{%group_user}} WHERE group_id=:id',
+            [':id' => $model->id]
+        )->queryScalar();
+
+        if($sort==0){
+            $s = 's.solved DESC,u.user_id ASC';
+        } else {
+            $s = 'u.role DESC,u.user_id ASC,s.solved DESC';
+        }
+
+        $userDataProvider = new SqlDataProvider([
+            'sql' => "SELECT u.*, s.solved FROM group_user as u LEFT JOIN (SELECT  COUNT(DISTINCT problem_id) AS solved, created_by FROM solution WHERE result=4 GROUP BY created_by) AS s ON u.user_id = s.created_by WHERE u.group_id = :id ORDER BY " . $s,
+            'params' => [':id' => $model->id],
+            'totalCount' => $count,
+            'pagination' => [
+                'pageSize' => 30,
+            ],
         ]);
+
 
         if ($newContest->load(Yii::$app->request->post())) {
             if (!$model->hasPermission()) {

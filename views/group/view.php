@@ -5,6 +5,7 @@ use yii\grid\GridView;
 use yii\bootstrap\Modal;
 use yii\widgets\ActiveForm;
 use app\models\GroupUser;
+use app\models\User;
 use app\models\Contest;
 
 /* @var $this yii\web\View */
@@ -180,35 +181,56 @@ $scoreboardFrozenTime = Yii::$app->setting->get('scoreboardFrozenTime') / 3600;
             <?= GridView::widget([
                 'layout' => '{items}{pager}',
                 'dataProvider' => $userDataProvider,
-                'options' => ['class' => 'table-responsive'],
+                'options' => ['class' => 'table-responsive solution-index'],
                 'columns' => [
                     [
-                        'attribute' => 'role',
-                        'value' => function ($model, $key, $index, $column) {
-                            return $model->getRole(true);
+                        'attribute' => Yii::t('app', 'Role'),
+                        'header' => Html::a(Yii::t('app', 'Role').'<span class="glyphicon glyphicon-sort-by-alphabet"></span>', ['/group/view', 'id' => $model->id , 'sort' => 1]),
+                        'value' => function ($date) {
+                            
+                            return GroupUser::getRoleName($date['role']);
                         },
                         'format' => 'raw',
                         'options' => ['width' => '150px']
                     ],
+                    [
+                        'attribute' => Yii::t('app', 'Username'),
+                        'value' => function ($date) {
+                            $user = User::findOne($date['user_id'])->toArray();
+                            return Html::a(Html::encode($user['username']), ['/user/view', 'id' => $date['user_id']]);
+                        },
+                        'format' => 'raw',
+                        'visible' => $model->hasPermission(),
+                    ],                    
                     [
                         'attribute' => Yii::t('app', 'Nickname'),
-                        'value' => function ($model, $key, $index, $column) {
-                            return Html::a(Html::encode($model->user->nickname), ['/user/view', 'id' => $model->user->id], ['title' => $model->user->username]);
+                        'value' => function ($date) {
+                            $user = User::findOne($date['user_id'])->toArray();
+                            return Html::a(Html::encode($user['nickname']), ['/user/view', 'id' => $date['user_id']], ['title' => $user['username']]).$resetNickname;
                         },
                         'format' => 'raw',
                     ],
                     [
-                        'attribute' => 'created_at',
-                        'value' => function ($model, $key, $index, $column) {
-                            return Yii::$app->formatter->asRelativeTime($model->created_at);
+                        'attribute' => Yii::t('app', 'Solved'),
+                        'header' => Html::a(Yii::t('app', 'Solved').'<span class="glyphicon glyphicon-sort-by-alphabet-alt"></span>', ['/group/view', 'id' => $model->id , 'sort' => 0]),
+                        'value' => function ($date) {
+                            return $date['solved']==''?0:$date['solved'];
+                        },
+                        'format' => 'raw',
+                    ],                    
+                    [
+                        'attribute' => Yii::t('app', 'Created At'),
+                        'value' => function ($date) {
+                            return Yii::$app->formatter->asRelativeTime($date['created_at']);
                         },
                         'options' => ['width' => '150px']
                     ],
                     [
-                        'class' => 'yii\grid\ActionColumn',
+                        'class' => 'yii\grid\ActionColumn','header' => '操作',
                         'template' => '{user-update} {user-delete}',
                         'buttons' => [
-                            'user-update' => function ($url, $model, $key) {
+                            'user-update' => function ($url, $date) {
+                                $url = '/group/user-update?id='.$date['id'];
                                 $options = [
                                     'title' => Yii::t('yii', 'Update'),
                                     'aria-label' => Yii::t('yii', 'Update'),
@@ -218,7 +240,8 @@ $scoreboardFrozenTime = Yii::$app->setting->get('scoreboardFrozenTime') / 3600;
                                 ];
                                 return Html::a('<span class="glyphicon glyphicon-pencil"></span>', $url, $options);
                             },
-                            'user-delete' => function ($url, $model, $key) {
+                            'user-delete' => function ($url, $date) {
+                                $url = '/group/user-delete?id='.$date['id'];
                                 $options = [
                                     'title' => Yii::t('yii', 'Delete'),
                                     'aria-label' => Yii::t('yii', 'Delete'),
