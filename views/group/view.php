@@ -206,7 +206,7 @@ $scoreboardFrozenTime = Yii::$app->setting->get('scoreboardFrozenTime') / 3600;
                         'attribute' => Yii::t('app', 'Nickname'),
                         'value' => function ($date) {
                             $user = User::findOne($date['user_id'])->toArray();
-                            return Html::a(Html::encode($user['nickname']), ['/user/view', 'id' => $date['user_id']], ['title' => $user['username']]).$resetNickname;
+                            return Html::a(Html::encode($user['nickname']), ['/user/view', 'id' => $date['user_id']], ['title' => $user['username']]);
                         },
                         'format' => 'raw',
                     ],
