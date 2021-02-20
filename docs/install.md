@@ -14,12 +14,11 @@
 
 > 适合在新装的系统或未运行 Web (nginx、mysql)有关服务的系统中。
 
-**注意！！！此方法目前仅在 Ubuntu 18.04、Ubuntu 16.04、Centos 7.2+ 中测试通过。其它 Linux 系统还未测试。**
+**注意！！！此方法目前仅在 Ubuntu 20.04/18.04/16.04、CentOS 8.3x 中测试通过。其它 Linux 系统还未测试。**
 
-执行以下命令，进行安装：
+执行以下命令，进行安装：(如果是CentOS,请先运行：yum install wget -y)
 ```
-wget https://gitee.com/yhssdl/lpszoj/raw/master/docs/install.sh
-sudo bash install.sh
+wget https://gitee.com/yhssdl/lpszoj/raw/master/docs/install.sh && sudo bash install.sh
 ```
 
 该脚本将 OJ 安装在 `/home/judge/lpszoj` 目录下。
