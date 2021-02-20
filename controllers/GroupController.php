@@ -227,8 +227,8 @@ class GroupController extends BaseController
 	            //　查找用户ID 以及查看是否已经加入比赛中
 	            $query = (new Query())->select('u.id as user_id, count(g.user_id) as exist')
 	                ->from('{{%user}} as u')
-	                ->leftJoin('{{%group_user}} as g', 'g.user_id=u.id')
-	                ->where('u.username=:name and g.group_id=:gid', [':name' => $newGroupUser->username, ':gid' => $model->id])
+	                ->leftJoin('{{%group_user}} as g', 'g.user_id=u.id and g.group_id=:gid', [':gid' => $model->id])
+	                ->where('u.username=:name', [':name' => $newGroupUser->username])
 	                ->one();
 	            if (!isset($query['user_id'])) {
 	                Yii::$app->session->setFlash('error', $newGroupUser->username.',不存在该用户');

@@ -207,8 +207,8 @@ class ContestController extends Controller
                     $username = trim($username);
                     $query = (new Query())->select('u.id as user_id, count(c.user_id) as exist')
                         ->from('{{%user}} as u')
-                        ->leftJoin('{{%contest_user}} as c', 'c.user_id=u.id')
-                        ->where('u.username=:name and c.contest_id=:cid', [':name' => $username, ':cid' => $model->id])
+                        ->leftJoin('{{%contest_user}} as c', 'c.user_id=u.id and c.contest_id=:cid', [':cid' => $model->id])
+                        ->where('u.username=:name', [':name' => $username])
                         ->one();
                     if (!isset($query['user_id'])) {
                         $message .= $username . " 不存在该用户<br>";
