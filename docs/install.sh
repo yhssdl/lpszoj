@@ -129,16 +129,17 @@ install_dependencies(){
         [ ! -f /etc/yum.repos.d/epel.repo ] && echo -e "[${red}Error${plain}] Install EPEL repository failed, please check it." && exit 1
         [ ! "$(command -v yum-config-manager)" ] && yum install -y yum-utils > /dev/null 2>&1
         [ x"$(yum-config-manager epel | grep -w enabled | awk '{print $3}')" != x"True" ] && yum-config-manager --enable epel > /dev/null 2>&1
+
+        rpm -Uvh http://nginx.org/packages/centos/7/noarch/RPMS/nginx-release-centos-7-0.el7.ngx.noarch.rpm
+        rpm -Uvh https://mirror.webtatic.com/yum/el7/webtatic-release.rpm
+        yum install -y http://rpms.remirepo.net/enterprise/remi-release-8.rpm
+        yum install -y yum-utils
         wget -O /etc/yum.repos.d/CentOS-Base.repo http://mirrors.aliyun.com/repo/Centos-8.repo
         yum clean all
         yum makecache
         sudo dnf -y install dnf-plugins-core
         sudo dnf -y install https://dl.fedoraproject.org/pub/epel/epel-release-latest-8.noarch.rpm
         sudo dnf config-manager --set-enabled PowerTools
-        rpm -Uvh http://nginx.org/packages/centos/7/noarch/RPMS/nginx-release-centos-7-0.el7.ngx.noarch.rpm
-        rpm -Uvh https://mirror.webtatic.com/yum/el7/webtatic-release.rpm
-        yum install -y http://rpms.remirepo.net/enterprise/remi-release-8.rpm
-        yum install -y yum-utils
         
         echo -e "[${green}Info${plain}] Checking the EPEL repository complete..."
 
@@ -153,7 +154,7 @@ install_dependencies(){
         for depend in ${yum_depends[@]}; do
             error_detect_depends "yum -y install ${depend}"
         done
-        ln -s /usr/bin/python3.6 /usr/bin/python3 > /dev/null 2>&1
+        ln -s /usr/bin/python3.8 /usr/bin/python3 > /dev/null 2>&1
     elif check_sys packageManager apt; then
         apt_depends=(
             nginx
