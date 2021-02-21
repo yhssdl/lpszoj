@@ -210,8 +210,8 @@ EOF
         DBUSER="root"
         systemctl start mariadb
         mysqladmin -u root password $DBPASS
-        sed -i "s/post_max_size = 8M/post_max_size = 128M/g" /etc/php.ini
-        sed -i "s/upload_max_filesize = 2M/upload_max_filesize = 128M/g" /etc/php.ini
+        sed -i "s/post_max_size = 8M/post_max_size = 128M/g" /etc/opt/remi/php${PHP_VERSION}/php.ini
+        sed -i "s/upload_max_filesize = 2M/upload_max_filesize = 128M/g" /etc/opt/remi/php${PHP_VERSION}/php.ini
         chmod 755 /home/judge
         chown nginx -R /home/judge/lpszoj
     else
@@ -267,8 +267,8 @@ enable_server(){
 
     if check_sys sysRelease centos; then
         systemctl start mariadb
-        systemctl start php-fpm
-        systemctl enable php-fpm
+        systemctl start php${PHP_VERSION}-php-fpm
+        systemctl enable php${PHP_VERSION}-php-fpm
         systemctl enable mariadb
     else
         systemctl enable php${PHP_VERSION}-fpm
