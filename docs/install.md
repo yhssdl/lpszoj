@@ -18,7 +18,7 @@
 
 执行以下命令，进行安装：
 ```
-yum install wget -y    (如果是CENTOS，先安装wget)
+yum install wget -y    (如果是CENTOS，先安装wget，ubuntu不需要安装)
 wget https://gitee.com/yhssdl/lpszoj/raw/master/docs/install.sh && sudo bash install.sh
 ```
 

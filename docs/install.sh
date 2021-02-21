@@ -124,11 +124,10 @@ error_detect_depends(){
 
 install_dependencies(){
     if check_sys packageManager yum; then
-        echo -e "[${green}Info${plain}] Checking the EPEL repository..."        
-        
-        sudo dnf -y install dnf-plugins-core
-        sudo dnf -y install https://dl.fedoraproject.org/pub/epel/epel-release-latest-8.noarch.rpm
-        sudo dnf config-manager --set-enabled PowerTools
+        echo -e "[${green}Info${plain}] Checking the EPEL repository..."
+
+        yum install -y yum-utils
+        yum-config-manager --enable powertools
 
         yum -y install gcc-c++ git make gcc glibc-static libstdc++-static
 
