@@ -113,7 +113,7 @@ error_detect_depends(){
     local command=$1
     local depend=`echo "${command}" | awk '{print $4}'`
     echo -e "[${green}Info${plain}] Starting to install package ${depend}"
-    ${command} > /dev/null 2>&1
+    ${command}
     if [ $? -ne 0 ]; then
         echo -e "[${red}Error${plain}] Failed to install ${red}${depend}${plain}"
         echo "Please visit: https://gitee.com/yhssdl/lpszoj/wikis and contact."
@@ -126,8 +126,8 @@ install_dependencies(){
     if check_sys packageManager yum; then
 
         error_detect_depends "yum -y install nginx"
-        
-        yum install -y yum-utils
+
+        [ ! "$(command -v yum-config-manager)" ] && yum install -y yum-utils > /dev/null 2>&1
         yum-config-manager --enable powertools
         yum-config-manager --enable PowerTools
 
@@ -138,7 +138,6 @@ install_dependencies(){
         yum install -y epel-release
         yum install -y http://rpms.remirepo.net/enterprise/remi-release-8.rpm
         [ ! -f /etc/yum.repos.d/epel.repo ] && echo -e "[${red}Error${plain}] Install EPEL repository failed, please check it." && exit 1
-        [ ! "$(command -v yum-config-manager)" ] && yum install -y yum-utils > /dev/null 2>&1
         [ x"$(yum-config-manager epel | grep -w enabled | awk '{print $3}')" != x"True" ] && yum-config-manager --enable epel > /dev/null 2>&1
 
 
