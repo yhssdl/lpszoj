@@ -130,7 +130,7 @@ install_dependencies(){
         sudo dnf -y install https://dl.fedoraproject.org/pub/epel/epel-release-latest-8.noarch.rpm
         sudo dnf config-manager --set-enabled PowerTools
 
-        error_detect_depends "yum -y install gcc-c++ git make gcc glibc-static libstdc++-static"
+        yum -y install gcc-c++ git make gcc glibc-static libstdc++-static
 
         yum install -y epel-release
         yum install -y http://rpms.remirepo.net/enterprise/remi-release-8.rpm
