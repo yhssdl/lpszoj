@@ -190,7 +190,7 @@ config_lpszoj(){
 
     if check_sys sysRelease centos; then
         mv /etc/nginx/conf.d/default.conf /etc/nginx/conf.d/default.back
-        cat>/etc/nginx/conf.d/lpszoj.conf<<EOF
+        cat>/etc/nginx/default.d/lpszoj.conf<<EOF
 server {
         listen 80 default_server;
         listen [::]:80 default_server;
