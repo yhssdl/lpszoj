@@ -131,9 +131,9 @@ install_dependencies(){
         [ x"$(yum-config-manager epel | grep -w enabled | awk '{print $3}')" != x"True" ] && yum-config-manager --enable epel > /dev/null 2>&1
         rpm -Uvh http://nginx.org/packages/centos/7/noarch/RPMS/nginx-release-centos-7-0.el7.ngx.noarch.rpm
         rpm -Uvh https://mirror.webtatic.com/yum/el7/webtatic-release.rpm
-        rpm -Uvh https://dl.fedoraproject.org/pub/epel/epel-release-latest-8.noarch.rpm
-        rpm -Uvh http://rpms.remirepo.net/enterprise/remi-release-8.rpm
-        dnf -y install dnf-utils
+        
+        yum install -y http://rpms.remirepo.net/enterprise/remi-release-8.rpm
+        yum install -y yum-utils
         
         echo -e "[${green}Info${plain}] Checking the EPEL repository complete..."
 
@@ -141,9 +141,9 @@ install_dependencies(){
             nginx
             php74-php-cli php74-php-fpm php74-php-gd php74-php-mbstring php74-php-mysqlnd php74-php-xml
             mariadb mariadb-devel mariadb-server
-            gcc-c++ glibc-static libstdc++-static git make gcc
+            gcc-c++ git make gcc glibc-static libstdc++-static
             java-1.8.0-openjdk java-1.8.0-openjdk-devel
-            python36
+            python38
         )
         for depend in ${yum_depends[@]}; do
             error_detect_depends "yum -y install ${depend}"
