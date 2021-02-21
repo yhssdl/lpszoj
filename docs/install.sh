@@ -124,12 +124,16 @@ error_detect_depends(){
 
 install_dependencies(){
     if check_sys packageManager yum; then
-        echo -e "[${green}Info${plain}] Checking the EPEL repository..."
 
+        error_detect_depends "yum -y install nginx"
+        
         yum install -y yum-utils
         yum-config-manager --enable powertools
+        yum-config-manager --enable PowerTools
 
-        yum -y install gcc-c++ git make gcc glibc-static libstdc++-static
+        error_detect_depends "yum -y install gcc-c++ git make gcc glibc-static libstdc++-static"
+
+        echo -e "[${green}Info${plain}] Checking the EPEL repository..."
 
         yum install -y epel-release
         yum install -y http://rpms.remirepo.net/enterprise/remi-release-8.rpm
@@ -141,7 +145,6 @@ install_dependencies(){
         echo -e "[${green}Info${plain}] Checking the EPEL repository complete..."
 
         yum_depends=(
-            nginx
             php74-php-cli php74-php-fpm php74-php-gd php74-php-mbstring php74-php-mysqlnd php74-php-xml
             mariadb mariadb-devel mariadb-server
             java-1.8.0-openjdk java-1.8.0-openjdk-devel
@@ -202,15 +205,15 @@ server {
         location ~ \.php$ {
                 include fastcgi_params;
                 fastcgi_param SCRIPT_FILENAME \$document_root\$fastcgi_script_name;
-                fastcgi_pass 127.0.0.1:9000;
+                fastcgi_pass unix:/var/pot/remi/php74/run/php-fpm/www.sock;
         }
 }
 EOF
         DBUSER="root"
         systemctl start mariadb
         mysqladmin -u root password $DBPASS
-        sed -i "s/post_max_size = 8M/post_max_size = 128M/g" /etc/opt/remi/php${PHP_VERSION}/php.ini
-        sed -i "s/upload_max_filesize = 2M/upload_max_filesize = 128M/g" /etc/opt/remi/php${PHP_VERSION}/php.ini
+        sed -i "s/post_max_size = 8M/post_max_size = 128M/g" /etc/opt/remi/php74/php.ini
+        sed -i "s/upload_max_filesize = 2M/upload_max_filesize = 128M/g" /etc/opt/remi/php74/php.ini
         chmod 755 /home/judge
         chown nginx -R /home/judge/lpszoj
     else
@@ -250,7 +253,8 @@ EOF
 
 config_firewall(){
     # open http/https services.
-    firewall-cmd --permanent --add-service=http --add-service=https --zone=public
+    firewall-cmd --zone=public --add-port=80/tcp --permanent
+    firewall-cmd --zone=public --add-port=443/tcp --permanent 
 
     # reload firewall config
     firewall-cmd --reload
@@ -258,21 +262,23 @@ config_firewall(){
 
 enable_server(){
     PHP_VERSION=7.`php -v>&1|awk '{print $2}'|awk -F '.' '{print $2}'`
-    # startup service
-    systemctl start nginx
-    
-    # startup service when booting.
-    systemctl enable nginx
+
 
     if check_sys sysRelease centos; then
         systemctl start mariadb
-        systemctl start php${PHP_VERSION}-php-fpm
-        systemctl enable php${PHP_VERSION}-php-fpm
+        systemctl start php74-php-fpm
+        systemctl enable php74-php-fpm
         systemctl enable mariadb
     else
         systemctl enable php${PHP_VERSION}-fpm
         systemctl enable mysql
     fi
+
+    # startup service
+    systemctl start nginx
+    
+    # startup service when booting.
+    systemctl enable nginx    
 }
 
 install_lpszoj(){
