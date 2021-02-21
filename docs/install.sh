@@ -130,8 +130,6 @@ install_dependencies(){
         [ ! "$(command -v yum-config-manager)" ] && yum install -y yum-utils > /dev/null 2>&1
         [ x"$(yum-config-manager epel | grep -w enabled | awk '{print $3}')" != x"True" ] && yum-config-manager --enable epel > /dev/null 2>&1
 
-        rpm -Uvh http://nginx.org/packages/centos/7/noarch/RPMS/nginx-release-centos-7-0.el7.ngx.noarch.rpm
-        rpm -Uvh https://mirror.webtatic.com/yum/el7/webtatic-release.rpm
         yum install -y http://rpms.remirepo.net/enterprise/remi-release-8.rpm
         yum install -y yum-utils
         sudo dnf -y install dnf-plugins-core
