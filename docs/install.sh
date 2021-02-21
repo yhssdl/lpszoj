@@ -134,9 +134,6 @@ install_dependencies(){
         rpm -Uvh https://mirror.webtatic.com/yum/el7/webtatic-release.rpm
         yum install -y http://rpms.remirepo.net/enterprise/remi-release-8.rpm
         yum install -y yum-utils
-        wget -O /etc/yum.repos.d/CentOS-Base.repo http://mirrors.aliyun.com/repo/Centos-8.repo
-        yum clean all
-        yum makecache
         sudo dnf -y install dnf-plugins-core
         sudo dnf -y install https://dl.fedoraproject.org/pub/epel/epel-release-latest-8.noarch.rpm
         sudo dnf config-manager --set-enabled PowerTools
