@@ -124,16 +124,17 @@ error_detect_depends(){
 
 install_dependencies(){
     if check_sys packageManager yum; then
-        ver = cat /etc/redhat-release|sed -r 's/.* ([0-9]+)\..*/\1/';
+        local version="$(getversion)"
+        local main_ver=${version%%.*}
         echo -e "[${green}Info${plain}] Checking the EPEL repository..."
         yum install -y epel-release
-        yum install -y http://rpms.remirepo.net/enterprise/remi-release-${var}.rpm
+        yum install -y http://rpms.remirepo.net/enterprise/remi-release-${main_ver}.rpm
    
         [ ! -f /etc/yum.repos.d/epel.repo ] && echo -e "[${red}Error${plain}] Install EPEL repository failed, please check it." && exit 1
         [ ! "$(command -v yum-config-manager)" ] && yum install -y yum-utils > /dev/null 2>&1
         [ x"$(yum-config-manager epel | grep -w enabled | awk '{print $3}')" != x"True" ] && yum-config-manager --enable epel > /dev/null 2>&1
 
-        if [ $ver -le 8 ]; then
+        if [ $main_ver -le 8 ]; then
             yum-config-manager --enable powertools > /dev/null 2>&1
             yum-config-manager --enable PowerTools > /dev/null 2>&1
         fi
@@ -150,7 +151,7 @@ install_dependencies(){
             error_detect_depends "yum -y install ${depend}"
         done
 
-        if [ $ver -le 8 ]; then
+        if [ $main_ver -le 8 ]; then
              error_detect_depends "yum -y install python38" 
              ln -s /usr/bin/python3.8 /usr/bin/python3 > /dev/null 2>&1
         else
