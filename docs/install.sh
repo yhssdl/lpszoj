@@ -222,8 +222,9 @@ EOF
         sed -i "s/post_max_size = 8M/post_max_size = 128M/g" /etc/opt/remi/php74/php.ini
         sed -i "s/upload_max_filesize = 2M/upload_max_filesize = 128M/g" /etc/opt/remi/php74/php.ini
         sed -i "s/= apache/= nginx/g" /etc/opt/remi/php74/php-fpm.d/www.conf
-        sed -i "s/;listen.mode = 0660/listen.mode = 0666/g" /etc/opt/remi/php74/php-fpm.d/www.conf        
-        sed -i "s/80 default/800 default/g" /etc/nginx/nginx.conf    
+        sed -i "s/;listen.mode = 0660/listen.mode = 0666/g" /etc/opt/remi/php74/php-fpm.d/www.conf
+        sed -i "s/127.0.0.1:9000/\\/var\\/opt\\/remi\\/php74\\/run\\/php-fpm\\/www.sock/g" /etc/opt/remi/php74/php-fpm.d/www.conf
+        sed -i "s/80 default/800 default/g" /etc/nginx/nginx.conf
         chmod 755 /home/judge
         chown nginx -R /home/judge/lpszoj
     else
