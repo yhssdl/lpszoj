@@ -197,7 +197,7 @@ server {
         location ~ \.php$ {
                 include fastcgi_params;
                 fastcgi_param SCRIPT_FILENAME \$document_root\$fastcgi_script_name;
-                fastcgi_pass unix:/var/pot/remi/php74/run/php-fpm/www.sock;
+                fastcgi_pass unix:/var/opt/remi/php74/run/php-fpm/www.sock;
         }
 }
 EOF
