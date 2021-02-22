@@ -124,10 +124,11 @@ error_detect_depends(){
 
 install_dependencies(){
     if check_sys packageManager yum; then
-        $ver = cat /etc/redhat-release|sed -r 's/.* ([0-9]+)\..*/\1/';
+        ver = cat /etc/redhat-release|sed -r 's/.* ([0-9]+)\..*/\1/';
         echo -e "[${green}Info${plain}] Checking the EPEL repository..."
         yum install -y epel-release
-        yum install -y http://rpms.remirepo.net/enterprise/remi-release-$ver.rpm
+        yum install -y http://rpms.remirepo.net/enterprise/remi-release-${var}.rpm
+   
         [ ! -f /etc/yum.repos.d/epel.repo ] && echo -e "[${red}Error${plain}] Install EPEL repository failed, please check it." && exit 1
         [ ! "$(command -v yum-config-manager)" ] && yum install -y yum-utils > /dev/null 2>&1
         [ x"$(yum-config-manager epel | grep -w enabled | awk '{print $3}')" != x"True" ] && yum-config-manager --enable epel > /dev/null 2>&1
