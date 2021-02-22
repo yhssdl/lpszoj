@@ -124,28 +124,21 @@ error_detect_depends(){
 
 install_dependencies(){
     if check_sys packageManager yum; then
-
-        error_detect_depends "yum -y install nginx"
-
-        [ ! "$(command -v yum-config-manager)" ] && yum install -y yum-utils > /dev/null 2>&1
-        yum-config-manager --enable powertools
-        yum-config-manager --enable PowerTools
-
-        error_detect_depends "yum -y install gcc-c++ git make gcc glibc-static libstdc++-static"
-
         echo -e "[${green}Info${plain}] Checking the EPEL repository..."
-
         yum install -y epel-release
         yum install -y http://rpms.remirepo.net/enterprise/remi-release-8.rpm
         [ ! -f /etc/yum.repos.d/epel.repo ] && echo -e "[${red}Error${plain}] Install EPEL repository failed, please check it." && exit 1
+        [ ! "$(command -v yum-config-manager)" ] && yum install -y yum-utils > /dev/null 2>&1
         [ x"$(yum-config-manager epel | grep -w enabled | awk '{print $3}')" != x"True" ] && yum-config-manager --enable epel > /dev/null 2>&1
+        yum-config-manager --enable powertools > /dev/null 2>&1
+        yum-config-manager --enable PowerTools > /dev/null 2>&1
 
-
-        echo -e "[${green}Info${plain}] Checking the EPEL repository complete..."
 
         yum_depends=(
+            nginx
             php74-php-cli php74-php-fpm php74-php-gd php74-php-mbstring php74-php-mysqlnd php74-php-xml
             mariadb mariadb-devel mariadb-server
+            gcc-c++ glibc-static libstdc++-static git make gcc
             java-1.8.0-openjdk java-1.8.0-openjdk-devel
             python38
         )
