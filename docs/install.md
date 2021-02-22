@@ -98,7 +98,7 @@ wget https://gitee.com/yhssdl/lpszoj/raw/master/docs/install.sh && sudo bash ins
     2. 创建一个用于判题的用户，运行命令：`sudo useradd -m -u 1536 judge`
     3. 将控制台切换到 `judge` 目录（即运行 `cd judge`命令），然后运行 `make` 命令
     4. 运行 `sudo ./dispatcher` 命令
-    5. 如果在CentOS中编译C或C++程序时，出现“找不到-lm，-lc”等情况，可以运行命令：yum install glibc-static 与  yum install libstdc++-static
+    5. 如果在CentOS中编译C或C++程序时，出现“找不到-lm，-lc”等情况，可以运行命令：yum install glibc-static libstdc++-static（如果是CentOS 8中安装失败，可以先运行yum install -y yum-utils，再运行yum-config-manager --enable powertools与yum-config-manager --enable PowerTools后，再次尝试安装）
 
 4. 配置配置多边形系统
     
