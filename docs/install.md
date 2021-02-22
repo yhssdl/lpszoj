@@ -14,11 +14,11 @@
 
 > 适合在新装的系统或未运行 Web (nginx、mysql)有关服务的系统中。
 
-**注意！！！此方法目前仅在 Ubuntu 20.04/18.04/16.04、CentOS 8.3X/8.2X 中测试通过。其它 Linux 系统还未测试。**
+**注意！！！此方法目前仅在 Ubuntu 20.04/18.04/16.04、CentOS 7.9/8.X 中测试通过。其它 Linux 系统还未测试。**
 
 执行以下命令，进行安装：
 ```
-yum install wget -y    (如果是CENTOS，先安装wget，ubuntu不需要安装)
+yum install wget -y                           (如果是CENTOS，先安装wget，ubuntu不需要安装)
 wget https://gitee.com/yhssdl/lpszoj/raw/master/docs/install.sh && sudo bash install.sh
 ```
 
