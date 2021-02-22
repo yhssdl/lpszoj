@@ -146,6 +146,7 @@ install_dependencies(){
             error_detect_depends "yum -y install ${depend}"
         done
         ln -s /usr/bin/python3.8 /usr/bin/python3 > /dev/null 2>&1
+        ln -s /opt/remi/php74/root/usr/bin/php /usr/bin/php > /dev/null 2>&1
     elif check_sys packageManager apt; then
         apt_depends=(
             nginx
@@ -196,7 +197,7 @@ server {
         }
         location ~ \.php$ {
                 include fastcgi_params;
-                fastcgi_param SCRIPT_FILENAME \$document_root\$fastcgi_script_name;
+                fastcgi_param  SCRIPT_FILENAME  $document_root$fastcgi_script_name;
                 fastcgi_pass unix:/var/opt/remi/php74/run/php-fpm/www.sock;
         }
 }
@@ -206,6 +207,8 @@ EOF
         mysqladmin -u root password $DBPASS
         sed -i "s/post_max_size = 8M/post_max_size = 128M/g" /etc/opt/remi/php74/php.ini
         sed -i "s/upload_max_filesize = 2M/upload_max_filesize = 128M/g" /etc/opt/remi/php74/php.ini
+        sed -i "s/= apache/= nginx/g" /etc/opt/remi/php74/php-fpm.d/www.conf
+        sed -i "s/;listen.mode = 0660/listen.mode = 0666/g" /etc/opt/remi/php74/php-fpm.d/www.conf        
         sed -i "s/80 default/800 default/g" /etc/nginx/nginx.conf    
         chmod 755 /home/judge
         chown nginx -R /home/judge/lpszoj
