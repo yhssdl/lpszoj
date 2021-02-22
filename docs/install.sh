@@ -183,7 +183,7 @@ config_lpszoj(){
 
     if check_sys sysRelease centos; then
         mv /etc/nginx/conf.d/default.conf /etc/nginx/conf.d/default.back
-        cat>/etc/nginx/default.d/lpszoj.conf<<EOF
+        cat>/etc/nginx/conf.d/lpszoj.conf<<EOF
 server {
         listen 80 default_server;
         listen [::]:80 default_server;
@@ -206,6 +206,7 @@ EOF
         mysqladmin -u root password $DBPASS
         sed -i "s/post_max_size = 8M/post_max_size = 128M/g" /etc/opt/remi/php74/php.ini
         sed -i "s/upload_max_filesize = 2M/upload_max_filesize = 128M/g" /etc/opt/remi/php74/php.ini
+        sed -i "s/80 default/800 default/g" /etc/nginx/nginx.conf    
         chmod 755 /home/judge
         chown nginx -R /home/judge/lpszoj
     else
