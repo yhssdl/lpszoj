@@ -261,7 +261,7 @@ After=network.target mysql.service
 Wants=mysql.service
 
 [Service]
-ExecStart=-/home/judge/lpszoj/judge/dispatcher
+ExecStart=-/home/judge/lpszoj/judge/dispatcher -o
 RemainAfterExit=yes
 KillMode=control-group
 Restart=on-failure
@@ -350,7 +350,7 @@ install_lpszoj(){
     echo -e "yes" "\n" "admin" "\n" "123456" "\n" "admin@lpszoj.org" | ./yii install
     cd /home/judge/lpszoj/judge
     make
-    ./dispatcher
+    ./dispatcher -o
     cd /home/judge/lpszoj/polygon
     make
     ./polygon

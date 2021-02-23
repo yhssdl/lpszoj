@@ -17,7 +17,7 @@ class m190309_123832_setting extends Migration
         $this->insert('{{%setting}}', ['key' => 'schoolName', 'value' => '江南大学']);
         $this->insert('{{%setting}}', ['key' => 'scoreboardFrozenTime', 'value' => '7200']);
         $this->insert('{{%setting}}', ['key' => 'isShareCode', 'value' => '1']);
-        $this->insert('{{%setting}}', ['key' => 'oiMode', 'value' => '0']);
+        $this->insert('{{%setting}}', ['key' => 'oiMode', 'value' => '1']);
         $this->insert('{{%setting}}', ['key' => 'isUserReg', 'value' => '1']);
         $this->insert('{{%setting}}', ['key' => 'isDiscuss', 'value' => '1']);
         $this->insert('{{%setting}}', ['key' => 'isDefGroup', 'value' => '3']);
