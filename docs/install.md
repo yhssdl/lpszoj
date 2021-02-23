@@ -18,8 +18,11 @@
 
 执行以下命令，进行安装：
 ```
-yum install wget -y                        (CENTOS先运行该命令安装wget，ubuntu不需要安装)
+Ubuntu运行：
 wget https://gitee.com/yhssdl/lpszoj/raw/master/docs/install.sh && sudo bash install.sh
+
+CentOS运行：
+yum install wget -y && wget https://gitee.com/yhssdl/lpszoj/raw/master/docs/install.sh && sudo bash install.sh
 ```
 
 该脚本将 OJ 安装在 `/home/judge/lpszoj` 目录下。
