@@ -253,7 +253,41 @@ EOF
         systemctl restart nginx
         systemctl restart php${PHP_VERSION}-fpm
     fi
-    
+
+        cat>/etc/systemd/system/judge.service<<EOF
+[Unit]
+Description=Start judge
+After=network.target mysql.service
+Wants=mysql.service
+
+[Service]
+ExecStart=-/home/judge/lpszoj/judge/dispatcher
+RemainAfterExit=yes
+KillMode=control-group
+Restart=on-failure
+RestartSec=5
+
+[Install]
+WantedBy=multi-user.target
+EOF
+        cat>/etc/systemd/system/polygon.service<<EOF
+[Unit]
+Description=Start polygon
+After=network.target mysql.service
+Wants=mysql.service
+
+[Service]
+ExecStart=-/home/judge/lpszoj/polygon/polygon
+RemainAfterExit=yes
+KillMode=control-group
+Restart=on-failure
+RestartSec=5
+
+[Install]
+WantedBy=multi-user.target
+EOF
+
+
     mysql -h localhost -u$DBUSER -p$DBPASS -e "create database ojdate;"
     if [ $? -eq 0 ]; then
         # Modify database information
@@ -285,11 +319,16 @@ enable_server(){
         systemctl enable mysql
     fi
 
+    systemctl daemon-reload
+
     # startup service
     systemctl start nginx
     
     # startup service when booting.
     systemctl enable nginx    
+
+    systemctl enable judge
+    systemctl enable polygon
 }
 
 install_lpszoj(){
