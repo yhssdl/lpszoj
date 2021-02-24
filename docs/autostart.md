@@ -10,8 +10,7 @@
 ```
 [Unit]
 Description=Start judge
-After=network.target mysql.service
-Wants=mysql.service
+After=network.target mysql.service mariadb.service
 
 [Service]
 # 根据安装修改为对应的安装路径，你应该要能在该路径找到可执行文件 dispatcher
@@ -32,8 +31,7 @@ WantedBy=multi-user.target
 ```
 [Unit]
 Description=Start polygon
-After=network.target mysql.service
-Wants=mysql.service
+After=network.target mysql.service mariadb.service
 
 [Service]
 # 根据安装修改为对应的安装路径，你应该要能在该路径找到可执行文件 polygon

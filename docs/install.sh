@@ -257,8 +257,7 @@ EOF
         cat>/etc/systemd/system/judge.service<<EOF
 [Unit]
 Description=Start judge
-After=network.target mysql.service
-Wants=mysql.service
+After=network.target mysql.service mariadb.service
 
 [Service]
 ExecStart=-/home/judge/lpszoj/judge/dispatcher -o
@@ -273,8 +272,7 @@ EOF
         cat>/etc/systemd/system/polygon.service<<EOF
 [Unit]
 Description=Start polygon
-After=network.target mysql.service
-Wants=mysql.service
+After=network.target mysql.service mariadb.service
 
 [Service]
 ExecStart=-/home/judge/lpszoj/polygon/polygon
