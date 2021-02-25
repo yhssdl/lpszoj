@@ -34,7 +34,7 @@ yum install wget -y && wget https://gitee.com/yhssdl/lpszoj/raw/master/docs/inst
 
 手动安装过程
 ------------
-CentOS 8.3 + 宝塔面板 + OJ系统安装WORD教程：(./bt_install.docx)
+CentOS 8.3 + 宝塔面板 + OJ系统安装WORD教程：[点击下载教程](bt_install.docx)
 
 搭建 LNMP (或 LAMP) 环境，可以参考：[LNMP 环境搭建](environment.md)。
 
