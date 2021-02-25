@@ -14,7 +14,7 @@ After=network.target mysql.service mariadb.service
 
 [Service]
 # 根据安装修改为对应的安装路径，你应该要能在该路径找到可执行文件 dispatcher
-ExecStart=-/home/judge/lpszoj/judge/dispatcher
+ExecStart=-/home/judge/lpszoj/judge/dispatcher -o
 RemainAfterExit=yes
 KillMode=control-group
 Restart=on-failure
