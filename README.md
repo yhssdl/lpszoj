@@ -13,6 +13,13 @@
 ---------
 [JNOJ Demo](https://demo.jnoj.org)
 
+帮助文档
+--------
+
+1. [安装教程](docs/install.md)
+2. [更新教程](docs/update.md)
+3. [https://gitee.com/yhssdl/lpszoj/wikis](https://gitee.com/yhssdl/lpszoj/wikis)
+
 功能特性
 ----------
 
@@ -39,12 +46,6 @@
 - [x] 排行榜 - 对用户解题数量等进行排行
 - [x] 积分榜 - 对参加比赛的用户进行积分结算，并进行排名
 
-帮助文档
---------
-
-1. [安装教程](docs/install.md)
-2. [更新教程](docs/update.md)
-3. [https://gitee.com/yhssdl/lpszoj/wikis](https://gitee.com/yhssdl/lpszoj/wikis)
 
 
 开发者支持
