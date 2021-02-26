@@ -9,12 +9,13 @@
 
 ```
 [Unit]
-Description=Start judge
+Description=Judge
 After=network.target mysql.service mariadb.service
 
 [Service]
 # 根据安装修改为对应的安装路径，你应该要能在该路径找到可执行文件 dispatcher
 ExecStart=-/home/judge/lpszoj/judge/dispatcher -o
+ExecStop=/bin/pkill -9 dispatcher
 RemainAfterExit=yes
 KillMode=control-group
 Restart=on-failure
@@ -30,12 +31,13 @@ WantedBy=multi-user.target
 
 ```
 [Unit]
-Description=Start polygon
+Description=Polygon
 After=network.target mysql.service mariadb.service
 
 [Service]
 # 根据安装修改为对应的安装路径，你应该要能在该路径找到可执行文件 polygon
 ExecStart=-/home/judge/lpszoj/polygon/polygon
+ExecStop=/bin/pkill -9 polygon
 RemainAfterExit=yes
 KillMode=control-group
 Restart=on-failure

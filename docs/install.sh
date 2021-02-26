@@ -256,11 +256,12 @@ EOF
 
         cat>/etc/systemd/system/judge.service<<EOF
 [Unit]
-Description=Start judge
+Description=Judge
 After=network.target mysql.service mariadb.service
 
 [Service]
 ExecStart=-/home/judge/lpszoj/judge/dispatcher -o
+ExecStop=/bin/pkill -9 dispatcher
 RemainAfterExit=yes
 KillMode=control-group
 Restart=on-failure
@@ -271,11 +272,12 @@ WantedBy=multi-user.target
 EOF
         cat>/etc/systemd/system/polygon.service<<EOF
 [Unit]
-Description=Start polygon
+Description=Polygon
 After=network.target mysql.service mariadb.service
 
 [Service]
 ExecStart=-/home/judge/lpszoj/polygon/polygon
+ExecStop=/bin/pkill -9 polygon
 RemainAfterExit=yes
 KillMode=control-group
 Restart=on-failure
