@@ -259,5 +259,6 @@ return [
     'MS' => '毫秒',
     'Rated' => '计算评分',
     'Rating change' => '评级变动',
-    'Done' => '完成'
+    'Done' => '完成',
+    'Are you sure you want to delete this item?' => '确定要删除这一项吗？'
 ];
