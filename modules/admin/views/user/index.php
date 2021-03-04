@@ -65,14 +65,28 @@ $this->title = Yii::t('app', 'Users');
                 'class' => 'yii\grid\CheckboxColumn',
                 'name' => 'id',
             ],
-            'id',
+            [
+                'attribute' => 'id',
+                'value' => function ($model, $key, $index, $column) {
+                    return Html::a($model->id, ['/user/view', 'id' => $key], ['target' => '_blank']);
+                },            
+                'format' => 'raw',
+                'enableSorting' => false,
+            ],
+
             [
                 'attribute' => 'username',
+                'value' => function ($model, $key, $index, $column) {
+                    return Html::a($model->username, ['/user/view', 'id' => $key], ['target' => '_blank']);
+                },            
                 'format' => 'raw',
                 'enableSorting' => false,
             ],
             [
                 'attribute' => 'nickname',
+                'value' => function ($model, $key, $index, $column) {
+                    return Html::a($model->nickname, ['/user/view', 'id' => $key], ['target' => '_blank']);
+                },                  
                 'format' => 'raw',
                 'enableSorting' => false,
             ],
