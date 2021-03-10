@@ -20,7 +20,7 @@ $this->params['breadcrumbs'][] = Yii::t('app', 'User');
         'options' => ['class' => 'table-responsive'],
         'columns' => [
             [
-                'attribute' => 'participants',
+                'attribute' => Yii::t('app', 'participants'),
                 'value' => function ($model, $key, $index, $column) {
                     return Html::a(Html::encode($model->user->nickname), ['/user/view', 'id' => $model->user->id]);
                 },

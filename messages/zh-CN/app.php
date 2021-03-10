@@ -260,5 +260,6 @@ return [
     'Rated' => '计算评分',
     'Rating change' => '评级变动',
     'Done' => '完成',
-    'Are you sure you want to delete this item?' => '确定要删除这一项吗？'
+    'Are you sure you want to delete this item?' => '确定要删除这一项吗？',
+    'participants' => '参赛人员'
 ];
