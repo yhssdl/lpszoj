@@ -325,7 +325,9 @@ class User extends ActiveRecord implements IdentityInterface
     public function getSolutionStats()
     {
         $data = Yii::$app->db->createCommand(
-            'SELECT problem_id, language, result FROM {{%solution}} WHERE created_by=:uid',
+            'SELECT `s`.`problem_id`, `s`.`language`, `s`.`result` FROM {{%solution}} `s`
+             LEFT JOIN {{%contest}} `c` ON `c`.`id`=`s`.`contest_id`
+             WHERE  (`s`.`contest_id` IS NULL OR (`s`.`contest_id` IS NOT NULL AND NOW()>`c`.`end_time`)) AND  `s`.`created_by`=:uid',
             [':uid' => $this->id]
         )->queryAll();
 

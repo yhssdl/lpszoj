@@ -190,7 +190,7 @@ class GroupController extends BaseController
         }
 
         $userDataProvider = new SqlDataProvider([
-            'sql' => "SELECT u.*, s.solved FROM group_user as u LEFT JOIN (SELECT  COUNT(DISTINCT problem_id) AS solved, created_by FROM solution WHERE result=4 GROUP BY created_by) AS s ON u.user_id = s.created_by WHERE u.group_id = :id ORDER BY " . $s,
+            'sql' => "SELECT u.*, s.solved FROM group_user as u LEFT JOIN (SELECT  COUNT(DISTINCT `solution`.problem_id) AS solved, `solution`.created_by FROM solution LEFT JOIN `contest` `c` ON `c`.`id`=`solution`.`contest_id` WHERE (`solution`.`contest_id` IS NULL OR (`solution`.`contest_id` IS NOT NULL AND NOW()>`c`.`end_time`)) AND result=4 GROUP BY `solution`.created_by) AS s ON u.user_id = s.created_by WHERE u.group_id = :id ORDER BY " . $s,
             'params' => [':id' => $model->id],
             'totalCount' => $count,
             'pagination' => [
