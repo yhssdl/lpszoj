@@ -363,6 +363,7 @@ void addceinfo(int solution_id)
     update_solution_info(solution_id, ceinfo);
 }
 
+/*
 void update_problem_stat(int pid)
 {
     char sql[BUFFER_SIZE];
@@ -378,7 +379,7 @@ void update_problem_stat(int pid)
             pid, pid);
     if (mysql_real_query(conn, sql, strlen(sql)))
         write_log(mysql_error(conn));
-}
+}*/
 
 void umount(char *work_dir)
 {
@@ -1360,7 +1361,7 @@ int main(int argc, char** argv)
     if (compile(lang, work_dir) != 0) {
         addceinfo(solution_id);
         update_solution(solution_id, OJ_CE, 0, 0, "0/0", 0);
-        update_problem_stat(problem_id);
+        //update_problem_stat(problem_id);
         mysql_close(conn);
         clean_workdir(work_dir);
         write_log("[Solution ID: %d] Compile Error", solution_id);
@@ -1514,7 +1515,7 @@ int main(int argc, char** argv)
     char pass_info[BUFFER_SIZE];
     sprintf(pass_info, "%d/%d", pass_total_test_count, test_total_count);
     update_solution(solution_id, run_result, max_case_time, topmemory >> 10, pass_info, (int)score);
-    update_problem_stat(problem_id);
+    //update_problem_stat(problem_id);
     update_solution_info(solution_id, cJSON_PrintUnformatted(judge_json_object));
     clean_workdir(work_dir);
     mysql_close(conn);

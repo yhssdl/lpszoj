@@ -485,8 +485,27 @@ void init_parameters(int argc, char *argv[])
         }
     }
 }
+
+void update_problem_stat(){
+
+    if (DEBUG)
+        printf("Update the statistical results of the Problem table.\n");
+
+    char *sql = "UPDATE problem AS p INNER JOIN ( SELECT problem_id, COUNT(*) AS num FROM solution WHERE result=4 GROUP BY problem_id) AS c ON p.id = c.problem_id SET p.accepted = c.num";
+    if (mysql_real_query(conn, sql, strlen(sql)))
+        write_log(mysql_error(conn));
+    
+    sql = "UPDATE problem AS p INNER JOIN (SELECT problem_id, COUNT(*) AS num FROM solution GROUP BY problem_id) AS c ON p.id = c.problem_id SET p.submit = c.num";
+    if (mysql_real_query(conn, sql, strlen(sql)))
+        write_log(mysql_error(conn));
+
+}
+
 int main(int argc, char *argv[])
 {
+    time_t t; 
+    struct tm * a; 
+    int day = 0;
     init_parameters(argc, argv);
     set_path();
     chdir(oj_home); // change the dir
@@ -514,6 +533,12 @@ int main(int argc, char *argv[])
         int j = 1;
         while (j && !init_mysql()) {
             j = work();
+        }
+        time(&t); 
+        a=localtime(&t); 
+        if(day!=a->tm_mday){
+            day = a->tm_mday;
+            update_problem_stat();
         }
         turbo_mode2();
         sleep(sleep_time);
