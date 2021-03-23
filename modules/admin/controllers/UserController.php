@@ -149,8 +149,7 @@ class UserController extends Controller
      */
     public function actionDelete($id)
     {
-        Yii::$app->session->setFlash('error', '暂不支持删除用户');
-
+        $this->findModel($id)->delete();
         return $this->redirect(['index']);
     }
 
