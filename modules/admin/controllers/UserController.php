@@ -149,7 +149,14 @@ class UserController extends Controller
      */
     public function actionDelete($id)
     {
+        Yii::$app->db->createCommand()->delete('{{%user_profile}}',['user_id' => $id])->execute();
+        Yii::$app->db->createCommand()->delete('{{%contest_user}}',['user_id' => $id])->execute();
+        Yii::$app->db->createCommand()->delete('{{%group_user}}',['user_id' => $id])->execute();
+        Yii::$app->db->createCommand()->delete('{{%discuss}}',['created_by' => $id])->execute(); 
+        Yii::$app->db->createCommand('DELETE solution_info, solution FROM solution_info, solution  WHERE solution_info.solution_id=solution.id AND solution.created_by=:uid',[':uid' => $id])->execute(); 
         $this->findModel($id)->delete();
+        Yii::$app->session->setFlash('success', Yii::t('app', 'Delete successfully'));
+
         return $this->redirect(['index']);
     }
 

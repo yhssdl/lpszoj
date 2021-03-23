@@ -261,5 +261,6 @@ return [
     'Rating change' => '评级变动',
     'Done' => '完成',
     'Are you sure you want to delete this item?' => '确定要删除这一项吗？',
+    'Delete successfully' => '用户删除成功',   
     'participants' => '参赛人员'
 ];
