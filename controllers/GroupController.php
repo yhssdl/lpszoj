@@ -224,8 +224,8 @@ class GroupController extends BaseController
             	continue;
      		    $newGroupUser = new GroupUser();            
                 $newGroupUser->username = $usernames[$i];
-	            //　查找用户ID 以及查看是否已经加入比赛中
-	            $query = (new Query())->select('u.id as user_id, count(g.user_id) as exist')
+	            //　查找用户ID 以及查看是否已经加入小组中
+	            $query = (new Query())->select('u.id as user_id, g.role as user_role, count(g.user_id) as exist')
 	                ->from('{{%user}} as u')
 	                ->leftJoin('{{%group_user}} as g', 'g.user_id=u.id and g.group_id=:gid', [':gid' => $model->id])
 	                ->where('u.username=:name', [':name' => $newGroupUser->username])
@@ -240,6 +240,10 @@ class GroupController extends BaseController
 	                $newGroupUser->save();
 	                ++$join;
 	            } else {
+                    if (isset($query['user_role']) and $query['user_role']>=4) {
+                        //已经在小组中
+                        continue;
+                    }
 	                Yii::$app->db->createCommand()->update('{{%group_user}}', [
 	                    'role' => $role
 	                ], ['user_id' => $query['user_id'], 'group_id' => $model->id])->execute();
