@@ -68,9 +68,11 @@ class UserController extends Controller
             $keys = Yii::$app->request->post('keylist');
             $action = Yii::$app->request->get('action');
             foreach ($keys as $key) {
-                Yii::$app->db->createCommand()->update('{{%user}}', [
-                    'role' => $action
-                ], ['id' => $key])->execute();
+                if(Yii::$app->user->id != $key){
+                    Yii::$app->db->createCommand()->update('{{%user}}', [
+                        'role' => $action
+                    ], ['id' => $key])->execute();                   
+                }
             }
             return $this->refresh();
         }
