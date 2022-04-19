@@ -112,19 +112,21 @@ $status = $model->getRunStatus();
             </div>
             <div class="progress hidden-print">
                 <div class="progress-bar progress-bar-success" id="contest-progress" role="progressbar" aria-valuenow="60" aria-valuemin="0" aria-valuemax="100" style="width: 1%;">
-                    <?php if ($status == $model::STATUS_NOT_START): ?>
-                        Not start
-                        <p><?= date('y-m-d H:i:s', time()) ?></p>
-                    <?php elseif ($status == $model::STATUS_RUNNING): ?>
-                        <?= Yii::t('app', 'Running') ?>
-                    <?php else: ?>
-                        <?= Yii::t('app', 'Contest is over.') ?>
-                    <?php endif; ?>
+
                 </div>
             </div>
             <div class="text-center hidden-print">
-                <strong><?= Yii::t('app', 'Now') ?></strong>
-                <span id="nowdate"> <?= date("Y-m-d H:i:s") ?></span>
+                 <p><strong><?= Yii::t('app', 'Now') ?></strong>
+                <span id="nowdate"> <?= date("Y-m-d H:i:s") ?></span></p>
+               <span>                    
+                    <?php if ($status == $model::STATUS_ENDED): ?>
+                       <?= Yii::t('app', 'Contest is over.') ?>
+                    <?php elseif ($status == $model::STATUS_RUNNING): ?>
+                        <?= Yii::t('app', 'Running') ?>
+                    <?php elseif ($status == $model::STATUS_NOT_START): ?>
+                         <?= Yii::t('app', 'Not start') ?>
+                    <?php endif; ?>
+                </span>
             </div>
         </div>
         <hr>

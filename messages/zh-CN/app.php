@@ -236,6 +236,7 @@ return [
 
     'Level' => '等级',
     'Contest is over.' => "比赛已经结束",
+    'Not start' => "比赛还未开始",
     'solved/Penalty time' =>'通过数/惩罚时间',
     'Polygon System' => 'Polygon系统',
     'From' => '从',

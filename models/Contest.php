@@ -43,6 +43,7 @@ class Contest extends \yii\db\ActiveRecord
     const STATUS_NOT_START = 0;
     const STATUS_RUNNING = 1;
     const STATUS_ENDED = 2;
+    const STATUS_UNKONW = 3;
 
     /**
      * 比赛的类型
@@ -198,7 +199,9 @@ class Contest extends \yii\db\ActiveRecord
                 return Yii::t('app', 'Ended');
             }
         } else {
-            if ($start_time > $current_time) {
+            if($start_time=="")  {
+                return Contest::STATUS_UNKONW;
+            } else if ($start_time > $current_time) {
                 return Contest::STATUS_NOT_START;
             } else if ($start_time <= $current_time && $current_time <= $end_time) {
                 return Contest::STATUS_RUNNING;
