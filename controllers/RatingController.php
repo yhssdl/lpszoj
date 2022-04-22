@@ -36,8 +36,8 @@ class RatingController extends BaseController
     {
         $query = (new Query())->select('u.id, u.nickname, u.rating, s.solved')
             ->from('{{%user}} AS u')
-            ->innerJoin('(SELECT COUNT(DISTINCT problem_id) AS solved, created_by FROM {{%solution}} WHERE result=4 GROUP BY created_by ORDER BY solved DESC) as s',
-                'u.id=s.created_by')
+            ->innerJoin(' (SELECT  COUNT(DISTINCT `solution`.problem_id) AS solved, `solution`.created_by FROM solution LEFT JOIN `contest` `c` ON `c`.`id`=`solution`.`contest_id` WHERE (`solution`.`contest_id` IS NULL OR (`solution`.`contest_id` IS NOT NULL AND NOW()>`c`.`end_time`)) AND result=4  GROUP BY `solution`.created_by) AS s',
+            'u.id=s.created_by')
             ->orderBy('solved DESC, id');
         $top3users = $query->limit(3)->all();
         $defaultPageSize = 50;
