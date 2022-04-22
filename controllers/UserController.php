@@ -123,6 +123,7 @@ class UserController extends BaseController
                 break;
         }
         $oldEmail = $model->email;
+        $oldNickname = $model->nickname;
         $profile = UserProfile::findOne($model->id);
         if ($model->load(Yii::$app->request->post())) {
             if ($model->validate()) {
@@ -133,7 +134,15 @@ class UserController extends BaseController
             if ($oldEmail != $model->email) {
                 $model->is_verify_email = User::VERIFY_EMAIL_NO;
             }
+
+            if (Yii::$app->setting->get('isChangeNickName')==2 && $oldNickname === $model->username){
+                $model->nickname = $oldNickname;
+            } else if(Yii::$app->setting->get('isChangeNickName')!=1) {
+                $model->nickname = $oldNickname;
+            }
+
             $model->save();
+
             if ($profile->load(Yii::$app->request->post())) {
                 $profile->save();
             }
