@@ -85,7 +85,7 @@ class Contest extends \yii\db\ActiveRecord
             [['title', 'start_time', 'end_time'], 'required'],
             [['start_time', 'end_time', 'lock_board_time'], 'safe'],
             [['description', 'editorial'], 'string'],
-            [['id', 'status', 'type', 'scenario', 'created_by', 'group_id','language'], 'integer'],
+            [['id', 'status', 'type', 'scenario', 'created_by', 'group_id','language','clarification'], 'integer'],
             [['title'], 'string', 'max' => 255],
         ];
     }
@@ -106,7 +106,8 @@ class Contest extends \yii\db\ActiveRecord
             'status' => Yii::t('app', 'Status'),
             'type' => Yii::t('app', 'Type'),
             'scenario' => Yii::t('app', 'Scenario'),
-            'language' => Yii::t('app', 'Language')
+            'language' => Yii::t('app', 'Language'),
+            'clarification' => Yii::t('app', 'Clarification')
         ];
     }
 

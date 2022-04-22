@@ -45,3 +45,6 @@ tests/_support/_generated
 
 #db
 /config/db.php
+.htaccess
+nginx.htaccess
+.gitignore

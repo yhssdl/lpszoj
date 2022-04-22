@@ -45,6 +45,12 @@ $scoreboardFrozenTime = Yii::$app->setting->get('scoreboardFrozenTime') / 3600;
         Contest::STATUS_HIDDEN => Yii::t('app', 'Hidden')
     ])->hint('公开：任何用户均可参加比赛（线下赛场景除外）。私有：任何时候比赛均只能由参赛用户访问，且比赛用户需要在后台手动添加。隐藏：前台无法看到比赛') ?>
 
+    <?= $form->field($model, 'clarification')->radioList([
+                                  0 => '关闭',
+                                  1 => '开启',
+                                  2 => '赛后开启',
+    ])->hint('答疑界面在比赛中可以根据需要开启或关闭。') ?>
+
     <?= $form->field($model, 'scenario')->radioList([
         $model::SCENARIO_ONLINE => Yii::t('app', 'Online'),
         $model::SCENARIO_OFFLINE => Yii::t('app', 'Offline'),
@@ -66,6 +72,7 @@ $scoreboardFrozenTime = Yii::$app->setting->get('scoreboardFrozenTime') / 3600;
                                   2 => 'Java',
                                   3 => 'Python3',
     ])->hint('为 All 时可以使用任意的语言编程，否则在比赛中只能以指定的语言编程并提交。') ?>
+
 
     <?= $form->field($model, 'description')->widget(Yii::$app->setting->get('ojEditor'))->label(); ?>
     <div class="form-group">

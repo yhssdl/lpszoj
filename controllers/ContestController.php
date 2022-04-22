@@ -276,6 +276,10 @@ class ContestController extends BaseController
         if (!$model->canView()) {
             return $this->render('/contest/forbidden', ['model' => $model]);
         }
+
+        if(!($model->clarification==1 || ($model->clarification==2 && $model->isContestEnd()))){
+            throw new ForbiddenHttpException('You are not allowed to perform this action.');
+        }
         $newClarify = new Discuss();
         $discuss = null;
         $dataProvider = new ActiveDataProvider([
