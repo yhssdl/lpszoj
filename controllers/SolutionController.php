@@ -60,7 +60,8 @@ class SolutionController extends BaseController
 
         if (!empty($query['contest_id'])) {
             $contest = Solution::getContestInfo($query['contest_id']);
-            if ($contest['type'] == Contest::TYPE_OI) {
+            $isContestEnd = time() > strtotime($query['end_time']);
+            if ($contest['type'] == Contest::TYPE_OI && !$isContestEnd) {
                 $query['result'] = 0;
             }
         }
