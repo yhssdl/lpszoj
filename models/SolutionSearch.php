@@ -74,7 +74,9 @@ class SolutionSearch extends Solution
                 }
             }
         } else {
-            $query = $query->where(['status' => Solution::STATUS_VISIBLE]);
+            if (Yii::$app->user->identity->role != User::ROLE_ADMIN) {
+                $query = $query->where(['status' => Solution::STATUS_VISIBLE]);
+             }
         }
 
         $dataProvider = new ActiveDataProvider([
