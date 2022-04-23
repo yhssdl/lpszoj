@@ -14,12 +14,15 @@
 
 > 适合在新装的系统或未运行 Web (nginx、mysql)有关服务的系统中。
 
-**注意！！！此方法目前仅在 Ubuntu 20.04/18.04/16.04、CentOS 7.X/8.X 中测试通过。其它 Linux 系统还未测试。**
+**注意！！！此方法目前仅在 Ubuntu 20.04/18.04/16.04、Debian 11 中测试通过。其它 Linux 系统还未测试。**
 
 执行以下命令，进行安装：
 ```
 Ubuntu运行：
 wget https://gitee.com/yhssdl/lpszoj/raw/master/docs/install.sh && sudo bash install.sh
+
+Debian 11运行(root账号)：
+apt install -y wget && wget https://gitee.com/yhssdl/lpszoj/raw/master/docs/install.sh && bash install.sh
 
 CentOS运行：
 yum install wget -y && wget https://gitee.com/yhssdl/lpszoj/raw/master/docs/install.sh && sudo bash install.sh
@@ -34,7 +37,7 @@ yum install wget -y && wget https://gitee.com/yhssdl/lpszoj/raw/master/docs/inst
 
 手动安装过程
 ------------
-CentOS 8.3 + 宝塔面板 + OJ系统安装WORD教程：[点击下载教程](bt_install.docx)
+Debian 11 + 宝塔面板 + OJ系统安装WORD教程：[点击下载教程](bt_install.docx)
 
 搭建 LNMP (或 LAMP) 环境，可以参考：[LNMP 环境搭建](environment.md)。
 
