@@ -74,7 +74,7 @@ class SolutionSearch extends Solution
                 }
             }
         } else {
-            if (Yii::$app->user->identity->role != User::ROLE_ADMIN) {
+            if (Yii::$app->user->isGuest || Yii::$app->user->identity->role != User::ROLE_ADMIN) {
                 $query = $query->where(['status' => Solution::STATUS_VISIBLE]);
              }
         }
