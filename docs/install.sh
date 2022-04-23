@@ -161,7 +161,20 @@ install_dependencies(){
 
        
         ln -s /opt/remi/php74/root/usr/bin/php /usr/bin/php > /dev/null 2>&1
-    elif check_sys packageManager apt; then
+    elif check_sys sysRelease debian; then
+        apt_depends=(
+            nginx
+            mariadb-server
+            php-fpm php-mysql php-common php-gd php-zip php-mbstring php-xml
+            libmysql++-dev git make gcc g++
+            openjdk-11-jdk
+        )
+
+        apt -y update
+        for depend in ${apt_depends[@]}; do
+            error_detect_depends "apt -y install ${depend}"
+        done
+    elif check_sys packageManager apt; then   
         apt_depends=(
             nginx
             mysql-server
@@ -227,6 +240,33 @@ EOF
         sed -i "s/80 default/800 default/g" /etc/nginx/nginx.conf
         chmod 755 /home/judge
         chown nginx -R /home/judge/lpszoj
+    elif check_sys sysRelease debian; then
+        mv /etc/nginx/conf.d/default.conf /etc/nginx/conf.d/default.back
+        cat>/etc/nginx/conf.d/lpszoj.conf<<EOF
+server {
+        listen 80 default_server;
+        listen [::]:80 default_server;
+        root /home/judge/lpszoj/web;
+        index index.php;
+        server_name _;
+        client_max_body_size    128M;
+        location / {
+                try_files \$uri \$uri/ /index.php?\$args;
+        }
+        location ~ \.php$ {
+                include snippets/fastcgi-php.conf;
+                fastcgi_pass unix:/var/run/php/php${PHP_VERSION}-fpm.sock;
+        }
+}
+EOF
+        DBUSER="root"
+        systemctl start mariadb
+        mysqladmin -u root password $DBPASS
+        rm /etc/nginx/sites-enabled/default
+        sed -i "s/post_max_size = 8M/post_max_size = 128M/g" /etc/php/${PHP_VERSION}/fpm/php.ini
+        sed -i "s/upload_max_filesize = 2M/upload_max_filesize = 128M/g" /etc/php/${PHP_VERSION}/fpm/php.ini
+        systemctl restart nginx
+        systemctl restart php${PHP_VERSION}-fpm
     else
         cat>/etc/nginx/conf.d/lpszoj.conf<<EOF
 server {
@@ -291,8 +331,15 @@ EOF
     mysql -h localhost -u$DBUSER -p$DBPASS -e "create database ojdate;"
     if [ $? -eq 0 ]; then
         # Modify database information
-        sed -i "s/root/$DBUSER/g" /home/judge/lpszoj/config/db.php
+        sed -i "s/'username' => 'ojdate'/'username' => '$DBUSER'/g" /home/judge/lpszoj/config/db.php
+        sed -i "s/OJ_USER_NAME=ojdate/OJ_USER_NAME=$DBUSER'/g" /home/judge/lpszoj/judge/config.ini
+        sed -i "s/OJ_USER_NAME=ojdate/OJ_USER_NAME=$DBUSER'/g" /home/judge/lpszoj/polygon/config.ini       
         sed -i "s/123456/$DBPASS/g" /home/judge/lpszoj/config/db.php
+        sed -i "s/123456/$DBPASS/g"  /home/judge/lpszoj/judge/config.ini
+        sed -i "s/123456/$DBPASS/g"  /home/judge/lpszoj/polygon/config.ini
+
+        sed -i "s/OJ_MYSQL_UNIX_PORT/#OJ_MYSQL_UNIX_PORT/g"  /home/judge/lpszoj/judge/config.ini
+        sed -i "s/OJ_MYSQL_UNIX_PORT/#OJ_MYSQL_UNIX_PORT/g"  /home/judge/lpszoj/polygon/config.ini
     fi
 }
 
@@ -310,6 +357,11 @@ enable_server(){
 
 
     if check_sys sysRelease centos; then
+        systemctl start mariadb
+        systemctl start php74-php-fpm
+        systemctl enable php74-php-fpm
+        systemctl enable mariadb
+    elif check_sys sysRelease debian; then
         systemctl start mariadb
         systemctl start php74-php-fpm
         systemctl enable php74-php-fpm
@@ -364,7 +416,7 @@ install_lpszoj(){
     echo -e "[${green}Password${plain}] 123456"
     echo
     echo "Enjoy it!"
-    echo "Welcome to visit: https://www.jnoj.org"
+    echo "Welcome to visit: https://gitee.com/yhssdl"
     echo
 }
 
