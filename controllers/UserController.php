@@ -135,9 +135,9 @@ class UserController extends BaseController
                 $model->is_verify_email = User::VERIFY_EMAIL_NO;
             }
 
-            if (Yii::$app->setting->get('isChangeNickName')==2 && $oldNickname === $model->username){
+            if (Yii::$app->setting->get('isChangeNickName')==2 && $oldNickname != $model->username){
                 $model->nickname = $oldNickname;
-            } else if(Yii::$app->setting->get('isChangeNickName')!=1) {
+            } else if(Yii::$app->setting->get('isChangeNickName')==0) {
                 $model->nickname = $oldNickname;
             }
 
