@@ -20,7 +20,9 @@ class CodeMirrorAsset extends AssetBundle
     ];
     public $css = [
         'lib/codemirror.css',
-        'theme/darcula.css'
+        'theme/solarized.css',
+        'theme/material.css',
+        'theme/monokai.css'
     ];
     public $depends = [
     ];

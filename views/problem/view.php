@@ -120,6 +120,7 @@ $this->registerCss("
     }
     .CodeMirror {
         height: 100%;
+        font-family: Menlo,Monaco,Consolas,Courier New,monospace;
     }
     .gutter {
         background-color: #eee;
@@ -259,8 +260,30 @@ $nextProblemID = $model->getNextProblemID();
             <div class="problem-right">
                 <?php $form = ActiveForm::begin(['options' => ['class' => 'problem-editor']]); ?>
 
-                <?= $form->field($solution, 'language', ['options' => ['style' => 'margin: 0']])
-                    ->dropDownList($solution::getLanguageList(), ['style' => 'width: auto'])->label(false) ?>
+                <div>
+                    <div style="float:left;height: 34px;padding: 6px 12px;">
+                    <?= Yii::t('app', 'Language') ?>：
+                    </div>
+                    <div style="float:left;">
+                        <?= $form->field($solution, 'language', ['options' => ['style' => 'margin: 0']])
+                        ->dropDownList($solution::getLanguageList(), ['style' => 'width: auto'])->label(false) ?>
+                    </div>
+
+                    <div style="float:right;">
+                        <select id="solution-theme" class="form-control" name="solution-theme" style="width: auto" aria-required="true" onchange="themeChange()">
+                            <option value="solarized" selected="">solarized</option>
+                            <option value="material">material</option>
+                            <option value="monokai">monokai</option>
+                        </select>
+                    </div>
+                    <div style="float:right;height: 34px;padding: 6px 12px;">
+                    <?= Yii::t('app', 'Theme') ?>：
+                    </div>
+
+
+                </div>
+                
+
 
                 <?= $form->field($solution, 'source', ['options' => ['class' => 'code-input']])
                     ->widget('app\widgets\codemirror\CodeMirror')->label(false); ?>
@@ -393,6 +416,8 @@ $('[data-click=solution_info]').click(function() {
     });
 });
 
+
+
 function updateVerdictByKey(submission) {
     $.get({
         url: "{$url}?id=" + submission.attr('data-submissionid'),
@@ -444,3 +469,12 @@ if (waitingCount > 0) {
 EOF;
 $this->registerJs($js);
 ?>
+<script>
+function themeChange(){
+    var sel_theme = document.getElementById("solution-theme").value;
+
+    editor.setOption("theme",sel_theme);
+
+
+}
+</script>

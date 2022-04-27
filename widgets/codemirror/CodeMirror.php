@@ -40,12 +40,12 @@ class CodeMirror extends InputWidget
         CodeMirrorAsset::register($this->view);
         $id = $this->options['id'];
         $script = <<<EOF
-        CodeMirror.fromTextArea(document.getElementById("{$id}"),{
+        editor = CodeMirror.fromTextArea(document.getElementById("{$id}"),{
             mode: 'text/x-c++src',
             //mode: 'python',
-            theme: "darcula",
+            theme: "solarized",
             lineNumbers: true,
-            styleActiveLine: true,
+            //styleActiveLine: true,
             smartIndent: true,
             indentWithTabs: true,
             indentUnit: 4,
@@ -59,7 +59,7 @@ class CodeMirror extends InputWidget
 EOF;
         $this->view->registerCss("
         .CodeMirror {
-            border: 1px solid black;
+            border: 1px solid #e3e3e3;
             font-size: 15px;
         }
         ");

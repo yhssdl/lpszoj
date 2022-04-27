@@ -757,3 +757,7 @@ a.vip:focus {
 .navbar-nav > li {
     border-top: 3px solid transparent;
 }
+
+.problem-right {
+    padding: 6px;
+}

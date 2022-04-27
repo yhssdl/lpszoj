@@ -53,6 +53,7 @@ return [
     'Time' => '时间',
     'Memory' => '内存',
     'Language' => '语言',
+    'Theme' => '主题',    
     'Judgement Protocol' => '测评信息',
     'Register »' => '注册 >>',
     'Registration completed' => '已注册',
