@@ -174,7 +174,12 @@ $nextProblemID = $model->getNextProblemID();
                 </div>
                 <div class="separator"></div>
                 <div>
-                    <?= Html::a('旧版界面', ['/problem/view', 'id' => $model->id, 'view' => 'classic']) ?>
+                    <p>       
+                        <?= Html::a('<span class="glyphicon glyphicon-signal"></span> ' . Yii::t('app', 'Stats'),
+                            ['/problem/statistics', 'id' => $model->id],
+                            ['view' => 'classic'])?>
+                    </p>
+                    <p><?= Html::a('旧版界面', ['/problem/view', 'id' => $model->id, 'view' => 'classic']) ?></p>
                 </div>
             </div>
         </div>
