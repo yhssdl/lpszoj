@@ -745,3 +745,11 @@ a.vip:focus {
     min-height: 60px;
 
 }
+
+.navbar-nav > li:hover{
+    border-top: 3px solid #0c7abf;
+}
+
+.navbar-nav  .active{
+    border-top: 3px solid #ed5f82;
+}
