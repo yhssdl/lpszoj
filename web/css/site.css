@@ -753,3 +753,7 @@ a.vip:focus {
 .navbar-nav  .active{
     border-top: 3px solid #ed5f82;
 }
+
+.navbar-nav > li {
+    border-top: 3px solid transparent;
+}
