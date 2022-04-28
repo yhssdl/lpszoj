@@ -37,13 +37,15 @@ class CodeMirror extends InputWidget
      */
     public function registerScripts()
     {
+        $theme = $_COOKIE['theme'];
+        if($theme=='') $theme = "solarized";
         CodeMirrorAsset::register($this->view);
         $id = $this->options['id'];
         $script = <<<EOF
         editor = CodeMirror.fromTextArea(document.getElementById("{$id}"),{
             mode: 'text/x-c++src',
             //mode: 'python',
-            theme: "solarized",
+            theme: "$theme",
             lineNumbers: true,
             //styleActiveLine: true,
             smartIndent: true,
