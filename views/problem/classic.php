@@ -18,6 +18,9 @@ if (!Yii::$app->user->isGuest) {
     $solution->language = Yii::$app->user->identity->language;
 }
 
+$theme = $_COOKIE['theme'];
+if($theme=='') $theme = "solarized";
+
 $model->setSamples();
 
 $loadingImgUrl = Yii::getAlias('@web/images/loading.gif');
@@ -129,9 +132,34 @@ $nextProblemID = $model->getNextProblemID();
             <?php else: ?>
                 <?php $form = ActiveForm::begin(); ?>
 
-                <?= $form->field($solution, 'language')->dropDownList($solution::getLanguageList()) ?>
+                
+                <div style="height: 44px;">
+                    <div style="float:left;height: 34px;padding: 6px 12px;">
+                    <?= Yii::t('app', 'Language') ?>：
+                    </div>
+                    <div style="float:left;">
+                    <?= $form->field($solution, 'language', ['options' => ['style' => 'margin: 0']])
+                        ->dropDownList($solution::getLanguageList(), ['style' => 'width: auto'])->label(false) ?>
 
-                <?= $form->field($solution, 'source')->widget('app\widgets\codemirror\CodeMirror'); ?>
+                    </div>
+
+                    <div style="float:right;">
+                    <select id="solution-theme" class="form-control" name="solution-theme" style="width: auto" aria-required="true" onchange="themeChange()">
+                            <option value="solarized" <?php if($theme=="solarized") echo "selected=''"; ?> >solarized</option>
+                            <option value="material" <?php if($theme=="material") echo "selected=''"; ?> >material</option>
+                            <option value="monokai" <?php if($theme=="monokai") echo "selected=''"; ?> >monokai</option>
+                        </select>
+    
+                    </div>
+                    <div style="float:right;height: 34px;padding: 6px 12px;">
+                        <?= Yii::t('app', 'Theme') ?>：
+                    </div>
+                    <div style="clear:both"></div>
+
+                </div>
+                <div>
+                    <?= $form->field($solution, 'source')->widget('app\widgets\codemirror\CodeMirror')->label(false); ?>
+                </div>
 
                 <div class="form-group">
                     <?= Html::submitButton(Yii::t('app', 'Submit'), ['class' => 'btn btn-primary']) ?>
@@ -292,3 +320,10 @@ if (waitingCount > 0) {
 EOF;
 $this->registerJs($js);
 ?>
+<script>
+function themeChange(){
+    var sel_theme = document.getElementById("solution-theme").value;
+    editor.setOption("theme",sel_theme);
+    document.cookie = "theme=" + sel_theme;
+}
+</script>
