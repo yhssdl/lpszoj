@@ -64,17 +64,28 @@ $status = $model->getRunStatus();
         $menuItems[] = ['label' => Yii::t('app', 'Login'), 'url' => ['/site/login']];
     } else {
         if (Yii::$app->user->identity->role == \app\models\User::ROLE_ADMIN) {
-            $menuItems[] = ['label' => Yii::t('app', 'Backend'), 'url' => ['/admin']];
+            $menuItems[] = [
+                'label' => Yii::$app->user->identity->nickname,
+                'items' => [
+                    ['label' => Yii::t('app', 'Backend'), 'url' => ['/admin']],
+                    ['label' => Yii::t('app', 'Profile'), 'url' => ['/user/view', 'id' => Yii::$app->user->id]],
+                    ['label' => Yii::t('app', 'Setting'), 'url' => ['/user/setting', 'action' => 'profile']],
+                    '<li class="divider"></li>',
+                    ['label' => Yii::t('app', 'Logout'), 'url' => ['/site/logout']],
+                ]
+            ];
+        }else{
+            $menuItems[] = [
+                'label' => Yii::$app->user->identity->nickname,
+                'items' => [
+                    ['label' => Yii::t('app', 'Profile'), 'url' => ['/user/view', 'id' => Yii::$app->user->id]],
+                    ['label' => Yii::t('app', 'Setting'), 'url' => ['/user/setting', 'action' => 'profile']],
+                    '<li class="divider"></li>',
+                    ['label' => Yii::t('app', 'Logout'), 'url' => ['/site/logout']],
+                ]
+            ];
         }
-        $menuItems[] = [
-            'label' => Yii::$app->user->identity->nickname,
-            'items' => [
-                ['label' => Yii::t('app', 'Profile'), 'url' => ['/user/view', 'id' => Yii::$app->user->id]],
-                ['label' => Yii::t('app', 'Setting'), 'url' => ['/user/setting', 'action' => 'profile']],
-                '<li class="divider"></li>',
-                ['label' => Yii::t('app', 'Logout'), 'url' => ['/site/logout']],
-            ]
-        ];
+
     }
     echo Nav::widget([
         'options' => ['class' => 'navbar-nav navbar-right'],

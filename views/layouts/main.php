@@ -61,21 +61,27 @@ AppAsset::register($this);
         $menuItems[] = ['label' => '<span class="glyphicon glyphicon-log-in"></span> ' . Yii::t('app', 'Login'), 'url' => ['/site/login']];
     } else {
         if (Yii::$app->user->identity->isAdmin()) {
-            $menuItems[] = [
-                'label' => '<span class="glyphicon glyphicon-cog"></span> ' . Yii::t('app', 'Backend'),
-                'url' => ['/admin'],
-                'active' => Yii::$app->controller->module->id == 'admin'
+            $menuItems[] =  [
+                'label' => '<span class="glyphicon glyphicon-user"></span> ' . Yii::$app->user->identity->nickname,
+                'items' => [
+                    ['label' => '<span class="glyphicon glyphicon-cog"></span> ' . Yii::t('app', 'Backend'), 'url' => ['/admin']],
+                    ['label' => '<span class="glyphicon glyphicon-home"></span> ' . Yii::t('app', 'Profile'), 'url' => ['/user/view', 'id' => Yii::$app->user->id]],
+                    ['label' => '<span class="glyphicon glyphicon-cog"></span> ' . Yii::t('app', 'Setting'), 'url' => ['/user/setting', 'action' => 'profile']],
+                    '<li class="divider"></li>',
+                    ['label' => '<span class="glyphicon glyphicon-log-out"></span> ' . Yii::t('app', 'Logout'), 'url' => ['/site/logout']],
+                ]
+            ];
+        }else{
+            $menuItems[] =  [
+                'label' => '<span class="glyphicon glyphicon-user"></span> ' . Yii::$app->user->identity->nickname,
+                'items' => [
+                    ['label' => '<span class="glyphicon glyphicon-home"></span> ' . Yii::t('app', 'Profile'), 'url' => ['/user/view', 'id' => Yii::$app->user->id]],
+                    ['label' => '<span class="glyphicon glyphicon-cog"></span> ' . Yii::t('app', 'Setting'), 'url' => ['/user/setting', 'action' => 'profile']],
+                    '<li class="divider"></li>',
+                    ['label' => '<span class="glyphicon glyphicon-log-out"></span> ' . Yii::t('app', 'Logout'), 'url' => ['/site/logout']],
+                ]
             ];
         }
-        $menuItems[] =  [
-            'label' => '<span class="glyphicon glyphicon-user"></span> ' . Yii::$app->user->identity->nickname,
-            'items' => [
-                ['label' => '<span class="glyphicon glyphicon-home"></span> ' . Yii::t('app', 'Profile'), 'url' => ['/user/view', 'id' => Yii::$app->user->id]],
-                ['label' => '<span class="glyphicon glyphicon-cog"></span> ' . Yii::t('app', 'Setting'), 'url' => ['/user/setting', 'action' => 'profile']],
-                '<li class="divider"></li>',
-                ['label' => '<span class="glyphicon glyphicon-log-out"></span> ' . Yii::t('app', 'Logout'), 'url' => ['/site/logout']],
-            ]
-        ];
     }
     echo Nav::widget([
         'options' => ['class' => 'navbar-nav navbar-right'],
