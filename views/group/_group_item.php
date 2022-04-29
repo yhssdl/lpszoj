@@ -1,14 +1,10 @@
 <?php
+
 use yii\helpers\Html;
 ?>
-<div class="card">
-    <div class="card-header">
-        <?= Html::a(Html::encode($model['name']), ['/group/view', 'id' => $model['id']]) ?>
-    </div>
-    <div class="card-body">
-        <p class="card-text">
-            <?= Html::encode($model['description']) ?>
-        </p>
-    </div>
-</div>
 
+<?php if ($model['description']) : ?>
+    <?= Html::a(Html::encode($model['name']) . '<br><small>' . Html::encode($model['description']) . '</small>', ['/group/view', 'id' => $model['id']], ['class' => 'list-group-item list-group-item-action']) ?>
+<?php else : ?>
+    <?= Html::a(Html::encode($model['name']), ['/group/view', 'id' => $model['id']], ['class' => 'list-group-item list-group-item-action']) ?>
+<?php endif; ?>

@@ -41,8 +41,13 @@ class ProblemController extends BaseController
      * Lists all Problem models.
      * @return mixed
      */
-    public function actionIndex()
+    public function actionIndex($showTags = 0)
     {
+
+        if (Yii::$app->setting->get('isContestMode') && (Yii::$app->user->isGuest || (!Yii::$app->user->identity->isAdmin()))) {
+            throw new ForbiddenHttpException('You are not allowed to perform this action.');
+        }
+
         $query = Problem::find();
 
         if (Yii::$app->request->get('tag') != '') {
@@ -92,7 +97,10 @@ class ProblemController extends BaseController
         return $this->render('index', [
             'dataProvider' => $dataProvider,
             'tags' => $tags,
-            'solvedProblem' => $solvedProblem
+            'solvedProblem' => $solvedProblem,
+            'showTags' => $showTags,
+            'page' => $page,
+            'tag' => $tag            
         ]);
     }
 

@@ -8,29 +8,21 @@ use yii\widgets\ActiveForm;
 /* @var $form yii\widgets\ActiveForm */
 ?>
 
-<div class="group-search">
 
-    <?php $form = ActiveForm::begin([
-        'action' => ['index'],
-        'method' => 'get',
-        'options' => [
-            'data-pjax' => 1
-        ],
-    ]); ?>
-
-    <?= $form->field($model, 'id') ?>
-
-    <?= $form->field($model, 'name') ?>
-
-    <?= $form->field($model, 'description') ?>
-
-    <?= $form->field($model, 'status') ?>
-
-    <div class="form-group">
-        <?= Html::submitButton(Yii::t('app', 'Search'), ['class' => 'btn btn-primary']) ?>
-        <?= Html::resetButton(Yii::t('app', 'Reset'), ['class' => 'btn btn-default']) ?>
+<?php $form = ActiveForm::begin([
+    'action' => ['index'],
+    'method' => 'get',
+    'options' => [
+        'class' => ''
+    ],
+]); ?>
+<div class="row">
+    <div class="col-lg-10" style="margin-bottom: 1rem;">
+        <?= $form->field($model, 'name')->textInput(['maxlength' => 128, 'autocomplete' => 'off', 'placeholder' => Yii::t('app', 'Title')])->label(false) ?>
     </div>
 
-    <?php ActiveForm::end(); ?>
-
+    <div class="col-lg-2" style="margin-bottom: 1rem;">
+        <?= Html::submitButton('<span class="glyphicon glyphicon-search"></span> ' . Yii::t('app', 'Search'), ['class' => 'btn btn-primary btn-block']) ?>
+    </div>
 </div>
+<?php ActiveForm::end(); ?>

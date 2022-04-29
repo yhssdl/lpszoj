@@ -363,11 +363,16 @@ a.desc:after {
 }
 
 .rating-index tr td:nth-child(1),
-.rating-index tr th:nth-child(1),
+.rating-index tr th:nth-child(1) {
+    text-align: center;
+    width: 80px;
+}
+
+
 .rating-index tr td:nth-child(3),
 .rating-index tr th:nth-child(3) {
     text-align: center;
-    width: 60px;
+    width: 120px;
 }
 
 
@@ -405,12 +410,25 @@ a.desc:after {
 
 .problem-index-list tr td:nth-child(1),
 .problem-index-list tr th:nth-child(1) {
-    text-align: right;
+    text-align: center;
 }
 .problem-index-list tr td:nth-child(3),
 .problem-index-list tr th:nth-child(3) {
     text-align:center;
 }
+
+
+.table-bordered > thead > tr > th, .table-bordered > thead > tr > td {
+    border-bottom-width: 0px;
+    padding: 16px;
+    vertical-align:middle;
+}
+
+.table-bordered > tbody > tr > th, .table-bordered > tbody > tr > td {
+    padding: 10px;
+    vertical-align:middle;
+}
+
 .contest-countdown {
     padding: 20px;
     font-size: 100px;
@@ -659,19 +677,6 @@ a.desc:after {
 }
 
 
-.label {
-    border-radius: 10px;
-    border: 1px solid #ccc;
-    display: inline-block;
-    padding: 3px 10px;
-    color: #333;
-    font-size: 12px;
-    margin-right: 2px;
-    background: #fff;
-    position: relative;
-    font-weight: normal;
-}
-
 .label-default {
   background-color: #fff;
 }
@@ -730,13 +735,13 @@ line-height: 30px;
 }
 
 
-a.vip {
+a.text-vip {
     color: #008800;
     text-decoration: none;
 }
 
-a.vip:hover,
-a.vip:focus {
+a.text-vip:hover,
+a.text-vip:focus {
     color: #000;
     text-decoration: none;
 }
@@ -761,3 +766,25 @@ a.vip:focus {
 .problem-right {
     padding: 6px;
 }
+
+
+.text-dark {
+    color: #343a40 !important;
+  }
+  
+a.text-dark:hover, a.text-dark:focus {
+    color: #121416 !important;
+  }
+
+
+  .float-left {
+    float: left !important;
+  }
+  
+  .float-right {
+    float: right !important;
+  }
+  
+  .float-none {
+    float: none !important;
+  }

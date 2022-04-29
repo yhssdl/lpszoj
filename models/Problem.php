@@ -87,7 +87,7 @@ class Problem extends ActiveRecord
     public function attributeLabels()
     {
         return [
-            'id' => Yii::t('app', 'Problem ID'),
+            'id' => Yii::t('app', 'ID'),
             'title' => Yii::t('app', 'Title'),
             'description' => Yii::t('app', 'Description'),
             'input' => Yii::t('app', 'Input'),

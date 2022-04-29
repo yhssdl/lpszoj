@@ -19,7 +19,7 @@ $this->title = Yii::t('app', 'Rating');
 </p>
 <div class="rating-index">
     <div class="row">
-        <div class="col-md-8 col-md-offset-2">
+        <div class="col-md-10 col-md-offset-1">
             <div class="row rating-top animate__animated animate__fadeInUp">
                 <?php if (isset($top3users[1])): ?>
                 <div class="col-md-4 col-xs-4">
@@ -55,9 +55,9 @@ $this->title = Yii::t('app', 'Rating');
                 </div>
                 <?php endif; ?>
             </div>
-            <hr>
+            <br>
             <div class="table-responsive">
-                <table class="table">
+                <table class="table table-striped table-bordered">
                     <thead>
                     <tr>
                         <th>#</th>
@@ -68,7 +68,7 @@ $this->title = Yii::t('app', 'Rating');
                     <tbody>
                     <?php foreach ($users as $k => $user): ?>
                         <?php $num = $k + $currentPage * $defaultPageSize + 1; ?>
-                        <tr>
+                        <tr class ="animate__animated animate__fadeInUp">
                             <th scope="row"><?= $num ?></th>
                             <td>
                                 <?= Html::a(User::getColorNameByRating($user['nickname'], $user['rating']), ['/user/view', 'id' => $user['id']]) ?>
@@ -81,7 +81,7 @@ $this->title = Yii::t('app', 'Rating');
                     </tbody>
                 </table>
             </div>
-            <?= \yii\widgets\LinkPager::widget(['pagination' => $pages]) ?>
+            <?= \yii\widgets\LinkPager::widget(['pagination' => $pages,'firstPageLabel' => Yii::t('app', 'First'),'lastPageLabel' => Yii::t('app', 'Last')]) ?>
         </div>
     </div>
 </div>

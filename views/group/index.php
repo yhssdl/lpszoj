@@ -25,6 +25,7 @@ $this->title = Yii::t('app', 'Groups');
         $DefGp = false;  
     }
 ?>
+
 <?= Nav::widget([
     'items' => [
         [
@@ -45,9 +46,16 @@ $this->title = Yii::t('app', 'Groups');
     ],
     'options' => ['class' => 'nav-tabs', 'style' => 'margin-bottom: 15px']
 ]) ?>
+<?php if($searchModel!=null) echo $this->render('_search', ['model' => $searchModel]); ?>
 
 <?= ListView::widget([
     'dataProvider' => $dataProvider,
     'itemView' => '_group_item',
-    'layout' => '<div class="card-columns  animate__animated animate__fadeInUp">{items}</div>{summary}{pager}'
+    'itemOptions' => ['tag' => false],
+    'layout' => '{items}<p></p>{pager}',
+    'options' => ['class' => 'list-group animate__animated animate__fadeInUp'],
+    'pager' => [
+        'linkOptions' => ['class' => 'page-link'],
+        'maxButtonCount' => 5,
+    ]
 ])?>

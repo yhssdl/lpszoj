@@ -15,6 +15,13 @@ $this->title = Yii::t('app', 'Status');
     <?php echo $this->render('_search', ['model' => $searchModel]); ?>
     <?= GridView::widget([
         'layout' => '{items}{pager}',
+        'pager' =>[
+            'firstPageLabel' => Yii::t('app', 'First'),
+            'prevPageLabel' => '« ',
+            'nextPageLabel' => '» ',
+            'lastPageLabel' => Yii::t('app', 'Last'),
+            'maxButtonCount' => 15
+        ],
         'dataProvider' => $dataProvider,
         'rowOptions' => function($model, $key, $index, $grid) {
             return ['class' => 'animate__animated animate__fadeInUp'];
@@ -25,7 +32,7 @@ $this->title = Yii::t('app', 'Status');
             [
                 'attribute' => 'id',
                 'value' => function ($model, $key, $index, $column) {
-                    return Html::a($model->id, ['/solution/detail', 'id' => $model->id], ['target' => '_blank', 'data-pjax' => 0]);
+                    return Html::a($model->id, ['/solution/detail', 'id' => $model->id], ['target' => '_blank', 'data-pjax' => 0,'class'=>'text-dark']);
                 },
                 'format' => 'raw'
             ],
@@ -42,7 +49,7 @@ $this->title = Yii::t('app', 'Status');
                 'attribute' => 'problem_id',
                 'value' => function ($model, $key, $index, $column) {
                     if (isset($model->problem)) {
-                        return Html::a($model->problem_id . ' - ' . Html::encode($model->problem->title), ['/problem/view', 'id' => $model->problem_id]);
+                        return Html::a($model->problem_id . ' - ' . Html::encode($model->problem->title), ['/problem/view', 'id' => $model->problem_id],['class'=>'text-dark']);
                     }
                 },
                 'enableSorting' => false,
@@ -90,7 +97,7 @@ $this->title = Yii::t('app', 'Status');
                     if ($model->canViewSource()) {
                         return Html::a($model->getLang(),
                             ['/solution/source', 'id' => $model->id],
-                            ['onclick' => 'return false', 'data-click' => "solution_info"]
+                            ['onclick' => 'return false', 'data-click' => "solution_info",'title'=>Yii::t('app', 'Code Length').":".$model->code_length,'class'=>'text-dark']
                         );
                     } else {
                         return $model->getLang();
@@ -98,11 +105,6 @@ $this->title = Yii::t('app', 'Status');
                 },
                 'enableSorting' => false,
                 'format' => 'raw'
-            ],
-            [
-                'attribute' => 'code_length',
-                'format' => 'raw',
-                'enableSorting' => false,
             ],
             [
                 'attribute' => 'created_at',

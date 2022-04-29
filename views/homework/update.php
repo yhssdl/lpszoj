@@ -163,7 +163,7 @@ $scoreboardFrozenTime = Yii::$app->setting->get('scoreboardFrozenTime') / 3600;
             ])->hint('答疑界面在作业中可以根据需要开启或关闭。') ?>
 
             <?= $form->field($model, 'language')->radioList([
-                                  -1 => 'All',
+                                  -1 => Yii::t('app', 'Select language'),
                                   0 => 'C',
                                   1 => 'C++',
                                   2 => 'Java',

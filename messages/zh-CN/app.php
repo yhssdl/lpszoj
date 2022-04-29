@@ -264,5 +264,12 @@ return [
     'Done' => '完成',
     'Are you sure you want to delete this item?' => '确定要删除这一项吗？',
     'Delete successfully' => '用户删除成功',   
-    'participants' => '参赛人员'
+    'participants' => '参赛人员',
+    'First' => '首页',
+    'Last' => '末页',
+    'Show tags' => '显示标签',
+    'Question' => '出题',
+    'ID' => '题号',
+    'Select language' => '选择语言',
+    'Select result' => '选择结果'
 ];

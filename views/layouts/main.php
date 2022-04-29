@@ -101,7 +101,7 @@ AppAsset::register($this);
 
     <div class="container radius">
         <?php if (Yii::$app->setting->get('isNotice')): ?>    
-            <div class="alert alert-info"><?= Yii::$app->setting->get('notice') ?></div>
+            <div class="alert alert-info"><span class="glyphicon glyphicon-info-sign"></span> <?= Yii::$app->setting->get('notice') ?></div>
         <?php endif; ?>    
         <?= Breadcrumbs::widget([
             'links' => isset($this->params['breadcrumbs']) ? $this->params['breadcrumbs'] : [],
