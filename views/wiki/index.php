@@ -1,102 +1,159 @@
-<h3>编译</h3>
-<div class="table-responsive">
-    <table class="table table-bordered">
-        <thead>
-        <tr>
-            <th>语言</th>
-            <th>编译参数</th>
-        </tr>
-        </thead>
-        <tbody>
-        <tr>
-            <th>C</th>
-            <th>gcc Main.c -o Main -fno-asm -O2 -Wall -lm --static -std=c99 -DONLINE_JUDGE</th>
-        </tr>
-        <tr>
-            <th>C++</th>
-            <th>g++ -fno-asm -O2 -Wall -lm --static -std=c++11 -DONLINE_JUDGE -o Main Main.cc</th>
-        </tr>
-        <tr>
-            <th>Java</th>
-            <th>javac -J-Xms32m -J-Xmx256m Main.java </th>
-        </tr>
-        </tbody>
-    </table>
-</div>
+    <h3>结果</h3>
 
-<hr>
+    <div class="list-group">
+        <div class="list-group-item">
+            <b>等待测评</b> Pending<br>
+            <small>
+                你的答案在排队等待，请耐心等待。如果你的提交长时间未被评测，请联系管理员。
+            </small>
+        </div>
+        <div class="list-group-item text-secondary">
+            <b>等待重测</b> Pending Rejudge<br>
+            <small>
+                此结果已经被弃用，当管理员发起重测后，你的提交将被显示为等待评测。
+            </small>
+        </div>
+        <div class="list-group-item">
+            <b>正在编译</b> Compiling<br>
+            <small>
+                评测机正在编译你的程序。
+            </small>
+        </div>
+        <div class="list-group-item">
+            <b>正在测评</b> Running & Judging<br>
+            <small>
+                评测机正在运行你的程序，并根据事先准备的测试数据评测你的程序。
+            </small>
+        </div>
+        <div class="list-group-item">
+            <b>通过</b> Accepted<br>
+            <small>
+                恭喜你，你的程序通过了评测。
+            </small>
+        </div>
+        <div class="list-group-item">
+            <b>输出格式错误</b> Presentation Error<br>
+            <small>
+                答案基本正确，但是格式不对，请检查你的空格和换行是否符合要求。
+            </small>
+        </div>
+        <div class="list-group-item">
+            <b>解答错误</b> Wrong Answer<br>
+            <small>
+                答案不对，仅通过样例数据的测试并不一定就正确，一定还有你没想到的地方。
+            </small>
+        </div>
+        <div class="list-group-item">
+            <b>运行超时</b> Time Limit Exceeded<br>
+            <small>
+                运行超出时间限制，检查下是否有死循环，或者应该有更快的计算方法。
+            </small>
+        </div>
+        <div class="list-group-item">
+            <b>内存超限</b> Memory Limit Exceeded<br>
+            <small>
+                超出内存限制，数据可能需要压缩，检查内存是否有泄露。
+            </small>
+        </div>
+        <div class="list-group-item">
+            <b>输出超限</b> Output Limit Exceeded<br>
+            <small>
+                输出超过限制，你的输出比正确答案长了两倍或以上。
+            </small>
+        </div>
+        <div class="list-group-item">
+            <b>运行出错</b> Runtime Error<br>
+            <small>
+                运行时错误，可能是非法的内存访问，数组越界，指针漂移，调用禁用的系统函数。
+            </small>
+        </div>
+        <div class="list-group-item">
+            <b>编译错误</b> Compile Error<br>
+            <small>
+                编译错误，请访问评测详情页获得编译器的详细输出。
+            </small>
+        </div>
+        <div class="list-group-item">
+            <b>系统错误</b> System Error<br>
+            <small>
+                很遗憾，评测机出现了故障，请尽快联系管理员。
+            </small>
+        </div>
+        <div class="list-group-item">
+            <b>无评测数据</b> No Testdata<br>
+            <small>
+                管理员尚未上传此题的测试数据，请耐心等候管理员上传测试数据并重测你的提交。
+            </small>
+        </div>
+    </div>
 
-<h3>运行结果</h3>
-<div class="table-responsive">
-    <table class="table table-bordered">
-        <thead>
-        <tr>
-            <th>结果</th>
-            <th width="120">中文</th>
-            <th>信息</th>
-        </tr>
-        </thead>
-        <tbody>
-        <tr>
-            <th>Pending</th>
-            <th>等待测评</th>
-            <th>系统忙，你的答案在排队等待</th>
-        </tr>
-        <tr>
-            <th>Pending Rejudge</th>
-            <th>等待重测</th>
-            <th>因为数据更新或其他原因，系统将重新判你的答案</th>
-        </tr>
-        <tr>
-            <th>Compiling</th>
-            <th>正在编译</th>
-            <th>正在编译</th>
-        </tr>
-        <tr>
-            <th>Running & Judging</th>
-            <th>正在测评</th>
-            <th>正在运行和判断</th>
-        </tr>
-        <tr>
-            <th>Accepted</th>
-            <th>通过</th>
-            <th>程序通过</th>
-        </tr>
-        <tr>
-            <th>Presentation Error</th>
-            <th>输出格式错误</th>
-            <th>答案基本正确，但是格式不对</th>
-        </tr>
-        <tr>
-            <th>Wrong Answer</th>
-            <th>解答错误</th>
-            <th>答案不对，仅仅通过样例数据的测试并不一定是正确答案，一定还有你没想到的地方</th>
-        </tr>
-        <tr>
-            <th>Time Limit Exceeded</th>
-            <th>运行超时</th>
-            <th>运行超出时间限制，检查下是否有死循环，或者应该有更快的计算方法</th>
-        </tr>
-        <tr>
-            <th>Memory Limit Exceeded</th>
-            <th>内存超限</th>
-            <th>超出内存限制，数据可能需要压缩，检查内存是否有泄露</th>
-        </tr>
-        <tr>
-            <th>Output Limit Exceeded</th>
-            <th>输出超限</th>
-            <th>输出超过限制，你的输出比正确答案长了两倍</th>
-        </tr>
-        <tr>
-            <th>Runtime Error</th>
-            <th>运行出错</th>
-            <th>运行时错误，非法的内存访问，数组越界，指针漂移，调用禁用的系统函数。请点击后获得详细输出</th>
-        </tr>
-        <tr>
-            <th>Compile Error</th>
-            <th>编译错误</th>
-            <th>编译错误，请点击后获得编译器的详细输出</th>
-        </tr>
-        </tbody>
-    </table>
-</div>
+    <p></p>
+
+    <h3>编译参数</h3>
+
+    <div class="list-group">
+        <div class="list-group-item">
+            <b>C</b> (GCC 9.3.0)<br>
+            <small>
+                <code>gcc Main.c -o Main -fno-asm -O2 -Wall -lm --static -std=c11 -DONLINE_JUDGE</code>
+            </small>
+        </div>
+        <div class="list-group-item">
+            <b>C++</b> (GCC 9.3.0)<br>
+            <small>
+                <code>g++ -fno-asm -O2 -Wall -lm --static -std=c++14 -DONLINE_JUDGE -o Main Main.cc</code>
+            </small>
+        </div>
+        <div class="list-group-item">
+            <b>Java</b> (OpenJDK 11.0.11)<br>
+            <small>
+                <code>javac -J-Xms32m -J-Xmx256m Main.java</code>
+            </small>
+        </div>
+        <div class="list-group-item">
+            <b>Python</b> (3.8.5)<br>
+            <small>
+                编译参数不可用。
+            </small>
+        </div>
+    </div>
+    <p></p>
+    <h3>赛制</h3>
+
+    <div class="list-group">
+        <div class="list-group-item">
+            <b>ICPC</b><br>
+            <small>
+                无部分分，比赛期间提供判题结果反馈，排名按解题数量排序，解题数量相同按罚时排序。
+            </small>
+        </div>
+        <?php if (!Yii::$app->setting->get('oiMode')) : ?>
+            <div class="list-group-item">
+                <b>IOI</b><br>
+                <small>
+                    有部分分，比赛期间提供判题结果反馈，排名按每题最高得分总和排序。<br>
+                    OI 模式未开启，在 IOI 赛制的比赛提交代码将无法得到准确的分数。
+                </small>
+            </div>
+            <div class="list-group-item">
+                <b>OI</b><br>
+                <small>
+                    有部分分，比赛期间不提供判题结果反馈，排名按每题最后一次提交得分总和排序。<br>
+                    OI 模式未开启，在 OI 赛制的比赛提交代码将无法得到准确的分数。
+                </small>
+            </div>
+        <?php else : ?>
+            <div class="list-group-item">
+                <b>IOI</b><br>
+                <small>
+                    有部分分，比赛期间提供判题结果反馈，排名按每题最高得分总和排序。
+                </small>
+            </div>
+            <div class="list-group-item">
+                <b>OI</b><br>
+                <small>
+                    有部分分，比赛期间不提供判题结果反馈，排名按每题最后一次提交得分总和排序。
+                </small>
+            </div>
+        <?php endif; ?>
+    </div>

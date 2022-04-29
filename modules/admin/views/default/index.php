@@ -1,5 +1,6 @@
 <?php
 $this->title = Yii::t('app', 'Home');
+
 function __($message)
 {
     $messages = array(

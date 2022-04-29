@@ -788,3 +788,7 @@ a.text-dark:hover, a.text-dark:focus {
   .float-none {
     float: none !important;
   }
+
+  .lead{
+    color: #868e96;
+  }

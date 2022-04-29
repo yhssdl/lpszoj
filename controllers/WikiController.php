@@ -2,7 +2,9 @@
 
 namespace app\controllers;
 
+use Yii;
 use app\components\BaseController;
+use yii\web\ForbiddenHttpException;
 
 class WikiController extends BaseController
 {
@@ -18,23 +20,40 @@ class WikiController extends BaseController
         return $this->render('about');
     }
 
+    public function actionFaq()
+    {
+        return $this->render('faq');
+    }
+
     public function actionContest()
     {
-        return $this->render('contest');
+        if (!Yii::$app->user->isGuest && Yii::$app->user->identity->isAdmin()) {
+            return $this->render('contest');
+        }
+        throw new ForbiddenHttpException('You are not allowed to perform this action.');
     }
 
     public function actionProblem()
     {
-        return $this->render('problem');
+        if (!Yii::$app->user->isGuest && Yii::$app->user->identity->isAdmin()) {
+            return $this->render('problem');
+        }
+        throw new ForbiddenHttpException('You are not allowed to perform this action.');
     }
 
     public function actionSpj()
     {
-        return $this->render('spj');
+        if (!Yii::$app->user->isGuest && Yii::$app->user->identity->isAdmin()) {
+            return $this->render('spj');
+        }
+        throw new ForbiddenHttpException('You are not allowed to perform this action.');
     }
 
     public function actionOi()
     {
-        return $this->render('oi');
+        if (!Yii::$app->user->isGuest && Yii::$app->user->identity->isAdmin()) {
+            return $this->render('oi');
+        }
+        throw new ForbiddenHttpException('You are not allowed to perform this action.');
     }
 }

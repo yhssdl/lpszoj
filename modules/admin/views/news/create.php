@@ -13,9 +13,7 @@ $this->params['breadcrumbs'][] = $this->title;
 $model->status = $model::STATUS_PUBLIC;
 ?>
 <div class="discuss-create">
-
-    <h1><?= Html::encode($this->title) ?></h1>
-
+    <h3 class="lead">创建并发布一则新闻。</h3>
     <?= $this->render('_form', [
         'model' => $model,
     ]) ?>

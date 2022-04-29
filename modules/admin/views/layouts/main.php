@@ -6,9 +6,11 @@
 use yii\bootstrap\Nav;
 ?>
 <?php $this->beginContent('@app/views/layouts/main.php'); ?>
-<div class="col-md-2">
+
+<?php if (Yii::$app->user->identity->isAdmin()) : ?>
+
     <?= Nav::widget([
-        'options' => ['class' => 'nav nav-pills nav-stacked'],
+        'options' => ['class' => 'nav nav-pills'],
         'items' => [
             ['label' => Yii::t('app', 'Home'), 'url' => ['/admin/default/index']],
             ['label' => Yii::t('app', 'News'), 'url' => ['/admin/news/index']],
@@ -17,26 +19,28 @@ use yii\bootstrap\Nav;
             ['label' => Yii::t('app', 'Contest'), 'url' => ['/admin/contest/index']],
             ['label' => Yii::t('app', 'Rejudge'), 'url' => ['/admin/rejudge/index']],
             ['label' => Yii::t('app', 'Setting'), 'url' => ['/admin/setting/index']],
-            ['label' => Yii::t('app', 'Polygon System'), 'url' => ['/polygon']],
             ['label' => 'OJ ' . Yii::t('app', 'Update'), 'url' => ['/admin/update/index']]
         ],
     ]) ?>
-</div>
-<div class="col-md-10">
-    <?= $content ?>
+    <p></p>
+<?php endif; ?>
+<div class="row">
+    <div class="col" style="padding:0px 32px;">
+        <?= $content ?>
+    </div>
 </div>
 <?php $this->endContent(); ?>
 <script type="text/javascript">
-    $(document).ready(function () {
+    $(document).ready(function() {
         // 连接服务端
         var socket = io(document.location.protocol + '//' + document.domain + ':2120');
         var uid = <?= Yii::$app->user->isGuest ? session_id() : Yii::$app->user->id ?>;
-            // 连接后登录
-            socket.on('connect', function () {
-                socket.emit('login', uid);
-            });
+        // 连接后登录
+        socket.on('connect', function() {
+            socket.emit('login', uid);
+        });
         // 后端推送来消息时
-        socket.on('msg', function (msg) {
+        socket.on('msg', function(msg) {
             alert(msg);
         });
     })

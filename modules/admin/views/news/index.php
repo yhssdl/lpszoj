@@ -10,10 +10,10 @@ $this->title = Yii::t('app', 'News');
 ?>
 <div class="discuss-index">
 
-    <h1><?= Html::encode($this->title) ?></h1>
+    <h3 class="lead">创建和管理新闻。</h3>
 
     <p>
-        <?= Html::a(Yii::t('app', 'Release news'), ['create'], ['class' => 'btn btn-success']) ?>
+        <?= Html::a(Yii::t('app', 'Release news'), ['create'], ['class' => 'btn btn-success btn-block']) ?>
     </p>
 
     <?= GridView::widget([

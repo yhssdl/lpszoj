@@ -46,6 +46,11 @@ class DefaultController extends Controller
      */
     public function actionIndex()
     {
+
+        if(strtoupper(substr(PHP_OS,0,3))==='WIN'){
+            return $this->redirect(array('setting/index'));
+            
+        }
         if (Yii::$app->request->get('method') == 'sysinfo') {
             return json_encode([
                 'stat' => SystemInfo::getStat(),
@@ -57,6 +62,7 @@ class DefaultController extends Controller
                 'netdev' => SystemInfo::getNetDev()
             ]);
         }
+
         return $this->render('index', [
             'time_start' => microtime(true),
             'stat' => SystemInfo::getStat(),

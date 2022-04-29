@@ -13,7 +13,10 @@ use yii\helpers\Url;
 
     <?php $form = ActiveForm::begin(); ?>
 
-    <?= $form->field($model, 'title')->textInput(['maxlength' => true]) ?>
+    <?= $form->field($model, 'title', [
+        'template' => "<div class=\"input-group\"><span class=\"input-group-addon\">标题</span>{input}</div>",
+        'options' => ['class' => '']
+    ])->textInput()->label(false) ?>
 
     <?= $form->field($model, 'content')->widget(Yii::$app->setting->get('ojEditor')); ?>
 
@@ -23,7 +26,7 @@ use yii\helpers\Url;
     ]) ?>
 
     <div class="form-group">
-        <?= Html::submitButton(Yii::t('app', 'Save'), ['class' => 'btn btn-success']) ?>
+        <?= Html::submitButton(Yii::t('app', 'Save'), ['class' => 'btn btn-success btn-block']) ?>
     </div>
 
     <?php ActiveForm::end(); ?>
