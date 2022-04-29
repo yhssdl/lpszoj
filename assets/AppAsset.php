@@ -19,6 +19,7 @@ class AppAsset extends AssetBundle
     public $baseUrl = '@web';
     public $css = [
         'css/site.css',
+        'css/animate.css',
         'js/katex/katex.min.css',
         'js/highlight/styles/monokai-sublime.css',
     ];

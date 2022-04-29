@@ -1,7 +1,7 @@
 html,
 body {
     height: 100%;
-    background-color: #e7e7e7
+    background-color: #edf0f2
 }
 pre {
     border-radius: unset;
@@ -680,7 +680,7 @@ a.desc:after {
 .press .bar {
     text-align: center;  
     padding:0px 3px;
-    background-color: #6daade;  
+    background-color: #7abdf8;  
     display: flex;  
     box-shadow: inset 0 1px 2px rgba(0,0,0,.1);
     width: 0%;  
@@ -690,14 +690,14 @@ a.desc:after {
   .press { 
         width:100%;
         height:100%;
-      background-color: #ccc;
+      background-color: #eee;
       box-shadow: inset 1px 2px 2px rgba(0,0,0,.1);
       border-radius: .25em;
       overflow: hidden;  
   }
   
   .press a{ 
-      text-decoration:none; color:#fff;
+      text-decoration:none; color:#000;
   }
   
 

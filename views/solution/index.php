@@ -16,6 +16,9 @@ $this->title = Yii::t('app', 'Status');
     <?= GridView::widget([
         'layout' => '{items}{pager}',
         'dataProvider' => $dataProvider,
+        'rowOptions' => function($model, $key, $index, $grid) {
+            return ['class' => 'animate__animated animate__fadeInUp'];
+        },
         'options' => ['class' => 'table-responsive'],
         'tableOptions' => ['class' => 'table table-striped table-bordered'],
         'columns' => [

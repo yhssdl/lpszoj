@@ -18,7 +18,7 @@ $stats = $model->getStatisticsData();
 ?>
 <h1><?= Html::a(Html::encode($model->title), ['/problem/view', 'id' => $model->id]) ?></h1>
 <hr>
-<div class="stats-content" style="padding: 0 50px">
+<div class="stats-content  animate__animated animate__fadeInUp" style="padding: 0 50px">
     <h2>提交统计</h2>
     <div class="row">
         <div class="left-list col-md-6">
@@ -62,6 +62,9 @@ $stats = $model->getStatisticsData();
     <?= GridView::widget([
         'layout' => '{items}{pager}',
         'dataProvider' => $dataProvider,
+        'rowOptions' => function($model, $key, $index, $grid) {
+            return ['class' => 'animate__animated animate__fadeInUp'];
+        },
         'options' => ['class' => 'table-responsive'],
         'tableOptions' => ['class' => 'table table-striped table-bordered'],
         'columns' => [

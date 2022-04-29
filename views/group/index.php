@@ -49,5 +49,5 @@ $this->title = Yii::t('app', 'Groups');
 <?= ListView::widget([
     'dataProvider' => $dataProvider,
     'itemView' => '_group_item',
-    'layout' => '<div class="card-columns">{items}</div>{summary}{pager}'
+    'layout' => '<div class="card-columns  animate__animated animate__fadeInUp">{items}</div>{summary}{pager}'
 ])?>

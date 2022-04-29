@@ -20,7 +20,7 @@ $this->title = Yii::t('app', 'Rating');
 <div class="rating-index">
     <div class="row">
         <div class="col-md-8 col-md-offset-2">
-            <div class="row rating-top">
+            <div class="row rating-top animate__animated animate__fadeInUp">
                 <?php if (isset($top3users[1])): ?>
                 <div class="col-md-4 col-xs-4">
                     <div class="rating-two">

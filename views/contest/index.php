@@ -15,6 +15,9 @@ $this->title = Yii::t('app', 'Contests');
     <?= GridView::widget([
         'layout' => '{items}{pager}',
         'dataProvider' => $dataProvider,
+        'rowOptions' => function($model, $key, $index, $grid) {
+            return ['class' => 'animate__animated animate__fadeInUp'];
+        },
         'options' => ['class' => 'table-responsive'],
         'columns' => [
             [

@@ -26,6 +26,9 @@ $this->title = Yii::t('app', 'Problems');
                 'lastPageLabel' => '尾页',
                 'maxButtonCount' => 15
             ],
+            'rowOptions' => function($model, $key, $index, $grid) {
+                return ['class' => 'animate__animated animate__fadeInUp'];
+            },
             'dataProvider' => $dataProvider,
             'options' => ['class' => 'table-responsive problem-index-list'],
             'columns' => [
@@ -83,7 +86,7 @@ $this->title = Yii::t('app', 'Problems');
         ]); ?>
     </div>
     <div class="col-md-3">
-        <div class="panel panel-default">
+        <div class="panel panel-default animate__animated animate__fadeInUp">
             <div class="panel-body">
                 <?= Html::beginForm('', 'post', ['class' => 'form-inline']) ?>
                 <div class="input-group">
@@ -97,7 +100,7 @@ $this->title = Yii::t('app', 'Problems');
             </div>
         </div>
 
-        <div class="panel panel-default">
+        <div class="panel panel-default animate__animated animate__fadeInUp">
             <div class="panel-heading"><?= Yii::t('app', 'Tags') ?></div>
             <div class="panel-body">
                 <?= TaggingWidget::widget([
