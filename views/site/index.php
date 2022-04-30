@@ -29,7 +29,7 @@ $this->title = Yii::$app->setting->get('ojName');
             <?php endforeach; ?>
             <?= \yii\widgets\LinkPager::widget([
                 'pagination' => $pages,
-                'maxButtonCount' => 5,
+                'maxButtonCount' => 10,
             ]); ?>
         </div>
         <p></p>

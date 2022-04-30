@@ -12,8 +12,9 @@ $this->params['breadcrumbs'][] = $this->title;
 ?>
 <div class="problem-create">
 
-    <h1><?= Html::encode($this->title) ?></h1>
-    <hr>
+    <p class="lead"><?= Html::encode($this->title) ?></p>
+    <?= Html::a("前往 Polygon 题库", ['/polygon/problem/index'], ['class' => 'btn btn-default btn-block']) ?>
+    <p></p>
     <?= Html::beginForm() ?>
     <div class="form-group">
         <p>单个添加</p>
@@ -36,7 +37,7 @@ $this->params['breadcrumbs'][] = $this->title;
     </div>
 
     <div class="form-group">
-        <?= Html::submitButton(Yii::t('app', 'Submit'), ['class' => 'btn btn-success']) ?>
+        <?= Html::submitButton(Yii::t('app', 'Submit'), ['class' => 'btn btn-success btn-block']) ?>
     </div>
     <b>
         注意：

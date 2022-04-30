@@ -56,6 +56,6 @@ $this->title = Yii::t('app', 'Groups');
     'options' => ['class' => 'list-group animate__animated animate__fadeInUp'],
     'pager' => [
         'linkOptions' => ['class' => 'page-link'],
-        'maxButtonCount' => 5,
+        'maxButtonCount' => 10,
     ]
 ])?>

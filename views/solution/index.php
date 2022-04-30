@@ -20,7 +20,7 @@ $this->title = Yii::t('app', 'Status');
             'prevPageLabel' => '« ',
             'nextPageLabel' => '» ',
             'lastPageLabel' => Yii::t('app', 'Last'),
-            'maxButtonCount' => 15
+            'maxButtonCount' => 10
         ],
         'dataProvider' => $dataProvider,
         'rowOptions' => function($model, $key, $index, $grid) {

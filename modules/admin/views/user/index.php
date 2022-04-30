@@ -13,16 +13,18 @@ $this->title = Yii::t('app', 'Users');
 ?>
 <div class="user-index">
 
-    <h1><?= Html::encode($this->title) ?></h1>
+    <p class="lead">管理用户信息和权限。</p>
 
     <?php echo $this->render('_search', ['model' => $searchModel]); ?>
 
-    <hr>
-    <p>
+    <div class="btn-group  btn-group-justified">
+        <div class="btn-group">
         <?php Modal::begin([
-            'header' => '<h2>' . Yii::t('app', '批量创建用户') . '</h2>',
-            'toggleButton' => ['label' => Yii::t('app', '批量创建用户'), 'class' => 'btn btn-success'],
+            'header' => '<h4>' . Yii::t('app', '批量创建用户') . '</h4>',
+            'toggleButton' => ['label' => '<span class="glyphicon glyphicon-plus"></span> '.Yii::t('app', '批量创建用户'), 'class' => 'btn btn-default'],
         ]);?>
+        </div>
+
         <?php $form = ActiveForm::begin(['options' => ['target' => '_blank']]); ?>
 
         <p class="hint-block">1.格式一:每个用户一行，格式为<code>用户名 密码</code>，中间用空格或Tab键分开。</p>
@@ -43,20 +45,24 @@ $this->title = Yii::t('app', 'Users');
 
 
         <div class="form-group">
-            <?= Html::submitButton(Yii::t('app', 'Generate'), ['class' => 'btn btn-success']) ?>
+            <?= Html::submitButton(Yii::t('app', 'Generate'), ['class' => 'btn btn-success  btn-block']) ?>
         </div>
 
         <?php ActiveForm::end(); ?>
         <?php Modal::end(); ?>
 
-        选中项：
-        <a id="general-user" class="btn btn-success" href="javascript:void(0);">
-            设为普通用户
-        </a>
-        <a id="vip-user" class="btn btn-success" href="javascript:void(0);">
-            设为VIP用户
-        </a>
-    </p>
+        <div class="btn-group">
+            <a id="general-user" class="btn btn-success" href="javascript:void(0);"><span class="glyphicon glyphicon-user"></span> 设为普通用户</a>
+        </div>
+        <div class="btn-group">
+            <a id="vip-user" class="btn btn-success" href="javascript:void(0);"><span class="glyphicon glyphicon-fire"></span> 设为VIP用户</a>
+        </div>
+        <div class="btn-group">
+            <a id="admin-user" class="btn btn-success" href="javascript:void(0);"><span class="glyphicon glyphicon-globe"></span> 设为管理员</a>
+        </div>
+
+    </div>
+    <br>
     <?= GridView::widget([
         'dataProvider' => $dataProvider,
         'options' => ['id' => 'grid'],
@@ -131,6 +137,14 @@ $this->title = Yii::t('app', 'Users');
         var keys = $("#grid").yiiGridView("getSelectedRows");
         $.post({
            url: "'.\yii\helpers\Url::to(['/admin/user/index', 'action' => \app\models\User::ROLE_VIP]).'", 
+           dataType: \'json\',
+           data: {keylist: keys}
+        });
+    });
+    $("#admin-user").on("click", function () {
+        var keys = $("#grid").yiiGridView("getSelectedRows");
+        $.post({
+           url: "' . \yii\helpers\Url::to(['/admin/user/index', 'action' => \app\models\User::ROLE_ADMIN]) . '", 
            dataType: \'json\',
            data: {keylist: keys}
         });

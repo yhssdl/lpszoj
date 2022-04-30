@@ -14,17 +14,17 @@ use yii\helpers\Url;
 
     <?php $form = ActiveForm::begin(); ?>
 
-    <?= $form->field($model, 'id')->textInput(['placeholder' => '可不填'])
+    <?= $form->field($model, 'id', ['template' => '<div class="input-group"><span class="input-group-addon">'.Yii::t('app', 'Problem ID').'</span>{input}</div>'])->textInput(['placeholder' => '可不填'])
         ->hint('此处用于指定题目ID，若不填，新建题目时题目ID会自动增长。新建题目时填写的ID不能为已经存在的ID') ?>
 
-    <?= $form->field($model, 'title')->textInput() ?>
+    <?= $form->field($model, 'title', ['template' => '<div class="input-group"><span class="input-group-addon">'.Yii::t('app', 'Title').'</span>{input}</div>'])->textInput() ?>
 
     <?= $form->field($model, 'time_limit', [
-        'template' => "{label}\n<div class=\"input-group\">{input}<span class=\"input-group-addon\">".Yii::t('app', 'Second')."</span></div>",
+        'template' => '<div class="input-group"><span class="input-group-addon">'.Yii::t('app', 'Time Limit').'</span>{input}<span class="input-group-addon">'.Yii::t('app', 'Second').'</span></div>',
     ])->textInput(['maxlength' => 128, 'autocomplete'=>'off']) ?>
 
     <?= $form->field($model, 'memory_limit', [
-        'template' => "{label}\n<div class=\"input-group\">{input}<span class=\"input-group-addon\">MB</span></div>",
+        'template' => '<div class="input-group"><span class="input-group-addon">'.Yii::t('app', 'Memory Limit').'</span>{input}<span class="input-group-addon">MB</span></div>',
     ])->textInput(['maxlength' => 128, 'autocomplete'=>'off']) ?>
 
     <?= $form->field($model, 'status')->radioList([
@@ -78,7 +78,7 @@ use yii\helpers\Url;
     <?= $form->field($model, 'contest_id')->label(Yii::t('app', 'Contest ID'))->dropDownList(\app\models\Contest::getContestList()) ?>
 
     <div class="form-group">
-        <?= Html::submitButton(Yii::t('app', 'Save'), ['class' => 'btn btn-success']) ?>
+        <?= Html::submitButton(Yii::t('app', 'Save'), ['class' => 'btn btn-success btn-block']) ?>
     </div>
 
     <?php ActiveForm::end(); ?>

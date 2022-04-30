@@ -195,8 +195,9 @@ class ProblemController extends Controller
 
         if (Yii::$app->request->isPost) {
             $model->problemFile = UploadedFile::getInstance($model, 'problemFile');
-            if ($model->upload()) {
-                Yii::$app->session->setFlash('success', Yii::t('app', 'Imported Successfully'));
+            $ret = $model->upload();
+            if($ret!='') {
+                Yii::$app->session->setFlash('success', $ret);
             }
             return $this->refresh();
         }

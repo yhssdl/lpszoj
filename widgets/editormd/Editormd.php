@@ -36,7 +36,7 @@ class Editormd extends InputWidget
     public function run()
     {
         $this->_options = [
-            'placeholder' => 'hint',
+            'placeholder' => '',
             'height' => 300,
             'imageUpload' => true,
             'tex' => true,
@@ -56,6 +56,7 @@ class Editormd extends InputWidget
         }
         echo "</div>";
         $this->registerScripts();
+        return null;
     }
     /**
      * Registers simplemde markdown assets

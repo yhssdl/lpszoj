@@ -27,6 +27,7 @@ class UploadForm extends Model
 
     public function upload()
     {
+        $ret = "";
         if ($this->validate()) {
             $tempFile = $this->problemFile->tempName;
             if ($this->problemFile->extension == "zip") {
@@ -38,17 +39,17 @@ class UploadForm extends Model
                         $fileSize = zip_entry_filesize($dirResource);
                         $fileContent = zip_entry_read($dirResource, $fileSize);
                         file_put_contents($tempFile, $fileContent);
-                        self::importFPS($tempFile);
+                        $ret = self::importFPS($tempFile);
                     }
                     zip_entry_close($dirResource);
                 }
                 zip_close($resource);
             } else {
-                self::importFPS($tempFile);
+                $ret = self::importFPS($tempFile);
             }
-            return true;
+            return $ret;
         } else {
-            return false;
+            return $ret;
         }
     }
 
@@ -120,13 +121,13 @@ class UploadForm extends Model
                     }
                 }
 
-                echo "$title 导入成功<br>";
+                return "$title 导入成功<br>";
             } else {
-                echo "$title 已经存在<br>";
+                return "$title 已经存在<br>";
             }
             flush();
         }
-        exit;
+        //exit;
     }
 
     public static function hasProblem($title)

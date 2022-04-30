@@ -66,7 +66,7 @@ $scoreboardFrozenTime = Yii::$app->setting->get('scoreboardFrozenTime') / 3600;
 
 
     <?= $form->field($model, 'language')->radioList([
-                                  -1 => Yii::t('app', 'Select language'),
+                                  -1 => Yii::t('app', 'Please select'),
                                   0 => 'C',
                                   1 => 'C++',
                                   2 => 'Java',

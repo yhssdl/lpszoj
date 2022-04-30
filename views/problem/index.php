@@ -79,20 +79,14 @@ $this->registerJs($js);
 
 <?php
 $title_str = Html::beginForm(['/problem/index', 'page' => $page, 'tag' => $tag], 'get', ['class' => 'toggle-show-contest-standing']);
-$title_str .= Yii::t('app', 'Problem').' <span class="float-right">';
+$title_str .= '标题 <span class="float-right">';
 $title_str .= Html::checkbox('showTags', $showTags, ['style' => 'vertical-align:middle;']);
-$title_str .= ' '.Yii::t('app', 'Show tags').'</span>';
+$title_str .= ' 显示标签</span>';
 $title_str .= Html::endForm();
 $title_str .= '';
 ?>
 
-
-
-
-
 <div class="row">
-
-    <?php Pjax::begin(); ?>
     <div class="col-md-12">
         <?= GridView::widget([
             'layout' => '{items}{pager}',
@@ -101,7 +95,7 @@ $title_str .= '';
                 'prevPageLabel' => '« ',
                 'nextPageLabel' => '» ',
                 'lastPageLabel' => Yii::t('app', 'Last'),
-                'maxButtonCount' => 15
+                'maxButtonCount' => 10
             ],
             'rowOptions' => function($model, $key, $index, $grid) {
                 return ['class' => 'animate__animated animate__fadeInUp'];
@@ -150,6 +144,7 @@ $title_str .= '';
                 ],
                 [
                     'attribute' => 'solved',
+                    'enableSorting' => false,
                     'value' => function ($model, $key, $index, $column) use ($solvedProblem) {
                     if($model->submit==0)
                         $pos = 0;
@@ -168,5 +163,4 @@ $title_str .= '';
             ],   
         ]); ?>
     </div>
-    <?php Pjax::end(); ?>
 </div>

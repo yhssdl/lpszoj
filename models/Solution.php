@@ -251,7 +251,7 @@ class Solution extends ActiveRecord
     public static function getResultList($res = '')
     {
         $results = [
-            '' => Yii::t('app', 'Select result'),
+            '' => Yii::t('app', 'Please select'),
             Solution::OJ_WT0 => Yii::t('app', 'Pending'),
             Solution::OJ_WT1 => Yii::t('app', 'Pending Rejudge'),
             Solution::OJ_CI => Yii::t('app', 'Compiling'),
@@ -273,7 +273,7 @@ class Solution extends ActiveRecord
     public static function getLanguageList($status = '')
     {
         $arr = [
-            '' => Yii::t('app', 'Select language'),
+            '' => Yii::t('app', 'Please select'),
             '0' => 'C',
             '1' => 'C++',
             '2' => 'Java',

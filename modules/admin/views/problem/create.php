@@ -11,9 +11,8 @@ $this->params['breadcrumbs'][] = ['label' => Yii::t('app', 'Problems'), 'url' =>
 $this->params['breadcrumbs'][] = $this->title;
 ?>
 <div class="problem-create">
-    <h1><?= Html::encode($this->title) ?><small><?= Html::a('建议使用Polygon来出题', ['create-from-polygon']) ?></small></h1>
+    <p class="lead">创建一道题目，不借助 Polygon 系统。</p>
     <p>创建题目前，请先阅读：<?= Html::a('出题要求', ['/wiki/problem'], ['target' => '_blank']) ?></p>
-    <hr>
     <?= $this->render('_form', [
         'model' => $model,
     ]) ?>

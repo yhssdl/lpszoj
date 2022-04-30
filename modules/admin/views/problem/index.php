@@ -12,40 +12,52 @@ $this->title = Yii::t('app', 'Problems');
 ?>
 <div class="problem-index">
 
-    <h1><?= Html::encode($this->title) ?></h1>
+    <p class="lead">创建、导入和管理题目数据。</p>
 
-    <p>
-        <?= Html::a(Yii::t('app', 'Create Problem'), ['create'], ['class' => 'btn btn-success']) ?>
-        <?= Html::a(Yii::t('app', 'Polygon Problem'), ['create-from-polygon'], ['class' => 'btn btn-success']) ?>
-        <?= Html::a(Yii::t('app', 'Import Problem'), ['import'], ['class' => 'btn btn-success']) ?>
-    </p>
-    <hr>
-    <p>
-        选中项：
-        <a id="available" class="btn btn-success" href="javascript:void(0);" data-toggle="tooltip" data-placement="top" title="任何用户均能在前台看见题目">
-            设为可见
-        </a>
-        <a id="reserved" class="btn btn-success" href="javascript:void(0);" data-toggle="tooltip" data-placement="top" title="题目只能在后台查看">
-            设为隐藏
-        </a>
-        <a id="private" class="btn btn-success" href="javascript:void(0);" data-toggle="tooltip" data-placement="top" title="前台题目列表会出现题目标题，但只有VIP用户才能查看题目信息">
-            设为私有
-        </a>
-        <a id="delete" class="btn btn-danger" href="javascript:void(0);" data-toggle="tooltip" data-placement="top" title="不可恢复">
-            删除
-        </a>
-    </p>
     <?php echo $this->render('_search', ['model' => $searchModel]); ?>
+    <br>
+    <div class="btn-group btn-group-justified">
+        <div class="btn-group">
+            <?= Html::a('<span class="glyphicon glyphicon-plus"></span> '.Yii::t('app', 'Create Problem'), ['create'], ['class' => 'btn btn-default','title' => '创建一个新的题目', 'data-toggle'=>"tooltip",'data-placement'=>"top" ]) ?>
+        </div>
+
+        <div class="btn-group">
+            <?= Html::a('<span class="glyphicon glyphicon-star"></span> '.Yii::t('app', 'Polygon Problem'), ['create-from-polygon'], ['class' => 'btn btn-default','title' => '从Polygon中导入题目', 'data-toggle'=>"tooltip",'data-placement'=>"top" ]) ?>
+        </div>
+
+        <div class="btn-group">
+            <?= Html::a('<span class="glyphicon glyphicon-download-alt"></span> '.Yii::t('app', 'Import Problem'), ['import'], ['class' => 'btn btn-default','title' => '从HUSTOJ导入题目', 'data-toggle'=>"tooltip",'data-placement'=>"top" ]) ?>
+        </div>
+
+        <div class="btn-group">
+            <a id="available" class="btn btn-success" href="javascript:void(0);" data-toggle="tooltip" data-placement="top" title="选中项设为可见，任何用户均能在前台看见题目"><span class="glyphicon glyphicon-eye-open"></span> 设为可见</a>
+        </div>
+
+        <div class="btn-group">
+            <a id="reserved" class="btn btn-success" href="javascript:void(0);" data-toggle="tooltip" data-placement="top" title="选中项设为隐藏，题目只能在后台查看"><span class="glyphicon glyphicon-eye-close"></span> 设为隐藏</a>
+        </div>
+
+        <div class="btn-group">
+            <a id="private" class="btn btn-success" href="javascript:void(0);" data-toggle="tooltip" data-placement="top" title="选中项设为VIP，前台题目列表会出现题目标题，但只有VIP用户才能查看题目信息"><span class="glyphicon glyphicon-fire"></span> 设为私有</a>
+        </div>
+
+        <div class="btn-group">
+            <a id="delete" class="btn btn-danger" href="javascript:void(0);" data-toggle="tooltip" data-placement="top" title="删除选中题目，不可恢复"><span class="glyphicon glyphicon-trash"></span> 删除</a>
+        </div>
+    </div>
+    <br>
+
+   
+
     <?= GridView::widget([
         'dataProvider' => $dataProvider,
-        'layout' => '{pager}{items}{pager}',  
-        'pager' =>[
-          'firstPageLabel' => '首页',
-          'prevPageLabel' => '« ',
-          'nextPageLabel' => '» ',
-          'lastPageLabel' => '尾页',
-          'maxButtonCount' => 18
-        ],        
+        'pager' => [
+            'firstPageLabel' => '首页',
+            'prevPageLabel' => '« ',
+            'nextPageLabel' => '» ',
+            'lastPageLabel' => '尾页',
+            'maxButtonCount' => 10
+        ],
         'options' => ['id' => 'grid'],
         'columns' => [
             [
@@ -110,7 +122,7 @@ $this->title = Yii::t('app', 'Problems');
     $("#available").on("click", function () {
         var keys = $("#grid").yiiGridView("getSelectedRows");
         $.post({
-           url: "'.\yii\helpers\Url::to(['/admin/problem/index', 'action' => \app\models\Problem::STATUS_VISIBLE]).'", 
+           url: "' . \yii\helpers\Url::to(['/admin/problem/index', 'action' => \app\models\Problem::STATUS_VISIBLE]) . '", 
            dataType: \'json\',
            data: {keylist: keys}
         });
@@ -118,7 +130,7 @@ $this->title = Yii::t('app', 'Problems');
     $("#reserved").on("click", function () {
         var keys = $("#grid").yiiGridView("getSelectedRows");
         $.post({
-           url: "'.\yii\helpers\Url::to(['/admin/problem/index', 'action' => \app\models\Problem::STATUS_HIDDEN]).'", 
+           url: "' . \yii\helpers\Url::to(['/admin/problem/index', 'action' => \app\models\Problem::STATUS_HIDDEN]) . '", 
            dataType: \'json\',
            data: {keylist: keys}
         });
@@ -126,7 +138,7 @@ $this->title = Yii::t('app', 'Problems');
     $("#private").on("click", function () {
         var keys = $("#grid").yiiGridView("getSelectedRows");
         $.post({
-           url: "'.\yii\helpers\Url::to(['/admin/problem/index', 'action' => \app\models\Problem::STATUS_PRIVATE]).'", 
+           url: "' . \yii\helpers\Url::to(['/admin/problem/index', 'action' => \app\models\Problem::STATUS_PRIVATE]) . '", 
            dataType: \'json\',
            data: {keylist: keys}
         });
@@ -135,7 +147,7 @@ $this->title = Yii::t('app', 'Problems');
         if (confirm("确定要删除？此操作不可恢复！")) {
             var keys = $("#grid").yiiGridView("getSelectedRows");
             $.post({
-               url: "'.\yii\helpers\Url::to(['/admin/problem/index', 'action' => 'delete']).'", 
+               url: "' . \yii\helpers\Url::to(['/admin/problem/index', 'action' => 'delete']) . '", 
                dataType: \'json\',
                data: {keylist: keys}
             });

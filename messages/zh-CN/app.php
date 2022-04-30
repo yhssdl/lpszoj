@@ -270,6 +270,6 @@ return [
     'Show tags' => '显示标签',
     'Question' => '出题',
     'ID' => '题号',
-    'Select language' => '选择语言',
-    'Select result' => '选择结果'
+    'Please select' => '请选择'
+
 ];

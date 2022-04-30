@@ -13,10 +13,7 @@ use yii\helpers\Url;
 
     <?php $form = ActiveForm::begin(); ?>
 
-    <?= $form->field($model, 'title', [
-        'template' => "<div class=\"input-group\"><span class=\"input-group-addon\">标题</span>{input}</div>",
-        'options' => ['class' => '']
-    ])->textInput()->label(false) ?>
+    <?= $form->field($model, 'title', ['template' => '<div class="input-group"><span class="input-group-addon">标题</span>{input}</div>'])->textInput()->label(false) ?>
 
     <?= $form->field($model, 'content')->widget(Yii::$app->setting->get('ojEditor')); ?>
 
