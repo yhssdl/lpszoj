@@ -302,7 +302,7 @@ $nextProblemID = $model->getNextProblemID();
                     if (Yii::$app->user->isGuest) {
                         echo '<span>请先登陆</span>';
                     } else {
-                        echo Html::submitButton('<span class="glyphicon glyphicon-plus"></span> ' .Yii::t('app', 'Submit'), ['class' => 'btn btn-success']);            
+                        echo Html::submitButton('<span class="glyphicon glyphicon-send"></span> ' .Yii::t('app', 'Submit'), ['class' => 'btn btn-success']);            
                         if (Yii::$app->setting->get('isDiscuss')){
                         echo Html::a('<span class="glyphicon glyphicon-comment"></span> ' . Yii::t('app', 'Discuss'),
                             ['/problem/discuss', 'id' => $model->id],

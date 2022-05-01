@@ -110,7 +110,7 @@ $title_str .= '';
                         if (isset($solvedProblem[$model->id])) {
                             return Html::a($model->id, ['/problem/view', 'id' => $key],['class'=>'btn btn-success btn-xs' ]);
                         }
-                        return Html::a($model->id, ['/problem/view', 'id' => $key],['class'=>'btn btn-default btn-xs' ]);
+                        return Html::a($model->id, ['/problem/view', 'id' => $key],['class'=>'btn btn-default btn-sm' ]);
                     },
                     'format' => 'raw',
                     'options' => ['width' => '80px']

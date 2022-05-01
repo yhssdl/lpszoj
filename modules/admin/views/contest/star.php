@@ -44,6 +44,9 @@ $contest_id = $model->id;
         'maxButtonCount' => 10
     ],
     'options' => ['class' => 'table-responsive'],
+    'rowOptions' => function ($model, $key, $index, $grid) {
+        return ['class' => 'animate__animated animate__fadeInUp'];
+    },
     'tableOptions' => ['class' => 'table table-striped table-bordered table-text-center'],
     'columns' => [
         ['class' => 'yii\grid\SerialColumn'],

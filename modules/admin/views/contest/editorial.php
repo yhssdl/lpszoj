@@ -16,7 +16,7 @@ $this->params['breadcrumbs'][] = ['label' => $this->title, 'url' => ['view', 'id
 
 <p class="lead">比赛 <?= Html::a(Html::encode($model->title), ['view', 'id' => $model->id]) ?> 题解编辑。</p>
 
-<div class="contest-view">
+<div class="contest-view animate__animated animate__fadeInUp">
     <div class="alert alert-light"><i class=" glyphicon glyphicon-info-sign"></i> 题解内容在比赛结束后，才会出现在前台的比赛页面中供用户查看。</div>
     <?php $form = ActiveForm::begin(); ?>
 

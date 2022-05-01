@@ -130,7 +130,7 @@ $loadingImgUrl = Yii::getAlias('@web/images/loading.gif');
                         <?= $form->field($solution, 'source')->widget('app\widgets\codemirror\CodeMirror'); ?>
 
                         <div class="form-group">
-                            <?= Html::submitButton(Yii::t('app', 'Submit'), ['class' => 'btn btn-primary']) ?>
+                            <?= Html::submitButton('<span class="glyphicon glyphicon-send"></span> ' . Yii::t('app', 'Submit'), ['class' => 'btn btn-success btn-block']) ?>
                         </div>
                         <?php ActiveForm::end(); ?>
                     <?php endif; ?>

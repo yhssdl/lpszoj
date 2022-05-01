@@ -5,30 +5,59 @@ use yii\helpers\Html;
 /* @var $this yii\web\View */
 /* @var $settings array */
 /* @var $form yii\widgets\ActiveForm */
+
 $this->title = Yii::t('app', 'Setting');
 
 ?>
 
-<div class="setting-form">
-    <h1><?= Html::encode($this->title) ?></h1>
-    <hr>
+<p class="lead">设置系统选项</p>
+<div class="setting-form animate__animated animate__fadeInUp">
+
     <?= Html::beginForm() ?>
 
     <div class="form-group">
         <?= Html::radioList('isNotice', $settings['isNotice'], [
-            1 => '开启网站公告',
-            0 => '关闭网站公告'
+            1 => '开启全局公告',
+            0 => '关闭全局公告'
         ]) ?>
         <?= Html::textInput('notice', $settings['notice'], ['class' => 'form-control']) ?>
         <p class="hint-block">
-            开启网站公告后，在网站的导航栏下方，将显示以上文本框中的公告内容。
+            开启后，全局公告将展示在每个页面的上方。
         </p>
-    </div>  
+    </div>
 
     <div class="form-group">
-        <?= Html::label(Yii::t('app', 'OJ名称'), 'ojName') ?>
-        <?= Html::textInput('ojName', $settings['ojName'], ['class' => 'form-control']) ?>
+        <div class="input-group"><span class="input-group-addon">系统名称</span>
+            <?= Html::textInput('ojName', $settings['ojName'], ['class' => 'form-control']) ?>
+        </div>
     </div>
+
+    <div class="form-group">
+        <div class="input-group"><span class="input-group-addon">学校名称</span>
+            <?= Html::textInput('schoolName', $settings['schoolName'], ['class' => 'form-control']) ?>
+        </div>
+    </div>
+
+    <div class="form-group">
+        <div class="input-group"><span class="input-group-addon">提交间隔</span>
+            <?= Html::textInput('submitTime', $settings['submitTime'], ['class' => 'form-control']) ?>
+        </div>
+    </div>
+    <p class="hint-block">
+        时间单位为秒，设为 0 时不限制提交，否则提交后必须间隔指定时间后才能再次提交，可避免用户短时间重复提交的情况。
+    </p>
+
+    <div class="form-group">
+        <div class="input-group"><span class="input-group-addon">解榜时间</span>
+            <?= Html::textInput('scoreboardFrozenTime', $settings['scoreboardFrozenTime'], ['class' => 'form-control']) ?>
+        </div>
+
+        <p class="hint-block">单位：秒。这个时间是从比赛结束后开始计算，如值为
+            <?= $settings['scoreboardFrozenTime'] ?> 时，表示比赛结束 <?= intval($settings['scoreboardFrozenTime'] / 3600) ?> 个小时后不再封榜。
+        </p>
+    </div>
+
+
 
     <div class="form-group">
         <?= Html::label(Yii::t('app', 'OI 模式'), 'oiMode') ?>
@@ -37,23 +66,11 @@ $this->title = Yii::t('app', 'Setting');
             0 => '否'
         ]) ?>
         <p class="hint-block">
-            注意，如需启动 OI 模式，除了在此处选择是外，还需要在启动判题服务时加上 -o 参数。
+            注意，如需启动 OI 模式，除了在此处选择是外，还需要在启动判题服务时加上 sudo ./dispatcher <code>-o</code>参数。
         </p>
-        <p class="hint-block">即需要在 jnoj/judge 目录下通过 <code>sudo ./dispatcher -o</code>来启动判题服务。</p>
+
     </div>
 
-    <div class="form-group">
-        <?= Html::label(Yii::t('app', '学校名称'), 'ojName') ?>
-        <?= Html::textInput('schoolName', $settings['schoolName'], ['class' => 'form-control']) ?>
-    </div>
-
-    <div class="form-group">
-        <?= Html::label(Yii::t('app', '提交间隔时间'), 'submitTime') ?>
-        <?= Html::textInput('submitTime', $settings['submitTime'], ['class' => 'form-control']) ?>
-        <p class="hint-block">
-            时间单位为秒，设为 0 时不限制提交，否则提交后必须间隔指定时间后才能再次提交，可避免用户短时间重复提交的情况。
-        </p>
-    </div>    
 
     <div class="form-group">
         <?= Html::label(Yii::t('app', '是否要共享代码'), 'isShareCode') ?>
@@ -69,7 +86,7 @@ $this->title = Yii::t('app', 'Setting');
             1 => '开放',
             0 => '关闭'
         ]) ?>
-    </div> 
+    </div>
 
     <div class="form-group">
         <?= Html::label(Yii::t('app', '用户昵称'), 'isChangeNickName') ?>
@@ -78,7 +95,7 @@ $this->title = Yii::t('app', 'Setting');
             1 => '允许修改',
             0 => '不允许修改'
         ]) ?>
-    </div>    
+    </div>
 
     <div class="form-group">
         <?= Html::label(Yii::t('app', '开启讨论'), 'isDiscuss') ?>
@@ -93,8 +110,8 @@ $this->title = Yii::t('app', 'Setting');
         <?= Html::radioList('isDefGroup', $settings['isDefGroup'], [
             1 => '开启',
             2 => '仅管理员',
-            3 => '管理员与VIP用户',	            
-            0 => '关闭'	            
+            3 => '管理员与VIP用户',
+            0 => '关闭'
         ]) ?>
     </div>
 
@@ -105,16 +122,16 @@ $this->title = Yii::t('app', 'Setting');
             0 => '关闭'
         ]) ?>
         <p class="hint-block">
-                开启该功能后,组长可以直接将用户拉入到小组中,不需要用户确认。
-        </p>         
+            开启该功能后,组长可以直接将用户拉入到小组中,不需要用户确认。
+        </p>
     </div>
 
     <div class="form-group">
         <?= Html::label(Yii::t('app', '小组管理权限'), 'isGroupReset') ?>
         <?= Html::radioList('isGroupReset', $settings['isGroupReset'], [
             1 => '仅组长可重置密码与昵称',
-            2 => '组长与管理员可重置密码与昵称',	            
-            0 => '关闭密码与昵称重置功能'	            
+            2 => '组长与管理员可重置密码与昵称',
+            0 => '关闭密码与昵称重置功能'
         ]) ?>
     </div>
 
@@ -133,24 +150,18 @@ $this->title = Yii::t('app', 'Setting');
         </p>
         <p class="hint-block">
             KindEditor编辑器：另行添加的一个编辑器，可以在IE上正常使用，可设置文字颜色。
-        </p>                
+        </p>
     </div>
-    
+
     <div class="form-group">
         <?= Html::label(Yii::t('app', '私有(VIP)题目'), 'isHideVIP') ?>
         <?= Html::radioList('isHideVIP', $settings['isHideVIP'], [
             1 => '游客与普通用户不显示私有题目',
             0 => '所有用户都显示私有题目'
         ]) ?>
-	</div>
-
-    <div class="form-group">
-        <?= Html::label(Yii::t('app', '封榜时间'), 'scoreboardFrozenTime') ?>
-        <?= Html::textInput('scoreboardFrozenTime', $settings['scoreboardFrozenTime'], ['class' => 'form-control']) ?>
-        <p class="hint-block">单位：秒。这个时间是从比赛结束后开始计算，如值为
-            <?= $settings['scoreboardFrozenTime'] ?> 时，表示比赛结束 <?= intval($settings['scoreboardFrozenTime'] / 3600) ?> 个小时后不再封榜。
-        </p>
     </div>
+
+
 
     <hr>
     <div class="form-horizontal">
@@ -160,56 +171,53 @@ $this->title = Yii::t('app', 'Setting');
             若使用默认的 "no-reply@jnoj.org"，不能保证此默认邮箱长期可用，建议自行配置自己的邮箱。
         </p>
 
-        <div class="form-group">
-            <?= Html::label('邮箱验证码有效时间', 'passwordResetTokenExpire', ['class' => 'col-sm-2 control-label']) ?>
-            <div class="col-sm-10">
-                <?= Html::textInput('passwordResetTokenExpire', $settings['passwordResetTokenExpire'], ['class' => 'form-control']) ?>
-                <p class="hint-block">单位：秒。即 <?= intval($settings['passwordResetTokenExpire'] / 3600) ?> 小时后，用户邮箱确认链接失效。</p>
-            </div>
-        </div>
-        <div class="form-group">
-            <?= Html::label('是否要验证邮箱？', 'mustVerifyEmail', ['class' => 'col-sm-2 control-label']) ?>
-            <div class="col-sm-10">
+        <div class="col-md-10 col-md-offset-1">
+
+            <div class="form-group">
                 <?= Html::radioList('mustVerifyEmail', $settings['mustVerifyEmail'], [
                     1 => '新注册用户必须验证邮箱，且更改邮箱后必须验证邮箱',
-                    0 => '否'
+                    0 => '不验证'
                 ]) ?>
             </div>
-        </div>
-        <div class="form-group">
-            <?= Html::label('SMTP发送服务器', 'emailHost', ['class' => 'col-sm-2 control-label']) ?>
-            <div class="col-sm-10">
-                <?= Html::textInput('emailHost', $settings['emailHost'], ['class' => 'form-control', 'placeholder' => 'smtp.exmail.qq.com']) ?>
+
+            <div class="form-group">
+                <div class="input-group"><span class="input-group-addon">邮箱验证码有效时间</span>
+                    <?= Html::textInput('passwordResetTokenExpire', $settings['passwordResetTokenExpire'], ['class' => 'form-control']) ?>
+                </div>
+                <p class="hint-block">单位：秒。即 <?= intval($settings['passwordResetTokenExpire'] / 3600) ?> 小时后，用户邮箱确认链接失效。</p>
             </div>
-        </div>
-        <div class="form-group">
-            <?= Html::label('用户名', 'emailUsername', ['class' => 'col-sm-2 control-label']) ?>
-            <div class="col-sm-10">
-                <?= Html::textInput('emailUsername', $settings['emailUsername'], ['class' => 'form-control', 'placeholder' => 'no-reply@jnoj.org']) ?>
+
+
+            <div class="form-group">
+                <div class="input-group"><span class="input-group-addon">SMTP发送服务器</span>
+                    <?= Html::textInput('emailHost', $settings['emailHost'], ['class' => 'form-control', 'placeholder' => 'smtp.exmail.qq.com']) ?>
+                </div>
             </div>
-        </div>
-        <div class="form-group">
-            <?= Html::label('密码', 'emailPassword', ['class' => 'col-sm-2 control-label']) ?>
-            <div class="col-sm-10">
-                <?= Html::textInput('emailPassword', $settings['emailPassword'], ['class' => 'form-control', 'placeholder' => 'you_password']) ?>
+            <div class="form-group">
+                <div class="input-group"><span class="input-group-addon">用户名</span>
+                    <?= Html::textInput('emailUsername', $settings['emailUsername'], ['class' => 'form-control', 'placeholder' => 'no-reply@jnoj.org']) ?>
+                </div>
             </div>
-        </div>
-        <div class="form-group">
-            <?= Html::label('端口', 'emailPort', ['class' => 'col-sm-2 control-label']) ?>
-            <div class="col-sm-10">
-                <?= Html::textInput('emailPort', $settings['emailPort'], ['class' => 'form-control', 'placeholder' => '465']) ?>
+            <div class="form-group">
+                <div class="input-group"><span class="input-group-addon">密码</span>
+                    <?= Html::textInput('emailPassword', $settings['emailPassword'], ['class' => 'form-control', 'placeholder' => 'you_password']) ?>
+                </div>
             </div>
-        </div>
-        <div class="form-group">
-            <?= Html::label('加密方式', 'emailEncryption', ['class' => 'col-sm-2 control-label']) ?>
-            <div class="col-sm-10">
-                <?= Html::textInput('emailEncryption', $settings['emailEncryption'], ['class' => 'form-control', 'placeholder' => 'ssl']) ?>
+            <div class="form-group">
+                <div class="input-group"><span class="input-group-addon">端口</span>
+                    <?= Html::textInput('emailPort', $settings['emailPort'], ['class' => 'form-control', 'placeholder' => '465']) ?>
+                </div>
+            </div>
+            <div class="form-group">
+                <div class="input-group"><span class="input-group-addon">加密</span>
+                    <?= Html::textInput('emailEncryption', $settings['emailEncryption'], ['class' => 'form-control', 'placeholder' => 'ssl']) ?>
+                </div>
             </div>
         </div>
     </div>
 
     <div class="form-group">
-        <?= Html::submitButton(Yii::t('app', 'Save'), ['class' => 'btn btn-primary']) ?>
+        <?= Html::submitButton(Yii::t('app', 'Save'), ['class' => 'btn btn-success btn-block']) ?>
     </div>
     <?= Html::endForm(); ?>
 </div>

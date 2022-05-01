@@ -76,6 +76,9 @@ foreach ($problems as $key => $p) {
             'dataProvider' => $dataProvider,
             'options' => ['class' => 'table-responsive'],
             'tableOptions' => ['class' => 'table table-striped table-bordered table-text-center'],
+            'rowOptions' => function($model, $key, $index, $grid) {
+                return ['class' => 'animate__animated animate__fadeInUp'];
+            },
             'columns' => [
                 [
                     'attribute' => 'id',

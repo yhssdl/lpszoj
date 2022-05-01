@@ -8,16 +8,17 @@ use yii\helpers\Html;
 use yii\bootstrap\ActiveForm;
 
 $this->title = Yii::t('app', 'Login');
-$this->params['breadcrumbs'][] = $this->title;
 ?>
-<div class="site-login">
-    <?php $form = ActiveForm::begin([
-        'id' => 'login-form',
-        'options' => [
-            'class' => 'form-signin'
-        ]
-    ]); ?>
-        <h1><?= Html::encode($this->title) ?></h1>
+<div class="row">
+    <div class="col-md-8 col-md-offset-2 animate__animated animate__fadeInUp">
+        <?php $form = ActiveForm::begin([
+            'id' => 'login-form',
+            'options' => [
+                'class' => 'form-signin'
+            ]
+        ]); ?>
+        <div class="alert alert-light"><i class="glyphicon glyphicon-info-sign"></i> 欢迎回来。</div>
+        <img src="<?= Yii::getAlias('@web') . '/images/login.jpg' ?>" width="100%" class="card-img-top d-none d-md-block"><br><br>
         <?= $form->field($model, 'username', [
             'template' => '<div class="input-group"><span class="input-group-addon"><i class="glyphicon glyphicon-user"></i></span>{input}</div>{error}',
             'inputOptions' => [
@@ -33,16 +34,20 @@ $this->params['breadcrumbs'][] = $this->title;
         ])->passwordInput()->label(false);
         ?>
 
-        <?php if ($model->scenario == 'withCaptcha'): ?>
+        <?php if ($model->scenario == 'withCaptcha') : ?>
             <?= $form->field($model, 'verifyCode')->widget(\yii\captcha\Captcha::className()); ?>
         <?php endif; ?>
-        <?= $form->field($model, 'rememberMe')->checkbox() ?>
+        <span class="float-left"> <?= $form->field($model, 'rememberMe')->checkbox() ?></span>
+        <span class="float-right">
+            <?= Html::a('忘记密码', ['site/request-password-reset']) ?>
+        </span>
 
         <div class="form-group">
-            <?= Html::submitButton(Yii::t('app', 'Login'), ['class' => 'btn btn-primary', 'name' => 'login-button']) ?>
-            <?= Html::a('忘记密码', ['site/request-password-reset'], ['class' => 'pull-right']) ?>
+            <?= Html::submitButton(Yii::t('app', 'Login'), ['class' => 'btn btn-success btn-block', 'name' => 'login-button']) ?>
+            
         </div>
 
-    <?php ActiveForm::end(); ?>
+        <?php ActiveForm::end(); ?>
 
+    </div>
 </div>

@@ -45,14 +45,14 @@ class PrintController extends BaseController
 
     /**
      * Lists all PrintSource models.
-     * @throws NotFoundHttpException if the contest cannot be found
+     * @throws ForbiddenHttpException if the contest cannot be found
      * @return mixed
      */
     public function actionIndex($id)
     {
         $contest = Contest::findOne($id);
-        if ($contest === null || $contest->scenario != Contest::SCENARIO_OFFLINE) {
-            throw new NotFoundHttpException('The requested page does not exist.');
+        if ($contest === null || $contest->enable_print == 0) {
+            throw new ForbiddenHttpException('当前比赛不可打印.');
         }
         if (Yii::$app->user->identity->role == User::ROLE_ADMIN) {
             $query = ContestPrint::find()->where(['contest_id' => $contest->id])->with('user');

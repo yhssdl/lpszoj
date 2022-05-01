@@ -64,7 +64,7 @@ AppAsset::register($this);
             $menuItems[] =  [
                 'label' => '<span class="glyphicon glyphicon-user"></span> ' . Yii::$app->user->identity->nickname,
                 'items' => [
-                    ['label' => '<span class="glyphicon glyphicon-cog"></span> ' . Yii::t('app', 'Backend'), 'url' => ['/admin']],
+                    ['label' => '<span class="glyphicon glyphicon-wrench"></span> ' . Yii::t('app', 'Backend'), 'url' => ['/admin']],
                     ['label' => '<span class="glyphicon glyphicon-home"></span> ' . Yii::t('app', 'Profile'), 'url' => ['/user/view', 'id' => Yii::$app->user->id]],
                     ['label' => '<span class="glyphicon glyphicon-cog"></span> ' . Yii::t('app', 'Setting'), 'url' => ['/user/setting', 'action' => 'profile']],
                     '<li class="divider"></li>',
