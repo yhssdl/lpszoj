@@ -7,8 +7,6 @@ use yii\helpers\Html;
 /* @var $model app\models\Group */
 
 $this->title = Yii::t('app', 'Create Group');
-$this->params['breadcrumbs'][] = ['label' => Yii::t('app', 'Groups'), 'url' => ['index']];
-$this->params['breadcrumbs'][] = $this->title;
 
 $DefGp = false;
 if(Yii::$app->user->isGuest || Yii::$app->setting->get('isDefGroup') == 0)
@@ -30,7 +28,7 @@ else{
 ?>
 <div class="group-create">
     <?php if ($DefGp): ?>    
-    <h1><?= Html::encode($this->title) ?></h1>
+    <p class="lead"><?= Html::encode($this->title) ?></p>
 
     <?= $this->render('_form', [
         'model' => $model,

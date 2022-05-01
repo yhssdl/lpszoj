@@ -10,16 +10,13 @@ use yii\widgets\ActiveForm;
 /* @var $newSolution app\models\Solution */
 
 $this->title = $model->title;
-$this->params['breadcrumbs'][] = ['label' => Yii::t('app', 'Problems'), 'url' => ['index']];
-$this->params['breadcrumbs'][] = $this->title;
 $this->params['model'] = $model;
 $loadingImgUrl = Yii::getAlias('@web/images/loading.gif');
 ?>
-<div class="solutions-view">
-    <h1>
-        <?= Html::encode($model->title) ?>
-    </h1>
-    <p class="text-muted">提示：题目的验题状态将不会在前台展示．不会出现泄题情况</p>
+<p class="lead"><?= Html::encode($this->title) ?></p>
+<div class="solutions-view animate__animated animate__fadeInUp">
+<div class="alert alert-info">
+    <i class="glyphicon glyphicon-info-sign"></i> 提示：题目的验题状态将不会在前台展示．不会出现泄题情况</div>
     <div class="table-responsive">
         <table class="table table-bordered table-rank">
             <thead>
@@ -93,7 +90,7 @@ $loadingImgUrl = Yii::getAlias('@web/images/loading.gif');
     <?= $form->field($newSolution, 'source')->widget('app\widgets\codemirror\CodeMirror'); ?>
 
     <div class="form-group">
-        <?= Html::submitButton(Yii::t('app', 'Submit'), ['class' => 'btn btn-primary']) ?>
+        <?= Html::submitButton(Yii::t('app', 'Submit'), ['class' => 'btn btn-success btn-block']) ?>
     </div>
     <?php ActiveForm::end(); ?>
 </div>

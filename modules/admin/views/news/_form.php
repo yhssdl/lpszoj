@@ -9,11 +9,11 @@ use yii\helpers\Url;
 /* @var $form yii\widgets\ActiveForm */
 ?>
 
-<div class="discuss-form">
+<div class="discuss-form animate__animated animate__fadeInUp">
 
     <?php $form = ActiveForm::begin(); ?>
 
-    <?= $form->field($model, 'title', ['template' => '<div class="input-group"><span class="input-group-addon">标题</span>{input}</div>'])->textInput()->label(false) ?>
+    <?= $form->field($model, 'title', ['template' => '<div class="input-group"><span class="input-group-addon">'.Yii::t('app', 'Title').'</span>{input}</div>'])->textInput()->label(false) ?>
 
     <?= $form->field($model, 'content')->widget(Yii::$app->setting->get('ojEditor')); ?>
 

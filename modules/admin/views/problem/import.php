@@ -10,8 +10,9 @@ use yii\widgets\ActiveForm;
 $this->title = Yii::t('app', 'Import Problem');
 $maxFileSize = min(ini_get("upload_max_filesize"), ini_get("post_max_size"));
 ?>
-<div class="problem-import">
-    <p class="lead"><?= Html::encode($this->title) ?></p>
+<p class="lead"><?= Html::encode($this->title) ?></p>
+<div class="problem-import animate__animated animate__fadeInUp">
+
     <?php if (extension_loaded('xml')) : ?>
 
         <div class="alert alert-info">

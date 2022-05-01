@@ -22,7 +22,18 @@ $this->params['breadcrumbs'][] = ['label' => $this->title, 'url' => ['view', 'id
     <?php if ($model->getRunStatus() == Contest::STATUS_ENDED): ?>
         <?= Html::a(Yii::t('app', 'Rated'), ['rated', 'id' => $model->id, 'cal' => 1], ['class' => 'btn btn-success']) ?>
         <?= GridView::widget([
+            'layout' => '{items}{pager}',
+            'pager' =>[
+                'firstPageLabel' => Yii::t('app', 'First'),
+                'prevPageLabel' => '« ',
+                'nextPageLabel' => '» ',
+                'lastPageLabel' => Yii::t('app', 'Last'),
+                'maxButtonCount' => 10
+            ],
             'dataProvider' => $dataProvider,
+            'rowOptions' => function($model, $key, $index, $grid) {
+                return ['class' => 'animate__animated animate__fadeInUp'];
+            },
             'columns' => [
                 [
                     'attribute' => 'who',

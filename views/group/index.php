@@ -44,8 +44,9 @@ $this->title = Yii::t('app', 'Groups');
             'options' => ['class' => 'pull-right']
         ]
     ],
-    'options' => ['class' => 'nav-tabs', 'style' => 'margin-bottom: 15px']
+    'options' => ['class' => 'nav-tabs']
 ]) ?>
+<br>
 <?php if($searchModel!=null) echo $this->render('_search', ['model' => $searchModel]); ?>
 
 <?= ListView::widget([

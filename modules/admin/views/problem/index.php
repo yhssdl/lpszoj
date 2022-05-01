@@ -50,14 +50,18 @@ $this->title = Yii::t('app', 'Problems');
    
 
     <?= GridView::widget([
-        'dataProvider' => $dataProvider,
-        'pager' => [
-            'firstPageLabel' => '首页',
+        'layout' => '{items}{pager}',
+        'pager' =>[
+            'firstPageLabel' => Yii::t('app', 'First'),
             'prevPageLabel' => '« ',
             'nextPageLabel' => '» ',
-            'lastPageLabel' => '尾页',
+            'lastPageLabel' => Yii::t('app', 'Last'),
             'maxButtonCount' => 10
         ],
+        'dataProvider' => $dataProvider,
+        'rowOptions' => function($model, $key, $index, $grid) {
+            return ['class' => 'animate__animated animate__fadeInUp'];
+        },       
         'options' => ['id' => 'grid'],
         'columns' => [
             [

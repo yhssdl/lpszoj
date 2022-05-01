@@ -198,6 +198,17 @@ $scoreboardFrozenTime = Yii::$app->setting->get('scoreboardFrozenTime') / 3600;
         </h3>
 
         <?= \yii\grid\GridView::widget([
+            'layout' => '{items}{pager}',
+            'pager' =>[
+                'firstPageLabel' => Yii::t('app', 'First'),
+                'prevPageLabel' => '« ',
+                'nextPageLabel' => '» ',
+                'lastPageLabel' => Yii::t('app', 'Last'),
+                'maxButtonCount' => 10
+            ],
+            'rowOptions' => function($model, $key, $index, $grid) {
+                return ['class' => 'animate__animated animate__fadeInUp'];
+            },
             'dataProvider' => $announcements,
             'columns' => [
                 'content:ntext',

@@ -48,15 +48,17 @@ $scoreboardFrozenTime = Yii::$app->setting->get('scoreboardFrozenTime') / 3600;
                     ]
                 ]); ?>
                     <?php $form = ActiveForm::begin(); ?>
-                    <?= $form->field($newContest, 'title')->textInput(['maxlength' => true, 'autocomplete' => 'off']) ?>
-                    <?= $form->field($newContest, 'start_time')->widget('app\widgets\laydate\LayDate', [
+                    <?= $form->field($newContest, 'title', ['template' => '<div class="input-group"><span class="input-group-addon">'.Yii::t('app', 'Title').'</span>{input}</div>'])->textInput()->label(false) ?>
+
+
+                    <?= $form->field($newContest, 'start_time', ['template' => '<div class="input-group"><span class="input-group-addon">'.Yii::t('app', 'Start Time').'</span>{input}</div>'])->widget('app\widgets\laydate\LayDate', [
                         'clientOptions' => [
                             'istoday' => true,
                             'type' => 'datetime'
                         ],
                         'options' => ['autocomplete' => 'off']
                     ]) ?>
-                    <?= $form->field($newContest, 'end_time')->widget('app\widgets\laydate\LayDate', [
+                    <?= $form->field($newContest, 'end_time', ['template' => '<div class="input-group"><span class="input-group-addon">'.Yii::t('app', 'End Time').'</span>{input}</div>'])->widget('app\widgets\laydate\LayDate', [
                         'clientOptions' => [
                             'istoday' => true,
                             'type' => 'datetime'
@@ -64,7 +66,7 @@ $scoreboardFrozenTime = Yii::$app->setting->get('scoreboardFrozenTime') / 3600;
                         'options' => ['autocomplete' => 'off']
                     ]) ?>
 
-                    <?= $form->field($newContest, 'lock_board_time')->widget('app\widgets\laydate\LayDate', [
+                    <?= $form->field($newContest, 'lock_board_time', ['template' => '<div class="input-group"><span class="input-group-addon">'.Yii::t('app', 'Lock Board Time').'</span>{input}</div>'])->widget('app\widgets\laydate\LayDate', [
                         'clientOptions' => [
                             'istoday' => true,
                             'type' => 'datetime'
@@ -89,16 +91,16 @@ $scoreboardFrozenTime = Yii::$app->setting->get('scoreboardFrozenTime') / 3600;
 
 
                     <?= $form->field($newContest, 'language')->radioList([
-                                  -1 => Yii::t('app', 'Please select'),
+                                  -1 => Yii::t('app', 'All'),
                                   0 => 'C',
                                   1 => 'C++',
                                   2 => 'Java',
                                   3 => 'Python3',
-                    ])->hint('为 All 时可以使用任意的语言编程，否则在比赛中只能以指定的语言编程并提交。') ?>
+                    ])->hint('为 <'.Yii::t('app', 'All').'> 时可以使用任意的语言编程，否则在比赛中只能以指定的语言编程并提交。') ?>
 
 
                     <div class="form-group">
-                        <?= Html::submitButton(Yii::t('app', 'Submit'), ['class' => 'btn btn-primary']) ?>
+                        <?= Html::submitButton(Yii::t('app', 'Submit'), ['class' => 'btn btn-success btn-block']) ?>
                     </div>
                     <?php ActiveForm::end(); ?>
                 <?php Modal::end(); ?>
@@ -106,6 +108,16 @@ $scoreboardFrozenTime = Yii::$app->setting->get('scoreboardFrozenTime') / 3600;
             </div>
             <?= GridView::widget([
                 'layout' => '{items}{pager}',
+                'pager' =>[
+                    'firstPageLabel' => Yii::t('app', 'First'),
+                    'prevPageLabel' => '« ',
+                    'nextPageLabel' => '» ',
+                    'lastPageLabel' => Yii::t('app', 'Last'),
+                    'maxButtonCount' => 10
+                ],
+                'rowOptions' => function($model, $key, $index, $grid) {
+                    return ['class' => 'animate__animated animate__fadeInUp'];
+                },
                 'dataProvider' => $contestDataProvider,
                 'options' => ['class' => 'table-responsive'],
                 'columns' => [
@@ -178,7 +190,7 @@ $scoreboardFrozenTime = Yii::$app->setting->get('scoreboardFrozenTime') / 3600;
                         <?= $form->field($newGroupUser, 'role')->radioList(['2'=>'邀请中'],['value'=>[2]]) ?>
                       <?php endif; ?>  
                     <div class="form-group">
-                        <?= Html::submitButton(Yii::t('app', 'Submit'), ['class' => 'btn btn-primary']) ?>
+                        <?= Html::submitButton(Yii::t('app', 'Submit'), ['class' => 'btn btn-success btn-block']) ?>
                     </div>
                     <?php ActiveForm::end(); ?>
                     <?php Modal::end(); ?>
@@ -186,6 +198,16 @@ $scoreboardFrozenTime = Yii::$app->setting->get('scoreboardFrozenTime') / 3600;
             </div>
             <?= GridView::widget([
                 'layout' => '{items}{pager}',
+                'pager' =>[
+                    'firstPageLabel' => Yii::t('app', 'First'),
+                    'prevPageLabel' => '« ',
+                    'nextPageLabel' => '» ',
+                    'lastPageLabel' => Yii::t('app', 'Last'),
+                    'maxButtonCount' => 10
+                ],
+                'rowOptions' => function($model, $key, $index, $grid) {
+                    return ['class' => 'animate__animated animate__fadeInUp'];
+                },
                 'dataProvider' => $userDataProvider,
                 'options' => ['class' => 'table-responsive solution-index'],
                 'columns' => [

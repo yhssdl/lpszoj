@@ -18,7 +18,18 @@ $this->title = Yii::t('app', 'Contests');
     </p>
 
     <?= GridView::widget([
+        'layout' => '{items}{pager}',
+        'pager' =>[
+            'firstPageLabel' => Yii::t('app', 'First'),
+            'prevPageLabel' => '« ',
+            'nextPageLabel' => '» ',
+            'lastPageLabel' => Yii::t('app', 'Last'),
+            'maxButtonCount' => 10
+        ],
         'dataProvider' => $dataProvider,
+        'rowOptions' => function($model, $key, $index, $grid) {
+            return ['class' => 'animate__animated animate__fadeInUp'];
+        },     
         'columns' => [
             [
                 'attribute' => 'id',

@@ -29,7 +29,7 @@ $this->params['breadcrumbs'][] = $this->title;
     <p></p>
 
     <div class="list-group">
-        <div class="list-group-item">
+        <div class="list-group-item animate__animated animate__fadeInUp">
          <?= Yii::$app->formatter->asMarkdown($model->content) ?> </div>
     </div>
 </div>

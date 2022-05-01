@@ -97,7 +97,17 @@ $submissionStatistics = $model->getSubmissionStatistics();
         echo '<hr>';
         echo GridView::widget([
             'layout' => '{items}{pager}',
+            'pager' =>[
+                'firstPageLabel' => Yii::t('app', 'First'),
+                'prevPageLabel' => '« ',
+                'nextPageLabel' => '» ',
+                'lastPageLabel' => Yii::t('app', 'Last'),
+                'maxButtonCount' => 10
+            ],
             'dataProvider' => $dataProvider,
+            'rowOptions' => function($model, $key, $index, $grid) {
+                return ['class' => 'animate__animated animate__fadeInUp'];
+            },
             'options' => ['class' => 'table-responsive', 'style' => 'margin:0 auto;width:50%;min-width:600px;text-align: left;'],
             'columns' => [
                 [

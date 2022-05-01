@@ -9,19 +9,15 @@ use yii\widgets\ActiveForm;
 /* @var $spjContent string */
 
 $this->title = $model->title;
-$this->params['breadcrumbs'][] = ['label' => Yii::t('app', 'Problems'), 'url' => ['index']];
-$this->params['breadcrumbs'][] = $this->title;
 $this->params['model'] = $model;
 ?>
-<div class="solutions-view">
-    <h1>
-        <?= Html::encode($model->title) ?>
-    </h1>
-    <?php if ($model->spj): ?>
-        <p>
-            如果该题目需要特判的，请在下面填写特判程序。参考：<?= Html::a('如何编写特判程序？', ['/wiki/spj']) ?>
-        </p>
-        <hr>
+<p class="lead"><?= Html::encode($this->title) ?></p>
+<div class="solutions-view animate__animated animate__fadeInUp">
+
+    <?php if ($model->spj) : ?>
+        <div class="alert alert-info">
+            <i class="glyphicon glyphicon-info-sign"></i> 如果该题目需要特判的，请在下面填写特判程序。参考：<?= Html::a('如何编写特判程序？', ['/wiki/spj']) ?>
+        </div>
 
         <?= Html::beginForm() ?>
 
@@ -37,10 +33,10 @@ $this->params['model'] = $model;
         </div>
 
         <div class="form-group">
-            <?= Html::submitButton(Yii::t('app', 'Submit'), ['class' => 'btn btn-primary']) ?>
+            <?= Html::submitButton(Yii::t('app', 'Submit'), ['class' => 'btn btn-success btn-block']) ?>
         </div>
         <?= Html::endForm(); ?>
-    <?php else: ?>
+    <?php else : ?>
         <p>当前题目不是 SPJ 判题，如需启用 SPJ 判题，请先到题目信息编辑页面将“特殊裁决”改为是。</p>
     <?php endif; ?>
 </div>

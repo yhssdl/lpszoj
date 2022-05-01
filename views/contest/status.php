@@ -35,7 +35,17 @@ $isContestEnd = $model->isContestEnd();
 
     <?= GridView::widget([
         'layout' => '{items}{pager}',
+        'pager' =>[
+            'firstPageLabel' => Yii::t('app', 'First'),
+            'prevPageLabel' => '« ',
+            'nextPageLabel' => '» ',
+            'lastPageLabel' => Yii::t('app', 'Last'),
+            'maxButtonCount' => 10
+        ],
         'dataProvider' => $dataProvider,
+        'rowOptions' => function($model, $key, $index, $grid) {
+            return ['class' => 'animate__animated animate__fadeInUp'];
+        },
         'options' => ['class' => 'table-responsive'],
         'tableOptions' => ['class' => 'table table-striped table-bordered'],
         'columns' => [

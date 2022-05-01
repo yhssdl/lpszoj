@@ -187,7 +187,7 @@ class Problem extends ActiveRecord
                 return (int) $a['name'] >  (int) $b['name'];
             });
         } catch(\Exception $e) {
-            echo 'Message: ' .$e->getMessage();
+            echo '<div class="alert alert-danger"><i class="glyphicon glyphicon-info-sign"></i> ' .$e->getMessage().'</div>';
         }
         return $files;
     }

@@ -62,8 +62,19 @@ foreach ($problems as $key => $p) {
             <?= $this->render('_status_search', ['model' => $searchModel, 'nav' => $nav, 'contest_id' => $model->id]); ?>
 
             <?= GridView::widget([
+                
                 'layout' => '{items}{pager}',
+                'pager' =>[
+                    'firstPageLabel' => Yii::t('app', 'First'),
+                    'prevPageLabel' => '« ',
+                    'nextPageLabel' => '» ',
+                    'lastPageLabel' => Yii::t('app', 'Last'),
+                    'maxButtonCount' => 10
+                ],
                 'dataProvider' => $dataProvider,
+                'rowOptions' => function($model, $key, $index, $grid) {
+                    return ['class' => 'animate__animated animate__fadeInUp'];
+                },
                 'options' => ['class' => 'table-responsive'],
                 'columns' => [
                     [

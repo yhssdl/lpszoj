@@ -6,15 +6,11 @@ use yii\helpers\Html;
 /* @var $model app\models\Problem */
 
 $this->title = $model->title;
-$this->params['breadcrumbs'][] = ['label' => Yii::t('app', 'Problems'), 'url' => ['index']];
-$this->params['breadcrumbs'][] = $this->title;
 $this->params['model'] = $model;
 ?>
-<div class="row">
+<p class="lead"><?= Html::encode($this->title) ?></p>
+<div class="row animate__animated animate__fadeInUp">
     <div class="col-md-9 problem-view">
-
-        <h1><?= Html::encode($this->title) ?></h1>
-
         <div class="content-wrapper">
             <?= Yii::$app->formatter->asMarkdown($model->description) ?>
         </div>

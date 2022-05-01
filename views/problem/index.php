@@ -22,11 +22,11 @@ $this->registerJs($js);
 
 <?= Html::beginForm('', 'post') ?>
 <div class="row">
-        <div class="col-md-9" style="margin-bottom: 1rem;">
+        <div class="col-md-9">
             <?= Html::textInput('q', '', ['class' => 'form-control', 'placeholder' => '题号 / 标题 / 来源']) ?>
         </div>
 
-        <div class="col-md-3" style="margin-bottom: 1rem;">
+        <div class="col-md-3">
             <div class="btn-group btn-group-justified search-submit">
                 <div class="btn-group">
                     <?= Html::submitButton('<span class="glyphicon glyphicon-search"></span> '.Yii::t('app', 'Search'), ['class' => 'btn btn-primary']) ?>
@@ -40,6 +40,7 @@ $this->registerJs($js);
             </div>
         </div>
 </div>
+<br>
 <?= Html::endForm() ?>
 
 <div class="modal fade" id="myModal" tabindex="-1" role="dialog" aria-labelledby="myModalLabel" aria-hidden="true">
@@ -97,10 +98,10 @@ $title_str .= '';
                 'lastPageLabel' => Yii::t('app', 'Last'),
                 'maxButtonCount' => 10
             ],
+            'dataProvider' => $dataProvider,
             'rowOptions' => function($model, $key, $index, $grid) {
                 return ['class' => 'animate__animated animate__fadeInUp'];
             },
-            'dataProvider' => $dataProvider,
             'options' => ['class' => 'table-responsive problem-index-list'],
             'columns' => [
                 [

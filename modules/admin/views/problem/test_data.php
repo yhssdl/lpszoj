@@ -8,15 +8,10 @@ use yii\helpers\Url;
 
 $this->title = Html::encode($model->title);
 $files = $model->getDataFiles();
-$this->params['breadcrumbs'][] = ['label' => Yii::t('app', 'Problems'), 'url' => ['index']];
-$this->params['breadcrumbs'][] = ['label' => $model->title, 'url' => ['view', 'id' => $model->id]];
 $this->params['model'] = $model;
 ?>
-<div class="solutions-view">
-    <h1>
-        <?= Html::encode($model->title) ?>
-    </h1>
-
+<p class="lead"><?= Html::encode($this->title) ?></p>
+<div class="solutions-view animate__animated animate__fadeInUp">
     <p>
         一个标准输入文件对应一个标准输出文件，输入文件以<code>.in</code>结尾，输出文件以<code>.out</code>或者
         <code>.ans</code>结尾，文件名任意取，
@@ -31,8 +26,9 @@ $this->params['model'] = $model;
     <div class="row table-responsive">
         <div class="col-md-12">
             <?php if (extension_loaded('zip')): ?>
+                <br>
                 <p>
-                    <?= Html::a('下载全部数据', ['download-data', 'id' => $model->id], ['class' => 'btn btn-success']); ?>
+                    <?= Html::a('下载全部数据', ['download-data', 'id' => $model->id], ['class' => 'btn btn-success btn-block']); ?>
                 </p>
             <?php else: ?>
                 <p>

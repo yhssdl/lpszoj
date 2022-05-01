@@ -24,7 +24,17 @@ $solution->language = Yii::$app->user->identity->language;
 <hr>
 <?= GridView::widget([
     'layout' => '{items}{pager}',
+    'pager' =>[
+        'firstPageLabel' => Yii::t('app', 'First'),
+        'prevPageLabel' => '« ',
+        'nextPageLabel' => '» ',
+        'lastPageLabel' => Yii::t('app', 'Last'),
+        'maxButtonCount' => 10
+    ],
     'dataProvider' => $dataProvider,
+    'rowOptions' => function($model, $key, $index, $grid) {
+        return ['class' => 'animate__animated animate__fadeInUp'];
+    },
     'options' => ['class' => 'table-responsive problem-index-list'],
     'columns' => [
         [

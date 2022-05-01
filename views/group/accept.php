@@ -26,6 +26,16 @@ $this->title = Html::encode($model->name);
 <h3>小组成员列表</h3>
 <?= GridView::widget([
     'layout' => '{items}{pager}',
+    'pager' =>[
+        'firstPageLabel' => Yii::t('app', 'First'),
+        'prevPageLabel' => '« ',
+        'nextPageLabel' => '» ',
+        'lastPageLabel' => Yii::t('app', 'Last'),
+        'maxButtonCount' => 10
+    ],
+    'rowOptions' => function($model, $key, $index, $grid) {
+        return ['class' => 'animate__animated animate__fadeInUp'];
+    },
     'dataProvider' => $userDataProvider,
     'options' => ['class' => 'table-responsive'],
     'columns' => [

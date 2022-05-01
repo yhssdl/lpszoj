@@ -25,7 +25,17 @@ if ($discuss != null) {
     if ($dataProvider->count > 0) {
         echo GridView::widget([
             'layout' => '{items}{pager}',
+            'pager' =>[
+                'firstPageLabel' => Yii::t('app', 'First'),
+                'prevPageLabel' => '« ',
+                'nextPageLabel' => '» ',
+                'lastPageLabel' => Yii::t('app', 'Last'),
+                'maxButtonCount' => 10
+            ],
             'dataProvider' => $dataProvider,
+            'rowOptions' => function($model, $key, $index, $grid) {
+                return ['class' => 'animate__animated animate__fadeInUp'];
+            },
             'options' => ['class' => 'table-responsive', 'style' => 'margin:0 auto;width:50%;min-width:600px'],
             'columns' => [
                 [
@@ -50,7 +60,21 @@ if ($discuss != null) {
     </div>
 
     <?= GridView::widget([
+        'layout' => '{items}{pager}',
+        'pager' =>[
+            'firstPageLabel' => Yii::t('app', 'First'),
+            'prevPageLabel' => '« ',
+            'nextPageLabel' => '» ',
+            'lastPageLabel' => Yii::t('app', 'Last'),
+            'maxButtonCount' => 10
+        ],
+        'rowOptions' => function($model, $key, $index, $grid) {
+            return ['class' => 'animate__animated animate__fadeInUp'];
+        },
         'dataProvider' => $clarifies,
+        'rowOptions' => function($model, $key, $index, $grid) {
+            return ['class' => 'animate__animated animate__fadeInUp'];
+        },
         'columns' => [
             [
                 'attribute' => 'Who',

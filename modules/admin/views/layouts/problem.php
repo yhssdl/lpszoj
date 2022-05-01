@@ -7,9 +7,9 @@ use yii\bootstrap\Nav;
 $model = $this->params['model'];
 ?>
 <?php $this->beginContent('@app/views/layouts/main.php'); ?>
-<div class="col-md-2">
+<?php if (Yii::$app->user->identity->isAdmin()) : ?>
     <?= Nav::widget([
-        'options' => ['class' => 'nav nav-pills nav-stacked'],
+        'options' => ['class' => 'nav nav-pills'],
         'items' => [
             ['label' => Yii::t('app', 'Home'), 'url' => ['/admin/default/index']],
             ['label' => Yii::t('app', 'News'), 'url' => ['/admin/news/index']],
@@ -22,15 +22,15 @@ $model = $this->params['model'];
             ['label' => 'OJ ' . Yii::t('app', 'Update'), 'url' => ['/admin/update/index']]
         ],
     ]) ?>
-</div>
-<div class="col-md-10">
+<?php endif; ?>
+<div>
     <div class="problem-header">
         <?= \yii\bootstrap\Nav::widget([
-            'options' => ['class' => 'nav nav-pills'],
+            'options' => ['class' => 'nav-tabs'],
             'items' => [
                 ['label' => Yii::t('app', 'Preview'), 'url' => ['/admin/problem/view', 'id' => $model->id]],
                 ['label' => Yii::t('app', 'Edit'), 'url' => ['/admin/problem/update', 'id' => $model->id]],
-                ['label' => '题解', 'url' => ['/admin/problem/solution', 'id' => $model->id]],
+                ['label' => Yii::t('app', 'Answer'), 'url' => ['/admin/problem/solution', 'id' => $model->id]],
                 ['label' => Yii::t('app', 'Tests Data'), 'url' => ['/admin/problem/test-data', 'id' => $model->id]],
                 ['label' => Yii::t('app', 'Verify Data'), 'url' => ['/admin/problem/verify', 'id' => $model->id]],
                 ['label' => Yii::t('app', 'SPJ'), 'url' => ['/admin/problem/spj', 'id' => $model->id]],

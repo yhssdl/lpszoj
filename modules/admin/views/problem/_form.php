@@ -10,7 +10,7 @@ use yii\helpers\Url;
 
 ?>
 
-<div class="problem-form">
+<div class="problem-form animate__animated animate__fadeInUp">
 
     <?php $form = ActiveForm::begin(); ?>
 

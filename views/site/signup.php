@@ -2,35 +2,59 @@
 /* @var $this yii\web\View */
 /* @var $form yii\bootstrap\ActiveForm */
 /* @var $model app\models\SignupForm */
+
 use yii\helpers\Html;
 use yii\bootstrap\ActiveForm;
 
 $this->title = Yii::t('app', 'Signup');
-$this->params['breadcrumbs'][] = $this->title;
 ?>
 
-<div class="form-signin">
-    <?php if (Yii::$app->setting->get('isUserReg')): ?>    
-    <h1><?= Html::encode($this->title) ?></h1>
 
-    <?php $form = ActiveForm::begin(['id' => 'form-signup']); ?>
-
-    <?= $form->field($model, 'username') ?>
-
-    <?= $form->field($model, 'email') ?>
-
-    <?= $form->field($model, 'studentNumber')->textInput(['placeholder' => '可不填']) ?>
-
-    <?= $form->field($model, 'password')->passwordInput() ?>
-
-    <?= $form->field($model, 'verifyCode')->widget(\yii\captcha\Captcha::className()); ?>
-
-    <div class="form-group">
-        <?= Html::submitButton(Yii::t('app', 'Signup'), ['class' => 'btn btn-primary', 'name' => 'signup-button']) ?>
-    </div>
-    <?php ActiveForm::end(); ?>
-    <?php else: ?>
-       <h3> 当前未开放注册！</h3>
-    <?php endif; ?>    
+<div class="alert alert-success">
+    <span class="glyphicon glyphicon-info-sign"></span> 欢迎注册<?= Yii::$app->setting->get('schoolName') ?>在线评测系统
 </div>
 
+<?php if (Yii::$app->setting->get('isUserReg')) : ?>
+    <div class="animate__animated animate__fadeInUp">
+
+        <?php $form = ActiveForm::begin(['id' => 'form-signup']); ?>
+
+        <?= $form->field($model, 'username', [
+            'template' => '<div class="input-group"><span class="input-group-addon">' . Yii::t('app', 'User') . '</span>{input}</div>',
+        ])->textInput(['maxlength' => 128, 'autocomplete' => 'off']) ?>
+
+
+        <?= $form->field($model, 'email', [
+            'template' => '<div class="input-group"><span class="input-group-addon">' . Yii::t('app', 'Email') . '</span>{input}</div>',
+        ])->textInput(['maxlength' => 128, 'autocomplete' => 'off']) ?>
+
+
+        <?= $form->field($model, 'studentNumber', [
+            'template' => '<div class="input-group"><span class="input-group-addon">' . Yii::t('app', 'Student Number') . '</span>{input}</div>',
+        ])->textInput(['maxlength' => 128, 'autocomplete' => 'off', 'placeholder' => '可不填']) ?>
+
+
+        <?= $form->field($model, 'password', [
+            'template' => '<div class="input-group"><span class="input-group-addon">' . Yii::t('app', 'Password') . '</span>{input}</div>',
+        ])->passwordInput(['maxlength' => 128, 'autocomplete' => 'off']) ?>
+
+
+        <?= $form->field($model, 'verifyCode', [
+            'inputOptions' => [
+                'placeholder' => $model->getAttributeLabel('verifyCode'),
+            ],
+        ])->widget(\yii\captcha\Captcha::class, [
+            'template' => '<div class="input-group btn-group-justified">{input}</div>
+            <div class="list-group text-center" style="margin-top: 1rem;"><div class="list-group-item">{image}<a href="#" class="text-secondary" data-toggle="tooltip" title="点击图片以重置验证码"><span class="fas fa-fw fa-info-circle"></span></a></div></div>',
+        ])->label(false);
+        ?>
+
+
+        <div class="form-group">
+            <?= Html::submitButton(Yii::t('app', 'Signup'), ['class' => 'btn btn-success btn-block', 'name' => 'signup-button']) ?>
+        </div>
+        <?php ActiveForm::end(); ?>
+    </div>
+<?php else : ?>
+    <h3> 当前未开放注册！</h3>
+<?php endif; ?>

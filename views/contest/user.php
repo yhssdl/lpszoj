@@ -16,7 +16,17 @@ $this->params['breadcrumbs'][] = Yii::t('app', 'User');
 <div class="contest-index">
     <?= GridView::widget([
         'layout' => '{items}{pager}',
-        'dataProvider' => $provider,
+        'pager' =>[
+            'firstPageLabel' => Yii::t('app', 'First'),
+            'prevPageLabel' => '« ',
+            'nextPageLabel' => '» ',
+            'lastPageLabel' => Yii::t('app', 'Last'),
+            'maxButtonCount' => 10
+        ],
+        'dataProvider' => $dataProvider,
+        'rowOptions' => function($model, $key, $index, $grid) {
+            return ['class' => 'animate__animated animate__fadeInUp'];
+        },
         'options' => ['class' => 'table-responsive'],
         'columns' => [
             [

@@ -6,15 +6,12 @@ use yii\helpers\Html;
 /* @var $model app\models\Problem */
 
 $this->title = Yii::t('app', $model->title);
-$this->params['breadcrumbs'][] = ['label' => Yii::t('app', 'Problems'), 'url' => ['index']];
-$this->params['breadcrumbs'][] = ['label' => $model->title, 'url' => ['view', 'id' => $model->id]];
-$this->params['breadcrumbs'][] = Yii::t('app', 'Update');
 $this->params['model'] = $model;
 ?>
 
 <div class="problem-update">
 
-    <h1><?= Html::encode($this->title) ?></h1>
+<p class="lead"><?= Html::encode($this->title) ?></p>
 
     <?= $this->render('_form', [
         'model' => $model,
