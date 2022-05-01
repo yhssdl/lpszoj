@@ -28,7 +28,7 @@ $this->params['model'] = $model;
         </a>
     <?php endif; ?>
     <?php if ($model->scenario == Contest::SCENARIO_OFFLINE): ?>
-        <p>该比赛为线下赛，如需参赛，请联系管理员</p>
+        <div class="alert alert-light"><i class=" glyphicon glyphicon-info-sign"></i> 该比赛只能由管理员指定的用户才能参赛，请联系管理员</div>
     <?php else: ?>
         <h4>参赛协议</h4>
         <p>1. 不与其他人分享解决方案</p>

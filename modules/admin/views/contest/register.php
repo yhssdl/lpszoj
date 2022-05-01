@@ -14,56 +14,71 @@ use app\models\Contest;
 
 $this->title = $model->title;
 $contest_id = $model->id;
-$this->params['breadcrumbs'][] = ['label' => Yii::t('app', 'Contests'), 'url' => ['index']];
-$this->params['breadcrumbs'][] = ['label' => $this->title, 'url' => ['view', 'id' => $model->id]];
 ?>
-<h1><?= Html::encode($model->title) ?></h1>
+<p class="lead">管理比赛 <?= Html::a(Html::encode($model->title), ['view', 'id' => $model->id]) ?> 参赛用户。</p>
 
+
+<div class="btn-group btn-group-justified">
+<div class="btn-group">
+<?= Html::a('打星', ['contest/star', 'id' => $model->id], ['class' => 'btn btn-default', 'target' => '_blank']) ?>
+</div>
+<div class="btn-group">
 <?php Modal::begin([
-    'header' => '<h2>' . Yii::t('app', 'Add participating user') . '</h2>',
+    'header' => Yii::t('app', 'Add participating user'),
     'toggleButton' => ['label' => Yii::t('app', 'Add participating user'), 'class' => 'btn btn-success'],
 ]);?>
+
 <?= Html::beginForm(['contest/register', 'id' => $model->id]) ?>
-    <?php if ($model->scenario == Contest::SCENARIO_OFFLINE): ?>
-        <p class="text-muted">当前比赛为线下赛，在此添加的账号在榜单排名上会被打星，不参与榜单排名</p>
-    <?php endif; ?>
+    <div class="alert alert-light"><i class="glyphicon glyphicon-info-sign"></i> 请把要参赛用户的用户名复制到此处，一个名字占据一行，请自行删除多余的空行。</div>
     <div class="form-group">
-        <?= Html::label(Yii::t('app', 'User'), 'user') ?>
         <?= Html::textarea('user', '',['class' => 'form-control', 'rows' => 10]) ?>
-        <p class="hint-block">请把要参赛用户的用户名复制到此处，一个名字占据一行，请自行删除多余的空行。</p>
     </div>
 
     <div class="form-group">
-        <?= Html::submitButton(Yii::t('app', 'Submit'), ['class' => 'btn btn-primary']) ?>
+        <?= Html::submitButton(Yii::t('app', 'Submit'), ['class' => 'btn btn-success btn-block']) ?>
     </div>
     <?= Html::endForm(); ?>
 <?php Modal::end(); ?>
-
+</div>
+<div class="btn-group">
 <?php if ($model->scenario == Contest::SCENARIO_OFFLINE): ?>
     <?php Modal::begin([
-        'header' => '<h2>' . Yii::t('app', 'Generate user for the contest') . '</h2>',
+        'header' => Yii::t('app', 'Generate user for the contest'),
         'toggleButton' => ['label' => Yii::t('app', 'Generate user for the contest'), 'class' => 'btn btn-success'],
     ]);?>
-        <p class="text-muted">在线下举行比赛时，可在此处批量创建账号。</p>
-        <p class="text-danger">注意：在同一场比赛中，重复使用此功能会删除之前已经生成的帐号，请勿在比赛开始后进行此操作。</p>
+        <div class="alert alert-danger"><i class="glyphicon glyphicon-info-sign"></i> 重复使用此功能会删除已生成的帐号，请勿在分发账号后进行此操作。</div>
+        <div class="alert alert-light"><i class="glyphicon glyphicon-info-sign"></i> 前缀不应更改，不同比赛的前缀都不一样，是为了可以一直保留比赛榜单。</div>
         <?php $form = ActiveForm::begin(); ?>
 
-        <?= $form->field($generatorForm, 'prefix')->textInput([
-                'maxlength' => true, 'value' => 'c' . $model->id . 'user', 'disabled' => true
-        ])->hint('前缀不应更改，不同比赛的前缀都不一样，是为了可以一直保留比赛榜单。') ?>
+        <?= $form->field($generatorForm, 'prefix', [
+        'template' => "<div class=\"input-group\"><span class=\"input-group-addon\">".Yii::t('app', 'Prefix')."</span>{input}</div>",
+        'options' => ['class' => '']
+    ])->textInput([
+        'maxlength' => true, 'value' => 'c' . $model->id . 'user', 'disabled' => true
+    ])->label(false) ?>
+    <br>
+    <?= $form->field($generatorForm, 'team_number', [
+        'template' => "<div class=\"input-group\"><span class=\"input-group-addon\">数量</span>{input}</div>",
+        'options' => ['class' => '']
+    ])->textInput(['maxlength' => true, 'value' => '50'])->label(false) ?>
 
-        <?= $form->field($generatorForm, 'team_number')->textInput(['maxlength' => true, 'value' => '50']) ?>
+<br>
+<div class="alert alert-light"><i class="glyphicon glyphicon-info-sign"></i> 请把所有队伍名称复制到此处，一个名字占据一行，请自行删除多余的空行。</div>
 
-        <?= $form->field($generatorForm, 'names')->textarea(['rows' => 10])->hint('请把所有队伍名称复制到此处，一个名字占据一行，请自行删除多余的空行')  ?>
+        <?= $form->field($generatorForm, 'names')->textarea(['rows' => 10])->label(false) ?>
 
         <div class="form-group">
-            <?= Html::submitButton(Yii::t('app', 'Generate'), ['class' => 'btn btn-success']) ?>
+            <?= Html::submitButton(Yii::t('app', 'Generate'), ['class' => 'btn btn-success btn-block']) ?>
         </div>
 
         <?php ActiveForm::end(); ?>
     <?php Modal::end(); ?>
+</div>
     <?= Html::a(Yii::t('app', 'Copy these accounts to distribute'), ['contest/printuser', 'id' => $model->id], ['class' => 'btn btn-default', 'target' => '_blank']) ?>
 <?php endif; ?>
+
+</div>
+<br>
 
 <?= GridView::widget([
         'layout' => '{items}{pager}',
@@ -75,6 +90,7 @@ $this->params['breadcrumbs'][] = ['label' => $this->title, 'url' => ['view', 'id
             'maxButtonCount' => 10
         ],
         'dataProvider' => $dataProvider,
+        'tableOptions' => ['class' => 'table table-striped table-bordered table-text-center'],
         'rowOptions' => function($model, $key, $index, $grid) {
             return ['class' => 'animate__animated animate__fadeInUp'];
         },

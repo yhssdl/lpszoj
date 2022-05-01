@@ -39,12 +39,12 @@ $scoreboardFrozenTime = Yii::$app->setting->get('scoreboardFrozenTime') / 3600;
                     <tbody>
                     <?php foreach ($problems as $key => $p): ?>
                         <tr>
-                            <th><?= Html::a(chr(65 + $key), ['view', 'id' => $model->id, 'action' => 'problem', 'problem_id' => $key]) ?></th>
+                            <th><?= Html::a((1 + $key), ['view', 'id' => $model->id, 'action' => 'problem', 'problem_id' => $key]) ?></th>
                             <th><?= Html::a($p['problem_id'], '') ?></th>
                             <td><?= Html::a(Html::encode($p['title']), ['view', 'id' => $model->id, 'action' => 'problem', 'problem_id' => $key]) ?></td>
                             <th>
                                 <?php Modal::begin([
-                                    'header' => '<h3>'. Yii::t('app','Modify') . ' : ' . chr(65 + $key) . '</h3>',
+                                    'header' => Yii::t('app','Modify') . ' : ' . (1 + $key) ,
                                     'toggleButton' => ['label' => Yii::t('app','Modify'), 'class' => 'btn btn-success'],
                                 ]); ?>
 
@@ -86,7 +86,7 @@ $scoreboardFrozenTime = Yii::$app->setting->get('scoreboardFrozenTime') / 3600;
                         <th></th>
                         <th>
                             <?php Modal::begin([
-                                'header' => '<h3>' . Yii::t('app','Add a problem') . '</h3>',
+                                'header' => Yii::t('app','Add a problem'),
                                 'toggleButton' => ['label' => Yii::t('app','Add a problem'), 'class' => 'btn btn-success'],
                             ]); ?>
 
@@ -182,7 +182,7 @@ $scoreboardFrozenTime = Yii::$app->setting->get('scoreboardFrozenTime') / 3600;
         <h3>
             <?= Yii::t('app', 'Announcements') ?>
             <?php Modal::begin([
-                'header' => '<h3>'.Yii::t('app','Make an announcement').'</h3>',
+                'header' => Yii::t('app','Make an announcement'),
                 'toggleButton' => ['label' => Yii::t('app', 'Create'), 'class' => 'btn btn-success'],
             ]); ?>
             <?php $form = ActiveForm::begin(); ?>

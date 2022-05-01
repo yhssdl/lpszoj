@@ -2,8 +2,8 @@
 use yii\helpers\Html;
 use yii\bootstrap\Modal;
 ?>
-<div class="alert alert-info">
-    <span class="glyphicon glyphicon-info-sign"></span> 本页面已被隐藏，非管理员将无法查看此页面。
+<div class="alert alert-light">
+    <i class="glyphicon glyphicon-info-sign"></i> 本页面已被隐藏，非管理员将无法查看此页面。
 </div>
 
 <h3>Polygon System</h3>

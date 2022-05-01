@@ -58,7 +58,7 @@ $submissionStatistics = $model->getSubmissionStatistics();
             <tbody>
             <?php foreach ($problems as $key => $p): ?>
                 <tr>
-                    <th><?= Html::a(chr(65 + $key), ['/contest/problem', 'id' => $model->id, 'pid' => $key, '#' => 'problem-anchor']) ?></th>
+                    <th><?= Html::a((1 + $key), ['/contest/problem', 'id' => $model->id, 'pid' => $key, '#' => 'problem-anchor']) ?></th>
                     <?php
                     if ($model->isContestEnd()) {
                         echo "<th>" . Html::a($p['problem_id'], ['/problem/view', 'id' => $p['problem_id']]) . "</th>";

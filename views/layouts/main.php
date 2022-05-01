@@ -51,7 +51,7 @@ AppAsset::register($this);
         ],
         ['label' => '<span class="glyphicon glyphicon-knight"></span> ' . Yii::t('app', 'Contests'), 'url' => ['/contest/index']],
         [
-            'label' => '<span class="glyphicon glyphicon-info-sign"></span> '. Yii::t('app', 'Wiki'),
+            'label' => '<i class="glyphicon glyphicon-info-sign"></i> '. Yii::t('app', 'Wiki'),
             'url' => ['/wiki/index'],
             'active' => Yii::$app->controller->id == 'wiki'
         ],
@@ -101,7 +101,7 @@ AppAsset::register($this);
 
     <div class="container radius">
         <?php if (Yii::$app->setting->get('isNotice')): ?>    
-            <div class="alert alert-info"><span class="glyphicon glyphicon-info-sign"></span> <?= Yii::$app->setting->get('notice') ?></div>
+            <div class="alert alert-light"><i class="glyphicon glyphicon-info-sign"></i> <?= Yii::$app->setting->get('notice') ?></div>
         <?php endif; ?>    
         <?= Breadcrumbs::widget([
             'links' => isset($this->params['breadcrumbs']) ? $this->params['breadcrumbs'] : [],

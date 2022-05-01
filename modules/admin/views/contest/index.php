@@ -8,13 +8,14 @@ use yii\widgets\Pjax;
 
 $this->title = Yii::t('app', 'Contests');
 ?>
+<p class="lead">创建和管理公共比赛与题目集</p>
 <div class="contest-index">
 
-    <h1><?= Html::encode($this->title) ?></h1>
+
     <?php Pjax::begin(); ?>
 
     <p>
-        <?= Html::a(Yii::t('app', 'Create Contest'), ['create'], ['class' => 'btn btn-success']) ?>
+        <?= Html::a(Yii::t('app', 'Create Contest'), ['create'], ['class' => 'btn btn-success btn-block']) ?>
     </p>
 
     <?= GridView::widget([
@@ -29,7 +30,8 @@ $this->title = Yii::t('app', 'Contests');
         'dataProvider' => $dataProvider,
         'rowOptions' => function($model, $key, $index, $grid) {
             return ['class' => 'animate__animated animate__fadeInUp'];
-        },     
+        },
+        'tableOptions' => ['class' => 'table table-striped table-bordered table-text-center'],
         'columns' => [
             [
                 'attribute' => 'id',

@@ -33,6 +33,7 @@ if ($discuss != null) {
                 'maxButtonCount' => 10
             ],
             'dataProvider' => $dataProvider,
+            'tableOptions' => ['class' => 'table table-striped table-bordered table-text-center'],
             'rowOptions' => function($model, $key, $index, $grid) {
                 return ['class' => 'animate__animated animate__fadeInUp'];
             },

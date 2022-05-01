@@ -12,7 +12,7 @@ $this->title = Yii::t('app', 'Problems');
 ?>
 <div class="problem-index">
 
-    <p class="lead">创建、导入和管理题目数据。</p>
+    <p class="lead">创建、导入和管理题目数据</p>
 
     <?php echo $this->render('_search', ['model' => $searchModel]); ?>
     <br>
@@ -59,6 +59,7 @@ $this->title = Yii::t('app', 'Problems');
             'maxButtonCount' => 10
         ],
         'dataProvider' => $dataProvider,
+        'tableOptions' => ['class' => 'table table-striped table-bordered table-text-center'],
         'rowOptions' => function($model, $key, $index, $grid) {
             return ['class' => 'animate__animated animate__fadeInUp'];
         },       
@@ -81,6 +82,8 @@ $this->title = Yii::t('app', 'Problems');
                     return Html::a(Html::encode($model->title), ['problem/view', 'id' => $key]);
                 },
                 'enableSorting' => false,
+                'contentOptions' => ['style' => 'text-align:left;'],
+                'headerOptions' => ['style' => 'text-align:left;'],
                 'format' => 'raw'
             ],
             [

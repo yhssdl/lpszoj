@@ -15,7 +15,7 @@ $this->params['model'] = $model;
 <div class="solutions-view animate__animated animate__fadeInUp">
 
     <?php if ($model->spj) : ?>
-        <div class="alert alert-info">
+        <div class="alert alert-light">
             <i class="glyphicon glyphicon-info-sign"></i> 如果该题目需要特判的，请在下面填写特判程序。参考：<?= Html::a('如何编写特判程序？', ['/wiki/spj']) ?>
         </div>
 

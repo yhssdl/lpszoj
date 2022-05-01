@@ -54,7 +54,7 @@ $this->registerAssetBundle('yii\bootstrap\BootstrapPluginAsset');
                 </th>
                 <?php foreach($problems as $key => $p): ?>
                     <th>
-                        <?= chr(65 + $key) ?>
+                        <?= 1 + $key ?>
                         <br>
                         <span style="color:#7a7a7a; font-size:12px">
                             <?php

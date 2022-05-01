@@ -30,7 +30,7 @@ if (empty($problems)) {
 $nav = [];
 foreach ($problems as $key => $p) {
     $nav[] = [
-        'label' => chr(65 + $key),
+        'label' => (1 + $key),
         'url' => [
             'problem',
             'id' => $model->id,
@@ -52,7 +52,7 @@ $loadingImgUrl = Yii::getAlias('@web/images/loading.gif');
     <div class="row">
         <div class="col-md-8 problem-view">
             <?php if ($this->beginCache('contest_problem_view' . $model->id . '_' . $problem['num'] . '_ '. $problem['id'])): ?>
-                <h1><?= Html::encode(chr(65 + $problem['num']) . '. ' . $problem['title']) ?></h1>
+                <h1><?= Html::encode((1 + $problem['num']) . '. ' . $problem['title']) ?></h1>
 
                 <h3><?= Yii::t('app', 'Description') ?></h3>
                 <div class="content-wrapper">

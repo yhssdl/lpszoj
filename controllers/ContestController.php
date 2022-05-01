@@ -60,33 +60,35 @@ class ContestController extends BaseController
         ]);
     }
 
+
     /**
-     * 用户在比赛中的提交记录
-     * @param $id
+     * 显示该比赛的所有提交记录
+     * @param integer $id
+     * @param integer $active 该值等于 0 就什么也不做，等于 1 就将所有提交记录显示在前台的提交记录列表，等于 2 就隐藏提交记录
      * @return mixed
      */
-    public function actionStatus($id)
+    public function actionStatus($id, $active = 0, $autoRefresh = 0)
     {
+        
         $model = $this->findModel($id);
         $searchModel = new SolutionSearch();
-        // 访问权限检查
-        if (!$model->canView()) {
-            return $this->render('/contest/forbidden', ['model' => $model]);
+    
+        if ($active == 1) {
+            Solution::updateAll(['status' => Solution::STATUS_VISIBLE], ['contest_id' => $model->id]);
+            $this->redirect(['status', 'id' => $id]);
+        } else if ($active == 2) {
+            Solution::updateAll(['status' => Solution::STATUS_HIDDEN], ['contest_id' => $model->id]);
+            $this->redirect(['status', 'id' => $id]);
         }
 
-        if (Yii::$app->request->isPjax) {
-            return $this->renderAjax('/contest/status', [
-                'model' => $model,
-                'searchModel' => $searchModel,
-                'dataProvider' => $searchModel->search(Yii::$app->request->queryParams, $model)
-            ]);
-        }
-        return $this->render('/contest/status', [
+        return $this->render('status', [
+            'autoRefresh' => $autoRefresh,
             'model' => $model,
             'searchModel' => $searchModel,
             'dataProvider' => $searchModel->search(Yii::$app->request->queryParams, $model)
         ]);
     }
+
 
     /**
      * 显示用户在某道题上的提交列表
@@ -179,7 +181,7 @@ class ContestController extends BaseController
         ]);
     }
 
-    /**
+     /**
      * 代码打印页面
      * @param $id
      * @return string
@@ -188,7 +190,16 @@ class ContestController extends BaseController
      */
     public function actionPrint($id)
     {
+
+        if (Yii::$app->setting->get('isContestMode') && (Yii::$app->user->isGuest || (!Yii::$app->user->identity->isAdmin())) && Yii::$app->setting->get('examContestId') && $id != Yii::$app->setting->get('examContestId')) {
+            throw new ForbiddenHttpException('You are not allowed to perform this action.');
+        }
+
         $model = $this->findModel($id);
+        if ($model->ext_link) {
+            $this->redirect($model->ext_link);
+        }
+
         $newContestPrint = new ContestPrint();
 
         // 访问权限检查
@@ -196,7 +207,7 @@ class ContestController extends BaseController
             return $this->render('/contest/forbidden', ['model' => $model]);
         }
         // 只能在线下赛未结束时访问
-        if ($model->scenario != Contest::SCENARIO_OFFLINE || $model->getRunStatus() == Contest::STATUS_ENDED) {
+        if (($model->scenario == Contest::SCENARIO_ONLINE && $model->enable_print == 0) || $model->getRunStatus() == Contest::STATUS_ENDED) {
             throw new ForbiddenHttpException('该比赛现不提供打印服务功能。');
         }
 

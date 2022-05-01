@@ -7,9 +7,7 @@ use yii\grid\GridView;
 /* @var $dataProvider yii\data\ActiveDataProvider */
 /* @var $contest app\models\Contest */
 
-$this->title = 'Print Sources';
-$this->params['breadcrumbs'][] = ['label' => Html::encode($contest->title), 'url' => ['/contest/view', 'id' => $contest->id]];
-$this->params['breadcrumbs'][] = $this->title;
+$this->title = '打印代码';
 ?>
 <div class="print-source-index">
 
@@ -29,6 +27,7 @@ $this->params['breadcrumbs'][] = $this->title;
             'maxButtonCount' => 10
         ],
         'dataProvider' => $dataProvider,
+        'tableOptions' => ['class' => 'table table-striped table-bordered table-text-center'],
         'rowOptions' => function($model, $key, $index, $grid) {
             return ['class' => 'animate__animated animate__fadeInUp'];
         },
@@ -42,6 +41,7 @@ $this->params['breadcrumbs'][] = $this->title;
             ],
             [
                 'attribute' => 'who',
+                'label' => Yii::t('app',"Who"),
                 'value' => function ($model, $key, $index, $column) {
                     return Html::a(Html::encode($model->user->username) . ' [' . Html::encode($model->user->nickname) . ']', ['/user/view', 'id' => $model->user->id]);
                 },

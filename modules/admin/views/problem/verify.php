@@ -15,7 +15,7 @@ $loadingImgUrl = Yii::getAlias('@web/images/loading.gif');
 ?>
 <p class="lead"><?= Html::encode($this->title) ?></p>
 <div class="solutions-view animate__animated animate__fadeInUp">
-<div class="alert alert-info">
+<div class="alert alert-light">
     <i class="glyphicon glyphicon-info-sign"></i> 提示：题目的验题状态将不会在前台展示．不会出现泄题情况</div>
     <div class="table-responsive">
         <table class="table table-bordered table-rank">

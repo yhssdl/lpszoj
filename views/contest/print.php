@@ -10,7 +10,6 @@ use yii\grid\GridView;
 /* @var $dataProvider yii\data\ActiveDataProvider */
 
 $this->title = $model->title;
-$this->params['model'] = $model;
 
 ?>
 <div class="print-source-index" style="margin-top: 20px">
@@ -29,6 +28,7 @@ $this->params['model'] = $model;
             'maxButtonCount' => 10
         ],
         'dataProvider' => $dataProvider,
+        'tableOptions' => ['class' => 'table table-striped table-bordered table-text-center'],
         'rowOptions' => function($model, $key, $index, $grid) {
             return ['class' => 'animate__animated animate__fadeInUp'];
         },

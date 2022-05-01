@@ -11,7 +11,7 @@ $this->title = Yii::t('app', 'Signup');
 
 
 <div class="alert alert-success">
-    <span class="glyphicon glyphicon-info-sign"></span> 欢迎注册<?= Yii::$app->setting->get('schoolName') ?>在线评测系统
+    <i class="glyphicon glyphicon-info-sign"></i> 欢迎注册<?= Yii::$app->setting->get('schoolName') ?>在线评测系统
 </div>
 
 <?php if (Yii::$app->setting->get('isUserReg')) : ?>

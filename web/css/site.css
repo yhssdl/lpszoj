@@ -406,11 +406,18 @@ a.desc:after {
 }
 
 .problem-index-list tr td:nth-child(1),
-.problem-index-list tr th:nth-child(1) {
-    text-align: center;
-}
+.problem-index-list tr th:nth-child(1),
 .problem-index-list tr td:nth-child(3),
-.problem-index-list tr th:nth-child(3) {
+.problem-index-list tr th:nth-child(3),
+.table-problem-list1 tr td:nth-child(1),
+.table-problem-list1 tr th:nth-child(1),
+.table-problem-list1 tr td:nth-child(2),
+.table-problem-list1 tr th:nth-child(2),
+.table-problem-list1 tr td:nth-child(4),
+.table-problem-list1 tr th:nth-child(4),
+.table-text-center tr th,
+.table-text-center tr td
+{
     text-align:center;
 }
 
@@ -836,3 +843,12 @@ a.text-dark:hover, a.text-dark:focus {
     border-radius: 0 0.25rem 0.25rem 0;
   }
   
+
+.alert-light {
+    color: #343a40;
+    background-color: #f8f9fa;
+}
+
+.bg-tablehead {
+    background-color: #F9FAFB;
+}

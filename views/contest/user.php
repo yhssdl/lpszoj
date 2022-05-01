@@ -23,7 +23,7 @@ $this->params['breadcrumbs'][] = Yii::t('app', 'User');
             'lastPageLabel' => Yii::t('app', 'Last'),
             'maxButtonCount' => 10
         ],
-        'dataProvider' => $dataProvider,
+        'dataProvider' => $provider,
         'rowOptions' => function($model, $key, $index, $grid) {
             return ['class' => 'animate__animated animate__fadeInUp'];
         },

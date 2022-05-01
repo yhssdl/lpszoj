@@ -11,7 +11,7 @@ $this->params['breadcrumbs'][] = $this->title;
 ?>
 <div class="discuss-view">
 
-    <h3 class="lead"> 预览《<?= Html::encode($model->title) ?>》发布渲染效果。</h3>
+    <h3 class="lead"> 预览《<?= Html::encode($model->title) ?>》发布渲染效果</h3>
 
     <div class="btn-group btn-group-justified">
         <div class="btn-group">

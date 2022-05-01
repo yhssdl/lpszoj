@@ -10,7 +10,7 @@ $this->title = Yii::t('app', 'News');
 ?>
 <div class="discuss-index">
 
-    <h3 class="lead">创建和管理新闻。</h3>
+    <h3 class="lead">创建和管理新闻</h3>
 
     <p>
         <?= Html::a(Yii::t('app', 'Release news'), ['create'], ['class' => 'btn btn-success btn-block']) ?>
@@ -26,6 +26,7 @@ $this->title = Yii::t('app', 'News');
             'maxButtonCount' => 10
         ],
         'dataProvider' => $dataProvider,
+        'tableOptions' => ['class' => 'table table-striped table-bordered table-text-center'],
         'rowOptions' => function($model, $key, $index, $grid) {
             return ['class' => 'animate__animated animate__fadeInUp'];
         },

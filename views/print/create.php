@@ -7,14 +7,11 @@ use yii\helpers\Html;
 /* @var $model app\models\ContestPrint */
 /* @var $contest app\models\Contest */
 
-$this->title = 'Create Print Source';
-$this->params['breadcrumbs'][] = ['label' => Html::encode($contest->title), 'url' => ['/contest/view', 'id' => $contest->id]];
-$this->params['breadcrumbs'][] = ['label' => 'Print Sources', 'url' => ['index', 'id' => $contest->id]];
-$this->params['breadcrumbs'][] = $this->title;
+$this->title = '创建打印源代码';
 ?>
 <div class="print-source-create">
 
-    <h1><?= Html::encode($this->title) ?></h1>
+    <p class="lead"><?= Html::encode($this->title) ?></p>
 
     <?= $this->render('_form', [
         'model' => $model,

@@ -131,7 +131,7 @@ return [
     'Problem Name' => '问题名称',
     'Add a problem' => '添加问题',
     'Current Problem ID' => '当前题目 ID',
-    'New Problem ID' => '新题目 ID',
+    'New Problem ID' => '新的题目 ID',
     'Polygon Problem' => 'Polygon题目',
     'Solution Language' => '语言',
     'Solution Source' => '代码',
@@ -155,8 +155,8 @@ return [
     'No' => '否',
     'Description' => '描述',
     'Scenario' => '场景',
-    'Offline' => '线下',
-    'Online' => '线上',
+    'Offline' => '管理员指定参赛用户',
+    'Online' => '用户自由加入',
     'Calculate rating' => '计算积分',
     'The contest has ended.' => '比赛已结束。',
     'Copy these accounts to distribute' => '导出用户名和密码',
@@ -272,6 +272,8 @@ return [
     'ID' => '题号',
     'Please select' => '请选择',
     'Answer' => '解题',
-    'All' => '所有'
+    'All' => '所有' ,
+    'Print' => '打印',
+    'Source' => '源代码'
 
 ];

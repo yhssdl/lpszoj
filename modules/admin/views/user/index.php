@@ -13,17 +13,18 @@ $this->title = Yii::t('app', 'Users');
 ?>
 <div class="user-index">
 
-    <p class="lead">管理用户信息和权限。</p>
+    <p class="lead">管理用户信息和权限</p>
 
     <?php echo $this->render('_search', ['model' => $searchModel]); ?>
+    <br>
 
     <div class="btn-group  btn-group-justified">
         <div class="btn-group">
         <?php Modal::begin([
-            'header' => '<h4>' . Yii::t('app', '批量创建用户') . '</h4>',
+            'header' => Yii::t('app', '批量创建用户'),
             'toggleButton' => ['label' => '<span class="glyphicon glyphicon-plus"></span> '.Yii::t('app', '批量创建用户'), 'class' => 'btn btn-default'],
         ]);?>
-        </div>
+
 
         <?php $form = ActiveForm::begin(['options' => ['target' => '_blank']]); ?>
 
@@ -50,7 +51,7 @@ $this->title = Yii::t('app', 'Users');
 
         <?php ActiveForm::end(); ?>
         <?php Modal::end(); ?>
-
+        </div>
         <div class="btn-group">
             <a id="general-user" class="btn btn-success" href="javascript:void(0);"><span class="glyphicon glyphicon-user"></span> 设为普通用户</a>
         </div>
@@ -73,9 +74,10 @@ $this->title = Yii::t('app', 'Users');
             'maxButtonCount' => 10
         ],
         'dataProvider' => $dataProvider,
+        'tableOptions' => ['class' => 'table table-striped table-bordered table-text-center'],
         'rowOptions' => function($model, $key, $index, $grid) {
             return ['class' => 'animate__animated animate__fadeInUp'];
-        },         
+        },
         'options' => ['id' => 'grid'],
         'columns' => [
             [

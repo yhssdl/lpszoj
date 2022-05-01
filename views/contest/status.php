@@ -19,7 +19,7 @@ $problems = $model->problems;
 $nav = [];
 $nav[''] = 'All';
 foreach ($problems as $key => $p) {
-    $nav[$p['problem_id']] = chr(65 + $key) . '-' . $p['title'];
+    $nav[$p['problem_id']] = (1 + $key) . '-' . $p['title'];
 }
 $userInContest = $model->isUserInContest();
 $isContestEnd = $model->isContestEnd();
@@ -75,7 +75,7 @@ $isContestEnd = $model->isContestEnd();
                     if (!isset($res->num)) {
                         return $model->problem->title;
                     }
-                    return Html::a(chr(65 + $res->num) . ' - ' . $model->problem->title,
+                    return Html::a((1 + $res->num) . ' - ' . $model->problem->title,
                         ['/contest/problem', 'id' => $res->contest_id, 'pid' => $res->num]);
                 },
                 'format' => 'raw'

@@ -9,10 +9,6 @@ use yii\grid\GridView;
 /* @var $new_clarify app\models\Discuss */
 
 $this->title = Html::encode($model->title);
-$this->params['model'] = $model;
-$this->params['breadcrumbs'][] = ['label' => Yii::t('app', 'Contests'), 'url' => ['index']];
-$this->params['breadcrumbs'][] = ['label' => $this->title, 'url' => ['view', 'id' => $model->id]];
-$this->params['breadcrumbs'][] = ['label' => Yii::t('app', 'Clarification'), 'url' => ['clarify', 'id' => $model->id]];
 
 if ($discuss != null) {
     echo $this->render('_clarify_view', [
@@ -22,8 +18,8 @@ if ($discuss != null) {
     return;
 }
 ?>
-<h3><?= Html::encode($model->title) ?></h3>
-<div style="padding-top: 20px">
+<p class="lead">比赛 <?= Html::a(Html::encode($model->title), ['view', 'id' => $model->id]) ?> 答疑。</p>
+<div>
 
     <?= GridView::widget([
         'layout' => '{items}{pager}',
@@ -35,6 +31,7 @@ if ($discuss != null) {
             'maxButtonCount' => 10
         ],
         'dataProvider' => $clarifies,
+        'tableOptions' => ['class' => 'table table-striped table-bordered table-text-center'],
         'rowOptions' => function($model, $key, $index, $grid) {
             return ['class' => 'animate__animated animate__fadeInUp'];
         },

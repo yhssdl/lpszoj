@@ -120,7 +120,7 @@ $nextProblemID = $model->getNextProblemID();
         </div>
 
         <?php Modal::begin([
-            'header' => '<h3>'.Yii::t('app','Submit') . '：' . Html::encode($model->id . '. ' . $model->title) . '</h3>',
+            'header' => Yii::t('app','Submit') . '：' . Html::encode($model->id . '. ' . $model->title),
             'size' => Modal::SIZE_LARGE,
             'toggleButton' => [
                 'label' => '<span class="glyphicon glyphicon-plus"></span> ' . Yii::t('app', 'Submit'),
@@ -131,8 +131,6 @@ $nextProblemID = $model->getNextProblemID();
                 <?= app\widgets\login\Login::widget(); ?>
             <?php else: ?>
                 <?php $form = ActiveForm::begin(); ?>
-
-                
                 <div style="height: 44px;">
                     <div style="float:left;height: 34px;padding: 6px 12px;">
                     <?= Yii::t('app', 'Language') ?>：
@@ -175,7 +173,7 @@ $nextProblemID = $model->getNextProblemID();
         ?>
         <?php endif; ?> 
         <?php if (!empty($model->solution)): ?>
-        <?= Html::a('<span class="glyphicon glyphicon-info-sign"></span> ' . Yii::t('app', '题解'),
+        <?= Html::a('<i class="glyphicon glyphicon-info-sign"></i> ' . Yii::t('app', '题解'),
             ['/problem/solution', 'id' => $model->id],
             ['class' => 'btn btn-default'])
         ?>

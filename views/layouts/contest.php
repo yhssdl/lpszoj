@@ -189,7 +189,7 @@ $status = $model->getRunStatus();
                 }
                 if ($model->isContestEnd()) {
                     $menuItems[] = [
-                        'label' => '<span class="glyphicon glyphicon-info-sign"></span> ' . Yii::t('app', 'Editorial'),
+                        'label' => '<i class="glyphicon glyphicon-info-sign"></i> ' . Yii::t('app', 'Editorial'),
                         'url' => ['contest/editorial', 'id' => $model->id]
                     ];
                 }

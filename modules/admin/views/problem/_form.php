@@ -14,7 +14,7 @@ use yii\helpers\Url;
 
     <?php $form = ActiveForm::begin(); ?>
 
-    <?= $form->field($model, 'id', ['template' => '<div class="input-group"><span class="input-group-addon">'.Yii::t('app', 'Problem ID').'</span>{input}</div>'])->textInput(['placeholder' => '可不填'])
+    <?= $form->field($model, 'id', ['template' => '<div class="input-group"><span class="input-group-addon">'.Yii::t('app', 'Problem ID').'</span>{input}</div>{hint}'])->textInput(['placeholder' => '可不填'])
         ->hint('此处用于指定题目ID，若不填，新建题目时题目ID会自动增长。新建题目时填写的ID不能为已经存在的ID') ?>
 
     <?= $form->field($model, 'title', ['template' => '<div class="input-group"><span class="input-group-addon">'.Yii::t('app', 'Title').'</span>{input}</div>'])->textInput() ?>
