@@ -8,7 +8,7 @@ use yii\widgets\ActiveForm;
 /* @var $form yii\widgets\ActiveForm */
 ?>
 
-<div class="problem-search">
+<div class="problem-search row">
 
     <?php $form = ActiveForm::begin([
         'action' => ['index'],
@@ -19,23 +19,33 @@ use yii\widgets\ActiveForm;
         ],
     ]); ?>
 
-    <?= $form->field($model, 'id', [
-        'template' => "{label}\n<div class=\"input-group\"><span class=\"input-group-addon\"><span class='glyphicon glyphicon-sunglasses'></span></span>{input}</div>",
-    ])->textInput(['maxlength' => 128, 'autocomplete'=>'off', 'placeholder' => 'ID'])->label(false) ?>
+    <div class="col-md-3">
+        <?= $form->field($model, 'id', [
+            'template' => "{label}\n<div class=\"input-group btn-group-justified\"><span style='width:60px' class=\"input-group-addon\"><span class='glyphicon glyphicon-sunglasses'></span></span>{input}</div>",
+        ])->textInput(['maxlength' => 128, 'autocomplete' => 'off', 'placeholder' => 'ID'])->label(false) ?>
+    </div>
 
-    <?= $form->field($model, 'title', [
-        'template' => "{label}\n<div class=\"input-group\"><span class=\"input-group-addon\"><span class='glyphicon glyphicon-text-size'></span></span>{input}</div>",
-    ])->textInput(['maxlength' => 128, 'autocomplete'=>'off', 'placeholder' => Yii::t('app', 'Title')])->label(false) ?>
+    <div class="col-md-3">
+        <?= $form->field($model, 'title', [
+            'template' => "{label}\n<div class=\"input-group btn-group-justified\"><span style='width:60px' class=\"input-group-addon\"><span class='glyphicon glyphicon-text-size'></span></span>{input}</div>",
+        ])->textInput(['maxlength' => 128, 'autocomplete' => 'off', 'placeholder' => Yii::t('app', 'Title')])->label(false) ?>
+    </div>
+    <div class="col-md-3">
+        <?= $form->field($model, 'username', [
+            'template' => "{label}\n<div class=\"input-group btn-group-justified\"><span style='width:60px' class=\"input-group-addon\"><span class='glyphicon glyphicon-user'></span></span>{input}</div>",
+        ])->textInput(['maxlength' => 128, 'autocomplete' => 'off', 'placeholder' => Yii::t('app', 'Who')])->label(false) ?>
+    </div>
 
-    <?= $form->field($model, 'username', [
-        'template' => "{label}\n<div class=\"input-group\"><span class=\"input-group-addon\"><span class='glyphicon glyphicon-user'></span></span>{input}</div>",
-    ])->textInput(['maxlength' => 128, 'autocomplete'=>'off', 'placeholder' => Yii::t('app', 'Who')])->label(false) ?>
-
-
-    <div class="form-group">
-        <div class="btn-group btn-block">    
-            <?= Html::submitButton(Yii::t('app', 'Search'), ['class' => 'btn btn-primary']) ?>
-            <?= Html::resetButton(Yii::t('app', 'Reset'), ['class' => 'btn btn-default']) ?>
+    <div class="col-md-3">
+        <div class="form-group">
+            <div class="btn-group btn-group-justified">
+                <div class="btn-group">
+                    <?= Html::submitButton(Yii::t('app', 'Search'), ['class' => 'btn btn-primary']) ?>
+                </div>
+                <div class="btn-group">
+                    <?= Html::resetButton(Yii::t('app', 'Reset'), ['class' => 'btn btn-default']) ?>
+                </div>
+            </div>
         </div>
     </div>
 

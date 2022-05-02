@@ -33,12 +33,12 @@ $model = $this->params['model'];
                 ['label' => Yii::t('app', 'Answer'), 'url' => ['/admin/problem/solution', 'id' => $model->id]],
                 ['label' => Yii::t('app', 'Tests Data'), 'url' => ['/admin/problem/test-data', 'id' => $model->id]],
                 ['label' => Yii::t('app', 'Verify Data'), 'url' => ['/admin/problem/verify', 'id' => $model->id]],
-                ['label' => Yii::t('app', 'SPJ'), 'url' => ['/admin/problem/spj', 'id' => $model->id]],
+                ['label' => Yii::t('app', 'Special Judge'), 'url' => ['/admin/problem/spj', 'id' => $model->id],'visible' => isset($problem->spj) && $problem->spj],
                 ['label' => Yii::t('app', 'Subtask'), 'url' => ['/admin/problem/subtask', 'id' => $model->id]]
             ],
         ]) ?>
     </div>
-    <hr>
+    <br>
     <?= $content ?>
 </div>
 <?php $this->endContent(); ?>

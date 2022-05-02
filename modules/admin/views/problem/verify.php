@@ -81,13 +81,11 @@ $loadingImgUrl = Yii::getAlias('@web/images/loading.gif');
         </table>
     </div>
 
-    <hr>
-
     <?php $form = ActiveForm::begin(); ?>
 
-    <?= $form->field($newSolution, 'language')->dropDownList($newSolution::getLanguageList()) ?>
+    <?= $form->field($newSolution, 'language')->dropDownList($newSolution::getLanguageList())->label(false) ?>
 
-    <?= $form->field($newSolution, 'source')->widget('app\widgets\codemirror\CodeMirror'); ?>
+    <?= $form->field($newSolution, 'source')->widget('app\widgets\codemirror\CodeMirror')->label(false); ?>
 
     <div class="form-group">
         <?= Html::submitButton(Yii::t('app', 'Submit'), ['class' => 'btn btn-success btn-block']) ?>

@@ -12,13 +12,15 @@ $this->params['model'] = $model;
 ?>
 <p class="lead"><?= Html::encode($this->title) ?></p>
 <div class="solutions-view animate__animated animate__fadeInUp">
-    <p>
-        一个标准输入文件对应一个标准输出文件，输入文件以<code>.in</code>结尾，输出文件以<code>.out</code>或者
-        <code>.ans</code>结尾，文件名任意取，
-        但输入文件跟输出文件的文件名必须一一对应．比如一组样例: 输入文件文件名<code>apple.in</code>，
-        输出文件文件名<code>apple.out</code> 或者 <code>apple.ans</code>。
-        如有多个测试点，可以分开不同的文件上传
-    </p>
+
+    <div class="alert alert-light">
+        <i class="glyphicon glyphicon-info-sign"></i> 输入文件以 <code>.in</code> 结尾，输出文件以 <code>.out</code> 或者
+        <code>.ans</code> 结尾，文件名可以任意取。
+    </div>
+    <div class="alert alert-light">
+        <i class="glyphicon glyphicon-info-sign"></i> 输入文件跟输出文件的文件名必须一一对应。比如输入文件为
+        <code>apple.in</code>，则输出文件需命名为 <code>apple.out</code> 或者 <code>apple.ans</code>。
+    </div>    
 
     <?= \app\widgets\webuploader\MultiImage::widget() ?>
 
@@ -38,17 +40,13 @@ $this->params['model'] = $model;
         </div>
         <div class="col-md-6">
             <table class="table table-bordered table-rank">
-                <caption>
-                    标准输入文件
-                    <a href="<?= Url::toRoute(['/admin/problem/deletefile', 'id' => $model->id,'name' => 'in']) ?>" onclick="return confirm('确定删除全部输入文件？');">
-                        删除全部输入文件
-                    </a>
-                </caption>
                 <tr>
-                    <th>文件名</th>
+                    <th>输入文件</th>
                     <th>大小(bytes)</th>
                     <th>修改时间</th>
-                    <th>操作</th>
+                    <th><a href="<?= Url::toRoute(['/admin/problem/deletefile', 'id' => $model->id,'name' => 'in']) ?>" onclick="return confirm('确定删除全部输入文件？');">
+                        删除全部
+                    </a></th>
                 </tr>
                 <?php foreach ($files as $file): ?>
                     <?php
@@ -77,17 +75,13 @@ $this->params['model'] = $model;
         </div>
         <div class="col-md-6">
             <table class="table table-bordered table-rank">
-                <caption>
-                    标准输出文件
-                    <a href="<?= Url::toRoute(['/admin/problem/deletefile', 'id' => $model->id, 'name' => 'out']) ?>" onclick="return confirm('确定删除全部输出文件？');">
-                        删除全部输出文件
-                    </a>
-                </caption>
                 <tr>
-                    <th>文件名</th>
+                    <th>输出文件</th>
                     <th>大小(bytes)</th>
                     <th>修改时间</th>
-                    <th>操作</th>
+                    <th><a href="<?= Url::toRoute(['/admin/problem/deletefile', 'id' => $model->id, 'name' => 'out']) ?>" onclick="return confirm('确定删除全部输出文件？');">
+                        删除全部
+                    </a></th>
                 </tr>
                 <?php foreach ($files as $file): ?>
                     <?php

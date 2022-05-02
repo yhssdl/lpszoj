@@ -18,7 +18,6 @@ $this->title = Yii::t('app', 'Wiki');;
         [
             'label' => Yii::t('app', '常见问题'), 'url' => ['wiki/faq']
         ],
-        ['label' => Yii::t('app', 'About'), 'url' => ['wiki/about']],
         [
             'label' => Yii::t('app', '出题要求'), 'url' => ['wiki/problem'],
             'visible' => !Yii::$app->user->isGuest && Yii::$app->user->identity->isAdmin()
@@ -30,7 +29,8 @@ $this->title = Yii::t('app', 'Wiki');;
         [
             'label' => Yii::t('app', 'OI 模式'), 'url' => ['wiki/oi'],
             'visible' => !Yii::$app->user->isGuest && Yii::$app->user->identity->isAdmin()
-        ]
+        ],
+        ['label' => Yii::t('app', 'About'), 'url' => ['wiki/about']]
     ],
     'options' => ['class' => 'nav nav-pills']
 ]) ?>

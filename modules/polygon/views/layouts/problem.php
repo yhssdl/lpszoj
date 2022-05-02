@@ -11,11 +11,12 @@ $problem = $this->params['model'];
     <?= Nav::widget([
         'options' => ['class' => 'nav nav-pills'],
         'items' => [
+            ['label' => Yii::t('app', 'Back'), 'url' => ['/polygon/problem/index']],
             ['label' => Yii::t('app', 'Preview'), 'url' => ['/polygon/problem/view', 'id' => $problem->id]],
             ['label' => Yii::t('app', 'Edit'), 'url' => ['/polygon/problem/update', 'id' => $problem->id]],
             ['label' => Yii::t('app', 'Solution'), 'url' => ['/polygon/problem/solution', 'id' => $problem->id]],
             ['label' => Yii::t('app', '题解'), 'url' => ['/polygon/problem/answer', 'id' => $problem->id]],
-            ['label' => Yii::t('app', 'Special Judge'), 'url' => ['/polygon/problem/spj', 'id' => $problem->id]],
+            ['label' => Yii::t('app', 'Special Judge'), 'url' => ['/polygon/problem/spj', 'id' => $problem->id], 'visible' => isset($problem->spj) && $problem->spj],
             ['label' => Yii::t('app', 'Tests Data'), 'url' => ['/polygon/problem/tests', 'id' => $problem->id]],
             ['label' => Yii::t('app', 'Verify Data'), 'url' => ['/polygon/problem/verify', 'id' => $problem->id]],
             ['label' => Yii::t('app', 'Subtask'), 'url' => ['/polygon/problem/subtask', 'id' => $problem->id]],

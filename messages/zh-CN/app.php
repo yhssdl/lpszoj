@@ -274,6 +274,7 @@ return [
     'Answer' => '解题',
     'All' => '所有' ,
     'Print' => '打印',
-    'Source' => '源代码'
+    'Source' => '源代码',
+    'Back' => '返回'
 
 ];

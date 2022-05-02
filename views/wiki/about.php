@@ -23,13 +23,13 @@
     <a class="list-group-item list-group-item-action" target="_blank" href="//gitee.com/yhssdl/lpszoj">
         项目源码
         <span class="float-right text-secondary">
-            <i class="fas fa-fw fa-angle-right"></i>
+            &gt;
         </span>
     </a>
     <a class="list-group-item list-group-item-action" target="_blank" href="//gitee.com/yhssdl/lpszoj/issues">
         问题反馈
         <span class="float-right text-secondary">
-            <i class="fas fa-fw fa-angle-right"></i>
+            &gt;
         </span>
     </a>
 </div>

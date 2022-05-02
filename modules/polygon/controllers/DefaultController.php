@@ -20,12 +20,6 @@ class DefaultController extends Controller
      */
     public function actionIndex()
     {
-        $searchModel = new ProblemSearch();
-        $dataProvider = $searchModel->search(Yii::$app->request->queryParams);
-
-        return $this->render('index', [
-            'dataProvider' => $dataProvider,
-            'searchModel' => $searchModel
-        ]);
+        $this->redirect("/polygon/problem/index");
     }
 }

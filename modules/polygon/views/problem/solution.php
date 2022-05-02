@@ -8,22 +8,20 @@ use app\models\Solution;
 /* @var $model app\modules\polygon\models\Problem */
 
 $this->title = $model->title;
-$this->params['breadcrumbs'][] = ['label' => Yii::t('app', 'Problems'), 'url' => ['index']];
-$this->params['breadcrumbs'][] = $this->title;
 $this->params['model'] = $model;
 
 $model->setSamples();
 ?>
-<p>
-    请在此页面提供一个“标程”（即解答该问题的正确代码程序）。它将被用来生成测试数据的标准输出。
-</p>
+<div class="animate__animated animate__fadeInUp">
+<div class="alert alert-light"><i class="glyphicon glyphicon-info-sign"></i> 请在此页面提供一个“标程”（即解答该问题的正确代码程序）。它将被用来生成测试数据的标准输出</div>
 <?php $form = ActiveForm::begin(); ?>
 
-    <?= $form->field($model, 'solution_lang')->dropDownList(Solution::getLanguageList()) ?>
+    <?= $form->field($model, 'solution_lang')->dropDownList(Solution::getLanguageList())->label(false) ?>
 
-    <?= $form->field($model, 'solution_source')->widget('app\widgets\codemirror\CodeMirror'); ?>
+    <?= $form->field($model, 'solution_source')->widget('app\widgets\codemirror\CodeMirror')->label(false); ?>
 
     <div class="form-group">
-        <?= Html::submitButton(Yii::t('app', 'Save'), ['class' => 'btn btn-primary']) ?>
+        <?= Html::submitButton(Yii::t('app', 'Save'), ['class' => 'btn btn-success btn-block']) ?>
     </div>
 <?php ActiveForm::end(); ?>
+</div>

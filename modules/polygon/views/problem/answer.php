@@ -7,22 +7,19 @@ use yii\widgets\ActiveForm;
 /* @var $model app\modules\polygon\models\Problem */
 
 $this->title = $model->title;
-$this->params['breadcrumbs'][] = ['label' => Yii::t('app', 'Problems'), 'url' => ['index']];
-$this->params['breadcrumbs'][] = $this->title;
 $this->params['model'] = $model;
 ?>
-<div class="problem-solution">
-    <p>
-        您可以在此处为题目编写详细的解答过程。
-    </p>
-    <hr>
+<div class="problem-solution animate__animated animate__fadeInUp">
+
+    <div class="alert alert-light"><i class="glyphicon glyphicon-info-sign"></i> 您可以在此处为题目编写详细的解答过程</div>
+
 
     <?php $form = ActiveForm::begin(); ?>
 
     <?= $form->field($model, 'solution')->widget(Yii::$app->setting->get('ojEditor'))->label(false) ?>
 
     <div class="form-group">
-        <?= Html::submitButton(Yii::t('app', 'Save'), ['class' => 'btn btn-success']) ?>
+        <?= Html::submitButton(Yii::t('app', 'Save'), ['class' => 'btn btn-success btn-block']) ?>
     </div>
 
     <?php ActiveForm::end(); ?>
