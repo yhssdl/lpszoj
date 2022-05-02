@@ -16,8 +16,18 @@ $js = <<<EOT
 $(".toggle-show-contest-standing input[name='showTags']").change(function () {
     $(".toggle-show-contest-standing").submit();
 });
+$("#showTags").click(function () {
+    if ($(this).prop("checked")) {
+        document.cookie = "showtags=1";
+    } else {
+        document.cookie = "showtags=0";
+    }
+    window.location.reload();
+});
 EOT;
 $this->registerJs($js);
+
+$showTags = $_COOKIE['showtags'];
 ?>
 
 <?= Html::beginForm('', 'post') ?>
@@ -79,12 +89,9 @@ $this->registerJs($js);
 </div>
 
 <?php
-$title_str = Html::beginForm(['/problem/index', 'page' => $page, 'tag' => $tag], 'get', ['class' => 'toggle-show-contest-standing']);
-$title_str .= '标题 <span class="float-right">';
-$title_str .= Html::checkbox('showTags', $showTags, ['style' => 'vertical-align:middle;']);
-$title_str .= ' 显示标签</span>';
-$title_str .= Html::endForm();
-$title_str .= '';
+
+$title_str .= '标题 <span class="float-right">'. Html::checkbox('showTags', $showTags, ['id' => 'showTags','style' => 'vertical-align:middle;']).' 显示标签</span>';
+
 ?>
 
 <div class="row">

@@ -41,7 +41,7 @@ class ProblemController extends BaseController
      * Lists all Problem models.
      * @return mixed
      */
-    public function actionIndex($showTags = 0,$page = 1, $tag = '')
+    public function actionIndex($page = 1, $tag = '')
     {
 
         if (Yii::$app->setting->get('isContestMode') && (Yii::$app->user->isGuest || (!Yii::$app->user->identity->isAdmin()))) {
