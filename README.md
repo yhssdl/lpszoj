@@ -2,66 +2,27 @@
     <a href="https://www.jnoj.org" target="_blank">
         <img src="docs/favicon.ico" height="100px">
     </a>
-    <h1 align="center">Jiangnan Online Judge</h1>
+    <h1 align="center">Lpsz Online Judge</h1>
     <br>
 </p>
 
-江南在线评测系统（Jiangnan Online Judge），是一个在线的判题系统。
-用户可以在线提交程序多种程序（如C、C++、Java）源代码，系统对源代码进行编译和执行，并通过预先设计的测试数据来检验程序源代码的正确性。
+LPSZOJ 派生自 [JNOJ](https://github.com/shi-yang/jnoj)，参考了 [SCNUOJ](https://github.com/scnu-socoding/scnuoj)界面设计，是一个在线评测系统。
 
-在线体验
----------
-[JNOJ Demo](https://demo.jnoj.org)
+LPSZOJ 可对用户在线提交的源代码进行编译和执行，并通过预先设计的测试数据检验代码的正确性。
 
 帮助文档
 --------
 
 1. [安装教程](docs/install.md)
 2. [更新教程](docs/update.md)
-3. [https://gitee.com/yhssdl/lpszoj/wikis](https://gitee.com/yhssdl/lpszoj/wikis)
+3. 如有任何问题，可新建 Issue 或联系 [yhssdl](https://gitee.com/yhssdl/lpszoj)
 
-功能特性
-----------
+### 和 JNOJ 相比有何亮点？
 
-- [x] OI 模式 - 支持 OI 模式判题，子任务判题
-- [x] 滚榜 - 在比赛结束后，提供滚动榜单的功能
-- [x] VIP用户机制 - 可以将题目设为仅 VIP 用户可见
-- [x] 小组功能 - 用户可以创建小组，并在小组内举办比赛
-- [x] Testlib 特判 - 支持使用 testlib.h 来写特判程序
-- [x] 线上线下赛场景 - 为线下举办的比赛增加限制：如限制参加比赛的账户，参加比赛的账户不能自己修改个人信息
-- [x] 线下赛打印功能 - 为线下赛提供打印代码的功能
-- [x] 题目打印功能 - 创建比赛后，可以将题目信息一键导出为 PDF，以供打印。
-- [x] 下载比赛的提交 - 可用于查重
-- [x] 公告弹窗提示 - 在比赛过程中，发布公告时可以给所有在线用户发布弹窗提示有新公告
-- [x] 记录出错数据 - 可以查看提交方案的出错数据
-- [x] 新闻门户首页 - 首页显示新闻，各种公告等
-- [x] 支持多语言 - 现支持 C、C++、Java、Python3
-- [x] 支持(Katex)数学公式
-- [x] 题目描述多组样例 - 在一道题目的样例描述中，可以提供多组样例
-- [x] 对比赛发布题解
-- [x] 问题标签 - 给问题添加标签，方便查询
-- [x] 基于 MVC 框架开发 - 开发便于上手
-- [x] 多边形出题系统 - 一个功能完善的出题系统。出题目，生成数据，验题等。
-- [x] Web 在线管理题目数据 - 在线对题目测试数据进行增删改查
-- [x] 排行榜 - 对用户解题数量等进行排行
-- [x] 积分榜 - 对参加比赛的用户进行积分结算，并进行排名
-
-
-
-开发者支持
----------
-Issues: [https://gitee.com/yhssdl/lpszoj/issues](https://gitee.com/yhssdl/lpszoj/issues)
-
-Wiki: [https://gitee.com/yhssdl/lpszoj/wikis](https://gitee.com/yhssdl/lpszoj/wikis)
-
-QQ、微信：
-
-![QQ & Wechat](docs/images/contact.png)
-
-参与贡献
---------
-
-[https://www.jnoj.org/contribute.html](https://www.jnoj.org/contribute.html)
+- 重新设计的界面。
+- 重新设置比赛排名规则，OI 赛制按最后一次提交总分排名，IOI 赛制按最高分提交总分排名。
+- 支持永久题目集（榜单类似 Codeforces 的补题榜）、限时题目集和站外比赛。
+- 整合线上线下赛各项功能，额外提供打星用户自定义、比赛邀请码等可定制项，解锁更多可能。
 
 目录结构
 ----------

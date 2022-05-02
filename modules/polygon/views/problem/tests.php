@@ -33,7 +33,7 @@ $this->params['model'] = $model;
                         <?= Html::a('下载全部数据', ['download-data', 'id' => $model->id], ['class' => 'btn btn-success btn-block']); ?>
                     </div>
                     <div class="btn-group">
-                    <?= Html::a('生成输出数据', ['/polygon/problem/run', 'id' => $model->id], ['class' => 'btn btn-primary','title' => '运行标程程序，根据输入文件自动生成输出文件。', 'data-toggle'=>"tooltip",'data-placement'=>"bottom" ]) ?>
+                    <?= Html::a('生成输出数据', ['/polygon/problem/run', 'id' => $model->id], ['class' => 'btn btn-primary','title' => '运行标程程序，根据输入文件自动生成输出文件。点击后需要时间生成输出文件，请稍后刷新页面。', 'data-toggle'=>"tooltip",'data-placement'=>"bottom" ]) ?>
                     </div>
                 </div>
                 <br>
