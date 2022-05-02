@@ -17,7 +17,7 @@ use yii\widgets\ActiveForm;
 <?= $form->field($model, 'verifyPassword')->passwordInput() ?>
 
 <div class="form-group">
-    <?= Html::submitButton(Yii::t('app', 'Update'), ['class' => 'btn btn-primary']) ?>
+    <?= Html::submitButton(Yii::t('app', 'Update'), ['class' => 'btn btn-primary btn-block']) ?>
 </div>
 
 <?php ActiveForm::end(); ?>

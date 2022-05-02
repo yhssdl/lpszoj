@@ -117,7 +117,8 @@ class Contest extends \yii\db\ActiveRecord
             'ext_link' => '站外比赛',
             'invite_code' => '邀请码',
             'punish_time' => '罚时' ,
-            'enable_print' => Yii::t('app', 'Print')
+            'enable_print' => Yii::t('app', 'Print'),
+            'enable_board' => Yii::t('app','Enable Board')
         ];
     }
 
@@ -648,10 +649,6 @@ class Contest extends \yii\db\ActiveRecord
 
         foreach ($problems as $problem) {
             $problem_ids[$problem['problem_id']] = 1;
-        }
-
-        if (!empty($this->lock_board_time)) {
-            $lock_time = strtotime($this->lock_board_time);
         }
 
         for ($i = 0; $i < $count; $i++) {

@@ -39,7 +39,7 @@ $scoreboardFrozenTime = Yii::$app->setting->get('scoreboardFrozenTime') / 3600;
                     <tbody>
                     <?php foreach ($problems as $key => $p): ?>
                         <tr>
-                            <th><?= Html::a('P'.(1 + $key), ['view', 'id' => $model->id, 'action' => 'problem', 'problem_id' => $key]) ?></th>
+                            <th><?= Html::a('P'.($key + 1), ['view', 'id' => $model->id, 'action' => 'problem', 'problem_id' => $key]) ?></th>
                             <th><?= Html::a($p['problem_id'], '') ?></th>
                             <td><?= Html::a(Html::encode($p['title']), ['view', 'id' => $model->id, 'action' => 'problem', 'problem_id' => $key]) ?></td>
                             <th>

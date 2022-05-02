@@ -277,6 +277,7 @@ return [
     'Source' => '源代码',
     'Kanban' => '看板',
     'Back' => '返回' ,
-    'Current time' => '当前时间'
+    'Current time' => '当前时间',
+    'Enable Board' => '比赛榜单'
 
 ];

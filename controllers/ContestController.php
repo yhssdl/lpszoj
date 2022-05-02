@@ -19,6 +19,7 @@ use app\models\ContestSearch;
 use app\models\Solution;
 use app\models\SolutionSearch;
 use app\models\Discuss;
+use yii\data\Pagination;
 
 /**
  * ContestController implements the CRUD actions for Contest model.
@@ -72,8 +73,15 @@ class ContestController extends BaseController
      */
     public function actionStatus($id, $active = 0, $autoRefresh = 0)
     {
-        
+
+        if (Yii::$app->setting->get('isContestMode') && (Yii::$app->user->isGuest || (!Yii::$app->user->identity->isAdmin())) && Yii::$app->setting->get('examContestId') && $id != Yii::$app->setting->get('examContestId')) {
+            throw new ForbiddenHttpException('You are not allowed to perform this action.');
+        }
+
         $model = $this->findModel($id);
+        if ($model->ext_link) {
+            $this->redirect($model->ext_link);
+        }
         $searchModel = new SolutionSearch();
     
         if ($active == 1) {
@@ -105,9 +113,12 @@ class ContestController extends BaseController
     {
         $this->layout = false;
         $model = $this->findModel($cid);
+        if ($model->ext_link) {
+            $this->redirect($model->ext_link);
+        }
 
         // 访问权限检查，比赛结束前提交列表仅作者可见，比赛结束后所有人可见
-        if (!$model->isContestEnd() && $model->type == Contest::TYPE_OI) {
+        if (!$model->isContestEnd() && $model->type == Contest::TYPE_OI && (Yii::$app->user->isGuest || Yii::$app->user->id != $model->created_by)) {
             throw new ForbiddenHttpException('You are not allowed to perform this action.');
         }
         if ((!$model->isContestEnd() || $model->isScoreboardFrozen()) && (Yii::$app->user->isGuest || Yii::$app->user->id != $model->created_by)) {
@@ -130,8 +141,16 @@ class ContestController extends BaseController
      */
     public function actionUser($id)
     {
+
+        if (Yii::$app->setting->get('isContestMode') && (Yii::$app->user->isGuest || (!Yii::$app->user->identity->isAdmin())) && Yii::$app->setting->get('examContestId') && $id != Yii::$app->setting->get('examContestId')) {
+            throw new ForbiddenHttpException('You are not allowed to perform this action.');
+        }
+
         $this->layout = 'main';
         $model = $this->findModel($id);
+        if ($model->ext_link) {
+            $this->redirect($model->ext_link);
+        }
         $provider = new ActiveDataProvider([
             'query' => ContestUser::find()->where(['contest_id' => $model->id])->with('user')->with('userProfile'),
             'pagination' => [
@@ -199,7 +218,7 @@ class ContestController extends BaseController
     }
 
 
-     /**
+    /**
      * 代码打印页面
      * @param $id
      * @return string
@@ -225,7 +244,7 @@ class ContestController extends BaseController
             return $this->render('/contest/forbidden', ['model' => $model]);
         }
         // 只能在线下赛未结束时访问
-        if (($model->scenario == Contest::SCENARIO_ONLINE && $model->enable_print == 0) || $model->getRunStatus() == Contest::STATUS_ENDED) {
+        if ($model->enable_print == 0 || $model->getRunStatus() != Contest::STATUS_RUNNING) {
             throw new ForbiddenHttpException('该比赛现不提供打印服务功能。');
         }
 
@@ -288,8 +307,15 @@ class ContestController extends BaseController
      */
     public function actionEditorial($id)
     {
-        $model = $this->findModel($id);
 
+        if (Yii::$app->setting->get('isContestMode') && (Yii::$app->user->isGuest || (!Yii::$app->user->identity->isAdmin())) && Yii::$app->setting->get('examContestId') && $id != Yii::$app->setting->get('examContestId')) {
+            throw new ForbiddenHttpException('You are not allowed to perform this action.');
+        }
+
+        $model = $this->findModel($id);
+        if ($model->ext_link) {
+            $this->redirect($model->ext_link);
+        }
         // 只能在比赛结束时访问
         if ($model->getRunStatus() == Contest::STATUS_ENDED) {
             return $this->render('/contest/editorial', [
@@ -309,7 +335,15 @@ class ContestController extends BaseController
      */
     public function actionClarify($id, $cid = -1)
     {
+
+        if (Yii::$app->setting->get('isContestMode') && (Yii::$app->user->isGuest || (!Yii::$app->user->identity->isAdmin())) && Yii::$app->setting->get('examContestId') && $id != Yii::$app->setting->get('examContestId')) {
+            throw new ForbiddenHttpException('You are not allowed to perform this action.');
+        }
+
         $model = $this->findModel($id);
+        if ($model->ext_link) {
+            $this->redirect($model->ext_link);
+        }
         // 访问权限检查
         if (!$model->canView()) {
             return $this->render('/contest/forbidden', ['model' => $model]);
@@ -321,7 +355,7 @@ class ContestController extends BaseController
         $newClarify = new Discuss();
         $discuss = null;
         $dataProvider = new ActiveDataProvider([
-            'query' => ContestAnnouncement::find()->where(['contest_id' => $model->id]),
+            'query' => ContestAnnouncement::find()->where(['contest_id' => $model->id])->orderBy('id DESC'),
         ]);
 
         if ($cid != -1) {
@@ -381,9 +415,10 @@ class ContestController extends BaseController
         if (!Yii::$app->user->isGuest) {
             $query->orWhere(['parent_id' => 0, 'entity_id' => $model->id, 'entity' => Discuss::ENTITY_CONTEST, 'created_by' => Yii::$app->user->id]);
         }
-        $clarifies = new ActiveDataProvider([
-            'query' => $query,
-        ]);
+
+         $clarifies = new ActiveDataProvider([
+             'query' => $query,
+         ]);
 
         if ($discuss != null) {
             return $this->render('/contest/clarify_view', [
@@ -402,7 +437,7 @@ class ContestController extends BaseController
         }
     }
 
-    /**
+        /**
      * 比赛榜单
      * @param $id
      * @return string
@@ -412,7 +447,15 @@ class ContestController extends BaseController
      */
     public function actionStanding($id, $showStandingBeforeEnd = 1)
     {
+
+        if (Yii::$app->setting->get('isContestMode') && (Yii::$app->user->isGuest || (!Yii::$app->user->identity->isAdmin())) && Yii::$app->setting->get('examContestId') && $id != Yii::$app->setting->get('examContestId')) {
+            throw new ForbiddenHttpException('You are not allowed to perform this action.');
+        }
+
         $model = $this->findModel($id);
+        if ($model->ext_link) {
+            $this->redirect($model->ext_link);
+        }
         // 访问权限检查
         if (!$model->canView()) {
             return $this->render('/contest/forbidden', ['model' => $model]);
@@ -422,8 +465,22 @@ class ContestController extends BaseController
         } else {
             $rankResult = $model->getRankData(true, time());
         }
+        if ($model->enable_board == 1) {
+            $pages = new Pagination([
+                'totalCount' => count($rankResult['rank_result']),
+                'pageSize' => 100
+            ]);
+        } else {
+            $pages = new Pagination([
+                'totalCount' => count($rankResult['rank_result']),
+                'pageSize' => PHP_INT_MAX
+            ]);
+        }
+
+        $rankResult['rank_result'] = array_slice($rankResult['rank_result'], $pages->offset, $pages->limit);
         return $this->render('/contest/standing', [
             'model' => $model,
+            'pages' => $pages,
             'rankResult' => $rankResult,
             'showStandingBeforeEnd' => $showStandingBeforeEnd
         ]);
@@ -434,10 +491,18 @@ class ContestController extends BaseController
      */
     public function actionStanding2($id, $showStandingBeforeEnd = 1)
     {
-        $this->layout = 'basic';
+
+        if (Yii::$app->setting->get('isContestMode') && (Yii::$app->user->isGuest || (!Yii::$app->user->identity->isAdmin())) && Yii::$app->setting->get('examContestId') && $id != Yii::$app->setting->get('examContestId')) {
+            throw new ForbiddenHttpException('You are not allowed to perform this action.');
+        }
+
+        $this->layout = 'contest';
         $model = $this->findModel($id);
+        if ($model->ext_link) {
+            $this->redirect($model->ext_link);
+        }
         // 访问权限检查
-        if ($model->status != Contest::STATUS_VISIBLE) {
+        if ($model->status != Contest::STATUS_VISIBLE && !$model->canView()) {
             return $this->render('/contest/forbidden', ['model' => $model]);
         }
         $rankResult = $model->getRankData(true);
@@ -447,8 +512,17 @@ class ContestController extends BaseController
         } else {
             $rankResult = $model->getRankData(true, time());
         }
+        $pages = new Pagination([
+            'totalCount' => count($rankResult['rank_result']),
+            'pageSize' => 100
+        ]);
+        $rankResult['rank_result'] = array_slice($rankResult['rank_result'], $pages->offset, $pages->limit);
+        if ($model->canView()) {
+            return $this->redirect(['/contest/standing', 'id' => $model->id]);
+        }
         return $this->render('/contest/standing2', [
             'model' => $model,
+            'pages' => $pages,
             'rankResult' => $rankResult,
             'showStandingBeforeEnd' => $showStandingBeforeEnd
         ]);
@@ -462,7 +536,15 @@ class ContestController extends BaseController
      */
     public function actionProblem($id, $pid = 0)
     {
+
+        if (Yii::$app->setting->get('isContestMode') && (Yii::$app->user->isGuest || (!Yii::$app->user->identity->isAdmin())) && Yii::$app->setting->get('examContestId') && $id != Yii::$app->setting->get('examContestId')) {
+            throw new ForbiddenHttpException('You are not allowed to perform this action.');
+        }
+
         $model = $this->findModel($id);
+        if ($model->ext_link) {
+            $this->redirect($model->ext_link);
+        }
         // 访问权限检查
         if (!$model->canView()) {
             return $this->render('/contest/forbidden', ['model' => $model]);

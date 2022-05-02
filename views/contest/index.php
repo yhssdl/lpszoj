@@ -44,7 +44,7 @@ $this->title = Yii::t('app', 'Contests');
                     $stat = "";
 
                     if (!Yii::$app->user->isGuest && $model->isUserInContest()) {
-                        $stat = '<span class="label label-success">参赛 <i class="glyphicon glyphicon-check"></i></span> ';
+                        $stat = '<span class="label label-success">参赛 <i class="glyphicon glyphicon-ok"></i></span> ';
                     }
 
                     $people_cnt = Html::a($model->getContestUserCount() . ' <i class="glyphicon glyphicon-user"></i>', ['/contest/user', 'id' => $model->id], ['class' => 'label label-primary']);

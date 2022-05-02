@@ -71,15 +71,20 @@ $scoreboardFrozenTime = Yii::$app->setting->get('scoreboardFrozenTime') / 3600;
 
 
     <?= $form->field($model, 'enable_print')->radioList([
-        '0' => '关闭',
-        '1' => '开启',
+        '0' => '关闭打印',
+        '1' => '开启打印',
     ]) ?>
 
     <?= $form->field($model, 'enable_clarify')->radioList([
-                                  0 => '关闭',
-                                  1 => '开启',
+                                  0 => '关闭答疑',
+                                  1 => '开启答疑',
                                   2 => '赛后开启',
     ])->hint('答疑界面在比赛中可以根据需要开启或关闭。') ?>
+
+    <?= $form->field($model, 'enable_board')->radioList([
+        '1' => '开启榜单',
+        '0' => '关闭榜单',
+    ])->hint('是否开启榜单功能。关闭榜单后，只能在榜单中看到自己的信息。')?>    
 
     <?= $form->field($model, 'scenario')->radioList([
         $model::SCENARIO_ONLINE => Yii::t('app', 'Online'),
@@ -96,7 +101,7 @@ $scoreboardFrozenTime = Yii::$app->setting->get('scoreboardFrozenTime') / 3600;
 
 
     <?= $form->field($model, 'language')->radioList([
-                                  -1 => Yii::t('app', 'Please select'),
+                                  -1 => 'All',
                                   0 => 'C',
                                   1 => 'C++',
                                   2 => 'Java',

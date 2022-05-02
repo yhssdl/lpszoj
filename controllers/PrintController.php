@@ -52,7 +52,7 @@ class PrintController extends BaseController
     {
         $contest = Contest::findOne($id);
         if ($contest === null || $contest->enable_print == 0) {
-            throw new ForbiddenHttpException('当前比赛不可打印.');
+            throw new ForbiddenHttpException('该比赛现不提供打印服务功能。');
         }
         if (Yii::$app->user->identity->role == User::ROLE_ADMIN) {
             $query = ContestPrint::find()->where(['contest_id' => $contest->id])->with('user');

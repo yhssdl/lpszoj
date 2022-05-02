@@ -17,78 +17,67 @@ $problems = $model->problems;
 $loginUserProblemSolvingStatus = $model->getLoginUserProblemSolvingStatus();
 $submissionStatistics = $model->getSubmissionStatistics();
 ?>
-<div class="contest-overview text-center center-block">
-    <div class="table-responsive well">
-        <table class="table table-overview">
-            <tbody>
-            <tr>
-                <th><?= Yii::t('app', 'Start time') ?></th>
-                <td><?= $model->start_time ?></td>
-                <th><?= Yii::t('app', 'Type') ?></th>
-                <td><?= $model->getType() ?></td>
-            </tr>
-            <tr>
-                <th><?= Yii::t('app', 'End time') ?></th>
-                <td><?= $model->end_time ?></td>
-                <th><?= Yii::t('app', 'Status') ?></th>
-                <td><?= $model->getRunStatus(true) ?></td>
-            </tr>
-            </tbody>
-        </table>
+<br>
+<div class="contest-overview ">
+    <div class="alert alert-light">
+        <?php
+            if ($model->description){
+                echo Yii::$app->formatter->asMarkdown($model->description);
+            }else {
+                echo "管理员还没有上传比赛描述信息哦。";
+            }
+        ?>
+        
     </div>
-    <div class="contest-desc">
-        <?= Yii::$app->formatter->asMarkdown($model->description) ?>
-    </div>
-    <hr>
-    <div class="table-responsive">
-        <table class="table table-bordered table-problem-list">
+    <div>
+        <table class="table table-bordered table-problem-list table-striped ">
             <thead>
-            <tr>
-                <th width="80px">#</th>
-                <?php
-                if ($model->isContestEnd()) {
-                    echo "<th width='100px'>题号</th>";
-                }
-                ?>
-                <th><?= Yii::t('app', 'Problem Name') ?></th>
-                <th width="160px">正确 / 提交</th>
-                <th width="120px">解答状态</th>
-            </tr>
-            </thead>
-            <tbody>
-            <?php foreach ($problems as $key => $p): ?>
                 <tr>
-                    <th><?= Html::a('P'.(1 + $key), ['/contest/problem', 'id' => $model->id, 'pid' => $key, '#' => 'problem-anchor']) ?></th>
+                    <th width="80px">#</th>
                     <?php
                     if ($model->isContestEnd()) {
-                        echo "<th>" . Html::a($p['problem_id'], ['/problem/view', 'id' => $p['problem_id']]) . "</th>";
+                        echo "<th width='100px'>题号</th>";
                     }
                     ?>
-                    <td><?= Html::a(Html::encode($p['title']), ['/contest/problem', 'id' => $model->id, 'pid' => $key, '#' => 'problem-anchor']) ?></td>
-                    <th>
+                    <th><?= Yii::t('app', 'Problem Name') ?></th>
+                    <th width="160px">正确 / 提交</th>
+                    <th width="120px">解答状态</th>
+                </tr>
+            </thead>
+            <tbody>
+                <?php foreach ($problems as $key => $p) : ?>
+                    <tr class="animate__animated animate__fadeInUp">
+                        <th><?= Html::a('P' . ($key + 1), ['/contest/problem', 'id' => $model->id, 'pid' => $key, '#' => 'problem-anchor']) ?></th>
                         <?php
+                        if ($model->isContestEnd()) {
+                            echo "<th>" . Html::a($p['problem_id'], ['/problem/view', 'id' => $p['problem_id']]) . "</th>";
+                        }
+                        ?>
+                        <td><?= Html::a(Html::encode($p['title']), ['/contest/problem', 'id' => $model->id, 'pid' => $key, '#' => 'problem-anchor']) ?></td>
+                        <th>
+                            <?php
                             if ($model->type == Contest::TYPE_OI && $model->getRunStatus() == Contest::STATUS_RUNNING) {
                                 echo '? / ' . $submissionStatistics[$p['problem_id']]['submit'];
                             } else {
                                 echo $submissionStatistics[$p['problem_id']]['solved'] . ' / ' . $submissionStatistics[$p['problem_id']]['submit'];
                             }
-                        ?>
-                    </th>
-                    <th>
-                        <?php if (!isset($loginUserProblemSolvingStatus[$p['problem_id']])): ?>
+                            ?>
+                        </th>
+                        <th>
+                            <?php if (!isset($loginUserProblemSolvingStatus[$p['problem_id']])) : ?>
 
-                        <?php elseif ($model->type == Contest::TYPE_OI && $model->getRunStatus() == Contest::STATUS_RUNNING): ?>
-                            <span class="glyphicon glyphicon-question-sign"></span>
-                        <?php elseif ($loginUserProblemSolvingStatus[$p['problem_id']] == \app\models\Solution::OJ_AC): ?>
-                            <span class="glyphicon glyphicon-ok text-success" title="正确解答"></span>
-                        <?php elseif ($loginUserProblemSolvingStatus[$p['problem_id']] < 4): ?>
-                            <span class="glyphicon glyphicon-question-sign text-muted" title="等待测评"></span>
-                        <?php else: ?>
-                            <span class="glyphicon glyphicon-remove text-danger" title="未正确解答"></span>
-                        <?php endif; ?>
-                    </th>
-                </tr>
-            <?php endforeach; ?>
+                            <?php elseif ($model->type == Contest::TYPE_OI && $model->getRunStatus() == Contest::STATUS_RUNNING) : ?>
+                                <span class="glyphicon glyphicon-question-sign"></span>
+                            <?php elseif ($loginUserProblemSolvingStatus[$p['problem_id']] == \app\models\Solution::OJ_AC) : ?>
+                                <span class="glyphicon glyphicon-ok text-success" title="正确解答"></span>
+                            <?php elseif ($loginUserProblemSolvingStatus[$p['problem_id']] < 4) : ?>
+                                <span class="glyphicon glyphicon-question-sign text-muted" title="等待测评"></span>
+                            <?php else : ?>
+                                <span class="glyphicon glyphicon-remove text-danger" title="未正确解答"></span>
+                            <?php endif; ?>
+                        </th>
+                    </tr>
+                <?php endforeach; ?>
             </tbody>
         </table>
     </div>
@@ -97,7 +86,7 @@ $submissionStatistics = $model->getSubmissionStatistics();
         echo '<hr>';
         echo GridView::widget([
             'layout' => '{items}{pager}',
-            'pager' =>[
+            'pager' => [
                 'firstPageLabel' => Yii::t('app', 'First'),
                 'prevPageLabel' => '« ',
                 'nextPageLabel' => '» ',
@@ -105,7 +94,7 @@ $submissionStatistics = $model->getSubmissionStatistics();
                 'maxButtonCount' => 10
             ],
             'dataProvider' => $dataProvider,
-            'rowOptions' => function($model, $key, $index, $grid) {
+            'rowOptions' => function ($model, $key, $index, $grid) {
                 return ['class' => 'animate__animated animate__fadeInUp'];
             },
             'options' => ['class' => 'table-responsive', 'style' => 'margin:0 auto;width:50%;min-width:600px;text-align: left;'],

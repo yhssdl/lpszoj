@@ -19,10 +19,7 @@ $nav = [];
 $nav[''] = 'All';
 
 foreach ($problems as $key => $p) {
-    $nav[$p['problem_id']] = ($problems_size > 26)
-        ? ('P' . str_pad($key + 1, 2, '0', STR_PAD_LEFT))
-        : chr(65 + $key);
-
+    $nav[$p['problem_id']] = $key + 1;
     $nav[$p['problem_id']] .=  '. ' . $p['title'];
 }
 ?>
@@ -108,9 +105,7 @@ foreach ($problems as $key => $p) {
                         if (!isset($res->num)) {
                             return $model->problem->title;
                         } else {
-                            $cur_id = ($problems_size > 26)
-                                ? ('P' . str_pad($res->num + 1, 2, '0', STR_PAD_LEFT))
-                                : chr(65 + $res->num);
+                            $cur_id = $res->num + 1;
                         }
                         return Html::a(
                             $cur_id . ' - ' . $model->problem->title,

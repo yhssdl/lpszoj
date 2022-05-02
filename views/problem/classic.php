@@ -131,7 +131,7 @@ $nextProblemID = $model->getNextProblemID();
                 <?= app\widgets\login\Login::widget(); ?>
             <?php else: ?>
                 <?php $form = ActiveForm::begin(); ?>
-                <div style="height: 44px;">
+                <div>
                     <div style="float:left;height: 34px;padding: 6px 12px;">
                     <?= Yii::t('app', 'Language') ?>：
                     </div>
@@ -155,9 +155,9 @@ $nextProblemID = $model->getNextProblemID();
                     <div style="clear:both"></div>
 
                 </div>
-                <div>
-                    <?= $form->field($solution, 'source')->widget('app\widgets\codemirror\CodeMirror')->label(false); ?>
-                </div>
+                
+                <?= $form->field($solution, 'source')->widget('app\widgets\codemirror\CodeMirror')->label(false); ?>
+               
 
                 <div class="form-group">
                     <?= Html::submitButton('<span class="glyphicon glyphicon-send"></span> ' . Yii::t('app', 'Submit'), ['class' => 'btn btn-success btn-block']) ?>

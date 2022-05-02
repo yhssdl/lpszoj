@@ -111,7 +111,7 @@ $status = $model->getRunStatus();
         <div class="contest-info">
             <div class="row">
                 <div class="col-md-3 text-left hidden-print">
-                    <strong><?= Yii::t('app', 'Start') ?> </strong>
+                    <strong><?= Yii::t('app', 'Start') ?>: </strong>
                     <?= $model->start_time ?>
                 </div>
                 <div class="col-md-6 text-center">
@@ -126,8 +126,13 @@ $status = $model->getRunStatus();
                     </h2>
                 </div>
                 <div class="col-md-3 text-right hidden-print">
-                    <strong><?= Yii::t('app', 'End') ?> </strong>
-                    <?= $model->end_time ?>
+                    <strong><?= Yii::t('app', 'End') ?>: </strong>
+                    <?php
+                        if (strtotime($model->end_time) >= Contest::TIME_INFINIFY)
+                            echo "一直开放";
+                        else
+                            echo $model->end_time
+                        ?>
                 </div>
             </div>
             <div class="progress hidden-print">
@@ -136,20 +141,14 @@ $status = $model->getRunStatus();
                 </div>
             </div>
             <div class="text-center hidden-print">
-                 <p><strong><?= Yii::t('app', 'Now') ?></strong>
-                <span id="nowdate"> <?= date("Y-m-d H:i:s") ?></span></p>
+                 <p><strong><?= Yii::t('app', 'Now') ?>　</strong>
+                <span id="nowdate"><?= date("Y-m-d H:i:s") ?></span></p>
                <span>                    
-                    <?php if ($status == $model::STATUS_ENDED): ?>
-                       <?= Yii::t('app', 'Contest is over.') ?>
-                    <?php elseif ($status == $model::STATUS_RUNNING): ?>
-                        <?= Yii::t('app', 'Running') ?>
-                    <?php elseif ($status == $model::STATUS_NOT_START): ?>
-                         <?= Yii::t('app', 'Not start') ?>
-                    <?php endif; ?>
+                   <b>类型</b>: <?= $model->getType()?>　 <b>状态</b>: <?= $model->getRunStatus(true) ?>
                 </span>
             </div>
         </div>
-        <hr>
+        <br>
         <?php if ($status == $model::STATUS_NOT_START): ?>
             <div class="contest-countdown text-center">
                 <div id="countdown"></div>
@@ -190,7 +189,7 @@ $status = $model->getRunStatus();
                         'url' => ['contest/clarify', 'id' => $model->id],
                     ];
                 }
-                if ($model->scenario == $model::SCENARIO_OFFLINE && $model->getRunStatus() == $model::STATUS_RUNNING) {
+                if ($model->enable_print == 1 && $model->getRunStatus() == $model::STATUS_RUNNING) {
                     $menuItems[] = [
                         'label' => '<span class="glyphicon glyphicon-print"></span> 打印服务',
                         'url' => ['/contest/print', 'id' => $model->id]

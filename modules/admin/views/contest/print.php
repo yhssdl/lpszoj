@@ -94,9 +94,7 @@ $this->registerAssetBundle('yii\bootstrap\BootstrapPluginAsset');
             <?php foreach ($problems as $key => $problem) : ?>
 
                 <?php
-                $cur_id = (sizeof($problems) > 26)
-                    ? (str_pad($problem['num'] + 1, 2, '0', STR_PAD_LEFT))
-                    : chr(65 + $problem['num']);
+                    $cur_id = ($problem['num'] + 1);
                 ?>
 
                 <h3 class="limit"><?= Html::encode($cur_id . '. ' . $problem['title']) ?></h3>

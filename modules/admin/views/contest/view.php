@@ -192,7 +192,7 @@ $problems = $model->problems;
             <tbody>
                 <?php foreach ($problems as $key => $p) : ?>
                     <tr>
-                        <td class="animate__animated animate__fadeInUp"><?= Html::a('P'.(1 + $key), ['/admin/problem/view', 'id' => $p['problem_id']]) ?></td>
+                        <td class="animate__animated animate__fadeInUp"><?= Html::a('P'.($key + 1), ['/admin/problem/view', 'id' => $p['problem_id']]) ?></td>
                         <td class="animate__animated animate__fadeInUp"><?= Html::a($p['problem_id'], ['/admin/problem/view', 'id' => $p['problem_id']]) ?></td>
                         <td class="animate__animated animate__fadeInUp"><?= Html::a(Html::encode($p['title']), ['/admin/problem/view', 'id' => $p['problem_id']]) ?></td>
                         <td>

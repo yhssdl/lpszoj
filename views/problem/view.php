@@ -283,17 +283,12 @@ $nextProblemID = $model->getNextProblemID();
                             <option value="material" <?php if($theme=="material") echo "selected=''"; ?> >material</option>
                             <option value="monokai" <?php if($theme=="monokai") echo "selected=''"; ?> >monokai</option>
                         </select>
-    
                     </div>
                     <div style="float:right;height: 34px;padding: 6px 12px;">
                     <?= Yii::t('app', 'Theme') ?>：
                     </div>
-
-
                 </div>
                 
-
-
                 <?= $form->field($solution, 'source', ['options' => ['class' => 'code-input']])
                     ->widget('app\widgets\codemirror\CodeMirror')->label(false); ?>
 

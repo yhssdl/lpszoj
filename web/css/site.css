@@ -324,7 +324,6 @@ a.desc:after {
 }
 .table-problem-list {
     margin: 0 auto;
-    width: 80%;
     min-width: 600px;
 }
 .table-problem-list th {
@@ -826,4 +825,8 @@ a.text-dark:hover, a.text-dark:focus {
 
 .bg-tablehead {
     background-color: #F9FAFB;
+}
+
+.bg-isyou {
+    background-color: rgba(78, 202, 58, 0.63);
 }

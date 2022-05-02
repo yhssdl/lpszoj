@@ -10,12 +10,12 @@ use yii\grid\GridView;
 /* @var $dataProvider yii\data\ActiveDataProvider */
 
 $this->title = $model->title;
-
+$this->params['model'] = $model;
 ?>
 <div class="print-source-index" style="margin-top: 20px">
 
-    <div class="well">
-        如需打印代码以供队友查看，可以在此提交代码内容，工作人员打印好后会送至队伍前。
+    <div class="alert alert-light">
+    <i class=" glyphicon glyphicon-info-sign"></i> 如需打印代码以供队友查看，可以在此提交代码内容，工作人员打印好后会送至队伍前。
     </div>
 
     <?= GridView::widget([
@@ -52,10 +52,10 @@ $this->title = $model->title;
 
     <?php $form = ActiveForm::begin(); ?>
 
-    <?= $form->field($newContestPrint, 'source')->widget('app\widgets\codemirror\CodeMirror'); ?>
+    <?= $form->field($newContestPrint, 'source')->widget('app\widgets\codemirror\CodeMirror')->label(false); ?>
 
     <div class="form-group">
-        <?= Html::submitButton('提交', ['class' => 'btn btn-success']) ?>
+        <?= Html::submitButton('提交', ['class' => 'btn btn-success btn-block']) ?>
     </div>
 
     <?php ActiveForm::end(); ?>
