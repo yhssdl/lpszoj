@@ -259,9 +259,9 @@ class ProblemController extends Controller
             $toId = Yii::$app->request->post('polygon_problem_id_to');
             if (!empty($id)) {
                 if ($this->synchronizeProblemFromPolygon($id)) {
-                    Yii::$app->session->setFlash('success', $id . ' created Successfully.');
+                    Yii::$app->session->setFlash('success', $id . ' 道题目已经导入成功。');
                 } else {
-                    Yii::$app->session->setFlash('error', $id . ' no such problem.');
+                    Yii::$app->session->setFlash('error', $id . ' 没有找到指定题目。');
                 }
             } else if (!empty($fromId) && !empty($toId)) {
                 $fromId = intval($fromId);

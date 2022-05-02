@@ -47,7 +47,7 @@ $this->params['model'] = $model;
                     <th>输入文件</th>
                     <th>大小(bytes)</th>
                     <th>修改时间</th>
-                    <th><a href="<?= Url::toRoute(['/admin/problem/deletefile', 'id' => $model->id,'name' => 'in']) ?>" onclick="return confirm('确定删除全部输入文件？');">
+                    <th><a href="<?= Url::toRoute(['/polygon/problem/deletefile', 'id' => $model->id,'name' => 'in']) ?>" onclick="return confirm('确定删除全部输入文件？');">
                         删除全部
                     </a></th>
                 </tr>
@@ -61,13 +61,13 @@ $this->params['model'] = $model;
                         <th><?= $file['size'] ?></th>
                         <th><?= date('Y-m-d H:i', $file['time']) ?></th>
                         <th>
-                            <a href="<?= Url::toRoute(['/admin/problem/viewfile', 'id' => $model->id,'name' => $file['name']]) ?>"
+                            <a href="<?= Url::toRoute(['/polygon/problem/viewfile', 'id' => $model->id,'name' => $file['name']]) ?>"
                                target="_blank"
                                title="<?= Yii::t('app', 'View') ?>">
                                 <span class="glyphicon glyphicon-eye-open"></span>
                             </a>
                             &nbsp;
-                            <a href="<?= Url::toRoute(['/admin/problem/deletefile', 'id' => $model->id,'name' => $file['name']]) ?>"
+                            <a href="<?= Url::toRoute(['/polygon/problem/deletefile', 'id' => $model->id,'name' => $file['name']]) ?>"
                                title="<?= Yii::t('app', 'Delete') ?>">
                                 <span class="glyphicon glyphicon-remove"></span>
                             </a>
@@ -82,7 +82,7 @@ $this->params['model'] = $model;
                     <th>输出文件</th>
                     <th>大小(bytes)</th>
                     <th>修改时间</th>
-                    <th><a href="<?= Url::toRoute(['/admin/problem/deletefile', 'id' => $model->id, 'name' => 'out']) ?>" onclick="return confirm('确定删除全部输出文件？');">
+                    <th><a href="<?= Url::toRoute(['/polygon/problem/deletefile', 'id' => $model->id, 'name' => 'out']) ?>" onclick="return confirm('确定删除全部输出文件？');">
                         删除全部
                     </a></th>
                 </tr>
@@ -96,13 +96,13 @@ $this->params['model'] = $model;
                         <th><?= $file['size'] ?></th>
                         <th><?= date('Y-m-d H:i', $file['time']) ?></th>
                         <th>
-                            <a href="<?= Url::toRoute(['/admin/problem/viewfile', 'id' => $model->id,'name' => $file['name']]) ?>"
+                            <a href="<?= Url::toRoute(['/polygon/problem/viewfile', 'id' => $model->id,'name' => $file['name']]) ?>"
                                target="_blank"
                                title="<?= Yii::t('app', 'View') ?>">
                                 <span class="glyphicon glyphicon-eye-open"></span>
                             </a>
                             &nbsp;
-                            <a href="<?= Url::toRoute(['/admin/problem/deletefile', 'id' => $model->id,'name' => $file['name']]) ?>"
+                            <a href="<?= Url::toRoute(['/polygon/problem/deletefile', 'id' => $model->id,'name' => $file['name']]) ?>"
                                title="<?= Yii::t('app', 'Delete') ?>">
                                 <span class="glyphicon glyphicon-remove"></span>
                             </a>
