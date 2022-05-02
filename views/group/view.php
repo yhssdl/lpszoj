@@ -83,7 +83,7 @@ $scoreboardFrozenTime = Yii::$app->setting->get('scoreboardFrozenTime') / 3600;
                         Contest::TYPE_IOI => Yii::t('app', 'IOI'),
                     ])->hint('不同类型的区别只在于榜单的排名方式。详见：' . Html::a('比赛类型', ['/wiki/contest'], ['target' => '_blank'])) ?>
 
-                    <?= $form->field($newContest, 'clarification')->radioList([
+                    <?= $form->field($newContest, 'enable_clarify')->radioList([
                                                 0 => '关闭',
                                                 1 => '开启',
                                                 2 => '赛后开启',

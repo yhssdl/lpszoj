@@ -120,7 +120,7 @@ class ProblemController extends Controller
     {
         $model = $this->findModel($id);
         if ($model->solution_lang === null || empty($model->solution_source)) {
-            Yii::$app->session->setFlash('error', '请提供解决方案');
+            Yii::$app->session->setFlash('error', '请提供解决方案。');
             return $this->redirect(['tests', 'id' => $id]);
         }
         Yii::$app->db->createCommand()->delete('{{%polygon_status}}',
@@ -130,6 +130,7 @@ class ProblemController extends Controller
             'created_at' => new Expression('NOW()'),
             'created_by' => Yii::$app->user->id
         ])->execute();
+        Yii::$app->session->setFlash('success', '提交成功，生成输出文件需要一定的时间，请稍等片刻后刷新页面。');
         return $this->redirect(['tests', 'id' => $id]);
     }
 

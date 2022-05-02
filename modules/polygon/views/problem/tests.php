@@ -14,12 +14,9 @@ $this->params['model'] = $model;
 
     <div class="alert alert-light">
         <i class="glyphicon glyphicon-info-sign"></i> 输入文件以 <code>.in</code> 结尾，输出文件以 <code>.out</code> 或者
-        <code>.ans</code> 结尾，文件名可以任意取。
-    </div>
-    <div class="alert alert-light">
-        <i class="glyphicon glyphicon-info-sign"></i> 输入文件跟输出文件的文件名必须一一对应。比如输入文件为
+        <code>.ans</code> 结尾，文件名可以任意取名但是必须一一对应比。如输入文件为
         <code>apple.in</code>，则输出文件需命名为 <code>apple.out</code> 或者 <code>apple.ans</code>。
-    </div>    
+    </div>
 
     <?= \app\widgets\webuploader\MultiImage::widget() ?>
 

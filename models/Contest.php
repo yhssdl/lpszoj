@@ -113,7 +113,7 @@ class Contest extends \yii\db\ActiveRecord
             'type' => Yii::t('app', 'Type'),
             'scenario' => Yii::t('app', 'Scenario'),
             'language' => Yii::t('app', 'Language'),
-            'clarification' => Yii::t('app', 'Clarification'),
+            'enable_clarify' => Yii::t('app', 'Clarification'),
             'ext_link' => '站外比赛',
             'invite_code' => '邀请码',
             'punish_time' => '罚时' ,

@@ -13,7 +13,6 @@ class m201116_104828_contest extends Migration
     public function safeUp()
     {
         $this->addColumn('{{contest}}', 'language', 'SMALLINT NOT NULL DEFAULT -1');
-        $this->addColumn('{{contest}}', 'clarification', 'SMALLINT NOT NULL DEFAULT 0');
     }
 
     /**
@@ -22,7 +21,6 @@ class m201116_104828_contest extends Migration
     public function safeDown()
     {
         $this->dropColumn('{{contest}}', 'language');
-        $this->dropColumn('{{contest}}', 'clarification');
     }
 
     /*

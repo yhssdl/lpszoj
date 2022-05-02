@@ -44,21 +44,21 @@ $submissionStatistics = $model->getSubmissionStatistics();
         <table class="table table-bordered table-problem-list">
             <thead>
             <tr>
-                <th width="70px">#</th>
+                <th width="80px">#</th>
                 <?php
                 if ($model->isContestEnd()) {
                     echo "<th width='100px'>题号</th>";
                 }
                 ?>
                 <th><?= Yii::t('app', 'Problem Name') ?></th>
-                <th width="100px">正确 / 提交</th>
-                <th width="80px">解答状态</th>
+                <th width="160px">正确 / 提交</th>
+                <th width="120px">解答状态</th>
             </tr>
             </thead>
             <tbody>
             <?php foreach ($problems as $key => $p): ?>
                 <tr>
-                    <th><?= Html::a((1 + $key), ['/contest/problem', 'id' => $model->id, 'pid' => $key, '#' => 'problem-anchor']) ?></th>
+                    <th><?= Html::a('P'.(1 + $key), ['/contest/problem', 'id' => $model->id, 'pid' => $key, '#' => 'problem-anchor']) ?></th>
                     <?php
                     if ($model->isContestEnd()) {
                         echo "<th>" . Html::a($p['problem_id'], ['/problem/view', 'id' => $p['problem_id']]) . "</th>";

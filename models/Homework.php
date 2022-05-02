@@ -23,11 +23,11 @@ class Homework extends Contest
     {
         return [
             [['title', 'start_time', 'end_time'], 'required'],
-            [['description', 'editorial'], 'string'],
+            [['description', 'editorial', 'invite_code', 'ext_link'], 'string'],
             [['created_by'], 'integer'],
             [['start_time', 'end_time', 'lock_board_time'], 'safe'],
             [['title'], 'string', 'max' => 255],
-            [['id', 'status', 'type', 'scenario', 'created_by', 'group_id','language','clarification'], 'integer'],
+            [['id', 'status', 'type', 'scenario', 'created_by', 'group_id','language','enable_clarify', 'enable_clarify', 'enable_board'], 'integer'],
         ];
     }
 
@@ -48,7 +48,9 @@ class Homework extends Contest
             'editorial' => Yii::t('app', 'Editorial'),
             'lock_board_time' => Yii::t('app', 'Lock Board Time'),
             'language' => Yii::t('app', 'Language'),
-            'clarification' => Yii::t('app', 'Clarification'),
+            'enable_clarify' => Yii::t('app', 'Clarification'),
+            'ext_link' => '站外比赛',
+            'invite_code' => '邀请码（仅站外比赛有效）',            
         ];
     }
 

@@ -48,7 +48,7 @@ $this->registerAssetBundle('yii\bootstrap\BootstrapPluginAsset');
                 <th title="# solved / penalty time" colspan="2"><?= Yii::t('app', 'Score') ?></th>
                 <?php foreach($problems as $key => $p): ?>
                     <th>
-                        <?= 1 + $key ?>
+                        P<?= 1 + $key ?>
                         <br>
                         <span style="color:#7a7a7a; font-size:12px">
                             <?php

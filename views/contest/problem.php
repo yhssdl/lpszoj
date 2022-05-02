@@ -23,14 +23,14 @@ if (!Yii::$app->user->isGuest) {
 }
 $problems = $model->problems;
 if (empty($problems)) {
-    echo 'Please add problem';
+    echo '<br><div class="alert alert-light"><i class=" glyphicon glyphicon-info-sign"></i> 当前没有添加题目，请联系管理员。</div>';
     return;
 }
 
 $nav = [];
 foreach ($problems as $key => $p) {
     $nav[] = [
-        'label' => (1 + $key),
+        'label' => 'P'.(1 + $key),
         'url' => [
             'problem',
             'id' => $model->id,

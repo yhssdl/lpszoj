@@ -92,14 +92,15 @@ AppAsset::register($this);
     NavBar::end();
     ?>
 
-    <?php
-    if (!Yii::$app->user->isGuest && Yii::$app->setting->get('mustVerifyEmail') && !Yii::$app->user->identity->isVerifyEmail()) {
-        $a = Html::a('个人设置', ['/user/setting', 'action' => 'account']);
-        echo "<div class=\"container\"><p class=\"bg-danger\">请前往设置页面验证您的邮箱：{$a}</p></div>";
-    }
-    ?>
+
 
     <div class="container radius">
+        <?php
+            if (!Yii::$app->user->isGuest && Yii::$app->setting->get('mustVerifyEmail') && !Yii::$app->user->identity->isVerifyEmail()) {
+                $a = Html::a('个人设置', ['/user/setting', 'action' => 'account']);
+                echo "<div class=\"alert alert-light\"><i class=\" glyphicon glyphicon-info-sign\"></i> 请前往设置页面验证您的邮箱：{$a}</div>";
+            }
+        ?>
         <?php if (Yii::$app->setting->get('isNotice')): ?>    
             <div class="alert alert-light"><i class="glyphicon glyphicon-info-sign"></i> <?= Yii::$app->setting->get('notice') ?></div>
         <?php endif; ?>    

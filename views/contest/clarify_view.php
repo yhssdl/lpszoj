@@ -11,36 +11,36 @@ use yii\widgets\ActiveForm;
 $this->params['model'] = $model;
 ?>
 <div style="padding-top: 20px">
-    <div class="well">
-        <?= Html::encode($clarify->title) ?>
+    <div class="alert alert-light">
+        <h3><?= Html::encode($clarify->title) ?></h3>
         <hr>
         <?= Yii::$app->formatter->asMarkdown($clarify->content) ?>
         <hr>
-        <span class="glyphicon glyphicon-user"></span> <?= $clarify->user->username ?>
+        <span class="glyphicon glyphicon-user"></span> <?= $clarify->user->nickname ?>
         &nbsp;•&nbsp;
         <span class="glyphicon glyphicon-time"></span> <?= Yii::$app->formatter->asRelativeTime($clarify->created_at) ?>
     </div>
     <?php foreach ($clarify->reply as $reply): ?>
-        <div class="well">
+        <div class="alert alert-light">
             <?= Yii::$app->formatter->asMarkdown($reply->content) ?>
             <hr>
-            <span class="glyphicon glyphicon-user"></span> <?= Html::encode($reply->user->username) ?>
+            <span class="glyphicon glyphicon-user"></span> <?= Html::encode($reply->user->nickname) ?>
             &nbsp;•&nbsp;
             <span class="glyphicon glyphicon-time"></span> <?= Yii::$app->formatter->asRelativeTime($reply->created_at) ?>
         </div>
     <?php endforeach; ?>
-    <div class="well">
+
         <?php if ($model->getRunStatus() == \app\models\Contest::STATUS_RUNNING): ?>
         <?php $form = ActiveForm::begin(); ?>
 
         <?= $form->field($newClarify, 'content')->widget(Yii::$app->setting->get('ojEditor')); ?>
 
         <div class="form-group">
-            <?= Html::submitButton(Yii::t('app', 'Reply'), ['class' => 'btn btn-primary']) ?>
+            <?= Html::submitButton(Yii::t('app', 'Reply'), ['class' => 'btn btn-success btn-block']) ?>
         </div>
         <?php ActiveForm::end(); ?>
         <?php else: ?>
             <p><?= Yii::t('app', 'The contest has ended.') ?></p>
         <?php endif; ?>
-    </div>
+
 </div>

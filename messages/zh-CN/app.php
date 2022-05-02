@@ -275,6 +275,8 @@ return [
     'All' => '所有' ,
     'Print' => '打印',
     'Source' => '源代码',
-    'Back' => '返回'
+    'Kanban' => '看板',
+    'Back' => '返回' ,
+    'Current time' => '当前时间'
 
 ];

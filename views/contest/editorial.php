@@ -16,7 +16,7 @@ $this->params['model'] = $model;
         if ($model->editorial != NULL) {
             echo Yii::$app->formatter->asMarkdown($model->editorial);
         } else {
-            echo '出题人去火星旅游了，这里什么也没有～';
+            echo '<div class="alert alert-light"><i class=" glyphicon glyphicon-info-sign"></i> 出题人去火星旅游了，这里什么也没有～</div>';
         }
         ?>
     </div>

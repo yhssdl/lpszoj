@@ -75,7 +75,7 @@ $scoreboardFrozenTime = Yii::$app->setting->get('scoreboardFrozenTime') / 3600;
         '1' => '开启',
     ]) ?>
 
-    <?= $form->field($model, 'clarification')->radioList([
+    <?= $form->field($model, 'enable_clarify')->radioList([
                                   0 => '关闭',
                                   1 => '开启',
                                   2 => '赛后开启',

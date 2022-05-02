@@ -2,7 +2,6 @@
 
 use yii\helpers\Html;
 use yii\grid\GridView;
-use yii\widgets\Pjax;
 use app\models\Contest;
 
 /* @var $this yii\web\View */
@@ -11,6 +10,8 @@ use app\models\Contest;
 $this->title = Yii::t('app', 'Contests');
 ?>
 <div class="contest-index">
+
+    <?php echo $this->render('_search', ['model' => $searchModel]); ?>
 
     <?= GridView::widget([
         'layout' => '{items}{pager}',
@@ -30,31 +31,61 @@ $this->title = Yii::t('app', 'Contests');
             [
                 'attribute' => 'title',
                 'value' => function ($model, $key, $index, $column) {
-                    return Html::a(Html::encode($model->title), ['/contest/view', 'id' => $key]);
+
+                    $base_title = Html::a(Html::encode($model->title), ['/contest/view', 'id' => $key], ['class' => 'text-dark']);
+
+                    if ($model->ext_link) {
+                        if ($model->invite_code) {
+                            return $base_title . '<span class="problem-list-tags"><span class="label label-info">' . $model->invite_code . '<i class="glyphicon glyphicon-lock" style="margin-left:4px"></i></span> <span class="label label-warning"> 重定向 <i class="glyphicon glyphicon-share-alt"></i>' . '</span></span>';
+                        }
+                        return $base_title . '<span class="problem-list-tags label label-info"> 重定向 <i class="glyphicon glyphicon-share-alt"></i>' . '</span>';
+                    }
+
+                    $stat = "";
+
+                    if (!Yii::$app->user->isGuest && $model->isUserInContest()) {
+                        $stat = '<span class="label label-success">参赛 <i class="glyphicon glyphicon-check"></i></span> ';
+                    }
+
+                    $people_cnt = Html::a($model->getContestUserCount() . ' <i class="glyphicon glyphicon-user"></i>', ['/contest/user', 'id' => $model->id], ['class' => 'label label-primary']);
+
+                    return $base_title . '<span class="problem-list-tags">' . $stat . $people_cnt . '</span>';
                 },
                 'format' => 'raw',
+                'enableSorting' => false,
+                'headerOptions' => ['style' => 'min-width:400px;']
             ],
             [
                 'attribute' => 'status',
                 'value' => function ($model, $key, $index, $column) {
-                    $link = Html::a(Yii::t('app', 'Register »'), ['/contest/register', 'id' => $model->id]);
-                    if (!Yii::$app->user->isGuest && $model->isUserInContest()) {
-                        $link = '<span class="well-done">' . Yii::t('app', 'Registration completed') . '</span>';
-                    }
-                    if ($model->status == Contest::STATUS_VISIBLE &&
-                        !$model->isContestEnd() &&
-                        $model->scenario == Contest::SCENARIO_ONLINE) {
-                        $column = $model->getRunStatus(true) . ' ' . $link;
-                    } else {
-                        $column = $model->getRunStatus(true);
-                    }
-                    $userCount = $model->getContestUserCount();
-                    return $column . ' ' . Html::a(' <span class="glyphicon glyphicon-user"></span>x'. $userCount, ['/contest/user', 'id' => $model->id]);
+                    return $model->getRunStatus(true);
                 },
                 'format' => 'raw',
+                'enableSorting' => false,
+                'headerOptions' => ['style' => 'width:120px;min-width:100px;']
             ],
-            'start_time',
-            'end_time',
+            [
+                'attribute' => 'start_time',
+                'enableSorting' => false,
+                'headerOptions' => ['style' => 'width:180px;min-width:180px;']
+            ],
+            [
+                'attribute' => 'end_time',
+                'value' => function ($model, $key, $index, $column) {
+                    if (strtotime($model->end_time) >= Contest::TIME_INFINIFY) {
+                        $column = "一直开放";
+                    } else {
+                        $column = $model->end_time;
+                    }
+                    return $column;
+                },
+                'enableSorting' => false,
+                'headerOptions' => ['style' => 'width:180px;min-width:180px;']
+            ]
         ],
+        'pager' => [
+            'linkOptions' => ['class' => 'page-link'],
+            'maxButtonCount' => 5,
+        ]
     ]); ?>
 </div>

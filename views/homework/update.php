@@ -39,12 +39,12 @@ $scoreboardFrozenTime = Yii::$app->setting->get('scoreboardFrozenTime') / 3600;
                     <tbody>
                     <?php foreach ($problems as $key => $p): ?>
                         <tr>
-                            <th><?= Html::a((1 + $key), ['view', 'id' => $model->id, 'action' => 'problem', 'problem_id' => $key]) ?></th>
+                            <th><?= Html::a('P'.(1 + $key), ['view', 'id' => $model->id, 'action' => 'problem', 'problem_id' => $key]) ?></th>
                             <th><?= Html::a($p['problem_id'], '') ?></th>
                             <td><?= Html::a(Html::encode($p['title']), ['view', 'id' => $model->id, 'action' => 'problem', 'problem_id' => $key]) ?></td>
                             <th>
                                 <?php Modal::begin([
-                                    'header' => Yii::t('app','Modify') . ' : ' . (1 + $key) ,
+                                    'header' => Yii::t('app','Modify') . ' : P' . (1 + $key) ,
                                     'toggleButton' => ['label' => Yii::t('app','Modify'), 'class' => 'btn btn-success'],
                                 ]); ?>
 
@@ -156,7 +156,7 @@ $scoreboardFrozenTime = Yii::$app->setting->get('scoreboardFrozenTime') / 3600;
                 Contest::TYPE_IOI => Yii::t('app', 'IOI'),
             ])->hint('不同类型的区别只在于榜单的排名方式。详见：' . Html::a('比赛类型', ['/wiki/contest'], ['target' => '_blank']) . '。如需使用OI比赛，请在后台设置页面启用OI模式。') ?>
 
-            <?= $form->field($model, 'clarification')->radioList([
+            <?= $form->field($model, 'enable_clarify')->radioList([
                                         0 => '关闭',
                                         1 => '开启',
                                         2 => '赛后开启',

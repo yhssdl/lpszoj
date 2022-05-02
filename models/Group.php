@@ -11,6 +11,7 @@ use Yii;
  * @property string $name
  * @property string $description
  * @property int $status
+ * @property string $kanban
  * @property int $join_policy
  * @property int $created_by
  * @property string $created_at
@@ -53,6 +54,7 @@ class Group extends ActiveRecord
             [['created_at', 'updated_at'], 'safe'],
             [['name'], 'string', 'max' => 32],
             [['description'], 'string', 'max' => 255],
+            [['kanban'], 'string'],
         ];
     }
 
@@ -69,6 +71,7 @@ class Group extends ActiveRecord
             'join_policy' => Yii::t('app', 'Join Policy'),
             'created_at' => Yii::t('app', 'Created At'),
             'updated_at' => Yii::t('app', 'Updated At'),
+            'kanban' => Yii::t('app', 'Kanban'),
         ];
     }
 
