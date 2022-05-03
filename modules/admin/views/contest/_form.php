@@ -49,7 +49,7 @@ $scoreboardFrozenTime = Yii::$app->setting->get('scoreboardFrozenTime') / 3600;
                         'options' => ['autocomplete' => 'off']
                     ]) ?>
 
-    <div class="alert alert-light"><i class=" glyphicon glyphicon-info-sign"></i> 封榜仅对 ICPC 或作业有效，请不要在其它赛制启用，否则可能出现未知行为。如果不需要封榜请留空，当前会在比赛结束 <?= $scoreboardFrozenTime ?> 小时后才会自动在前台页面解除封榜限制。如需提前结束封榜也可选择清空该表单项。使用封榜功能，后台管理界面的比赛榜单仍然处于实时榜单。</div>
+    <div class="alert alert-light"><i class=" glyphicon glyphicon-info-sign"></i> 封榜仅对 ACM/ICPC 或作业有效，请不要在其它赛制启用，否则可能出现未知行为。如果不需要封榜请留空，当前会在比赛结束 <?= $scoreboardFrozenTime ?> 小时后才会自动在前台页面解除封榜限制。如需提前结束封榜也可选择清空该表单项。使用封榜功能，后台管理界面的比赛榜单仍然处于实时榜单。</div>
 
 
     <?= $form->field($model, 'lock_board_time', ['template' => '<div class="input-group"><span class="input-group-addon">'.Yii::t('app', 'Lock Board Time').'</span>{input}</div>'])->widget('app\widgets\laydate\LayDate', [
@@ -59,7 +59,7 @@ $scoreboardFrozenTime = Yii::$app->setting->get('scoreboardFrozenTime') / 3600;
         ]
     ])?>
 
-    <div class="alert alert-light"><i class=" glyphicon glyphicon-info-sign"></i> 设置比赛的罚时（分钟），仅在 ICPC 赛制生效，不填则默认 20 分钟。</div>
+    <div class="alert alert-light"><i class=" glyphicon glyphicon-info-sign"></i> 设置比赛的罚时（分钟），仅在 ACM/ICPC 赛制生效，不填则默认 20 分钟。</div>
     <?= $form->field($model, 'punish_time', ['template' => '<div class="input-group"><span class="input-group-addon">罚时</span>{input}</div>'])->textInput() ?>
 
 
@@ -93,7 +93,7 @@ $scoreboardFrozenTime = Yii::$app->setting->get('scoreboardFrozenTime') / 3600;
 
     <?= $form->field($model, 'type')->radioList([
         Contest::TYPE_RANK_SINGLE => Yii::t('app', 'Single Ranked'),
-        Contest::TYPE_RANK_GROUP => Yii::t('app', 'ICPC'),
+        Contest::TYPE_RANK_GROUP => Yii::t('app', 'ACM/ICPC'),
         Contest::TYPE_HOMEWORK => Yii::t('app', 'Homework'),
         Contest::TYPE_OI => Yii::t('app', 'OI'),
         Contest::TYPE_IOI => Yii::t('app', 'IOI'),

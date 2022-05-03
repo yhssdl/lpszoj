@@ -15,7 +15,7 @@
 
 <h3>Testlib</h3>
 
-<p>本判题系统支持 Codeforces 管理员 MikeMirzayanov 维护的 <a href="https://github.com/MikeMirzayanov/testlib" target="_blank">Testlib</a> 库，面对各种各样奇怪的输出文件，出题人都会感到十分头疼。使用常规的 IO 来读取数据，鲁棒性很难得到保证。Testlib 通过一套完善的 API 来读取数据，从而确保能在任何奇怪数据的考验下，都能给出正确的结果。该库已被成功用于数百场 Codeforces Rounds 和 ICPC/CCPC 等知名比赛中。我们要求 SPJ 题目必须使用 Testlib 库读入用户数据，以避免 Judgment Failed。</p>
+<p>本判题系统支持 Codeforces 管理员 MikeMirzayanov 维护的 <a href="https://github.com/MikeMirzayanov/testlib" target="_blank">Testlib</a> 库，面对各种各样奇怪的输出文件，出题人都会感到十分头疼。使用常规的 IO 来读取数据，鲁棒性很难得到保证。Testlib 通过一套完善的 API 来读取数据，从而确保能在任何奇怪数据的考验下，都能给出正确的结果。该库已被成功用于数百场 Codeforces Rounds 和 ACM/ICPC/CCPC 等知名比赛中。我们要求 SPJ 题目必须使用 Testlib 库读入用户数据，以避免 Judgment Failed。</p>
 
     <p>在使用到 Testlib 库的程序中，有 3 个重要的结构体，<code>inf</code> 指数据输入文件（本例子中没有使用到），<code>ouf</code> 指选手输出文件，<code>ans</code> 指标程答案。我们直接从这 3 个结构体读入数据，不需要用到标准输入输出。如果读到的数据类型与范围和下面的期望不一致，则 SPJ 会直接返回答案错误。</p>
 

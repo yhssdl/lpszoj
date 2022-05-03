@@ -118,7 +118,8 @@ class Contest extends \yii\db\ActiveRecord
             'invite_code' => '邀请码',
             'punish_time' => '罚时' ,
             'enable_print' => Yii::t('app', 'Print'),
-            'enable_board' => Yii::t('app','Enable Board')
+            'enable_board' => Yii::t('app','Enable Board'),
+            'created_by' => Yii::t('app', 'Created By')
         ];
     }
 
@@ -155,6 +156,7 @@ class Contest extends \yii\db\ActiveRecord
             ->viaTable(ContestProblem::tableName(), ['contest_id' => 'id']);
     }
 
+    
     public function getType()
     {
         switch ($this->type) {
@@ -165,7 +167,7 @@ class Contest extends \yii\db\ActiveRecord
                 $res = Yii::t('app', 'Single Ranked');
                 break;
             case Contest::TYPE_RANK_GROUP:
-                $res = Yii::t('app', 'ICPC');
+                $res = Yii::t('app', 'ACM/ICPC');
                 break;
             case Contest::TYPE_HOMEWORK:
                 $res = Yii::t('app', 'Homework');
@@ -194,21 +196,23 @@ class Contest extends \yii\db\ActiveRecord
 
     /**
      * 返回比赛的状态，还没开始，正在进行，已经结束
-     * @param $description boolean 是否显示文字描述
+     * @param $mode int 1为是否显示文字描述，2为返回相应class值
      * @return mixed
      */
-    public function getRunStatus($description = false)
+    public function getRunStatus($mode = 0)
     {
         $start_time = strtotime($this->start_time);
         $end_time = strtotime($this->end_time);
         $current_time = time();
-        if ($description) {
+        if ($mode) {
+
             if ($start_time > $current_time) {
-                return Yii::t('app', 'Not started yet');
+                return $mode==1 ? Yii::t('app', 'Not started yet') : "status-not-start";
             } else if ($start_time <= $current_time && $current_time <= $end_time) {
-                return Yii::t('app', 'Running');
+
+                return  $mode==1 ? Yii::t('app', 'Running') : "status-runing" ;
             } else {
-                return Yii::t('app', 'Ended');
+                return $mode==1 ? Yii::t('app', 'Ended') : "status-ended";
             }
         } else {
             if($start_time=="")  {
@@ -412,6 +416,27 @@ class Contest extends \yii\db\ActiveRecord
         }
         return $res;
     }
+
+    /**
+     * 获取比赛时间长度
+     */
+    function getContestTimeLen(){
+
+        $et = strtotime($this->end_time);
+        if(date("Y",$et)==='9999') return "一直开放";
+    
+        $hour = ($et - strtotime($this->start_time))/3600;
+        $day = floor($hour /24);
+        $hour = $hour - $day*24;
+        $hour = rtrim (rtrim (number_format($hour, 1), '0'), '.');
+        if($day>0){
+            $hour = intval($hour);
+            if($hour==0) return $day."天";
+            return $day."天".$hour."小时";
+        }
+        return $hour."小时";
+    }
+
 
     /**
      * 获取比赛排名数据
@@ -978,4 +1003,6 @@ class Contest extends \yii\db\ActiveRecord
             }
         });
     }
+
+
 }

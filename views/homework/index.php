@@ -45,9 +45,9 @@ $this->title = Yii::t('app', 'Homework');
                     if ($model->status == Contest::STATUS_VISIBLE &&
                         !$model->isContestEnd() &&
                         $model->scenario == Contest::SCENARIO_ONLINE) {
-                        $column = $model->getRunStatus(true) . ' ' . $link;
+                        $column = $model->getRunStatus(1) . ' ' . $link;
                     } else {
-                        $column = $model->getRunStatus(true);
+                        $column = $model->getRunStatus(1);
                     }
                     $userCount = $model->getContestUserCount();
                     return $column . ' ' . Html::a(' <span class="glyphicon glyphicon-user"></span>x'. $userCount, ['/homework/user', 'id' => $model->id]);

@@ -77,7 +77,7 @@ $scoreboardFrozenTime = Yii::$app->setting->get('scoreboardFrozenTime') / 3600;
 
                     <?= $form->field($newContest, 'type')->radioList([
                         Contest::TYPE_RANK_SINGLE => Yii::t('app', 'Single Ranked'),
-                        Contest::TYPE_RANK_GROUP => Yii::t('app', 'ICPC'),
+                        Contest::TYPE_RANK_GROUP => Yii::t('app', 'ACM/ICPC'),
                         Contest::TYPE_HOMEWORK => Yii::t('app', 'Homework'),
                         Contest::TYPE_OI => Yii::t('app', 'OI'),
                         Contest::TYPE_IOI => Yii::t('app', 'IOI'),
@@ -138,9 +138,9 @@ $scoreboardFrozenTime = Yii::$app->setting->get('scoreboardFrozenTime') / 3600;
                             if ($model->status == Contest::STATUS_VISIBLE &&
                                 !$model->isContestEnd() &&
                                 $model->scenario == Contest::SCENARIO_ONLINE) {
-                                $column = $model->getRunStatus(true) . ' ' . $link;
+                                $column = $model->getRunStatus(1) . ' ' . $link;
                             } else {
-                                $column = $model->getRunStatus(true);
+                                $column = $model->getRunStatus(1);
                             }
                             $userCount = $model->getContestUserCount();
                             return $column . ' ' . Html::a(' <span class="glyphicon glyphicon-user"></span>x'. $userCount, ['/contest/user', 'id' => $model->id]);

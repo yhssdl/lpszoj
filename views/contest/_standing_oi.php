@@ -15,7 +15,7 @@ $submit_count = $rankResult['submit_count'];
 
 if (Yii::$app->user->isGuest || !Yii::$app->user->identity->isAdmin()) {
     if ($model->isScoreboardFrozen() || ($model->type == Contest::TYPE_OI && !$model->isContestEnd())) {
-        echo '<p>待赛后再揭晓</p>';
+        echo '<div class="alert alert-light"><i class=" glyphicon glyphicon-info-sign"></i> 待赛后再揭晓</div>';
         return;
     }
 }

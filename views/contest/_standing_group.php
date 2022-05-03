@@ -30,7 +30,7 @@ $submit_count = $rankResult['submit_count'];
             <th width="80px"><?= Yii::t('app', 'Rank') ?></th>
             <th width="200px"><?= Yii::t('app', 'Who') ?></th>
             <th title=<?= Yii::t('app', 'solved/Penalty time') ?> colspan="2"><?= Yii::t('app', 'Score') ?>
-                <span data-toggle="tooltip" data-placement="top" title="分别为通过数量以及耗费时间,如果解题数相同，则按时间从少到多排序，提交运行结果被判错误的话ICPC模式将被加罚20分钟（单位：分钟）">
+                <span data-toggle="tooltip" data-placement="top" title="分别为通过数量以及耗费时间,如果解题数相同，则按时间从少到多排序，提交运行结果被判错误的话ACM/ICPC模式将被加罚20分钟（单位：分钟）">
                     <span class="glyphicon glyphicon-question-sign"></span>
                 </span>
             </th>

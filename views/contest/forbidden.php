@@ -47,7 +47,7 @@ $this->params['model'] = $model;
 
             <?php if ($model->scenario == Contest::SCENARIO_OFFLINE) : ?>
                 <div class="alert alert-light">
-                    <p><i class=" glyphicon glyphicon-info-sign"></i> 您尚未报名参加该比赛，请联系管理员申请参赛，或比赛结束后再来访问。</p>
+                    <p><i class=" glyphicon glyphicon-info-sign"></i> 该比赛必须是指定的参赛用户才能参赛，请联系管理员申请参赛，或比赛结束后再来访问。</p>
                 </div>
 
             <?php else : ?>
@@ -59,17 +59,11 @@ $this->params['model'] = $model;
 
                             <?= Html::textInput('q', '', ['class' => 'form-control', 'placeholder' => '邀请码']) ?>
 
-                            <div class="btn-group btn-group-justified">
-                                <div class="btn-group">
-                                    <?= Html::submitButton(Yii::t('app', '报名参赛'), ['class' => 'btn btn-success']) ?>
-                                </div>
 
-                                <?php if ($model->getRunStatus() != Contest::STATUS_NOT_START) : ?>
-                                    <div class="btn-group">
-                                        <?= Html::a('查看榜单', ['rank', 'id' => $model->id], ['class' => 'btn btn-success', 'target' => '_blank']) ?>
-                                    </div>
-                                <?php endif; ?>
+                            <div class="btn-group btn-block">
+                                <?= Html::submitButton(Yii::t('app', '报名参赛'), ['class' => 'btn btn-success']) ?>
                             </div>
+
 
 
                             <?= Html::endForm() ?>
@@ -78,15 +72,7 @@ $this->params['model'] = $model;
                                 <div class="btn-group">
                                     <?= Html::a(Yii::t('app', '报名参赛'), ['/contest/register', 'id' => $model->id, 'register' => 1], ['class' => 'btn btn-success']) ?>
                                 </div>
-
-                                <?php if ($model->getRunStatus() != Contest::STATUS_NOT_START) : ?>
-                                    <div class="btn-group">
-                                        <?= Html::a('查看榜单', ['/contest/standing2', 'id' => $model->id], ['class' => 'btn btn-default', 'target' => '_blank']) ?>
-                                    </div>
-                                <?php endif; ?>
                             </div>
-
-
                         <?php endif; ?>
                     <?php else : ?>
                         <div class="btn btn-success btn-block disabled">请先登录</div>
@@ -99,22 +85,19 @@ $this->params['model'] = $model;
             <div class="list-group">
 
                 <div class="list-group-item"><?= Yii::t('app', 'Start time') ?><span class="float-right"><?= $model->start_time ?></span></div>
-                <div class="list-group-item"><?= Yii::t('app', 'End time') ?>
-                    <?php if (strtotime($model->end_time) >= Contest::TIME_INFINIFY) : ?>
-                        <span class="float-right">一直开放</span>
-
-                    <?php else : ?>
-                        <span class="float-right"><?= $model->end_time ?></span>
-
-                    <?php endif; ?>
-                </div>
+                <?php if (strtotime($model->end_time) < Contest::TIME_INFINIFY) : ?>
+                    <div class="list-group-item"><?= Yii::t('app', 'End time') ?>
+                    <span class="float-right"><?= $model->end_time ?></span></div>
+                <?php endif; ?>
+                
+                <div class="list-group-item">持续时间<span class="float-right"> <?= $model->getContestTimeLen() ?></span></div>
                 <div class="list-group-item">参赛人数<span class="float-right"><?= $model->getContestUserCount() ?></span></div>
-
+                <div class="list-group-item">题目数量<span class="float-right"><?= $model->getProblemCount() ?></span></div>
 
 
             </div>
             <div class="list-group-item"><?= Yii::t('app', 'Type') ?><span class="float-right"><?= $model->getType() ?></span></div>
-            <div class="list-group-item"><?= Yii::t('app', 'Status') ?><span class="float-right"><?= $model->getRunStatus(true) ?></span></div>
+            <div class="list-group-item"><?= Yii::t('app', 'Status') ?><span class="float-right"><?= $model->getRunStatus(1) ?></span></div>
         </div>
     </div>
 

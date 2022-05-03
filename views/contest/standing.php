@@ -12,7 +12,7 @@ use yii\helpers\Html;
 $this->title = $model->title;
 $this->params['model'] = $model;
 
-$js =<<<EOT
+$js = <<<EOT
 $(".toggle-show-contest-standing input[name='showStandingBeforeEnd']").change(function () {
     $(".toggle-show-contest-standing").submit();
 });
@@ -20,81 +20,81 @@ EOT;
 $this->registerJs($js);
 ?>
 <div class="contest-overview">
-    <?php if ($model->type != Contest::TYPE_OI || $model->isContestEnd()): ?>
-    <div class="legend-strip">
-        <?php if ($model->isContestEnd()): ?>
-            <?= Html::beginForm(
-                ['/contest/standing', 'id' => $model->id],
-                'get',
-                ['class' => 'toggle-show-contest-standing pull-left', 'style' => 'margin-top: 6px;']
-            ); ?>
-            <div class="checkbox">
-                <label>
-                    <?php if ($showStandingBeforeEnd): ?>
-                        <?= Html::hiddenInput('showStandingBeforeEnd', 0) ?>
-                    <?php endif; ?>
-                    <?= Html::checkbox('showStandingBeforeEnd', $showStandingBeforeEnd) ?>
-                    显示比赛期间榜单
-                </label>
-            </div>
-            <?= Html::endForm(); ?>
-        <?php endif; ?>
-        <div class="pull-right table-legend">
-            <?php if ($model->type != Contest::TYPE_OI && $model->type != Contest::TYPE_IOI): ?>
-                <div>
-                    <span class="solved-first legend-status"></span>
-                    <p class="legend-label"> <?= Yii::t('app', 'First to solve problem') ?></p>
+    <?php if ($model->type != Contest::TYPE_OI || $model->isContestEnd()) : ?>
+        <div class="legend-strip">
+            <?php if ($model->isContestEnd()) : ?>
+                <?= Html::beginForm(
+                    ['/contest/standing', 'id' => $model->id],
+                    'get',
+                    ['class' => 'toggle-show-contest-standing pull-left', 'style' => 'margin-top: 6px;']
+                ); ?>
+                <div class="checkbox">
+                    <label>
+                        <?php if ($showStandingBeforeEnd) : ?>
+                            <?= Html::hiddenInput('showStandingBeforeEnd', 0) ?>
+                        <?php endif; ?>
+                        <?= Html::checkbox('showStandingBeforeEnd', $showStandingBeforeEnd) ?>
+                        显示比赛期间榜单
+                    </label>
                 </div>
-                <div>
-                    <span class="solved legend-status"></span>
-                    <p class="legend-label"> <?= Yii::t('app', 'Solved problem') ?></p>
-                </div>
-            <?php else: ?>
-                <div>
-                    <span class="solved-first legend-status"></span>
-                    <p class="legend-label"> <?= Yii::t('app', 'All correct') ?></p>
-                </div>
-                <div>
-                    <span class="solved legend-status"></span>
-                    <p class="legend-label"> <?= Yii::t('app', 'Partially correct') ?></p>
-                </div>
+                <?= Html::endForm(); ?>
             <?php endif; ?>
-            <div>
-                <span class="attempted legend-status"></span>
-                <p class="legend-label"> <?= Yii::t('app', 'Attempted problem') ?></p>
-            </div>
-            <div>
-                <span class="pending legend-status"></span>
-                <p class="legend-label"> <?= Yii::t('app', 'Pending judgement') ?></p>
+            <div class="pull-right table-legend">
+                <?php if ($model->type != Contest::TYPE_OI && $model->type != Contest::TYPE_IOI) : ?>
+                    <div>
+                        <span class="solved-first legend-status"></span>
+                        <p class="legend-label"> <?= Yii::t('app', 'First to solve problem') ?></p>
+                    </div>
+                    <div>
+                        <span class="solved legend-status"></span>
+                        <p class="legend-label"> <?= Yii::t('app', 'Solved problem') ?></p>
+                    </div>
+                <?php else : ?>
+                    <div>
+                        <span class="solved-first legend-status"></span>
+                        <p class="legend-label"> <?= Yii::t('app', 'All correct') ?></p>
+                    </div>
+                    <div>
+                        <span class="solved legend-status"></span>
+                        <p class="legend-label"> <?= Yii::t('app', 'Partially correct') ?></p>
+                    </div>
+                <?php endif; ?>
+                <div>
+                    <span class="attempted legend-status"></span>
+                    <p class="legend-label"> <?= Yii::t('app', 'Attempted problem') ?></p>
+                </div>
+                <div>
+                    <span class="pending legend-status"></span>
+                    <p class="legend-label"> <?= Yii::t('app', 'Pending judgement') ?></p>
+                </div>
             </div>
         </div>
-    </div>
     <?php endif; ?>
     <div class="clearfix"></div>
     <div class="table-responsive">
         <?php
-            if ($model->type == $model::TYPE_RANK_SINGLE) {
-                echo $this->render('_standing_single', [
-                    'model' => $model,
-                    'pages' => $pages,
-                    'showStandingBeforeEnd' => $showStandingBeforeEnd,
-                    'rankResult' => $rankResult
-                ]);
-            } else if ($model->type == $model::TYPE_OI || $model->type == $model::TYPE_IOI) {
-                echo $this->render('_standing_oi', [
-                    'model' => $model,
-                    'pages' => $pages,
-                    'showStandingBeforeEnd' => $showStandingBeforeEnd,
-                    'rankResult' => $rankResult
-                ]);
-            } else {
-                echo $this->render('_standing_group', [
-                    'model' => $model,
-                    'pages' => $pages,
-                    'showStandingBeforeEnd' => $showStandingBeforeEnd,
-                    'rankResult' => $rankResult
-                ]);
-            }
+        if ($model->type == $model::TYPE_RANK_SINGLE) {
+            echo $this->render('_standing_single', [
+                'model' => $model,
+                'pages' => $pages,
+                'showStandingBeforeEnd' => $showStandingBeforeEnd,
+                'rankResult' => $rankResult
+            ]);
+        } else if ($model->type == $model::TYPE_OI || $model->type == $model::TYPE_IOI) {
+            echo $this->render('_standing_oi', [
+                'model' => $model,
+                'pages' => $pages,
+                'showStandingBeforeEnd' => $showStandingBeforeEnd,
+                'rankResult' => $rankResult
+            ]);
+        } else {
+            echo $this->render('_standing_group', [
+                'model' => $model,
+                'pages' => $pages,
+                'showStandingBeforeEnd' => $showStandingBeforeEnd,
+                'rankResult' => $rankResult
+            ]);
+        }
         ?>
     </div>
 </div>

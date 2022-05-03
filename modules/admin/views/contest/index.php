@@ -73,6 +73,17 @@ $this->title = Yii::t('app', 'Contests');
                 'format' => 'raw',
             ],
             [
+                'attribute' => 'created_by',
+                'value' => function ($model, $key, $index, $column) {
+                    if ($model->user) {
+                        return Html::a(Html::encode($model->user->nickname), ['/user/view', 'id' => $model->user->id]);
+                    }
+                    return '';
+                },
+                'enableSorting' => false,
+                'format' => 'raw',
+            ],
+            [
                 'attribute' => 'scenario',
                 'value' => function ($model, $key, $index, $column) {
                     if ($model->scenario == $model::SCENARIO_ONLINE) {

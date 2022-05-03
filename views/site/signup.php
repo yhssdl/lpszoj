@@ -56,5 +56,5 @@ $this->title = Yii::t('app', 'Signup');
         <?php ActiveForm::end(); ?>
     </div>
 <?php else : ?>
-    <h3> 当前未开放注册！</h3>
+    <div class="alert alert-light"><i class="glyphicon glyphicon-info-sign"></i> 当前未开放注册！</div>
 <?php endif; ?>

@@ -122,7 +122,7 @@
 
     <div class="list-group">
         <div class="list-group-item">
-            <b>ICPC</b><br>
+            <b>ACM/ICPC</b><br>
             <small>
                 无部分分，比赛期间提供判题结果反馈，排名按解题数量排序，解题数量相同按罚时排序。
             </small>

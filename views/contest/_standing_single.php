@@ -15,7 +15,7 @@ $result = $rankResult['rank_result'];
 $submit_count = $rankResult['submit_count'];
 ?>
 <?php if ($model->isScoreboardFrozen()) : ?>
-    <p>现已是封榜状态，榜单将不再实时更新，待赛后再揭晓</p>
+    <div class="alert alert-light"><i class=" glyphicon glyphicon-info-sign"></i> 现已是封榜状态，榜单将不再实时更新，待赛后再揭晓</div>
 <?php endif; ?>
 <table class="table table-bordered table-rank">
     <thead>

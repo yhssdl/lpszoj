@@ -141,10 +141,10 @@ $status = $model->getRunStatus();
                 </div>
             </div>
             <div class="text-center hidden-print">
-                 <p><strong><?= Yii::t('app', 'Now') ?>　</strong>
-                <span id="nowdate"><?= date("Y-m-d H:i:s") ?></span></p>
+                <b><?= Yii::t('app', 'Now') ?>　</b>
+                <span id="nowdate"><?= date("Y-m-d H:i:s") ?></span>　
                <span>                    
-                   <b>类型</b>: <?= $model->getType()?>　 <b>状态</b>: <?= $model->getRunStatus(true) ?>
+                   <b>类型</b>: <?= $model->getType()?>　 <b>状态</b>: <?= $model->getRunStatus(1) ?>
                 </span>
             </div>
         </div>
