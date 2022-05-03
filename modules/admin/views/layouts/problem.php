@@ -9,24 +9,24 @@ $model = $this->params['model'];
 <?php $this->beginContent('@app/views/layouts/main.php'); ?>
 <?php if (Yii::$app->user->identity->isAdmin()) : ?>
     <?= Nav::widget([
-        'options' => ['class' => 'nav nav-pills'],
+        'options' => ['class' => 'nav  nav-tabs'],
         'items' => [
             ['label' => Yii::t('app', 'Home'), 'url' => ['/admin/default/index']],
             ['label' => Yii::t('app', 'News'), 'url' => ['/admin/news/index']],
-            ['label' => Yii::t('app', 'Problem'), 'url' => ['/admin/problem/index']],
+            ['label' => Yii::t('app', 'Problem'), 'url' => ['/admin/problem/index'],'active' => 'active'],
             ['label' => Yii::t('app', 'User'), 'url' => ['/admin/user/index']],
             ['label' => Yii::t('app', 'Contest'), 'url' => ['/admin/contest/index']],
             ['label' => Yii::t('app', 'Rejudge'), 'url' => ['/admin/rejudge/index']],
             ['label' => Yii::t('app', 'Setting'), 'url' => ['/admin/setting/index']],
-            ['label' => Yii::t('app', 'Polygon System'), 'url' => ['/polygon']],
             ['label' => 'OJ ' . Yii::t('app', 'Update'), 'url' => ['/admin/update/index']]
         ],
     ]) ?>
 <?php endif; ?>
+<br>
 <div>
     <div class="problem-header">
         <?= \yii\bootstrap\Nav::widget([
-            'options' => ['class' => 'nav-tabs'],
+            'options' => ['class' => 'nav nav-pills'],
             'items' => [
                 ['label' => Yii::t('app', 'Preview'), 'url' => ['/admin/problem/view', 'id' => $model->id]],
                 ['label' => Yii::t('app', 'Edit'), 'url' => ['/admin/problem/update', 'id' => $model->id]],

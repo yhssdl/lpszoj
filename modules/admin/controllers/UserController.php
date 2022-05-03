@@ -17,7 +17,7 @@ use app\models\UserSearch;
  */
 class UserController extends Controller
 {
-    public $layout = 'main';
+    public $layout = 'user';
     /**
      * @inheritdoc
      */

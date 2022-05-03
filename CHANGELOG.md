@@ -12,6 +12,7 @@ LPSZOJ Change Log
 请阅读 [update.md](https://gitee.com/yhssdl/lpszoj/raw/master/docs/update.md) 来获取更新方法。
 
 ---------------------------------------
+- 2022.5.3 Enh: [web] 比赛界面重新进行了制作，美化界面并增强了搜索功能。
 - 2022.5.2 Enh: [web] 继续整体界面的美化。
 - 2022.5.1 Enh: [web,db] 整体界面的美化，添加数据库字段。
 - 2022.4.29 Enh: [web] 整体界面的美化，参考SCNUOJ。

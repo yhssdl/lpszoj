@@ -28,7 +28,7 @@ use app\modules\admin\models\GenerateUserForm;
  */
 class ContestController extends Controller
 {
-    public $layout = 'main';
+    public $layout = 'contest';
 
     /**
      * @inheritdoc

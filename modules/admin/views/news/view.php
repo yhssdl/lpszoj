@@ -6,12 +6,10 @@ use yii\helpers\Html;
 /* @var $model app\models\Discuss */
 
 $this->title = $model->title;
-$this->params['breadcrumbs'][] = ['label' => Yii::t('app', 'News'), 'url' => ['index']];
-$this->params['breadcrumbs'][] = $this->title;
 ?>
 <div class="discuss-view">
 
-    <h3 class="lead"> 预览《<?= Html::encode($model->title) ?>》发布渲染效果</h3>
+    <p class="lead"> 预览《<?= Html::encode($model->title) ?>》发布渲染效果</p>
 
     <div class="btn-group btn-group-justified">
         <div class="btn-group">

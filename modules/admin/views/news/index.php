@@ -10,7 +10,7 @@ $this->title = Yii::t('app', 'News');
 ?>
 <div class="discuss-index">
 
-    <h3 class="lead">创建和管理新闻</h3>
+    <p class="lead">创建和管理新闻</p>
 
     <p>
         <?= Html::a(Yii::t('app', 'Release news'), ['create'], ['class' => 'btn btn-success btn-block']) ?>

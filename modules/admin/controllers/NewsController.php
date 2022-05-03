@@ -17,7 +17,7 @@ use app\models\Discuss;
  */
 class NewsController extends Controller
 {
-    public $layout = 'main';
+    public $layout = 'news';
 
     /**
      * @inheritdoc

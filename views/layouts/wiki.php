@@ -32,9 +32,9 @@ $this->title = Yii::t('app', 'Wiki');;
         ],
         ['label' => Yii::t('app', 'About'), 'url' => ['wiki/about']]
     ],
-    'options' => ['class' => 'nav nav-pills']
+    'options' => ['class' => 'nav-tabs'],
 ]) ?>
-<p></p>
+<br>
 <div class="row">
     <div class="col animate__animated animate__fadeInUp" style="padding:0px 32px;">
         <?= $content ?>

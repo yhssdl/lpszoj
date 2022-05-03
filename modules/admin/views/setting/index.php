@@ -7,9 +7,7 @@ use yii\helpers\Html;
 /* @var $form yii\widgets\ActiveForm */
 
 $this->title = Yii::t('app', 'Setting');
-
 ?>
-
 <p class="lead">设置系统选项</p>
 <div class="setting-form animate__animated animate__fadeInUp">
 

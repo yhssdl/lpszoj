@@ -15,7 +15,7 @@ use yii\bootstrap\Nav;
             ['label' => Yii::t('app', 'Home'), 'url' => ['/admin/default/index']],
             ['label' => Yii::t('app', 'News'), 'url' => ['/admin/news/index']],
             ['label' => Yii::t('app', 'Problem'), 'url' => ['/admin/problem/index']],
-            ['label' => Yii::t('app', 'User'), 'url' => ['/admin/user/index']],
+            ['label' => Yii::t('app', 'User'), 'url' => ['/admin/user/index'],'active' => 'active'],
             ['label' => Yii::t('app', 'Contest'), 'url' => ['/admin/contest/index']],
             ['label' => Yii::t('app', 'Rejudge'), 'url' => ['/admin/rejudge/index']],
             ['label' => Yii::t('app', 'Setting'), 'url' => ['/admin/setting/index']],
