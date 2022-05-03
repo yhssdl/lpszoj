@@ -40,7 +40,7 @@ class ContestSearch extends Contest
      *
      * @return ActiveDataProvider
      */
-    public function search($params)
+    public function search($params,$pageSize=20)
     {
         $query = Contest::find();
 
@@ -49,7 +49,7 @@ class ContestSearch extends Contest
         $dataProvider = new ActiveDataProvider([
             'query' => $query,
             'pagination' => [
-                'pageSize' => 20,
+                'pageSize' => $pageSize,
              ],
         ]);
 

@@ -14,10 +14,9 @@ use shiyang\infinitescroll\InfiniteScrollPager;
 
 $this->title = $model->title;
 $this->params['breadcrumbs'][] = ['label' => Yii::t('app', 'Problems'), 'url' => ['index']];
-$this->params['breadcrumbs'][] = $this->title;
-
+$this->params['breadcrumbs'][] = ['label' => Html::encode($model->title), 'url' => ['problem/view', 'id' => $model->id]];
 ?>
-<h1><?= Html::a(Html::encode($model->title), ['/problem/view', 'id' => $model->id]) ?></h1>
+
 <?php if (Yii::$app->user->isGuest): ?>
     Login before discuss
 <?php else: ?>
@@ -28,10 +27,10 @@ $this->params['breadcrumbs'][] = $this->title;
         ])->textInput(['maxlength' => 128, 'autocomplete'=>'off'])
         ?>
 
-        <?= $form->field($newDiscuss, 'content')->widget(Yii::$app->setting->get('ojEditor')); ?>
+        <?= $form->field($newDiscuss, 'content')->widget(Yii::$app->setting->get('ojEditor'))->label(false); ?>
 
         <div class="form-group">
-            <?= Html::submitButton(Yii::t('app', 'Create'), ['class' => 'btn btn-success']) ?>
+            <?= Html::submitButton(Yii::t('app', 'Create'), ['class' => 'btn btn-success btn-block']) ?>
         </div>
         <?php ActiveForm::end(); ?>
     </div>
@@ -47,7 +46,7 @@ $this->params['breadcrumbs'][] = $this->title;
                     <td width="auto" valign="middle">
                         <h2><?= Html::a(Html::encode($discuss->title), ['/discuss/view', 'id' => $discuss->id]) ?></h2>
                         <small style="color: #aaa">
-                            <strong><?= Html::a(Html::encode($discuss->user->username), ['/user/view', 'id' => $discuss->user->username], ['class' => 'thread-nickname', 'rel' => 'author']); ?></strong>
+                            <strong><?= Html::a(Html::encode($discuss->user->nickname), ['/user/view', 'id' => $discuss->user->username], ['class' => 'thread-nickname', 'rel' => 'author']); ?></strong>
                             &nbsp;•&nbsp;
                             <time title="<?= Yii::t('app', 'Last Reply Time') ?>">
                                 <span class="glyphicon glyphicon-time"></span> <?= Yii::$app->formatter->asRelativeTime($discuss->updated_at)?>
@@ -67,7 +66,7 @@ $this->params['breadcrumbs'][] = $this->title;
                         </small>
                     </td>
                     <td width="50" align="right" valign="middle" title="<?= Yii::t('app', 'Reply') ?>">
-                        <?= Html::a('<span class="glyphicon glyphicon-comment"></span> ', ['/forum/thread/view', 'id' => $discuss->id], ['class' => 'badge']); ?>
+                        <?= Html::a('<span class="glyphicon glyphicon-comment"></span> ', ['/discuss/view', 'id' => $discuss->id], ['class' => 'badge']); ?>
                     </td>
                 </tr>
                 </tbody>

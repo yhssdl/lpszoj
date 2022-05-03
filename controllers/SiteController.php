@@ -20,6 +20,7 @@ use app\models\ResendVerificationEmailForm;
 use app\models\PasswordResetRequestForm;
 use app\models\ResetPasswordForm;
 use app\models\VerifyEmailForm;
+use app\models\ContestSearch;
 
 class SiteController extends BaseController
 {
@@ -66,16 +67,15 @@ class SiteController extends BaseController
      */
     public function actionIndex()
     {
-        $contests = Yii::$app->db->createCommand('
-            SELECT id, title FROM {{%contest}}
-            WHERE status = :status AND type != :type AND end_time >= :time
-            ORDER BY start_time DESC LIMIT 3
-        ', [':status' => Contest::STATUS_VISIBLE, ':type' => Contest::TYPE_HOMEWORK, ':time' => date('Y:m:d h:i:s', time())])->queryAll();
+        $searchModel = new ContestSearch();
+        $dataProvider = $searchModel->search('',5);
 
-        $newsQuery = (new Query())->select('id, title, content, created_at')
+        $news = (new Query())->select('id, title, content, created_at')
             ->from('{{%discuss}}')
             ->where(['entity' => Discuss::ENTITY_NEWS, 'status' => Discuss::STATUS_PUBLIC])
-            ->orderBy('id DESC');
+            ->orderBy('id DESC')
+            ->limit(10)
+            ->all();
 
         $discusses = (new Query())->select('d.id, d.title, d.created_at, u.nickname, u.username, p.title as ptitle, p.id as pid')
             ->from('{{%discuss}} as d')
@@ -87,18 +87,9 @@ class SiteController extends BaseController
             ->limit(10)
             ->all();
 
-        $pages = new Pagination([
-            'totalCount' => $newsQuery->count(),
-            'defaultPageSize' => 5
-        ]);
-        
-        $news = $newsQuery->offset($pages->offset)
-            ->limit($pages->limit)
-            ->all();
 
         return $this->render('index', [
-            'contests' => $contests,
-            'pages' => $pages,
+            'dataProvider' => $dataProvider,
             'news' => $news,
             'discusses' => $discusses
         ]);

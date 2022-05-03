@@ -1,8 +1,6 @@
 <?php
 
-use yii\helpers\Html;
 use yii\widgets\ListView;
-use app\models\Contest;
 
 /* @var $this yii\web\View */
 /* @var $dataProvider yii\data\ActiveDataProvider */
