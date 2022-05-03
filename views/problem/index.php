@@ -115,7 +115,7 @@ $title_str .= '标题 <span class="float-right">'. Html::checkbox('showTags', $s
                     'attribute' => 'id',
                     'value' => function ($model, $key, $index, $column) use ($solvedProblem) {
                         if (isset($solvedProblem[$model->id])) {
-                            return Html::a($model->id, ['/problem/view', 'id' => $key],['class'=>'btn btn-success btn-xs' ]);
+                            return Html::a($model->id, ['/problem/view', 'id' => $key],['class'=>'btn btn-success btn-sm' ]);
                         }
                         return Html::a($model->id, ['/problem/view', 'id' => $key],['class'=>'btn btn-default btn-sm' ]);
                     },

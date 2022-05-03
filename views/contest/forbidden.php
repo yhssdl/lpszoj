@@ -52,27 +52,18 @@ $this->params['model'] = $model;
 
             <?php else : ?>
                 <div class="alert alert-light">
-                    <p><i class=" glyphicon glyphicon-info-sign"></i> 您尚未报名参加该比赛，请报名参赛或比赛结束后再来访问。</p><br>
+                    <div><i class=" glyphicon glyphicon-info-sign"></i> 您尚未报名参加该比赛，请报名参赛或比赛结束后再来访问。</div><br>
                     <?php if (!Yii::$app->user->isGuest) : ?>
                         <?php if ($model->invite_code) : ?>
                             <?= Html::beginForm(['/contest/register', 'id' => $model->id, 'register' => 1], 'get') ?>
 
-                            <?= Html::textInput('q', '', ['class' => 'form-control', 'placeholder' => '邀请码']) ?>
+                            <div><?= Html::textInput('q', '', ['class' => 'form-control', 'placeholder' => '邀请码']) ?></div><br>
 
-
-                            <div class="btn-group btn-block">
-                                <?= Html::submitButton(Yii::t('app', '报名参赛'), ['class' => 'btn btn-success']) ?>
-                            </div>
-
-
+                            <div><?= Html::submitButton(Yii::t('app', '报名参赛'), ['class' => 'btn btn-success btn-block']) ?></div>
 
                             <?= Html::endForm() ?>
                         <?php else : ?>
-                            <div class="btn-group btn-group-justified">
-                                <div class="btn-group">
-                                    <?= Html::a(Yii::t('app', '报名参赛'), ['/contest/register', 'id' => $model->id, 'register' => 1], ['class' => 'btn btn-success']) ?>
-                                </div>
-                            </div>
+                            <?= Html::a(Yii::t('app', '报名参赛'), ['/contest/register', 'id' => $model->id, 'register' => 1], ['class' => 'btn btn-success btn-block']) ?>
                         <?php endif; ?>
                     <?php else : ?>
                         <div class="btn btn-success btn-block disabled">请先登录</div>
@@ -87,9 +78,10 @@ $this->params['model'] = $model;
                 <div class="list-group-item"><?= Yii::t('app', 'Start time') ?><span class="float-right"><?= $model->start_time ?></span></div>
                 <?php if (strtotime($model->end_time) < Contest::TIME_INFINIFY) : ?>
                     <div class="list-group-item"><?= Yii::t('app', 'End time') ?>
-                    <span class="float-right"><?= $model->end_time ?></span></div>
+                        <span class="float-right"><?= $model->end_time ?></span>
+                    </div>
                 <?php endif; ?>
-                
+
                 <div class="list-group-item">持续时间<span class="float-right"> <?= $model->getContestTimeLen() ?></span></div>
                 <div class="list-group-item">参赛人数<span class="float-right"><?= $model->getContestUserCount() ?></span></div>
                 <div class="list-group-item">题目数量<span class="float-right"><?= $model->getProblemCount() ?></span></div>

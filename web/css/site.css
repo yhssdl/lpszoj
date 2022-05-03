@@ -573,19 +573,23 @@ a.desc:after {
 }
 
 .btn-copy {
-    font-size: 1.2rem;
+    font-size: 12px;
+    font-weight: 500;
     float: right;
-    color: #888 !important;
+    color: rgb(255, 255, 255) !important;
+    background-color:#5cb85c;
+    border-color: #4cae4c;
     cursor: pointer;
-    border: 1px solid rgb(185, 185, 185);
-    padding: 3px;
+    padding: 3px 10px;
     margin: 1px;
     line-height: 1.1rem;
+    border-radius: 8px;
     text-transform: none;
     text-decoration: none !important;
 }
 .btn-copy:hover {
-    background-color: #def;
+    background-color:#489c48;
+    
 }
 .w-25 {
     width: 25%!important;
@@ -896,12 +900,12 @@ a.contest-tag-green:hover ,a.contest-tag-green:focus {
 }
 
 .contest-tag-blue {
-    background: #0074d9;
+    background: #218ce9;
     color:#fff;
 }
 
 a.contest-tag-blue:hover ,a.contest-tag-blue:focus {
-    background: #005baa;
+    background: #1a7ed5;
     color:#fff;
 }
 
@@ -915,6 +919,17 @@ a.contest-tag-info:hover ,a.contest-tag-info:focus {
     background: #12899c;
     color:#fff;
 }
+
+.contest-tag-darkvoilet {
+    background: #9400D3;
+    color:#fff;
+}
+
+a.contest-tag-darkvoilet:hover ,a.contest-tag-darkvoilet:focus {
+    background: #7e00b5;
+    color:#fff;
+}
+
 
 
 .contest-tag {
