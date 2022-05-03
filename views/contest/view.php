@@ -83,7 +83,7 @@ $submissionStatistics = $model->getSubmissionStatistics();
     </div>
     <?php
     if ($dataProvider->count > 0) {
-        echo '<hr>';
+        echo '<br>';
         echo GridView::widget([
             'layout' => '{items}{pager}',
             'pager' => [
@@ -97,19 +97,20 @@ $submissionStatistics = $model->getSubmissionStatistics();
             'rowOptions' => function ($model, $key, $index, $grid) {
                 return ['class' => 'animate__animated animate__fadeInUp'];
             },
-            'options' => ['class' => 'table-responsive', 'style' => 'margin:0 auto;width:50%;min-width:600px;text-align: left;'],
+            'options' => ['class' => 'table-responsive'],
             'columns' => [
-                [
-                    'attribute' => 'created_at',
-                    'options' => ['width' => '150px'],
-                    'format' => 'datetime'
-                ],
+
                 [
                     'attribute' => Yii::t('app', 'Announcement'),
                     'value' => function ($model, $key, $index, $column) {
                         return Yii::$app->formatter->asMarkdown($model->content);
                     },
                     'format' => 'html',
+                ],
+                [
+                    'attribute' => 'created_at',
+                    'options' => ['width' => '150px'],
+                    'format' => 'datetime'
                 ],
             ],
         ]);

@@ -117,12 +117,6 @@ $status = $model->getRunStatus();
                 <div class="col-md-6 text-center">
                     <h2 class="contest-title">
                         <?= Html::encode($model->title) ?>
-                        <?php if ($model->group_id != 0 && $model->isContestAdmin()): ?>
-                            <small>
-                                <?= Html::a('<span class="glyphicon glyphicon-cog"></span> ' . Yii::t('app', 'Setting'),
-                                    ['/homework/update', 'id' => $model->id]) ?>
-                            </small>
-                        <?php endif; ?>
                     </h2>
                 </div>
                 <div class="col-md-3 text-right hidden-print">
@@ -144,7 +138,12 @@ $status = $model->getRunStatus();
                 <b><?= Yii::t('app', 'Now') ?>　</b>
                 <span id="nowdate"><?= date("Y-m-d H:i:s") ?></span>　
                <span>                    
-                   <b>类型</b>: <?= $model->getType()?>　 <b>状态</b>: <?= $model->getRunStatus(1) ?>
+                   <b>类型</b>: <?= $model->getType()?>　 <b>状态</b>: <?= $model->getRunStatus(1) ?>　
+                   <?php if ($model->group_id != 0 && $model->isContestAdmin()): ?>
+                                <?= Html::a('<span class="glyphicon glyphicon-cog"></span> ' . Yii::t('app', 'Setting'),
+                                    ['/homework/update', 'id' => $model->id]) ?>
+                   
+                        <?php endif; ?>
                 </span>
             </div>
         </div>

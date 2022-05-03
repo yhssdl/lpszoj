@@ -5,6 +5,7 @@ use yii\widgets\DetailView;
 use yii\widgets\ActiveForm;
 use yii\bootstrap\Modal;
 use app\models\Contest;
+use yii\helpers\Url;
 
 /* @var $this yii\web\View */
 /* @var $model app\models\Contest */
@@ -12,9 +13,8 @@ use app\models\Contest;
 /* @var $announcements yii\data\ActiveDataProvider */
 
 $this->title = $model->title;
-
-
 $problems = $model->problems;
+$contest_id = $model->id;
 ?>
 <p class="lead"><?= Html::encode($this->title) ?></p>
 
@@ -24,6 +24,7 @@ $problems = $model->problems;
         <div class="btn-group"><?= Html::a('选手', ['register', 'id' => $model->id], ['class' => 'btn btn-primary']) ?></div>
         <div class="btn-group"><?= Html::a('题册', ['print', 'id' => $model->id], ['class' => 'btn btn-primary', 'target' => '_blank']) ?></div>
         <div class="btn-group"><?= Html::a(Yii::t('app', 'Editorial'), ['editorial', 'id' => $model->id], ['class' => 'btn btn-primary']) ?></div>
+        <div class="btn-group"><?= Html::a(Yii::t('app', 'Calculate rating'), ['rated', 'id' => $model->id], ['class' => 'btn btn-info']) ?></div>
         <div class="btn-group"><?= Html::a(Yii::t('app', 'Print'), ['/print', 'id' => $model->id], ['class' => 'btn btn-info', 'target' => '_blank']) ?></div>
         <div class="btn-group"><?= Html::a(Yii::t('app', 'Clarification'), ['clarify', 'id' => $model->id], ['class' => 'btn btn-info', 'target' => '_blank']) ?></div>
         <div class="btn-group"><?= Html::a(Yii::t('app', 'Submit'), ['status', 'id' => $model->id], ['class' => 'btn btn-info', 'target' => '_blank']) ?></div>
@@ -87,23 +88,23 @@ $problems = $model->problems;
     </p>
 
     <div class="animate__animated animate__fadeInUp">
-    <?= DetailView::widget([
-        'model' => $model,
-        'template' => '<tr><th class="bg-tablehead" style="width:150px;text-align:center;">{label}</th><td style="min-width:300px;">{value}</td></tr>',
-        'options' => ['id' => 'grid', 'class' => 'table table-bordered'],
-        'attributes' => [
-            'id',
-            'title',
-            'start_time',
-            'end_time',
-            'lock_board_time',
-            'description:html',
-            [
-                'label' => Yii::t('app', 'Scenario'),
-                'value' => $model->scenario == Contest::SCENARIO_ONLINE ? Yii::t('app', 'Online') : Yii::t('app', 'Offline')
-            ]
-        ],
-    ]) ?>
+        <?= DetailView::widget([
+            'model' => $model,
+            'template' => '<tr><th class="bg-tablehead" style="width:150px;text-align:center;">{label}</th><td style="min-width:300px;">{value}</td></tr>',
+            'options' => ['id' => 'grid', 'class' => 'table table-bordered'],
+            'attributes' => [
+                'id',
+                'title',
+                'start_time',
+                'end_time',
+                'lock_board_time',
+                'description:html',
+                [
+                    'label' => Yii::t('app', 'Scenario'),
+                    'value' => $model->scenario == Contest::SCENARIO_ONLINE ? Yii::t('app', 'Online') : Yii::t('app', 'Offline')
+                ]
+            ],
+        ]) ?>
     </div>
 
     <hr>
@@ -115,7 +116,7 @@ $problems = $model->problems;
         ]); ?>
 
         <?php $form = ActiveForm::begin(); ?>
-    <div class="alert alert-light"><i class="glyphicon glyphicon-info-sign"></i> 公告发布后不可撤回与编辑，请慎重填写。必要时还可使用 <?= Html::a('全局公告', ['/admin/setting']) ?>。</div>
+    <div class="alert alert-light"><i class="glyphicon glyphicon-info-sign"></i> 公告发布后将显示在比赛界面中。也可以使用 <?= Html::a('全局公告', ['/admin/setting']) ?>。</div>
     <?= $form->field($newAnnouncement, 'content')->textarea(['rows' => 6]) ?>
 
     <div class="form-group">
@@ -126,13 +127,29 @@ $problems = $model->problems;
     <?php Modal::end(); ?>
     </p>
     <div class="animate__animated animate__fadeInUp">
-    <?= \yii\grid\GridView::widget([
-        'dataProvider' => $announcements,
-        'columns' => [
-            'content:ntext',
-            'created_at:datetime',
-        ],
-    ]) ?>
+        <?= \yii\grid\GridView::widget([
+            'dataProvider' => $announcements,
+            'columns' => [
+                'content:ntext',
+                'created_at:datetime',
+                [
+                    'class' => 'yii\grid\ActionColumn',
+                    'template' => '{delete}',
+                    'buttons' => [
+                        'delete' => function ($url, $model, $key) use ($contest_id) {
+                            $options = [
+                                'title' => Yii::t('yii', 'Delete'),
+                                'aria-label' => Yii::t('yii', 'Delete'),
+                                'data-confirm' => '删除该项公告，确定删除？',
+                                'data-method' => 'post',
+                                'data-pjax' => '0',
+                            ];
+                            return Html::a('<span class="glyphicon glyphicon-trash"></span>', Url::toRoute(['contest/delete_announcement', 'contest_id' => $contest_id, 'id' => $model->id]), $options);
+                        },
+                    ]
+                ],
+            ],
+        ]) ?>
     </div>
 
     <hr>
@@ -192,7 +209,7 @@ $problems = $model->problems;
             <tbody>
                 <?php foreach ($problems as $key => $p) : ?>
                     <tr>
-                        <td class="animate__animated animate__fadeInUp"><?= Html::a('P'.($key + 1), ['/admin/problem/view', 'id' => $p['problem_id']]) ?></td>
+                        <td class="animate__animated animate__fadeInUp"><?= Html::a('P' . ($key + 1), ['/admin/problem/view', 'id' => $p['problem_id']]) ?></td>
                         <td class="animate__animated animate__fadeInUp"><?= Html::a($p['problem_id'], ['/admin/problem/view', 'id' => $p['problem_id']]) ?></td>
                         <td class="animate__animated animate__fadeInUp"><?= Html::a(Html::encode($p['title']), ['/admin/problem/view', 'id' => $p['problem_id']]) ?></td>
                         <td>

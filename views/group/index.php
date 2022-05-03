@@ -47,16 +47,30 @@ $this->title = Yii::t('app', 'Groups');
     'options' => ['class' => 'nav-tabs']
 ]) ?>
 <br>
-<?php if($searchModel!=null) echo $this->render('_search', ['model' => $searchModel]); ?>
 
-<?= ListView::widget([
-    'dataProvider' => $dataProvider,
-    'itemView' => '_group_item',
-    'itemOptions' => ['tag' => false],
-    'layout' => '{items}<p></p>{pager}',
-    'options' => ['class' => 'list-group animate__animated animate__fadeInUp'],
-    'pager' => [
-        'linkOptions' => ['class' => 'page-link'],
-        'maxButtonCount' => 10,
-    ]
-])?>
+<?php
+if($dataProvider->count>0){
+    if($searchModel!=null) echo $this->render('_search', ['model' => $searchModel]);
+    echo ListView::widget([
+        'dataProvider' => $dataProvider,
+        'itemView' => '_group_item',
+        'itemOptions' => ['tag' => false],
+        'layout' => '{items}<p></p>{pager}',
+        'options' => ['class' => 'list-group animate__animated animate__fadeInUp'],
+        'pager' => [
+            'linkOptions' => ['class' => 'page-link'],
+            'maxButtonCount' => 10,
+        ]
+        ]);
+}else {
+    if($searchModel==null){
+        echo '<div class="alert alert-light"><i class=" glyphicon glyphicon-info-sign"></i> 当前未加入任何小组。</div>';
+    }else {
+        echo '<div class="alert alert-light"><i class=" glyphicon glyphicon-info-sign"></i> 当前没有公开的小组。</div>';
+    }
+}
+
+
+    
+    
+?>

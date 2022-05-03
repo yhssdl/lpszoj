@@ -25,10 +25,10 @@ $this->title = $name;
 </div>
 <br>
 <div class="btn-group btn-group-justified">
-            <div class="btn-group">
-                <a class="btn btn-default" href="javascript:history.go(-1)"> <i class="fas fa-fw fa-arrow-alt-circle-left"></i> 返回上一页</a>
-            </div>
-            <div class="btn-group">
-                <a class="btn btn-default" href="<?= Yii::$app->homeUrl ?>"> <i class="fas fa-fw fa-home"></i> 返回首页</a>
-            </div>
-        </div>
+    <div class="btn-group">
+        <a class="btn btn-default" href="javascript:history.go(-1)"> <i class="fas fa-fw fa-arrow-alt-circle-left"></i> 返回上一页</a>
+    </div>
+    <div class="btn-group">
+        <a class="btn btn-default" href="<?= Yii::$app->homeUrl ?>"> <i class="fas fa-fw fa-home"></i> 返回首页</a>
+    </div>
+</div>

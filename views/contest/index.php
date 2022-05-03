@@ -14,20 +14,20 @@ $this->title = Yii::t('app', 'Contests');
     <?php echo $this->render('_search', ['model' => $searchModel]); ?>
 
     <?= ListView::widget([
-    'dataProvider' => $dataProvider,
-    'itemView' => '_contest_item',
-    'itemOptions' => ['tag' => false],
-    'layout' => '{items}<p></p>{pager}',
-    'options' => ['class' => 'list-group animate__animated animate__fadeInUp'],
+        'dataProvider' => $dataProvider,
+        'itemView' => '_contest_item',
+        'itemOptions' => ['tag' => false],
+        'layout' => '{items}<p></p>{pager}',
+        'options' => ['class' => 'list-group animate__animated animate__fadeInUp'],
 
-    'pager' => [
-        'firstPageLabel' => Yii::t('app', 'First'),
-        'prevPageLabel' => '« ',
-        'nextPageLabel' => '» ',
-        'lastPageLabel' => Yii::t('app', 'Last'),
-        'linkOptions' => ['class' => 'page-link'],
-        'maxButtonCount' => 10,
+        'pager' => [
+            'firstPageLabel' => Yii::t('app', 'First'),
+            'prevPageLabel' => '« ',
+            'nextPageLabel' => '» ',
+            'lastPageLabel' => Yii::t('app', 'Last'),
+            'linkOptions' => ['class' => 'page-link'],
+            'maxButtonCount' => 10,
 
-    ]
-])?>
+        ]
+    ]) ?>
 </div>

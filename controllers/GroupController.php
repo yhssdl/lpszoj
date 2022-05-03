@@ -132,14 +132,19 @@ class GroupController extends BaseController
                     'role' => GroupUser::ROLE_MEMBER
                 ])->execute();
                 Yii::$app->session->setFlash('info', '已加入');
-            } else if ($model->join_policy == Group::JOIN_POLICY_APPLICATION && $accept == 3 && !$role) { // 申请加入小组
-                Yii::$app->db->createCommand()->insert('{{%group_user}}', [
-                    'user_id' => Yii::$app->user->id,
-                    'group_id' => $model->id,
-                    'created_at' => new Expression('NOW()'),
-                    'role' => GroupUser::ROLE_APPLICATION
-                ])->execute();
-                Yii::$app->session->setFlash('info', '已申请');
+            } else if ($model->join_policy == Group::JOIN_POLICY_APPLICATION && $accept == 3) { // 申请加入小组
+                if($role){
+                    Yii::$app->session->setFlash('error', '请不要重复申请');
+                }else{
+                    Yii::$app->db->createCommand()->insert('{{%group_user}}', [
+                        'user_id' => Yii::$app->user->id,
+                        'group_id' => $model->id,
+                        'created_at' => new Expression('NOW()'),
+                        'role' => GroupUser::ROLE_APPLICATION
+                    ])->execute();
+                    Yii::$app->session->setFlash('info', '已申请');
+                }
+
             }
         }
         Yii::$app->cache->delete('role' . $model->id . '_' . Yii::$app->user->id);
@@ -148,6 +153,7 @@ class GroupController extends BaseController
             'userDataProvider' => $userDataProvider
         ]);
     }
+
 
     /**
      * Displays a single Group model.
@@ -166,18 +172,63 @@ class GroupController extends BaseController
                                     $model->join_policy == Group::JOIN_POLICY_APPLICATION)) {
             return $this->redirect(['/group/accept', 'id' => $model->id]);
         } else if (!$model->isMember() && $model->join_policy == Group::JOIN_POLICY_INVITE) {
-            throw new ForbiddenHttpException('You are not allowed to perform this action.');
+            throw new ForbiddenHttpException('当前小组为私有小组，需要小组管理员邀请才能加入。');
         }
-        $newGroupUser = new GroupUser();
+     
         $newContest = new Contest();
         $newContest->type = Contest::TYPE_HOMEWORK;
         $newContest->language = -1;
-        $newContest->enable_clarify = 0;
+        $newContest->enable_clarify = 1;
         $contestDataProvider = new ActiveDataProvider([
             'query' => Contest::find()->where([
                 'group_id' => $model->id
             ])->orderBy(['id' => SORT_DESC]),
+            'pagination' => [
+                'pageSize' => 20,
+             ]
         ]);
+
+
+        if ($newContest->load(Yii::$app->request->post())) {
+            if (!$model->hasPermission()) {
+                throw new ForbiddenHttpException('You are not allowed to perform this action.');
+            }
+            $newContest->group_id = $model->id;
+            $newContest->scenario = Contest::SCENARIO_ONLINE;
+            $newContest->status = Contest::STATUS_PRIVATE;
+            $newContest->save();
+            return $this->refresh();
+        }
+
+        return $this->render('view', [
+            'model' => $model,
+            'contestDataProvider' => $contestDataProvider,
+            'newContest' => $newContest
+        ]);
+    }
+
+
+   
+    /**
+     * Displays a single Group model.
+     * @param integer $id
+     * @return mixed
+     * @throws NotFoundHttpException if the model cannot be found
+     * @throws ForbiddenHttpException
+     */
+    public function actionUser($id,$sort=0)
+    {
+        $model = $this->findModel($id);
+        $role = $model->getRole();
+        if (!$model->isMember() && ($role == GroupUser::ROLE_INVITING ||
+                                    $role == GroupUser::ROLE_APPLICATION ||
+                                    $model->join_policy == Group::JOIN_POLICY_FREE ||
+                                    $model->join_policy == Group::JOIN_POLICY_APPLICATION)) {
+            return $this->redirect(['/group/accept', 'id' => $model->id]);
+        } else if (!$model->isMember() && $model->join_policy == Group::JOIN_POLICY_INVITE) {
+            throw new ForbiddenHttpException('You are not allowed to perform this action.');
+        }
+        $newGroupUser = new GroupUser();
 
         $count = Yii::$app->db->createCommand('
             SELECT COUNT(*) FROM {{%group_user}} WHERE group_id=:id',
@@ -199,17 +250,6 @@ class GroupController extends BaseController
             ],
         ]);
 
-
-        if ($newContest->load(Yii::$app->request->post())) {
-            if (!$model->hasPermission()) {
-                throw new ForbiddenHttpException('You are not allowed to perform this action.');
-            }
-            $newContest->group_id = $model->id;
-            $newContest->scenario = Contest::SCENARIO_ONLINE;
-            $newContest->status = Contest::STATUS_PRIVATE;
-            $newContest->save();
-            return $this->refresh();
-        }
 
         if ($newGroupUser->load(Yii::$app->request->post())) {
             if (!$model->hasPermission()) {
@@ -255,14 +295,12 @@ class GroupController extends BaseController
             return $this->refresh();
         }
 
-        return $this->render('view', [
+        return $this->render('user', [
             'model' => $model,
-            'contestDataProvider' => $contestDataProvider,
             'userDataProvider' => $userDataProvider,
-            'newGroupUser' => $newGroupUser,
-            'newContest' => $newContest
+            'newGroupUser' => $newGroupUser
         ]);
-    }
+    }    
 
     /**
      * Creates a new Group model.
@@ -329,7 +367,7 @@ class GroupController extends BaseController
         if ($group->hasPermission() && $groupUser->role != GroupUser::ROLE_LEADER) {
             Yii::$app->cache->delete('role' . $group->id . '_' . $groupUser->user_id);
             $groupUser->delete();
-            return $this->redirect(['/group/view', 'id' => $group->id]);
+            return $this->redirect(['/group/user', 'id' => $group->id]);
         }
 
         throw new ForbiddenHttpException('You are not allowed to perform this action.');
@@ -373,7 +411,7 @@ class GroupController extends BaseController
         if ($role != 0) {
             $groupUser->update();
             Yii::$app->cache->delete('role' . $group->id . '_' . $groupUser->user_id);
-            return $this->redirect(['/group/view', 'id' => $group->id]);
+            return $this->redirect(['/group/user', 'id' => $group->id]);
         }
 
         return $this->renderAjax('user_manager', [

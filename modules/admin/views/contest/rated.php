@@ -9,18 +9,14 @@ use yii\grid\GridView;
 /* @var $dataProvider yii\data\ActiveDataProvider */
 
 $this->title = $model->title;
-$this->params['breadcrumbs'][] = ['label' => Yii::t('app', 'Contests'), 'url' => ['index']];
-$this->params['breadcrumbs'][] = ['label' => $this->title, 'url' => ['view', 'id' => $model->id]];
 ?>
 <div class="contest-view">
 
-    <h1><?= Html::encode($this->title) ?></h1>
-    <hr>
-    <p>
-        点击下方按钮将计算参加该场比赛的用户在该场比赛所的积分。计算出来的积分用于在排行榜排名。重复点击只会计算一次。
-    </p>
+    <p class="lead"><?= Html::encode($this->title) ?></p>
     <?php if ($model->getRunStatus() == Contest::STATUS_ENDED): ?>
-        <?= Html::a(Yii::t('app', 'Rated'), ['rated', 'id' => $model->id, 'cal' => 1], ['class' => 'btn btn-success']) ?>
+        <div class="alert alert-light"><i class=" glyphicon glyphicon-info-sign"></i> 点击下方按钮将计算参加该场比赛的用户在该场比赛所的积分。计算出来的积分用于在排行榜排名。重复点击只会计算一次。</div>
+        <?= Html::a(Yii::t('app', 'Rated'), ['rated', 'id' => $model->id, 'cal' => 1], ['class' => 'btn btn-success btn-block']) ?>
+        <br>
         <?= GridView::widget([
             'layout' => '{items}{pager}',
             'pager' =>[
@@ -51,6 +47,6 @@ $this->params['breadcrumbs'][] = ['label' => $this->title, 'url' => ['view', 'id
             ],
         ]); ?>
     <?php else: ?>
-        <p>比赛尚未结束，请在比赛结束后再来计算积分。</p>
+        <div class="alert alert-light"><i class=" glyphicon glyphicon-info-sign"></i> 比赛尚未结束，请在比赛结束后再来计算积分。</div>
     <?php endif; ?>
 </div>

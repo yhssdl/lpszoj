@@ -9,7 +9,7 @@ $this->title = $model->name;
 ?>
 <div class="group-update">
 
-    <h1><?= Html::a(Html::encode($this->title), ['/group/view', 'id' => $model->id]) ?></h1>
+    <p class="lead"><?= Html::a(Html::encode($this->title), ['/group/view', 'id' => $model->id]) ?></p>
 
     <?= $this->render('_form', [
         'model' => $model,

@@ -60,6 +60,15 @@ $this->title = Yii::t('app', 'Contests');
             ],
             [
                 'attribute' => 'status',
+                'label' => '运行',
+                'value' => function ($model, $key, $index, $column) {
+                    return $model->getRunStatus(1);
+                },
+                'enableSorting' => false,
+                'format' => 'raw',
+            ],            
+            [
+                'attribute' => 'status',
                 'value' => function ($model, $key, $index, $column) {
                     if ($model->status == $model::STATUS_VISIBLE) {
                         return Yii::t('app', 'Public');

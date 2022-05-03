@@ -191,6 +191,19 @@ class HomeworkController extends BaseController
     }
 
     /**
+     * 删除指定的公告。
+     * @param integer $contest_id; 比赛id
+     * @param integer $id 删除的公告id
+     * @return mixed
+     */
+    public function actionDelete_announcement($contest_id,$id)
+    {
+        Yii::$app->db->createCommand()->delete('{{%contest_announcement}}',['id' => $id])->execute();
+        Yii::$app->session->setFlash('success', Yii::t('app', 'Delete successfully'));
+        return $this->redirect(['/homework/update', 'id' => $contest_id]);
+    }
+
+    /**
      * @param $id
      * @return string|\yii\web\Response
      * @throws ForbiddenHttpException

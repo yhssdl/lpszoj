@@ -18,8 +18,6 @@ use app\models\Problem;
 use app\models\Discuss;
 use app\models\Contest;
 use app\models\SolutionSearch;
-use app\models\ContestPrint;
-use app\models\ContestProblem;
 use app\models\Solution;
 use app\modules\admin\models\GenerateUserForm;
 
@@ -109,6 +107,19 @@ class ContestController extends Controller
             }
             return $this->redirect(['contest/view', 'id' => $id]);
         }
+    }
+
+    /**
+     * 删除指定的公告。
+     * @param integer $contest_id; 比赛id
+     * @param integer $id 删除的公告id
+     * @return mixed
+     */
+    public function actionDelete_announcement($contest_id,$id)
+    {
+        Yii::$app->db->createCommand()->delete('{{%contest_announcement}}',['id' => $id])->execute();
+        Yii::$app->session->setFlash('success', Yii::t('app', 'Delete successfully'));
+        return $this->redirect(['/admin/contest/view', 'id' => $contest_id]);
     }
 
     /**
