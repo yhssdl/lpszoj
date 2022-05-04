@@ -180,7 +180,7 @@ a.desc:after {
 .html-output {
     word-wrap: break-word;
 }
-.html-output img {
+.html-output img, .markdown img {
     max-width: 100%;
 }
 /*
