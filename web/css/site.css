@@ -998,7 +998,8 @@ a.status-ended:hover ,a.status-ended:focus {
     white-space: nowrap;
 }
 
-.group-img-radius{
-
+.group-img{
+    width: 80px;
+    max-height: 80px;
     border-radius:5px;
 }
