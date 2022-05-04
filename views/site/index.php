@@ -51,11 +51,12 @@ $newsSize = count($news);
         <p></p>
     </div>
     <div class="col-lg-3 col-md-4 animate__animated animate__fadeInUp">
-        <div class="list-group-item">
-            <h4>关于</h4>
-            <p>Online Judge系统（简称OJ）是一个在线的判题系统。 用户可以在线提交程序多种程序（如C、C++、Java）源代码，系统对源代码进行编译和执行， 并通过预先设计的测试数据来检验程序源代码的正确性。</p>
-        </div>
-        <br>
+        <?php if (Yii::$app->setting->get('isHomeNotice')) : ?>
+            <div class="list-group-item">
+                <?= Yii::$app->formatter->asMarkdown(Yii::$app->setting->get('homeNotice')) ?>
+            </div>
+            <br>
+        <?php endif; ?>
         <?php if (!empty($news)) : ?>
             <ol class="list-group">
                 <li class="list-group-item text-center"><i class="glyphicon glyphicon-bullhorn"></i> 最近新闻</li>

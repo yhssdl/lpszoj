@@ -15,7 +15,7 @@ use yii\helpers\Url;
 
     <?= $form->field($model, 'title', ['template' => '<div class="input-group"><span class="input-group-addon">'.Yii::t('app', 'Title').'</span>{input}</div>'])->textInput()->label(false) ?>
 
-    <?= $form->field($model, 'content')->widget(Yii::$app->setting->get('ojEditor')); ?>
+    <?= $form->field($model, 'content')->widget(Yii::$app->setting->get('ojEditor'))->label(false); ?>
 
     <?= $form->field($model, 'status')->radioList([
         1 => Yii::t('app', 'Visible'),

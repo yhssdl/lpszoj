@@ -7,7 +7,7 @@
     <div class="list-group-item">
         名称
         <span class="float-right text-secondary">
-            <?= Yii::$app->setting->get('schoolName') ?>在线评测系统
+            <?= Yii::$app->setting->get('ojName') ?>
         </span>
     </div>
     <div class="list-group-item">

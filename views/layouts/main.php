@@ -102,7 +102,7 @@ AppAsset::register($this);
             }
         ?>
         <?php if (Yii::$app->setting->get('isNotice')): ?>    
-            <div class="alert alert-light"><i class="glyphicon glyphicon-info-sign"></i> <?= Yii::$app->setting->get('notice') ?></div>
+            <div class="alert alert-light"><?= Yii::$app->formatter->asMarkdown( Yii::$app->setting->get('notice')) ?></div>
         <?php endif; ?>    
         <?= Breadcrumbs::widget([
             'links' => isset($this->params['breadcrumbs']) ? $this->params['breadcrumbs'] : [],
