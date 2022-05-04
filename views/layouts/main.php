@@ -114,12 +114,12 @@ AppAsset::register($this);
 
 <footer class="footer">
     <div class="container">
-        <p class="pull-left">&copy; <?= Yii::$app->setting->get('ojName') ?> OJ <?= date('Y') ?></p>
-        <p class="pull-left">
+        <span>&copy; <?= Yii::$app->setting->get('ojName') ?> OJ <?= date('Y') ?></span>
+        <span>
             <?= Html::a (' 中文简体 ', '?lang=zh-CN') . '| ' .
             Html::a (' English ', '?lang=en') ;
             ?>
-        </p>
+        </span>
     </div>
 </footer>
 
