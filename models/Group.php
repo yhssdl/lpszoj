@@ -54,7 +54,7 @@ class Group extends ActiveRecord
             [['created_at', 'updated_at'], 'safe'],
             [['name'], 'string', 'max' => 32],
             [['description'], 'string', 'max' => 255],
-            [['kanban'], 'string'],
+            [['kanban','logo_url'], 'string'],
         ];
     }
 
@@ -72,6 +72,7 @@ class Group extends ActiveRecord
             'created_at' => Yii::t('app', 'Created At'),
             'updated_at' => Yii::t('app', 'Updated At'),
             'kanban' => Yii::t('app', 'Kanban'),
+            'logo_url' => Yii::t('app', 'Logo Url'),
         ];
     }
 
@@ -153,6 +154,25 @@ class Group extends ActiveRecord
     {
         return $this->hasMany(GroupUser::className(), ['group_id' => 'id']);
     }
+
+    public function getGroupUserCount(){
+
+        $count = Yii::$app->db->createCommand('
+            SELECT COUNT(*) FROM {{%group_user}} WHERE group_id=:id',
+            [':id' => $this->id]
+        )->queryScalar();
+        return $count;
+    }
+
+
+    public function getContestCount(){
+        $count = Yii::$app->db->createCommand('
+            SELECT COUNT(*) FROM {{%contest}} WHERE group_id=:id',
+            [':id' => $this->id]
+        )->queryScalar();
+        return $count;
+    }
+
 
     public function hasPermission()
     {

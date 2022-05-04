@@ -40,7 +40,7 @@ $this->params['model'] = $model;
         </div>
         <?php ActiveForm::end(); ?>
         <?php else: ?>
-            <p><?= Yii::t('app', 'The contest has ended.') ?></p>
+            <div class="alert alert-light"><i class=" glyphicon glyphicon-info-sign"></i> <?= Yii::t('app', 'The contest has ended.') ?></div>
         <?php endif; ?>
 
 </div>

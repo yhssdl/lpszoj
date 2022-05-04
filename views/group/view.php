@@ -66,7 +66,7 @@ $scoreboardFrozenTime = Yii::$app->setting->get('scoreboardFrozenTime') / 3600;
         <div class="col-md-3">
             <div>
                 <?php if ($model->kanban) : ?>
-                    <div class="alert alert-light"><?= Yii::$app->formatter->asMarkdown($model->kanban) ?></div>
+                    <div class="list-group-item list-group-item-action"><?= Yii::$app->formatter->asMarkdown($model->kanban) ?></div><br>
                 <?php endif; ?>
             </div>
             <div class="list-group">

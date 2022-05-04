@@ -278,6 +278,7 @@ return [
     'Kanban' => '看板',
     'Back' => '返回' ,
     'Current time' => '当前时间',
-    'Enable Board' => '比赛榜单'
+    'Enable Board' => '比赛榜单',
+    'Logo Url' => '图标地址'
 
 ];

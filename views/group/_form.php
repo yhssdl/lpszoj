@@ -15,6 +15,8 @@ use yii\widgets\ActiveForm;
 
     <?= $form->field($model, 'name', ['template' => '<div class="input-group"><span class="input-group-addon">'.Yii::t('app', 'Group Name').'</span>{input}</div>'])->textInput()->label(false) ?>
 
+    <?= $form->field($model, 'logo_url', ['template' => '<div class="input-group"><span class="input-group-addon">'.Yii::t('app', 'Logo Url').'</span>{input}</div>'])->textInput()->label(false) ?>
+    <p class="hint-block">可以填写小组LOGO的URL地址，如果留空就显示默认图标。您可以使用下方的编辑器上传图标LOGO后，将获取的URL填写到这儿。</p>
 
     <?= $form->field($model, 'description')->textarea(['maxlength' => true]) ?>
 

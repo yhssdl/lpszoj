@@ -69,8 +69,5 @@ if($dataProvider->count>0){
         echo '<div class="alert alert-light"><i class=" glyphicon glyphicon-info-sign"></i> 当前没有公开的小组。</div>';
     }
 }
-
-
-    
-    
+ 
 ?>

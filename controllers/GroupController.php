@@ -61,7 +61,7 @@ class GroupController extends BaseController
             [':id' => Yii::$app->user->id]
         )->queryScalar();
         $dataProvider = new SqlDataProvider([
-            'sql' => 'SELECT g.id,g.name,g.description,g.join_policy FROM {{%group}} AS g LEFT JOIN {{%group_user}} AS u ON u.group_id=g.id WHERE u.user_id=:id AND u.role <> 0',
+            'sql' => 'SELECT g.id,g.name,g.description,g.join_policy,g.logo_url FROM {{%group}} AS g LEFT JOIN {{%group_user}} AS u ON u.group_id=g.id WHERE u.user_id=:id AND u.role <> 0',
             'params' => [':id' => Yii::$app->user->id],
             'totalCount' => $count,
             'pagination' => [

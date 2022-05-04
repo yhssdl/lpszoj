@@ -231,7 +231,7 @@ a.desc:after {
     word-break:break-all;
 }
 .news-view {
-    max-width: 700px;
+    max-width: 990px;
     margin: auto;
 }
 .news-view .news-title {
@@ -854,6 +854,10 @@ a.text-vip:focus {
     width: 100%;
 }
 
+.media__body li{
+    padding-top: 10px;
+}
+
 .media__left, .media__right, .media__body {
     display: table-cell;
     vertical-align: middle;
@@ -885,7 +889,6 @@ ul, ol {
 }
 
 .contest__title {
-    padding-bottom: 10px;
     font-size: 20px;
 }
 
@@ -987,4 +990,10 @@ a.status-runing:hover ,a.status-runing:focus {
 a.status-ended:hover ,a.status-ended:focus {
     background: #767676;
     color:#fff;
+}
+
+.text-ellipsis {
+    overflow:hidden;
+    text-overflow:ellipsis;
+    white-space: nowrap;
 }

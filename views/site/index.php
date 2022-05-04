@@ -1,5 +1,6 @@
 <?php
 
+use yii\helpers\Helper;
 use yii\helpers\Html;
 use yii\widgets\ListView;
 
@@ -61,7 +62,7 @@ $newsSize = count($news);
             <ol class="list-group">
                 <li class="list-group-item text-center"><i class="glyphicon glyphicon-bullhorn"></i> 最近新闻</li>
                 <?php foreach ($news as $new) : ?>
-                    <?= Html::a(Html::encode($new['title']), ['/site/news', 'id' => $new['id']], ['class' => 'list-group-item-action list-group-item']) ?>
+                    <?= Html::a(Html::encode($new['title']), ['/site/news', 'id' => $new['id']], ['class' => 'text-ellipsis list-group-item-action list-group-item']) ?>
                 <?php endforeach; ?>
             </ol>
             <!-- </div> -->
@@ -72,7 +73,7 @@ $newsSize = count($news);
                 <li class="list-group-item text-center"><i class="glyphicon glyphicon-bell"></i> 最近讨论</li>
 
                 <?php foreach ($discusses as $discuss) : ?>
-                    <?= Html::a(Html::encode($discuss['title']) . '<br /><small>' . Html::encode($discuss['nickname']) . '&nbsp;&nbsp;&nbsp;' . Yii::$app->formatter->asRelativeTime($discuss['created_at']) . '&nbsp;&nbsp;&nbsp;' . Html::encode($discuss['ptitle']) . '</small>', ['/discuss/view', 'id' => $discuss['id']], ['class' => 'list-group-item list-group-item-action']) ?>
+                    <?= Html::a('<div class="text-ellipsis">'.Html::encode($discuss['title']) . '</div><div class="text-ellipsis"><small>' . Html::encode($discuss['nickname']) . '&nbsp;&nbsp;&nbsp;' . Yii::$app->formatter->asRelativeTime($discuss['created_at']) . '&nbsp;&nbsp;&nbsp;' . Html::encode($discuss['ptitle']) . '</small></div>', ['/discuss/view', 'id' => $discuss['id']], ['class' => 'list-group-item list-group-item-action']) ?>
                 <?php endforeach; ?>
             </ol>
         <?php endif; ?>
