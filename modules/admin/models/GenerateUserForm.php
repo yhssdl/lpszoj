@@ -78,6 +78,7 @@ class GenerateUserForm extends Model
             $user = new User();
             $user->username = $this->prefix . $i;
             $user->nickname = $nick;
+            $user->language = Yii::$app->setting->get('defaultLanguage');
             $user->email = $this->prefix . $i . '@jnoj.org';
             $user->role = User::ROLE_PLAYER;
             $user->is_verify_email = User::VERIFY_EMAIL_YES;

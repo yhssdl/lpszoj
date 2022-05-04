@@ -997,3 +997,8 @@ a.status-ended:hover ,a.status-ended:focus {
     text-overflow:ellipsis;
     white-space: nowrap;
 }
+
+.group-img-radius{
+
+    border-radius:5px;
+}

@@ -72,6 +72,7 @@ class SignupForm extends Model
         $user = new User();
         $user->username = $this->username;
         $user->nickname = $this->username;
+        $user->language = Yii::$app->setting->get('defaultLanguage');
         $user->email = $this->email;
         $user->is_verify_email = User::VERIFY_EMAIL_NO;
         //$user->language = 3;

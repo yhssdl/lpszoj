@@ -64,6 +64,8 @@ class UserController extends Controller
             return $this->refresh();
         }
 
+        $generatorForm->language = Yii::$app->setting->get('defaultLanguage');
+
         if (Yii::$app->request->get('action') && Yii::$app->request->isPost) {
             $keys = Yii::$app->request->post('keylist');
             $action = Yii::$app->request->get('action');

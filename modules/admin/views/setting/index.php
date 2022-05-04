@@ -156,6 +156,21 @@ $this->title = Yii::t('app', 'Setting');
 </div>
 
 <div class="form-group">
+    <?= Html::label(Yii::t('app', '默认语言'), 'defaultLanguage') ?>
+    <?= Html::radioList('defaultLanguage', $settings['defaultLanguage'], [
+        -1 => 'All',
+        0 => 'C',
+        1 => 'C++',
+        2 => 'Java',
+        3 => 'Python3',
+    ]) ?>
+    <p class="hint-block">
+    为新注册的用户指定默认的语言类型。
+    </p>
+</div>
+
+
+<div class="form-group">
     <?= Html::label(Yii::t('app', '编辑器'), 'ojEditor') ?>
     <?= Html::radioList('ojEditor', $settings['ojEditor'], [
         'app\widgets\ckeditor\CKeditor' => '内置编辑器',

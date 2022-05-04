@@ -63,7 +63,7 @@ $contest_id = $model->id;
         ])->textInput(['maxlength' => true, 'value' => '50'])->label(false) ?>
 
         <br>
-        <div class="alert alert-light"><i class="glyphicon glyphicon-info-sign"></i> 请把所有队伍名称复制到此处，一个名字占据一行，请自行删除多余的空行。</div>
+        <div class="alert alert-light"><i class="glyphicon glyphicon-info-sign"></i> 请把所有的用户昵称复制到此处，一个昵称占一行，请自行删除多余的空行。</div>
 
         <?= $form->field($generatorForm, 'names')->textarea(['rows' => 10])->label(false) ?>
 

@@ -36,7 +36,7 @@ else $join = '<span class="contest-tag contest-tag-green"><span class="glyphicon
 
 $content = '
 <div class="section-body">
-    <div class="media__left medium"><img src="'. $pic .'" width="80px"></div>
+    <div class="media__left medium"><img class="group-img-radius" src="'. $pic .'" width="80px"></div>
     <div class="media__body medium">
         <div class="contest__title">'. $title .' </div>
         <ul class="supplementary list">
