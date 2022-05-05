@@ -2,7 +2,6 @@
 
 use yii\helpers\Html;
 use yii\grid\GridView;
-use yii\widgets\Pjax;
 use app\models\Problem;
 use justinvoelker\tagging\TaggingWidget;
 
@@ -27,7 +26,30 @@ $("#showTags").click(function () {
 EOT;
 $this->registerJs($js);
 
-$showTags = $_COOKIE['showtags'];
+if(isset($_COOKIE['showtags']))
+    $showTags = $_COOKIE['showtags'];
+else 
+    $showTags = 1;
+
+function getColorLabel($i){
+    $i = $i % 5;
+    switch ($i)
+    {
+    case 0:
+        return 'label label-success';
+    case 1:
+        return 'label label-warning';
+    case 2:
+        return 'label label-info';
+    case 3:
+        return 'label label-danger';    
+    default:
+        return 'label label-primary';  
+    }
+
+}
+
+
 ?>
 
 <?= Html::beginForm('', 'post') ?>
@@ -79,9 +101,7 @@ $showTags = $_COOKIE['showtags'];
                     'url' => ['/problem/index'],
                     'format' => 'ul',
                     'urlParam' => 'tag',
-                    'listOptions' => ['style' => 'padding-left:0;'],
-                    'liOptions' => ['style' => 'list-style-type: none; display: inline-block; margin-bottom:0.35rem,padding-top: 0.2rem;padding-bottom: 0.2rem;'],
-                    'linkOptions' => ['class' => 'label label-warning']
+                    'linkOptions' => ['class' => 'label label-normal']
                 ]) ?>
             </div>
         </div>
@@ -91,7 +111,7 @@ $showTags = $_COOKIE['showtags'];
 <?php
 
 $title_str .= '标题 <span class="float-right">'. Html::checkbox('showTags', $showTags, ['id' => 'showTags','style' => 'vertical-align:middle;']).' 显示标签</span>';
-
+$label_i = 0;
 ?>
 
 <div class="row">
@@ -127,6 +147,7 @@ $title_str .= '标题 <span class="float-right">'. Html::checkbox('showTags', $s
                     'attribute' => 'title',
                     'header' => $title_str,
                     'value' => function ($model, $key, $index, $column) use ($showTags) {
+                        global $label_i;
                         if($model->status==Problem::STATUS_PRIVATE)
                         	$res = Html::a(Html::encode($model->title), ['/problem/view','id' => $key],['class'=>'text-vip']);
                       	else
@@ -136,10 +157,13 @@ $title_str .= '标题 <span class="float-right">'. Html::checkbox('showTags', $s
                         $tagsCount = count($tags);
                         if ($showTags && $tagsCount > 0) {
                             $res .= '<span class="problem-list-tags">';
+
                             foreach ((array)$tags as $tag) {
+                                $label = getColorLabel($label_i);
+                                $label_i = $label_i + 1;
                                 $res .= Html::a(Html::encode($tag), [
                                     '/problem/index', 'tag' => $tag
-                                ], ['class' => 'label label-warning']);
+                                ], ['class' => $label]);
                                 $res .= ' ';
                             }
                             $res .= '</span>';

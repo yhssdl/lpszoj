@@ -576,19 +576,20 @@ a.desc:after {
     font-size: 12px;
     font-weight: 500;
     float: right;
-    color: rgb(255, 255, 255) !important;
-    background-color:#5cb85c;
-    border-color: #4cae4c;
+   
+    background-color:#fff;
+
     cursor: pointer;
     padding: 3px 10px;
     margin: 1px;
     line-height: 1.1rem;
-    border-radius: 8px;
+    border-radius: 3px;
     text-transform: none;
     text-decoration: none !important;
 }
 .btn-copy:hover {
-    background-color:#489c48;
+    background-color:#eee;
+    border: 1px solid #ccc;
     
 }
 .w-25 {
@@ -661,6 +662,49 @@ a.desc:after {
   background-color: #fff;
 }
 
+
+.label{
+    font-weight:normal;
+    border:1px;font-size:12px;
+}
+
+
+
+
+.label-success{
+    border:1px solid #3EA86F;color:#3EA86F;background-color:#E0F7D7;
+}
+
+.label-warning{
+    border:1px solid #D26719;color:#D26719;background-color:#FEEACC;
+}
+
+.label-info{
+    border:1px solid #813D85;color:#813D85;background-color:#F5E3F9;
+}
+
+.label-danger{
+    border:1px solid #C92B5F;color:#C92B5F;background-color:#FFE4EC;
+}
+
+.label-primary{
+    border:1px solid #2675B5 !important;color:#2675B5;background-color:#D2EFFE;
+}
+
+.label-normal{
+    border:1px solid #ddd !important;color:#3b3b3b;background-color:#eee;
+}
+
+a.label-normal:hover{
+    border:1px solid #ccc !important;color:#3b3b3b;background-color:#ddd;
+}
+
+.tagging_list li {
+    list-style-type: none; 
+    display: inline-block; 
+    margin-bottom:8px;
+    padding: 3px 1px;
+}
 
 .press .bar {
     text-align: center;  
