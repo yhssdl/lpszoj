@@ -16,10 +16,12 @@ $(".toggle-show-contest-standing input[name='showTags']").change(function () {
     $(".toggle-show-contest-standing").submit();
 });
 $("#showTags").click(function () {
+    var expires = new Date();
+    expires.setTime(expires.getTime() + 3650 * 30 * 24 * 60 * 60 * 1000);
     if ($(this).prop("checked")) {
-        document.cookie = "showtags=1";
+        document.cookie = "showtags=1;expires=" + expires.toGMTString();
     } else {
-        document.cookie = "showtags=0";
+        document.cookie = "showtags=0;expires=" + expires.toGMTString();
     }
     window.location.reload();
 });

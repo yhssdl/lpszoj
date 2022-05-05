@@ -15,6 +15,7 @@ $this->params['breadcrumbs'][] = ['label' => $this->title, 'url' => ['/problem/v
     <h1 class="news-title">
         <?= Html::a(Html::encode($this->title), ['/problem/view', 'id' => $model->id]) ?>
     </h1>
+    <br>
     <div class="news-content">
         <?= Yii::$app->formatter->asMarkdown($model->solution) ?>
     </div>

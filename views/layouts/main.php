@@ -47,7 +47,8 @@ AppAsset::register($this);
         ],
         [
             'label' => '<span class="glyphicon glyphicon-user"></span> ' . Yii::t('app', 'Group'),
-            'url' => Yii::$app->user->isGuest ? ['/group/index'] : ['/group/my-group']
+            'url' => Yii::$app->user->isGuest ? ['/group/index'] : ['/group/my-group'],
+            'visible' => Yii::$app->setting->get('isDefGroup') !=0
         ],
         ['label' => '<span class="glyphicon glyphicon-knight"></span> ' . Yii::t('app', 'Contests'), 'url' => ['/contest/index']],
         [

@@ -25,7 +25,7 @@ $this->title = Yii::t('app', 'Setting');
 
     <div class="form-group">
         <?php
-            echo Yii::$app->setting->get('ojEditor')::widget(['name' => 'notice', 'id' => 'notice', 'value' => $settings['notice']]);
+        echo Yii::$app->setting->get('ojEditor')::widget(['name' => 'notice', 'id' => 'notice', 'value' => $settings['notice']]);
         ?>
     </div>
 
@@ -41,7 +41,7 @@ $this->title = Yii::t('app', 'Setting');
     </div>
     <div class="form-group">
         <?php
-            echo Yii::$app->setting->get('ojEditor')::widget(['name' => 'homeNotice', 'id' => 'homeNotice', 'value' => $settings['homeNotice']]);
+        echo Yii::$app->setting->get('ojEditor')::widget(['name' => 'homeNotice', 'id' => 'homeNotice', 'value' => $settings['homeNotice']]);
         ?>
     </div>
 </div>
@@ -101,6 +101,14 @@ $this->title = Yii::t('app', 'Setting');
 </div>
 
 <div class="form-group">
+    <?= Html::label(Yii::t('app', '是否可查看错误测试数据'), 'isShowError') ?>
+    <?= Html::radioList('isShowError', $settings['isShowError'], [
+        1 => '用户可以查看提交代码的错误测试数据',
+        0 => '只有管理员可查看提交代码的错误测试数据'
+    ]) ?>
+</div>
+
+<div class="form-group">
     <?= Html::label(Yii::t('app', '用户注册'), 'isUserReg') ?>
     <?= Html::radioList('isUserReg', $settings['isUserReg'], [
         1 => '开放',
@@ -128,10 +136,11 @@ $this->title = Yii::t('app', 'Setting');
 <div class="form-group">
     <?= Html::label(Yii::t('app', '创建小组'), 'isDefGroup') ?>
     <?= Html::radioList('isDefGroup', $settings['isDefGroup'], [
-        1 => '开启',
-        2 => '仅管理员',
-        3 => '管理员与VIP用户',
-        0 => '关闭'
+
+        2 => '仅管理员可创建小组',
+        3 => '管理员与VIP用户可创建小组',
+        1 => '所有注册用户可创建小组',
+        0 => '关闭小组功能'
     ]) ?>
 </div>
 
@@ -165,8 +174,16 @@ $this->title = Yii::t('app', 'Setting');
         3 => 'Python3',
     ]) ?>
     <p class="hint-block">
-    为新注册的用户指定默认的语言类型。
+        为新注册的用户指定默认的语言类型。
     </p>
+</div>
+
+<div class="form-group">
+    <?= Html::label(Yii::t('app', '私有(VIP)题目'), 'isHideVIP') ?>
+    <?= Html::radioList('isHideVIP', $settings['isHideVIP'], [
+        1 => '游客与普通用户不显示私有题目',
+        0 => '所有用户都显示私有题目'
+    ]) ?>
 </div>
 
 
@@ -181,19 +198,11 @@ $this->title = Yii::t('app', 'Setting');
         内置编辑器 ：为OJ系统旧版内置编辑器， 在IE上不能正常使用。
     </p>
     <p class="hint-block">
-        MarkDown编辑器：为新版内置支持MarkDown语法的编辑器，不支持文字颜色设置，但是支持即时预览效果。
+        MarkDown编辑器：为新版内置支持MarkDown语法的编辑器。
     </p>
     <p class="hint-block">
         KindEditor编辑器：另行添加的一个编辑器，可以在IE上正常使用，可设置文字颜色。
     </p>
-</div>
-
-<div class="form-group">
-    <?= Html::label(Yii::t('app', '私有(VIP)题目'), 'isHideVIP') ?>
-    <?= Html::radioList('isHideVIP', $settings['isHideVIP'], [
-        1 => '游客与普通用户不显示私有题目',
-        0 => '所有用户都显示私有题目'
-    ]) ?>
 </div>
 
 

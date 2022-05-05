@@ -298,12 +298,18 @@ $nextProblemID = $model->getNextProblemID();
                         echo '<span><i class=" glyphicon glyphicon-info-sign"></i> 登录以提交代码</span>';
                         
                     } else {
-                        echo Html::submitButton('<span class="glyphicon glyphicon-send"></span> ' .Yii::t('app', 'Submit'), ['class' => 'btn btn-success']);            
+                        echo Html::submitButton('<span class="glyphicon glyphicon-send"></span> ' .Yii::t('app', 'Submit'), ['class' => 'btn btn-success']);  
+    
                         if (Yii::$app->setting->get('isDiscuss')){
                         echo Html::a('<span class="glyphicon glyphicon-comment"></span> ' . Yii::t('app', 'Discuss'),
                             ['/problem/discuss', 'id' => $model->id],
                             ['class' => 'btn btn-default']);
                         }
+                        if (!empty($model->solution)){
+                            echo Html::a('<i class="glyphicon glyphicon-info-sign"></i> ' . Yii::t('app', '题解'),
+                                ['/problem/solution', 'id' => $model->id],
+                                ['class' => 'btn btn-default']);
+                        }                           
                     }
                     ?>
                     <div>

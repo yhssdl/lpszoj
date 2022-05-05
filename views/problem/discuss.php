@@ -18,7 +18,7 @@ $this->params['breadcrumbs'][] = ['label' => Html::encode($model->title), 'url' 
 ?>
 
 <?php if (Yii::$app->user->isGuest): ?>
-    Login before discuss
+    <div class="alert alert-light"><i class=" glyphicon glyphicon-info-sign"></i> <?= Yii::t('app','Login before discuss') ?></div>
 <?php else: ?>
     <div class="discuss-form">
         <?php $form = ActiveForm::begin(); ?>

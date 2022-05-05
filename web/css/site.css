@@ -1047,3 +1047,34 @@ a.status-ended:hover ,a.status-ended:focus {
     max-height: 80px;
     border-radius:5px;
 }
+
+.form-signin .form-control {
+    position: relative;
+    height: auto;
+    -webkit-box-sizing: border-box;
+    -moz-box-sizing: border-box;
+    box-sizing: border-box;
+    padding: 8px;
+    /* font-size: 16px; */
+}
+
+
+.site-login .input-group-addon{
+    background-color:#FFF !important;
+}
+
+.site-login #loginform-username,.site-login #loginform-password{
+    border-left:none !important;
+}
+
+.site-login .reset-password{
+    margin-top:10px;
+}
+
+.site-login a{
+    text-decoration: none;
+}
+
+.site-login .tips{
+    font-weight: normal;
+}

@@ -321,26 +321,9 @@ class Solution extends ActiveRecord
         if (Yii::$app->user->isGuest){
             return false;
         }
-        // 状态可见且设置了分享状态可以查看。以下代码中 isShareCode 的说明参见后台设置页面。
-        // 对于比赛中的提交， status 的值默认为 STATUS_HIDDEN，比赛结束时可以在后台设为 STATUS_VISIBLE 以供普通用户查看
-        // 对于后台验题时的提交，status 的值为 STATUS_HIDDEN
-        if ($this->status == Solution::STATUS_VISIBLE && Yii::$app->setting->get('isShareCode')) {
-            return true;
-        }
+
         // 管理员有权限查看
         if (Yii::$app->user->identity->role == User::ROLE_ADMIN) {
-            return true;
-        }
-
-        // contest_id 为空，说明不是比赛模式
-        if (empty($this->contest_id)) {
-            return true;
-        }
-
-        $contest = self::getContestInfo($this->contest_id);
-
-        // 作业模式无限制
-        if ($contest['type'] == Contest::TYPE_HOMEWORK) {
             return true;
         }
 
@@ -357,7 +340,32 @@ class Solution extends ActiveRecord
             if ($role != GroupUser::ROLE_MEMBER) {
                 return false;
             }
+        } 
+
+        if(  Yii::$app->setting->get('isShowError') == 0) {
+            return false;
         }
+
+        // 状态可见且设置了分享状态可以查看。以下代码中 isShareCode 的说明参见后台设置页面。
+        // 对于比赛中的提交， status 的值默认为 STATUS_HIDDEN，比赛结束时可以在后台设为 STATUS_VISIBLE 以供普通用户查看
+        // 对于后台验题时的提交，status 的值为 STATUS_HIDDEN
+        if ($this->status == Solution::STATUS_VISIBLE && Yii::$app->setting->get('isShareCode')) {
+            return true;
+        }
+
+        // contest_id 为空，说明不是比赛模式
+        if (empty($this->contest_id)) {
+            return true;
+        }
+
+        $contest = self::getContestInfo($this->contest_id);
+
+        // 作业模式无限制
+        if ($contest['type'] == Contest::TYPE_HOMEWORK) {
+            return true;
+        }
+
+
 
         // OI 模式比赛结束时才可以看
         if ($contest['type'] != Contest::TYPE_OI || time() >= strtotime($contest['end_time'])) {

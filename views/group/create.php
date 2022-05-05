@@ -8,10 +8,9 @@ use yii\helpers\Html;
 
 $this->title = Yii::t('app', 'Create Group');
 
-$DefGp = false;
-if(Yii::$app->user->isGuest || Yii::$app->setting->get('isDefGroup') == 0)
+if(!Yii::$app->user->isGuest || Yii::$app->setting->get('isDefGroup') == 1)
 {
-    $DefGp = false; 
+    $DefGp = true; 
 }
 elseif ((Yii::$app->setting->get('isDefGroup')==2) && (Yii::$app->user->identity->role === User::ROLE_ADMIN) ) {
     $DefGp = true; 
@@ -34,6 +33,6 @@ else{
         'model' => $model,
     ]) ?>
     <?php else: ?>
-       <h3> 没有创建小组的权限！</h3>
+        <div class="alert alert-light"><i class=" glyphicon glyphicon-info-sign"></i> 没有创建小组的权限！</div>
     <?php endif; ?>   
 </div>

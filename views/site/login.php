@@ -10,7 +10,7 @@ use yii\bootstrap\ActiveForm;
 $this->title = Yii::t('app', 'Login');
 ?>
 <div class="row">
-    <div class="col-md-8 col-md-offset-2 animate__animated animate__fadeInUp">
+    <div class="site-login col-md-8 col-md-offset-2 animate__animated animate__fadeInUp">
         <?php $form = ActiveForm::begin([
             'id' => 'login-form',
             'options' => [
