@@ -215,7 +215,7 @@ class Solution extends ActiveRecord
 
     public function getResult()
     {
-        $res = self::getResultList($this->result);
+        $res =  self::getResultList($this->result);
         $loadingImgUrl = Yii::getAlias('@web/images/loading.gif');
 
         if ($this->result <= Solution::OJ_WAITING_STATUS) {
@@ -245,7 +245,7 @@ class Solution extends ActiveRecord
             "text-danger",  // SE
             "text-danger", // No Test Data
         ];
-        return "<strong class=" . $cssClass[$this->result] . " $innerHtml>{$res}{$loadingImg}</strong>";
+        return "<span class=" . $cssClass[$this->result] . " $innerHtml>{$res}{$loadingImg}</span>";
     }
 
     public static function getResultList($res = '')

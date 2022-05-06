@@ -281,6 +281,7 @@ return [
     'Enable Board' => '比赛榜单',
     'Logo Url' => '图标地址',
     'Login before discuss' => '登录后才能进行解题交流。',
-    'Show Solution' => '查看解题'
+    'Show Solution' => '查看解题',
+    'Show Status' => '导航栏中显示状态菜单'
 
 ];

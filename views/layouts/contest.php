@@ -50,7 +50,11 @@ $status = $model->getRunStatus();
     $menuItems = [
         ['label' => '<span class="fa fa-home"></span> ' . Yii::t('app', 'Home'), 'url' => ['/site/index']],
         ['label' => '<span class="fa fa-book"></span> ' . Yii::t('app', 'Problems'), 'url' => ['/problem/index']],
-        ['label' => '<span class="fa fa-tasks"></span> ' . Yii::t('app', 'Status'), 'url' => ['/solution/index']],
+        [   
+            'label' => '<span class="fa fa-tasks"></span> ' . Yii::t('app', 'Status'), 
+            'url' => ['/solution/index'],
+            'visible' => Yii::$app->setting->get('isShowStatus') !=0
+        ],
         [
             'label' => '<span class="fa fa-bar-chart"></span> ' . Yii::t('app', 'Rating'),
             'url' => ['/rating/problem'],

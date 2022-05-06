@@ -109,6 +109,14 @@ $this->title = Yii::t('app', 'Setting');
 </div>
 
 <div class="form-group">
+    <?= Html::label(Yii::t('app', 'Show Status'), 'isShowStatus') ?>
+    <?= Html::radioList('isShowStatus', $settings['isShowStatus'], [
+        1 => '导航栏中显示状态菜单',
+        0 => '导航栏中关闭状态菜单'
+    ]) ?>
+</div>
+
+<div class="form-group">
     <?= Html::label(Yii::t('app', '用户注册'), 'isUserReg') ?>
     <?= Html::radioList('isUserReg', $settings['isUserReg'], [
         1 => '开放',

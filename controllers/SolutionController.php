@@ -37,6 +37,9 @@ class SolutionController extends BaseController
      */
     public function actionIndex()
     {
+        if(Yii::$app->setting->get('isShowStatus')==0){
+            $this->redirect('/');
+        }
         $searchModel = new SolutionSearch();
         $dataProvider = $searchModel->search(Yii::$app->request->queryParams);
 

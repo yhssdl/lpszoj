@@ -12,6 +12,7 @@ LPSZOJ Change Log
 请阅读 [update.md](https://gitee.com/yhssdl/lpszoj/raw/master/docs/update.md) 来获取更新方法。
 
 ---------------------------------------
+- 2022.5.6 Enh: [web、db] 后台增加了显示或关闭导航栏中状态菜单的功能。
 - 2022.5.6 Enh: [web、db] 问题中的解题界面增加了查看解题的选项。
 - 2022.5.5 Chg: [web] 对问题列表的标签进行多彩美化。
 - 2022.5.4 Enh: [web、db] 美化了小组列表界面，增加了小组LOGO图标自定义。
