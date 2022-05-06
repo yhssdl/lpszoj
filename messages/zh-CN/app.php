@@ -280,6 +280,7 @@ return [
     'Current time' => '当前时间',
     'Enable Board' => '比赛榜单',
     'Logo Url' => '图标地址',
-    'Login before discuss' => '登录后才能进行解题交流。'
+    'Login before discuss' => '登录后才能进行解题交流。',
+    'Show Solution' => '查看解题'
 
 ];

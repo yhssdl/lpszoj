@@ -239,7 +239,7 @@ $loadingImgUrl = Yii::getAlias('@web/images/loading.gif');
                                     </td>
                                     <td>
                                         <?= Html::a(
-                                            '<span class="glyphicon glyphicon-edit"></span>',
+                                            '<span class="fa fa-pencil-square-o"></span>',
                                             ['/solution/source', 'id' => $sub['id']],
                                             ['title' => '查看源码', 'onclick' => 'return false', 'data-click' => "solution_info", 'data-pjax' => 0]
                                         ) ?>

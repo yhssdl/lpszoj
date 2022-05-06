@@ -179,7 +179,7 @@ $status = $model->getRunStatus();
                         'linkOptions' => ['data-pjax' => 0],
                     ],
                     [
-                        'label' => '<span class="glyphicon glyphicon-glass"></span> ' . Yii::t('app', 'Standing'),
+                        'label' => '<span class="fa fa-glass"></span> ' . Yii::t('app', 'Standing'),
                         'url' => ['contest/standing', 'id' => $model->id],
                     ],
                 ];
@@ -191,7 +191,7 @@ $status = $model->getRunStatus();
                 }
                 if ($model->enable_print == 1 && $model->getRunStatus() == $model::STATUS_RUNNING) {
                     $menuItems[] = [
-                        'label' => '<span class="glyphicon glyphicon-print"></span> 打印服务',
+                        'label' => '<span class="fa fa-print"></span> 打印服务',
                         'url' => ['/contest/print', 'id' => $model->id]
                     ];
                 }

@@ -19,7 +19,7 @@ $start_time = strtotime($model->start_time);
                 <span class="contest-tag <?= $model->getRunStatus(2) ?> text-white"><span class="fa fa-flag"></span> <?= $model->getRunStatus(1) ?></span>
             </li>
             <li>
-                <span class="contest-tag contest-tag-green"><span class="fa fa-bar-chart"></span> <?= $model->getType() ?></span>
+                <span class="contest-tag contest-tag-green"><span class="fa fa-trophy"></span> <?= $model->getType() ?></span>
             </li>
 
             <?php if (!Yii::$app->user->isGuest && $model->isUserInContest()) : ?>

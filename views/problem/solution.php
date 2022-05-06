@@ -16,7 +16,17 @@ $this->params['breadcrumbs'][] = ['label' => $this->title, 'url' => ['/problem/v
         <?= Html::a(Html::encode($this->title), ['/problem/view', 'id' => $model->id]) ?>
     </h1>
     <br>
-    <div class="news-content">
+   
+    <?php 
+        $bShow = $model->show_solution || ( $model->isSolved() && $model->show_solution==0);
+    ?>
+
+    <div class="news-content">   
+    <?php if($bShow): ?>
         <?= Yii::$app->formatter->asMarkdown($model->solution) ?>
+    <?php else: ?>
+        <div class="alert alert-light"><i class=" fa fa-info-circle"></i> 没有权限查看解题。</div>
+    <?php endif;?>
+
     </div>
 </div>

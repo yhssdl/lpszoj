@@ -53,7 +53,7 @@ $this->params['breadcrumbs'][] = ['label' => Html::encode($model->title), 'url' 
                             </time>
                             <?php if (!Yii::$app->user->isGuest && (Yii::$app->user->id === $discuss->created_by || Yii::$app->user->identity->role == User::ROLE_ADMIN)): ?>
                                 &nbsp;•&nbsp;
-                                <span class="glyphicon glyphicon-edit"></span> <?= Html::a(Yii::t('app', 'Edit'), ['/discuss/update', 'id' => $discuss->id]) ?>
+                                <span class="fa fa-pencil-square-o"></span> <?= Html::a(Yii::t('app', 'Edit'), ['/discuss/update', 'id' => $discuss->id]) ?>
                                 &nbsp;•&nbsp;
                                 <span class="fa fa-trash"></span>
                                 <?= Html::a(Yii::t('app', 'Delete'), ['/discuss/delete', 'id' => $discuss->id], [

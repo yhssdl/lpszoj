@@ -21,7 +21,7 @@ $this->params['breadcrumbs'][] = ['label' => Html::encode($model->problem->title
         <span class="fa fa-clock-o"></span> <?= Yii::$app->formatter->asRelativeTime($model->created_at) ?>
         <?php if (!Yii::$app->user->isGuest && (Yii::$app->user->id === $model->created_by || Yii::$app->user->identity->role == User::ROLE_ADMIN)) : ?>
             &nbsp;•&nbsp;
-            <span class="glyphicon glyphicon-edit"></span> <?= Html::a(Yii::t('app', 'Edit'), ['/discuss/update', 'id' => $model->id]) ?>
+            <span class="fa fa-pencil-square-o"></span> <?= Html::a(Yii::t('app', 'Edit'), ['/discuss/update', 'id' => $model->id]) ?>
             &nbsp;•&nbsp;
             <span class="fa fa-trash"></span>
             <?= Html::a(Yii::t('app', 'Delete'), ['/discuss/delete', 'id' => $model->id], [
@@ -45,7 +45,7 @@ $this->params['breadcrumbs'][] = ['label' => Html::encode($model->problem->title
 
             <?php if (!Yii::$app->user->isGuest && (Yii::$app->user->id === $reply->created_by || Yii::$app->user->identity->role == User::ROLE_ADMIN)) : ?>
                 &nbsp;•&nbsp;
-                <span class="glyphicon glyphicon-edit"></span> <?= Html::a(Yii::t('app', 'Edit'), ['/discuss/update', 'id' => $reply->id]) ?>
+                <span class="fa fa-pencil-square-o"></span> <?= Html::a(Yii::t('app', 'Edit'), ['/discuss/update', 'id' => $reply->id]) ?>
                 &nbsp;•&nbsp;
                 <span class="fa fa-trash"></span>
                 <?= Html::a(Yii::t('app', 'Delete'), ['/discuss/delete', 'id' => $reply->id], [

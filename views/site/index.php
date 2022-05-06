@@ -60,9 +60,9 @@ $newsSize = count($news);
         <?php endif; ?>
         <?php if (!empty($news)) : ?>
             <ol class="list-group">
-                <li class="list-group-item text-center"><i class="fa fa-newspaper-o"></i> 最近新闻</li>
+                <li class="alert-light list-group-item text-center"><i class="fa fa-newspaper-o"></i> 最近新闻</li>
                 <?php foreach ($news as $new) : ?>
-                    <?= Html::a(Html::encode($new['title']), ['/site/news', 'id' => $new['id']], ['class' => 'text-ellipsis list-group-item-action list-group-item']) ?>
+                    <?= Html::a('<i class="fa fa-angle-right"></i> '.Html::encode($new['title']), ['/site/news', 'id' => $new['id']], ['class' => 'text-ellipsis list-group-item-action list-group-item']) ?>
                 <?php endforeach; ?>
             </ol>
             <!-- </div> -->

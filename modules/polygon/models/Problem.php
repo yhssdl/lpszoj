@@ -72,7 +72,7 @@ class Problem extends \yii\db\ActiveRecord
               'sample_input_3', 'sample_output_3', 'hint', 'tags', 'spj_source', 'solution_source', 'solution'], 'string'],
             [['created_at', 'updated_at'], 'safe'],
             [['title'], 'required'],
-            [['created_by', 'time_limit', 'memory_limit', 'status', 'solution_lang', 'spj_lang', 'spj'], 'integer'],
+            [['created_by', 'time_limit', 'memory_limit', 'status', 'solution_lang', 'spj_lang', 'spj','show_solution'], 'integer'],
             [['title'], 'string', 'max' => 200],
         ];
     }
@@ -102,6 +102,7 @@ class Problem extends \yii\db\ActiveRecord
             'status' => Yii::t('app', 'Status'),
             'solution_lang' => Yii::t('app', 'Solution Language'),
             'solution_source' => Yii::t('app', 'Solution Source'),
+            'show_solution' => Yii::t('app', 'Show Solution'),
         ];
     }
 

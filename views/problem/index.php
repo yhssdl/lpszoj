@@ -66,7 +66,7 @@ function getColorLabel($i){
                     <?= Html::submitButton('<span class="fa fa-search"></span> '.Yii::t('app', 'Search'), ['class' => 'btn btn-primary']) ?>
                 </div>
                 <div class="btn-group">
-                    <button class="btn btn-default" type="button" data-toggle="modal" data-target="#myModal"><span class="glyphicon glyphicon-tags"></span> <?= Yii::t('app', 'Tags') ?></button>
+                    <button class="btn btn-default" type="button" data-toggle="modal" data-target="#myModal"><span class="fa fa-tags"></span> <?= Yii::t('app', 'Tags') ?></button>
                 </div>
                 <div class="btn-group">
                     <?= Html::a('<span class="fa fa-plus"></span>&nbsp;'.Yii::t('app', 'Question'), ['/polygon'], ['class' => 'btn btn-default'])?>

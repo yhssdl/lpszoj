@@ -17,6 +17,11 @@ $this->params['model'] = $model;
     </div>
     <?php $form = ActiveForm::begin(); ?>
 
+    <?= $form->field($model, 'show_solution')->radioList([
+        '1' => Yii::t('app', '任何时候都可以查看解题'),
+        '0' => Yii::t('app', '只有通过提交后才能查看解题。')
+    ])?>
+
     <?= $form->field($model, 'solution')->widget(Yii::$app->setting->get('ojEditor'))->label(false) ?>
 
     <div class="form-group">

@@ -74,7 +74,7 @@ class Problem extends ActiveRecord
             [['sample_input_2', 'sample_output_2', 'sample_input_3', 'sample_output_3', 'created_at',
               'updated_at', ], 'string'],
             [['id', 'time_limit', 'memory_limit', 'accepted', 'submit', 'solved', 'status', 'contest_id', 'created_by',
-                'polygon_problem_id'], 'integer'],
+                'polygon_problem_id','show_solution'], 'integer'],
             [['title'], 'string', 'max' => 200],
             [['spj'], 'integer', 'max' => 1],
             [['source'], 'string', 'max' => 100],
@@ -111,7 +111,8 @@ class Problem extends ActiveRecord
             'problem_data' => Yii::t('app', 'Problem Data'),
             'test_status' => Yii::t('app', 'Test Status'),
             'tags' => Yii::t('app', 'Tags'),
-            'created_by' => Yii::t('app', 'Created By')
+            'created_by' => Yii::t('app', 'Created By'),
+            'show_solution' => Yii::t('app','Show Solution')
         ];
     }
 
@@ -238,6 +239,19 @@ class Problem extends ActiveRecord
             'user_count' => $user_count
         ];
     }
+
+    public function isSolved(){
+        if (!Yii::$app->user->isGuest) {
+            $solved = (new Query())->select('problem_id')
+                ->from('{{%solution}}')
+                ->where(['created_by' => Yii::$app->user->id, 'result' => Solution::OJ_AC])
+                ->exists();
+        
+            return $solved;
+        }
+        return false;
+    }
+    
 
     /**
      * 获取当前问题的上一个问题的 ID

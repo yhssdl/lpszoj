@@ -32,11 +32,11 @@ $start_time = strtotime($model->start_time);
                     <a href="?ContestSearch%5Bstatus%5D=<?= $model->getRunStatus() ?>" class="contest-tag <?= $model->getRunStatus(2) ?> text-white text-none-decoration"><span class="fa fa-flag"></span> <?= $model->getRunStatus(1) ?></a>
                 </li>
                 <li>
-                <a href="?ContestSearch%5Btype%5D=<?= $model->type ?>" class="contest-tag contest-tag-green text-none-decoration"><span class="fa fa-bar-chart"></span> <?= $model->getType() ?></a>
+                <a href="?ContestSearch%5Btype%5D=<?= $model->type ?>" class="contest-tag contest-tag-green text-none-decoration"><span class="fa fa-trophy"></span> <?= $model->getType() ?></a>
             </li>
                 <?php if (!Yii::$app->user->isGuest && $model->isUserInContest()) : ?>
 
-                    <li><span class="contest-tag  contest-tag-info"><span class="glyphicon glyphicon-fa fa-check"></span> 已参赛</sapn>
+                    <li><span class="contest-tag  contest-tag-info"><span class="fa fa-check"></span> 已参赛</sapn>
                     </li>
                 <?php endif; ?>
                 <?php if ($model->invite_code) : ?>

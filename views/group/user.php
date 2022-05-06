@@ -80,7 +80,7 @@ $scoreboardFrozenTime = Yii::$app->setting->get('scoreboardFrozenTime') / 3600;
     'columns' => [
         [
             'attribute' => Yii::t('app', 'Role'),
-            'header' => Html::a(Yii::t('app', 'Role') . '<span class="glyphicon glyphicon-sort-by-alphabet"></span>', ['/group/view', 'id' => $model->id, 'sort' => 1]),
+            'header' => Html::a(Yii::t('app', 'Role') . '<span class="fa fa-sort-alpha-asc"></span>', ['/group/view', 'id' => $model->id, 'sort' => 1]),
             'value' => function ($date) {
                 $url = '/group/user-update?id=' . $date['id'];
                 $options = [
@@ -114,7 +114,7 @@ $scoreboardFrozenTime = Yii::$app->setting->get('scoreboardFrozenTime') / 3600;
         ],
         [
             'attribute' => Yii::t('app', 'Solved'),
-            'header' => Html::a(Yii::t('app', 'Solved') . '<span class="glyphicon glyphicon-sort-by-alphabet-alt"></span>', ['/group/view', 'id' => $model->id, 'sort' => 0]),
+            'header' => Html::a(Yii::t('app', 'Solved') . '<span class="fa fa-sort-alpha-asc-alt"></span>', ['/group/view', 'id' => $model->id, 'sort' => 0]),
             'value' => function ($date) {
                 return $date['solved'] == '' ? 0 : $date['solved'];
             },
@@ -140,7 +140,7 @@ $scoreboardFrozenTime = Yii::$app->setting->get('scoreboardFrozenTime') / 3600;
                         'onclick' => 'return false',
                         'data-click' => "user-manager"
                     ];
-                    return Html::a('<span class="glyphicon glyphicon-pencil"></span>', $url, $options);
+                    return Html::a('<span class="fa fa-pencil"></span>', $url, $options);
                 },
                 'user-delete' => function ($url, $date) {
                     $url = '/group/user-delete?id=' . $date['id'];

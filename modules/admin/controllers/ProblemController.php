@@ -592,6 +592,7 @@ class ProblemController extends Controller
             $problem->tags = $polygonProblem['tags'];
             $problem->status = Problem::STATUS_HIDDEN;
             $problem->polygon_problem_id = $id;
+            $problem->show_solution = $polygonProblem['show_solution'];
             $problem->save();
 
             $this->copyDir(Yii::$app->params['polygonProblemDataPath'] . $polygonProblem['id'], Yii::$app->params['judgeProblemDataPath'] . $problem->id);
