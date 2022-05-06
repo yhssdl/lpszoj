@@ -12,6 +12,8 @@ LPSZOJ Change Log
 请阅读 [update.md](https://gitee.com/yhssdl/lpszoj/raw/master/docs/update.md) 来获取更新方法。
 
 ---------------------------------------
+- 2022.5.6 Enh: [web、db] 问题中的解题界面增加了查看解题的选项。
+- 2022.5.5 Chg: [web] 对问题列表的标签进行多彩美化。
 - 2022.5.4 Enh: [web、db] 美化了小组列表界面，增加了小组LOGO图标自定义。
 - 2022.5.4 Enh: [web、db] 网站首页进行了改写，更加美观大方。
 - 2022.5.3 Enh: [web] 比赛界面重新进行了制作，美化界面并增强了搜索功能。

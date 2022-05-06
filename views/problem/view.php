@@ -320,7 +320,7 @@ $nextProblemID = $model->getNextProblemID();
                                     ['class' => 'btn btn-default']
                                 );
                             else
-                                echo '<button type="button" class="btn btn-default disabled" title= "提交后程序正确后才能查看。"><i class="fa fa-dropbox"></i>' . Yii::t('app', '题解') . '</button>';
+                                echo '<button type="button" class="btn btn-default disabled" title= "提交程序正确后才能查看。"><i class="fa fa-dropbox"></i>' . Yii::t('app', '题解') . '</button>';
                         }
                     }
                     ?>
