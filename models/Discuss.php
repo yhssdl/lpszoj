@@ -23,6 +23,7 @@ class Discuss extends ActiveRecord
     const STATUS_DRAFT = 0;
     const STATUS_PUBLIC = 1;
     const STATUS_PRIVATE = 2;
+    const STATUS_FULLTEXT = 2;
 
     const ENTITY_CONTEST = 'contest';
     const ENTITY_PROBLEM = 'problem';
@@ -62,7 +63,7 @@ class Discuss extends ActiveRecord
     public function scenarios()
     {
         return [
-            'default' => ['title', 'content', 'status'],
+            'default' => ['title', 'content', 'status','entity_id'],
             'problem' => ['title', 'content'],
         ];
     }
@@ -80,6 +81,8 @@ class Discuss extends ActiveRecord
             'created_at' => Yii::t('app', 'Created At'),
             'content' => Yii::t('app', 'Content'),
             'status' => Yii::t('app', 'Status'),
+            'entity_id' => Yii::t('app','是否固顶'),
+
         ];
     }
 

@@ -49,7 +49,7 @@ class SiteController extends BaseController
 
     public function actionNews($id)
     {
-        $model = Discuss::find()->where(['id' => $id, 'status' => Discuss::STATUS_PUBLIC, 'entity' => Discuss::ENTITY_NEWS])->one();
+        $model = Discuss::find()->where( 'status>=1',['id' => $id, 'entity' => Discuss::ENTITY_NEWS])->one();
 
         if ($model === null) {
             throw new NotFoundHttpException('The requested page does not exist.');
@@ -70,10 +70,17 @@ class SiteController extends BaseController
         $searchModel = new ContestSearch();
         $dataProvider = $searchModel->search('',5);
 
-        $news = (new Query())->select('id, title, content, created_at')
+        $full_news = (new Query())->select('id, title, content, created_at')
+            ->from('{{%discuss}}')
+            ->where(['entity' => Discuss::ENTITY_NEWS, 'status' => Discuss::STATUS_FULLTEXT])
+            ->orderBy('entity_id DESC , id DESC')
+            ->limit(5)
+            ->all();
+
+        $list_news = (new Query())->select('id, title, content, created_at')
             ->from('{{%discuss}}')
             ->where(['entity' => Discuss::ENTITY_NEWS, 'status' => Discuss::STATUS_PUBLIC])
-            ->orderBy('id DESC')
+            ->orderBy('entity_id DESC ,id DESC')
             ->limit(10)
             ->all();
 
@@ -90,7 +97,8 @@ class SiteController extends BaseController
 
         return $this->render('index', [
             'dataProvider' => $dataProvider,
-            'news' => $news,
+            'full_news' => $full_news,
+            'list_news' => $list_news,
             'discusses' => $discusses
         ]);
     }
