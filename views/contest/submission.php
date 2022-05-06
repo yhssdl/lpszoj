@@ -8,7 +8,7 @@ use app\models\Solution;
 ?>
 <?php foreach ($submissions as $submission): ?>
     <p>
-        <span class="glyphicon glyphicon-time"></span> <?= $submission['created_at'] ?>
+        <span class="fa fa-clock-o"></span> <?= $submission['created_at'] ?>
         <?php
         $label = Solution::getResultList($submission['result']);
         if ($submission['result'] == Solution::OJ_AC) {

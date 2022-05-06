@@ -130,7 +130,7 @@ $this->registerJs($plotJS);
                                 $resetNickname = '';
                                 if (Yii::$app->user->identity->role == User::ROLE_ADMIN) {
                                     
-                                    $resetNickname = Html::a('<span class="glyphicon glyphicon-repeat" style="float:right"></span>', ['/user/view', 'id' => $model->id, 'reset' => '1'], ['title' =>'重置昵称']);
+                                    $resetNickname = Html::a('<span class="fa fa-repeat" style="float:right"></span>', ['/user/view', 'id' => $model->id, 'reset' => '1'], ['title' =>'重置昵称']);
                                 }
                                 return Html::encode($model->nickname).$resetNickname;
                             },
@@ -143,7 +143,7 @@ $this->registerJs($plotJS);
                                 $resetQQ = '';
                                 if (Yii::$app->user->identity->role == User::ROLE_ADMIN) {
                                     
-                                    $resetQQ = Html::a('<span class="glyphicon glyphicon-repeat" style="float:right"></span>', ['/user/view', 'id' => $model->id, 'reset' => '2'], ['title' =>'重置QQ']);
+                                    $resetQQ = Html::a('<span class="fa fa-repeat" style="float:right"></span>', ['/user/view', 'id' => $model->id, 'reset' => '2'], ['title' =>'重置QQ']);
                                 }
                                 return Html::encode($model->profile->qq_number).$resetQQ;
                             },
@@ -155,7 +155,7 @@ $this->registerJs($plotJS);
                                 $resetMajor = '';
                                 if (Yii::$app->user->identity->role == User::ROLE_ADMIN) {
                                     
-                                    $resetMajor = Html::a('<span class="glyphicon glyphicon-repeat" style="float:right"></span>', ['/user/view', 'id' => $model->id, 'reset' => '3'], ['title' =>'重置专业']);
+                                    $resetMajor = Html::a('<span class="fa fa-repeat" style="float:right"></span>', ['/user/view', 'id' => $model->id, 'reset' => '3'], ['title' =>'重置专业']);
                                 }
                                 return Html::encode($model->profile->major).$resetMajor;
                             },                            
@@ -167,7 +167,7 @@ $this->registerJs($plotJS);
                                 $resetNumber = '';
                                 if (Yii::$app->user->identity->role == User::ROLE_ADMIN) {
                                     
-                                    $resetNumber = Html::a('<span class="glyphicon glyphicon-repeat" style="float:right"></span>', ['/user/view', 'id' => $model->id, 'reset' => '4'], ['title' =>'重置学号']);
+                                    $resetNumber = Html::a('<span class="fa fa-repeat" style="float:right"></span>', ['/user/view', 'id' => $model->id, 'reset' => '4'], ['title' =>'重置学号']);
                                 }
                                 return Html::encode($model->profile->student_number).$resetNumber;
                             },                               

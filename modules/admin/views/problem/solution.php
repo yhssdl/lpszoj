@@ -13,7 +13,7 @@ $this->params['model'] = $model;
 <div class="problem-solution animate__animated animate__fadeInUp">
 
     <div class="alert alert-light">
-        <i class=" glyphicon glyphicon-info-sign"></i> 您可以在此处为题目编写详细的解答过程。注意，若题目内容是被用户可见的，那么此处填写的题解也会被用户可见。查看题解按钮会出现在前台题目详情页面中。
+        <i class=" fa fa-info-circle"></i> 您可以在此处为题目编写详细的解答过程。注意，若题目内容是被用户可见的，那么此处填写的题解也会被用户可见。查看题解按钮会出现在前台题目详情页面中。
     </div>
     <?php $form = ActiveForm::begin(); ?>
 

@@ -14,7 +14,7 @@ $this->title = $model->title;
 
     <p class="lead"><?= Html::encode($this->title) ?></p>
     <?php if ($model->getRunStatus() == Contest::STATUS_ENDED): ?>
-        <div class="alert alert-light"><i class=" glyphicon glyphicon-info-sign"></i> 点击下方按钮将计算参加该场比赛的用户在该场比赛所的积分。计算出来的积分用于在排行榜排名。重复点击只会计算一次。</div>
+        <div class="alert alert-light"><i class=" fa fa-info-circle"></i> 点击下方按钮将计算参加该场比赛的用户在该场比赛所的积分。计算出来的积分用于在排行榜排名。重复点击只会计算一次。</div>
         <?= Html::a(Yii::t('app', 'Rated'), ['rated', 'id' => $model->id, 'cal' => 1], ['class' => 'btn btn-success btn-block']) ?>
         <br>
         <?= GridView::widget([
@@ -47,6 +47,6 @@ $this->title = $model->title;
             ],
         ]); ?>
     <?php else: ?>
-        <div class="alert alert-light"><i class=" glyphicon glyphicon-info-sign"></i> 比赛尚未结束，请在比赛结束后再来计算积分。</div>
+        <div class="alert alert-light"><i class=" fa fa-info-circle"></i> 比赛尚未结束，请在比赛结束后再来计算积分。</div>
     <?php endif; ?>
 </div>

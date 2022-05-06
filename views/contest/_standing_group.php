@@ -16,7 +16,7 @@ $submit_count = $rankResult['submit_count'];
 <!-- 启用封榜时显示的顶部横幅 -->
 
 <?php if ($model->isScoreboardFrozen()) : ?>
-    <div class="alert alert-light" style="text-align: left !important;"><i class=" glyphicon glyphicon-info-sign"></i>
+    <div class="alert alert-light" style="text-align: left !important;"><i class=" fa fa-info-circle"></i>
         <?= (($model->isContestEnd())
             ? "比赛已经结束，封榜状态尚未解除，请等候管理员滚榜或解榜。"
             : "现已是封榜状态，榜单将不再实时更新，待赛后再揭晓。")
@@ -31,7 +31,7 @@ $submit_count = $rankResult['submit_count'];
             <th width="200px"><?= Yii::t('app', 'Who') ?></th>
             <th title=<?= Yii::t('app', 'solved/Penalty time') ?> colspan="2"><?= Yii::t('app', 'Score') ?>
                 <span data-toggle="tooltip" data-placement="top" title="分别为通过数量以及耗费时间,如果解题数相同，则按时间从少到多排序，提交运行结果被判错误的话ACM/ICPC模式将被加罚20分钟（单位：分钟）">
-                    <span class="glyphicon glyphicon-question-sign"></span>
+                    <span class="fa fa-question-circle"></span>
                 </span>
             </th>
             <?php foreach ($problems as $key => $p) : ?>

@@ -23,7 +23,7 @@ if (!Yii::$app->user->isGuest) {
 }
 $problems = $model->problems;
 if (empty($problems)) {
-    echo '<br><div class="alert alert-light"><i class=" glyphicon glyphicon-info-sign"></i> 当前没有添加题目，请联系管理员。</div>';
+    echo '<br><div class="alert alert-light"><i class=" fa fa-info-circle"></i> 当前没有添加题目，请联系管理员。</div>';
     return;
 }
 
@@ -116,10 +116,10 @@ $loadingImgUrl = Yii::getAlias('@web/images/loading.gif');
             <h3 id="submit-code"><?= Yii::t('app', 'Submit') ?></h3>
             <div class="content-wrapper">
                 <?php if ($model->isContestEnd() && time() < strtotime($model->end_time) + 5 * 60 && !Yii::$app->user->isGuest && $model->isUserInContest() && !Yii::$app->user->identity->isAdmin() && !Yii::$app->user->identity->isVip()) : ?>
-                    <div class="alert alert-light"><i class=" glyphicon glyphicon-info-sign"></i> 比赛已结束，比赛结束五分钟后开放提交。</div>
+                    <div class="alert alert-light"><i class=" fa fa-info-circle"></i> 比赛已结束，比赛结束五分钟后开放提交。</div>
                 <?php elseif ($model->isContestEnd() && !Yii::$app->user->isGuest && !$model->isUserInContest() && !Yii::$app->user->identity->isAdmin() && !Yii::$app->user->identity->isVip()) : ?>
 
-                    <div class="alert alert-light"><i class=" glyphicon glyphicon-info-sign"></i> 比赛注册已关闭，你没有提交评测的权限。阅读比赛公告或联系管理员以了解如何补题。</div>
+                    <div class="alert alert-light"><i class=" fa fa-info-circle"></i> 比赛注册已关闭，你没有提交评测的权限。阅读比赛公告或联系管理员以了解如何补题。</div>
 
                 <?php else : ?>
                     <?php if (Yii::$app->user->isGuest) : ?>
@@ -163,7 +163,7 @@ $loadingImgUrl = Yii::getAlias('@web/images/loading.gif');
                         <?= $form->field($solution, 'source')->widget('app\widgets\codemirror\CodeMirror')->label(false); ?>
 
                         <div class="form-group">
-                            <?= Html::submitButton('<span class="glyphicon glyphicon-send"></span> ' . Yii::t('app', 'Submit'), ['class' => 'btn btn-success btn-block']) ?>
+                            <?= Html::submitButton('<span class="fa fa-send"></span> ' . Yii::t('app', 'Submit'), ['class' => 'btn btn-success btn-block']) ?>
                         </div>
                         <?php ActiveForm::end(); ?>
                     <?php endif; ?>
@@ -190,7 +190,7 @@ $loadingImgUrl = Yii::getAlias('@web/images/loading.gif');
             </div>
 
             <a class="btn btn-success" href="#submit-code">
-                <span class="glyphicon glyphicon-plus"></span> <?= Yii::t('app', 'Submit') ?>
+                <span class="fa fa-plus"></span> <?= Yii::t('app', 'Submit') ?>
             </a>
 
             <?php if (!Yii::$app->user->isGuest && !empty($submissions)) : ?>

@@ -32,7 +32,7 @@ use yii\widgets\ActiveForm;
     ])->hint('可见：用户可在探索页面发现。') ?>
 
 
-    <div class="alert alert-light"><i class="glyphicon glyphicon-info-sign"></i> 小组公告仅小组成员可见。</div>
+    <div class="alert alert-light"><i class="fa fa-info-circle"></i> 小组公告仅小组成员可见。</div>
 
     <?= $form->field($model, 'kanban', [
         'template' => "{input}",

@@ -33,6 +33,6 @@ else{
         'model' => $model,
     ]) ?>
     <?php else: ?>
-        <div class="alert alert-light"><i class=" glyphicon glyphicon-info-sign"></i> 没有创建小组的权限！</div>
+        <div class="alert alert-light"><i class=" fa fa-info-circle"></i> 没有创建小组的权限！</div>
     <?php endif; ?>   
 </div>

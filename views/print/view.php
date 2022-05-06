@@ -21,7 +21,7 @@ $this->registerCss('
 ?>
 <div class="print-source-view">
     <h1>
-        <span class="glyphicon glyphicon-user"></span> <?= Html::encode($this->title) ?>
+        <span class="fa fa-user"></span> <?= Html::encode($this->title) ?>
     </h1>
     <p class="hidden-print">
         <?= Html::a('Update', ['update', 'id' => $model->id], ['class' => 'btn btn-primary']) ?>
@@ -41,7 +41,7 @@ $this->registerCss('
         </div>
     <?php endif; ?>
     <hr>
-    <p><span class="glyphicon glyphicon-time"></span> <?= Yii::$app->formatter->asRelativeTime($model->created_at) ?></p>
+    <p><span class="fa fa-clock-o"></span> <?= Yii::$app->formatter->asRelativeTime($model->created_at) ?></p>
     <pre><p><?= Html::encode($model->source) ?></p></pre>
 
 </div>

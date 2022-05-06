@@ -91,7 +91,7 @@ $contest_id = $model->id;
                             ]); ?>
 
                             <?= Html::beginForm(['/homework/addproblem', 'id' => $model->id]) ?>
-                            <div class="alert alert-light"><i class="glyphicon glyphicon-info-sign"></i> 多个题目可以用空格或逗号键分开；连续题目，可以用 1001-1005 这样的格式。</div>
+                            <div class="alert alert-light"><i class="fa fa-info-circle"></i> 多个题目可以用空格或逗号键分开；连续题目，可以用 1001-1005 这样的格式。</div>
                             <div class="form-group">
                                 <div class="input-group">
                                     <span class="input-group-addon"><?= Html::label(Yii::t('app', 'Problem ID'), 'problem_id') ?></span>
@@ -135,7 +135,7 @@ $contest_id = $model->id;
                 'options' => ['autocomplete' => 'off']
             ]) ?>
 
-            <div class="alert alert-light"><i class=" glyphicon glyphicon-info-sign"></i> 封榜仅对 ACM/ICPC 或作业有效，请不要在其它赛制启用，否则可能出现未知行为。如果不需要封榜请留空，当前会在比赛结束 <?= $scoreboardFrozenTime ?> 小时后才会自动在前台页面解除封榜限制。如需提前结束封榜也可选择清空该表单项。使用封榜功能，后台管理界面的比赛榜单仍然处于实时榜单。</div>
+            <div class="alert alert-light"><i class=" fa fa-info-circle"></i> 封榜仅对 ACM/ICPC 或作业有效，请不要在其它赛制启用，否则可能出现未知行为。如果不需要封榜请留空，当前会在比赛结束 <?= $scoreboardFrozenTime ?> 小时后才会自动在前台页面解除封榜限制。如需提前结束封榜也可选择清空该表单项。使用封榜功能，后台管理界面的比赛榜单仍然处于实时榜单。</div>
 
             <?= $form->field($model, 'lock_board_time', ['template' => '<div class="input-group"><span class="input-group-addon">' . Yii::t('app', 'Lock Board Time') . '</span>{input}</div>'])->widget('app\widgets\laydate\LayDate', [
                 'clientOptions' => [
@@ -183,7 +183,7 @@ $contest_id = $model->id;
             ]); ?>
 
             <?php $form = ActiveForm::begin(); ?>
-        <div class="alert alert-light"><i class="glyphicon glyphicon-info-sign"></i> 公告发布后将显示在比赛界面中。也可以使用 <?= Html::a('全局公告', ['/admin/setting']) ?>。</div>
+        <div class="alert alert-light"><i class="fa fa-info-circle"></i> 公告发布后将显示在比赛界面中。也可以使用 <?= Html::a('全局公告', ['/admin/setting']) ?>。</div>
         <?= $form->field($newAnnouncement, 'content')->textarea(['rows' => 6]) ?>
 
         <div class="form-group">
@@ -222,7 +222,7 @@ $contest_id = $model->id;
                                 'data-method' => 'post',
                                 'data-pjax' => '0',
                             ];
-                            return Html::a('<span class="glyphicon glyphicon-trash"></span>', Url::toRoute(['homework/delete_announcement', 'contest_id' => $contest_id, 'id' => $model->id]), $options);
+                            return Html::a('<span class="fa fa-trash"></span>', Url::toRoute(['homework/delete_announcement', 'contest_id' => $contest_id, 'id' => $model->id]), $options);
                         },
                     ]
                 ],

@@ -22,7 +22,7 @@ use yii\widgets\ActiveForm;
     </div>
 
     <div class="col-lg-2" style="margin-bottom: 1rem;">
-        <?= Html::submitButton('<span class="glyphicon glyphicon-search"></span> ' . Yii::t('app', 'Search'), ['class' => 'btn btn-primary btn-block']) ?>
+        <?= Html::submitButton('<span class="fa fa-search"></span> ' . Yii::t('app', 'Search'), ['class' => 'btn btn-primary btn-block']) ?>
     </div>
 </div>
 <?php ActiveForm::end(); ?>

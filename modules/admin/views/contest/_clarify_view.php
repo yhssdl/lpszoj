@@ -27,17 +27,17 @@ use yii\bootstrap\Modal;
         <hr>
         <?= Yii::$app->formatter->asMarkdown($clarify->content) ?>
         <hr>
-        <span class="glyphicon glyphicon-user"></span> <?= $clarify->user->username ?>
+        <span class="fa fa-user"></span> <?= $clarify->user->username ?>
         &nbsp;•&nbsp;
-        <span class="glyphicon glyphicon-time"></span> <?= Yii::$app->formatter->asRelativeTime($clarify->created_at) ?>
+        <span class="fa fa-clock-o"></span> <?= Yii::$app->formatter->asRelativeTime($clarify->created_at) ?>
     </div>
     <?php foreach ($clarify->reply as $reply): ?>
         <div class="well">
             <?= Yii::$app->formatter->asMarkdown($reply->content) ?>
             <hr>
-            <span class="glyphicon glyphicon-user"></span> <?= Html::encode($reply->user->username) ?>
+            <span class="fa fa-user"></span> <?= Html::encode($reply->user->username) ?>
             &nbsp;•&nbsp;
-            <span class="glyphicon glyphicon-time"></span> <?= Yii::$app->formatter->asRelativeTime($reply->created_at) ?>
+            <span class="fa fa-clock-o"></span> <?= Yii::$app->formatter->asRelativeTime($reply->created_at) ?>
         </div>
     <?php endforeach; ?>
     <div class="well">

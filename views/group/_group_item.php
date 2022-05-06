@@ -17,7 +17,7 @@ $contest_count = $g_model->getContestCount();
 
 $lerder =  $g_model->getLeader();
 if($lerder) {
-    $lerder_name = '<li><span class="contest-tag contest-tag-info"><span class="glyphicon glyphicon-star"></span> 组长:'. $lerder->nickname.'</span></li>';
+    $lerder_name = '<li><span class="contest-tag contest-tag-info"><span class="fa fa-star"></span> 组长:'. $lerder->nickname.'</span></li>';
 } else {
     $lerder_name = '';
 }
@@ -30,9 +30,9 @@ if($model['logo_url']){
 
 
 
-if($model['join_policy']==Group::JOIN_POLICY_INVITE) $join = '<span class="contest-tag status-ended"><span class="glyphicon glyphicon-lock"></span> 私有小组</span>';
+if($model['join_policy']==Group::JOIN_POLICY_INVITE) $join = '<span class="contest-tag status-ended"><span class="fa fa-lock"></span> 私有小组</span>';
 else if($model['join_policy']==Group::JOIN_POLICY_APPLICATION) $join = '<span class="contest-tag contest-tag-blue"><span class="glyphicon glyphicon-gift"></span> 普通小组</span>';
-else $join = '<span class="contest-tag contest-tag-green"><span class="glyphicon glyphicon-glyphicon glyphicon-fire"></span> 公开小组</span>';
+else $join = '<span class="contest-tag contest-tag-green"><span class="glyphicon glyphicon-fa fa-key"></span> 公开小组</span>';
 
 $content = '
 <div class="section-body">
@@ -45,13 +45,13 @@ $content = '
             </li>
             '. $lerder_name .'
             <li>
-                <span class="glyphicon glyphicon-user"></span> '. $user_count .' 人
+                <span class="fa fa-user"></span> '. $user_count .' 人
             </li>
             <li>
             <span class="glyphicon glyphicon-tasks"></span> '. $contest_count .' 个任务
             </li>
             <li>
-            <span class="glyphicon glyphicon-info-sign"></span> '. $description .'
+            <span class="fa fa-info-circle"></span> '. $description .'
             </li>
         </ul>
     </div>

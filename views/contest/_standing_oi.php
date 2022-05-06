@@ -15,7 +15,7 @@ $submit_count = $rankResult['submit_count'];
 
 if (Yii::$app->user->isGuest || !Yii::$app->user->identity->isAdmin()) {
     if ($model->isScoreboardFrozen() || ($model->type == Contest::TYPE_OI && !$model->isContestEnd())) {
-        echo '<div class="alert alert-light"><i class=" glyphicon glyphicon-info-sign"></i> 待赛后再揭晓</div>';
+        echo '<div class="alert alert-light"><i class=" fa fa-info-circle"></i> 待赛后再揭晓</div>';
         return;
     }
 }
@@ -35,7 +35,7 @@ if (Yii::$app->user->isGuest || !Yii::$app->user->identity->isAdmin()) {
             <th width="80px">
                 用时
                 <span data-toggle="tooltip" data-placement="top" title="仅统计比赛期间所有通过题目所需要的总时间（单位：分钟）">
-                    <span class="glyphicon glyphicon-question-sign"></span>
+                    <span class="fa fa-question-circle"></span>
                 </span>
             </th>
             <?php foreach ($problems as $key => $p) : ?>

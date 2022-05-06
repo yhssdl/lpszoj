@@ -15,7 +15,7 @@ $this->params['model'] = $model;
 <div class="print-source-index" style="margin-top: 20px">
 
     <div class="alert alert-light">
-    <i class=" glyphicon glyphicon-info-sign"></i> 如需打印代码以供队友查看，可以在此提交代码内容，工作人员打印好后会送至队伍前。
+    <i class=" fa fa-info-circle"></i> 如需打印代码以供队友查看，可以在此提交代码内容，工作人员打印好后会送至队伍前。
     </div>
 
     <?= GridView::widget([

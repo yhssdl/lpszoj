@@ -13,7 +13,7 @@ $this->params['model'] = $model;
 <div class="solutions-view animate__animated animate__fadeInUp">
 
     <div class="alert alert-light">
-        <i class="glyphicon glyphicon-info-sign"></i> 输入文件以 <code>.in</code> 结尾，输出文件以 <code>.out</code> 或者
+        <i class="fa fa-info-circle"></i> 输入文件以 <code>.in</code> 结尾，输出文件以 <code>.out</code> 或者
         <code>.ans</code> 结尾，文件名可以任意取名但是必须一一对应比。如输入文件为
         <code>apple.in</code>，则输出文件需命名为 <code>apple.out</code> 或者 <code>apple.ans</code>。
     </div>
@@ -35,7 +35,7 @@ $this->params['model'] = $model;
                 </div>
                 <br>
             <?php else: ?>
-                <div class="alert alert-light"><i class="glyphicon glyphicon-info-sign"></i> 服务器未启用 php-zip 扩展，如需下载测试数据，请安装 php-zip　扩展。</div>    
+                <div class="alert alert-light"><i class="fa fa-info-circle"></i> 服务器未启用 php-zip 扩展，如需下载测试数据，请安装 php-zip　扩展。</div>    
             <?php endif; ?>
         </div>
         <div class="col-md-6">
@@ -61,12 +61,12 @@ $this->params['model'] = $model;
                             <a href="<?= Url::toRoute(['/polygon/problem/viewfile', 'id' => $model->id,'name' => $file['name']]) ?>"
                                target="_blank"
                                title="<?= Yii::t('app', 'View') ?>">
-                                <span class="glyphicon glyphicon-eye-open"></span>
+                                <span class="fa fa-eye"></span>
                             </a>
                             &nbsp;
                             <a href="<?= Url::toRoute(['/polygon/problem/deletefile', 'id' => $model->id,'name' => $file['name']]) ?>"
                                title="<?= Yii::t('app', 'Delete') ?>">
-                                <span class="glyphicon glyphicon-remove"></span>
+                                <span class="fa fa-remove"></span>
                             </a>
                         </th>
                     </tr>
@@ -96,12 +96,12 @@ $this->params['model'] = $model;
                             <a href="<?= Url::toRoute(['/polygon/problem/viewfile', 'id' => $model->id,'name' => $file['name']]) ?>"
                                target="_blank"
                                title="<?= Yii::t('app', 'View') ?>">
-                                <span class="glyphicon glyphicon-eye-open"></span>
+                                <span class="fa fa-eye"></span>
                             </a>
                             &nbsp;
                             <a href="<?= Url::toRoute(['/polygon/problem/deletefile', 'id' => $model->id,'name' => $file['name']]) ?>"
                                title="<?= Yii::t('app', 'Delete') ?>">
-                                <span class="glyphicon glyphicon-remove"></span>
+                                <span class="fa fa-remove"></span>
                             </a>
                         </th>
                     </tr>

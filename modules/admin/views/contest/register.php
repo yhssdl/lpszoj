@@ -28,7 +28,7 @@ $contest_id = $model->id;
         ]); ?>
 
         <?= Html::beginForm(['contest/register', 'id' => $model->id]) ?>
-        <div class="alert alert-light"><i class="glyphicon glyphicon-info-sign"></i> 请把要参赛用户的用户名复制到此处，一个名字占据一行，请自行删除多余的空行。</div>
+        <div class="alert alert-light"><i class="fa fa-info-circle"></i> 请把要参赛用户的用户名复制到此处，一个名字占据一行，请自行删除多余的空行。</div>
         <div class="form-group">
             <?= Html::textarea('user', '', ['class' => 'form-control', 'rows' => 10]) ?>
         </div>
@@ -46,8 +46,8 @@ $contest_id = $model->id;
             'header' => Yii::t('app', 'Generate user for the contest'),
             'toggleButton' => ['label' => Yii::t('app', 'Generate user for the contest'), 'class' => 'btn btn-success'],
         ]); ?>
-        <div class="alert alert-danger"><i class="glyphicon glyphicon-info-sign"></i> 重复使用此功能会删除已生成的帐号，请勿在分发账号后进行此操作。</div>
-        <div class="alert alert-light"><i class="glyphicon glyphicon-info-sign"></i> 前缀不应更改，不同比赛的前缀都不一样，是为了可以一直保留比赛榜单。</div>
+        <div class="alert alert-danger"><i class="fa fa-info-circle"></i> 重复使用此功能会删除已生成的帐号，请勿在分发账号后进行此操作。</div>
+        <div class="alert alert-light"><i class="fa fa-info-circle"></i> 前缀不应更改，不同比赛的前缀都不一样，是为了可以一直保留比赛榜单。</div>
         <?php $form = ActiveForm::begin(); ?>
 
         <?= $form->field($generatorForm, 'prefix', [
@@ -63,7 +63,7 @@ $contest_id = $model->id;
         ])->textInput(['maxlength' => true, 'value' => '50'])->label(false) ?>
 
         <br>
-        <div class="alert alert-light"><i class="glyphicon glyphicon-info-sign"></i> 请把所有的用户昵称复制到此处，一个昵称占一行，请自行删除多余的空行。</div>
+        <div class="alert alert-light"><i class="fa fa-info-circle"></i> 请把所有的用户昵称复制到此处，一个昵称占一行，请自行删除多余的空行。</div>
 
         <?= $form->field($generatorForm, 'names')->textarea(['rows' => 10])->label(false) ?>
 
@@ -137,7 +137,7 @@ $contest_id = $model->id;
                         'data-method' => 'post',
                         'data-pjax' => '0',
                     ];
-                    return Html::a('<span class="glyphicon glyphicon-trash"></span>', Url::toRoute(['contest/register', 'id' => $contest_id, 'uid' => $model->user->id]), $options);
+                    return Html::a('<span class="fa fa-trash"></span>', Url::toRoute(['contest/register', 'id' => $contest_id, 'uid' => $model->user->id]), $options);
                 },
             ]
         ],

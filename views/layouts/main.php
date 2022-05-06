@@ -37,49 +37,49 @@ AppAsset::register($this);
         ],
     ]);
     $menuItems = [
-        ['label' => '<span class="glyphicon glyphicon-home"></span> ' . Yii::t('app', 'Home'), 'url' => ['/site/index']],
-        ['label' => '<span class="glyphicon glyphicon-list"></span> ' . Yii::t('app', 'Problems'), 'url' => ['/problem/index']],
-        ['label' => '<span class="glyphicon glyphicon-signal"></span> ' . Yii::t('app', 'Status'), 'url' => ['/solution/index']],
+        ['label' => '<span class="fa fa-home"></span> ' . Yii::t('app', 'Home'), 'url' => ['/site/index']],
+        ['label' => '<span class="fa fa-book"></span> ' . Yii::t('app', 'Problems'), 'url' => ['/problem/index']],
+        ['label' => '<span class="fa fa-tasks"></span> ' . Yii::t('app', 'Status'), 'url' => ['/solution/index']],
         [
-            'label' => '<span class="glyphicon glyphicon-king"></span> ' . Yii::t('app', 'Rating'),
+            'label' => '<span class="fa fa-bar-chart"></span> ' . Yii::t('app', 'Rating'),
             'url' => ['/rating/problem'],
             'active' => Yii::$app->controller->id == 'rating'
         ],
         [
-            'label' => '<span class="glyphicon glyphicon-user"></span> ' . Yii::t('app', 'Group'),
+            'label' => '<span class="fa fa-group"></span> ' . Yii::t('app', 'Group'),
             'url' => Yii::$app->user->isGuest ? ['/group/index'] : ['/group/my-group'],
             'visible' => Yii::$app->setting->get('isDefGroup') !=0
         ],
-        ['label' => '<span class="glyphicon glyphicon-knight"></span> ' . Yii::t('app', 'Contests'), 'url' => ['/contest/index']],
+        ['label' => '<span class="fa fa-trophy"></span> ' . Yii::t('app', 'Contests'), 'url' => ['/contest/index']],
         [
-            'label' => '<i class="glyphicon glyphicon-info-sign"></i> '. Yii::t('app', 'Wiki'),
+            'label' => '<i class="fa fa-info-circle"></i> '. Yii::t('app', 'Wiki'),
             'url' => ['/wiki/index'],
             'active' => Yii::$app->controller->id == 'wiki'
         ],
     ];
     if (Yii::$app->user->isGuest) {
-        $menuItems[] = ['label' => '<span class="glyphicon glyphicon-new-window"></span> ' . Yii::t('app', 'Signup'), 'url' => ['/site/signup']];
-        $menuItems[] = ['label' => '<span class="glyphicon glyphicon-log-in"></span> ' . Yii::t('app', 'Login'), 'url' => ['/site/login']];
+        $menuItems[] = ['label' => '<span class="fa fa-sign-in"></span> ' . Yii::t('app', 'Signup'), 'url' => ['/site/signup']];
+        $menuItems[] = ['label' => '<span class="fa fa-user"></span> ' . Yii::t('app', 'Login'), 'url' => ['/site/login']];
     } else {
         if (Yii::$app->user->identity->isAdmin()) {
             $menuItems[] =  [
-                'label' => '<span class="glyphicon glyphicon-user"></span> ' . Yii::$app->user->identity->nickname,
+                'label' => '<span class="fa fa-user"></span> ' . Yii::$app->user->identity->nickname,
                 'items' => [
-                    ['label' => '<span class="glyphicon glyphicon-wrench"></span> ' . Yii::t('app', 'Backend'), 'url' => ['/admin']],
-                    ['label' => '<span class="glyphicon glyphicon-home"></span> ' . Yii::t('app', 'Profile'), 'url' => ['/user/view', 'id' => Yii::$app->user->id]],
-                    ['label' => '<span class="glyphicon glyphicon-cog"></span> ' . Yii::t('app', 'Setting'), 'url' => ['/user/setting', 'action' => 'profile']],
+                    ['label' => '<span class="fa fa-cog"></span> ' . Yii::t('app', 'Backend'), 'url' => ['/admin']],
+                    ['label' => '<span class="fa fa-address-book"></span> ' . Yii::t('app', 'Profile'), 'url' => ['/user/view', 'id' => Yii::$app->user->id]],
+                    ['label' => '<span class="fa fa-wrench"></span> ' . Yii::t('app', 'Setting'), 'url' => ['/user/setting', 'action' => 'profile']],
                     '<li class="divider"></li>',
-                    ['label' => '<span class="glyphicon glyphicon-log-out"></span> ' . Yii::t('app', 'Logout'), 'url' => ['/site/logout']],
+                    ['label' => '<span class="fa fa-sign-out"></span> ' . Yii::t('app', 'Logout'), 'url' => ['/site/logout']],
                 ]
             ];
         }else{
             $menuItems[] =  [
-                'label' => '<span class="glyphicon glyphicon-user"></span> ' . Yii::$app->user->identity->nickname,
+                'label' => '<span class="fa fa-user"></span> ' . Yii::$app->user->identity->nickname,
                 'items' => [
-                    ['label' => '<span class="glyphicon glyphicon-home"></span> ' . Yii::t('app', 'Profile'), 'url' => ['/user/view', 'id' => Yii::$app->user->id]],
-                    ['label' => '<span class="glyphicon glyphicon-cog"></span> ' . Yii::t('app', 'Setting'), 'url' => ['/user/setting', 'action' => 'profile']],
+                    ['label' => '<span class="fa fa-address-book"></span> ' . Yii::t('app', 'Profile'), 'url' => ['/user/view', 'id' => Yii::$app->user->id]],
+                    ['label' => '<span class="fa fa-wrench"></span> ' . Yii::t('app', 'Setting'), 'url' => ['/user/setting', 'action' => 'profile']],
                     '<li class="divider"></li>',
-                    ['label' => '<span class="glyphicon glyphicon-log-out"></span> ' . Yii::t('app', 'Logout'), 'url' => ['/site/logout']],
+                    ['label' => '<span class="fa fa-sign-out"></span> ' . Yii::t('app', 'Logout'), 'url' => ['/site/logout']],
                 ]
             ];
         }
@@ -99,7 +99,7 @@ AppAsset::register($this);
         <?php
             if (!Yii::$app->user->isGuest && Yii::$app->setting->get('mustVerifyEmail') && !Yii::$app->user->identity->isVerifyEmail()) {
                 $a = Html::a('个人设置', ['/user/setting', 'action' => 'account']);
-                echo "<div class=\"alert alert-light\"><i class=\" glyphicon glyphicon-info-sign\"></i> 请前往设置页面验证您的邮箱：{$a}</div>";
+                echo "<div class=\"alert alert-light\"><i class=\" fa fa-info-circle\"></i> 请前往设置页面验证您的邮箱：{$a}</div>";
             }
         ?>
         <?php if (Yii::$app->setting->get('isNotice')): ?>    

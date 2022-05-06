@@ -11,7 +11,7 @@ $this->title = Yii::t('app', 'Signup');
 
 
 <div class="alert alert-success">
-    <i class="glyphicon glyphicon-info-sign"></i> 欢迎注册<?= Yii::$app->setting->get('schoolName') ?>在线评测系统
+    <i class="fa fa-info-circle"></i> 欢迎注册<?= Yii::$app->setting->get('schoolName') ?>在线评测系统
 </div>
 
 <?php if (Yii::$app->setting->get('isUserReg')) : ?>
@@ -56,5 +56,5 @@ $this->title = Yii::t('app', 'Signup');
         <?php ActiveForm::end(); ?>
     </div>
 <?php else : ?>
-    <div class="alert alert-light"><i class="glyphicon glyphicon-info-sign"></i> 当前未开放注册！</div>
+    <div class="alert alert-light"><i class="fa fa-info-circle"></i> 当前未开放注册！</div>
 <?php endif; ?>

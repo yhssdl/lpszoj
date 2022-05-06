@@ -16,7 +16,7 @@ $solution->language = Yii::$app->user->identity->language;
 ?>
 
 <div class="animate__animated animate__fadeInUp">
-    <div class="alert alert-light"><i class="glyphicon glyphicon-info-sign"></i>
+    <div class="alert alert-light"><i class="fa fa-info-circle"></i>
         该页面用于给验题人验证题目数据的准确性，验题前需在
         <?= Html::a(Yii::t('app', 'Tests Data'), ['/polygon/problem/tests', 'id' => $model->id]) ?>
         页面中生成标程的标准输出文件。
@@ -128,7 +128,7 @@ $solution->language = Yii::$app->user->identity->language;
         </div>
         <?php ActiveForm::end(); ?>
     <?php else : ?>
-        <div class="alert alert-light"><i class="glyphicon glyphicon-info-sign"></i>
+        <div class="alert alert-light"><i class="fa fa-info-circle"></i>
             当前验题功能尚未支持用SPJ来进行验证的题目。
         </div>
     <?php endif; ?>

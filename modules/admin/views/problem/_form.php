@@ -15,23 +15,23 @@ use yii\helpers\Url;
     <?php $form = ActiveForm::begin(); ?>
 
     <?= $form->field($model, 'id', ['template' => '<div class="input-group"><span class="input-group-addon">'.Yii::t('app', 'Problem ID').'</span>{input}</div>{hint}'])->textInput(['placeholder' => '可不填'])
-        ->hint('<i class="glyphicon glyphicon-info-sign"></i> 此处用于指定题目ID，若不填，新建题目时题目ID会自动增长。新建题目时填写的ID不能为已经存在的ID') ?>
+        ->hint('<i class="fa fa-info-circle"></i> 此处用于指定题目ID，若不填，新建题目时题目ID会自动增长。新建题目时填写的ID不能为已经存在的ID') ?>
 
     <?= $form->field($model, 'title', ['template' => '<div class="input-group"><span class="input-group-addon">'.Yii::t('app', 'Title').'</span>{input}</div>'])->textInput() ?>
 
     <?= $form->field($model, 'time_limit', [
         'template' => '<div class="input-group"><span class="input-group-addon">'.Yii::t('app', 'Time Limit').'</span>{input}<span class="input-group-addon">'.Yii::t('app', 'Second').'</span></div>{hint}',
-    ])->textInput(['maxlength' => 128, 'autocomplete'=>'off'])->hint('<i class="glyphicon glyphicon-info-sign"></i> 单个测试点时间限制：Java 和 Python 有 2s 额外时间')  ?>
+    ])->textInput(['maxlength' => 128, 'autocomplete'=>'off'])->hint('<i class="fa fa-info-circle"></i> 单个测试点时间限制：Java 和 Python 有 2s 额外时间')  ?>
 
     <?= $form->field($model, 'memory_limit', [
         'template' => '<div class="input-group"><span class="input-group-addon">'.Yii::t('app', 'Memory Limit').'</span>{input}<span class="input-group-addon">MB</span></div>{hint}',
-    ])->textInput(['maxlength' => 128, 'autocomplete'=>'off'])->hint('<i class="glyphicon glyphicon-info-sign"></i> 空间限制：Java 和 Python 有 64MB 额外空间')  ?>
+    ])->textInput(['maxlength' => 128, 'autocomplete'=>'off'])->hint('<i class="fa fa-info-circle"></i> 空间限制：Java 和 Python 有 64MB 额外空间')  ?>
 
     <?= $form->field($model, 'status')->radioList([
         1 => Yii::t('app', 'Visible'),
         0 => Yii::t('app', 'Hidden'),
         2 => Yii::t('app', 'Private')
-    ])->hint(Yii::t('app', '<i class="glyphicon glyphicon-info-sign"></i> 可见：题目将在首页展示，任何用户可见。隐藏：题目仅在后台显示。私有：题目标题在前台可见，但信息仅VIP用户可见')) ?>
+    ])->hint(Yii::t('app', '<i class="fa fa-info-circle"></i> 可见：题目将在首页展示，任何用户可见。隐藏：题目仅在后台显示。私有：题目标题在前台可见，但信息仅VIP用户可见')) ?>
 
     <?= $form->field($model, 'description')->widget(Yii::$app->setting->get('ojEditor')); ?>
 
@@ -73,7 +73,7 @@ use yii\helpers\Url;
     <?= $form->field($model, 'source')->textarea(['maxlength' => true]) ?>
 
     <?= $form->field($model, 'tags')->textarea(['maxlength' => true, 'placeholder' => '可不填'])
-        ->hint('<i class="glyphicon glyphicon-info-sign"></i> 多标签用逗号隔开。如：dfs, bfs, dp, 暴力，贪心，最短路') ?>
+        ->hint('<i class="fa fa-info-circle"></i> 多标签用逗号隔开。如：dfs, bfs, dp, 暴力，贪心，最短路') ?>
 
     <?= $form->field($model, 'contest_id')->label(Yii::t('app', 'Contest ID'))->dropDownList(\app\models\Contest::getContestList()) ?>
 

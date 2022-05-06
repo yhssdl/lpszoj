@@ -1,5 +1,5 @@
 <div class="alert alert-light">
-    <i class="glyphicon glyphicon-info-sign"></i> 本 <b>OJ</b> 系统可对用户在线提交的源代码进行编译和执行，并通过预先设计的测试数据检验代码的正确性。
+    <i class="fa fa-info-circle"></i> 本 <b>OJ</b> 系统可对用户在线提交的源代码进行编译和执行，并通过预先设计的测试数据检验代码的正确性。
 </div>
 <p></p>
 <div class="list-group">

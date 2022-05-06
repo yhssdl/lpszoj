@@ -50,7 +50,7 @@ $this->title = Yii::t('app', 'Homework');
                         $column = $model->getRunStatus(1);
                     }
                     $userCount = $model->getContestUserCount();
-                    return $column . ' ' . Html::a(' <span class="glyphicon glyphicon-user"></span>x'. $userCount, ['/homework/user', 'id' => $model->id]);
+                    return $column . ' ' . Html::a(' <span class="fa fa-user"></span>x'. $userCount, ['/homework/user', 'id' => $model->id]);
                 },
                 'format' => 'raw',
             ],

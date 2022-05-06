@@ -13,7 +13,7 @@ $this->params['model'] = $model;
 $model->setSamples();
 ?>
 <div class="animate__animated animate__fadeInUp">
-<div class="alert alert-light"><i class="glyphicon glyphicon-info-sign"></i> 请在此页面提供一个“标程”（即解答该问题的正确代码程序）。它将被用来生成测试数据的标准输出</div>
+<div class="alert alert-light"><i class="fa fa-info-circle"></i> 请在此页面提供一个“标程”（即解答该问题的正确代码程序）。它将被用来生成测试数据的标准输出</div>
 <?php $form = ActiveForm::begin(); ?>
 
     <?= $form->field($model, 'solution_lang')->dropDownList(Solution::getLanguageList())->label(false) ?>

@@ -11,7 +11,7 @@ $this->params['model'] = $model;
 ?>
 <div class="problem-solution animate__animated animate__fadeInUp">
 
-    <div class="alert alert-light"><i class="glyphicon glyphicon-info-sign"></i> 您可以在此处为题目编写详细的解答过程</div>
+    <div class="alert alert-light"><i class="fa fa-info-circle"></i> 您可以在此处为题目编写详细的解答过程</div>
 
 
     <?php $form = ActiveForm::begin(); ?>

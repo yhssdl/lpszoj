@@ -22,7 +22,7 @@ $this->title = Yii::t('app', 'Users');
         <div class="btn-group">
         <?php Modal::begin([
             'header' => Yii::t('app', '批量创建用户'),
-            'toggleButton' => ['label' => '<span class="glyphicon glyphicon-plus"></span> '.Yii::t('app', '批量创建用户'), 'class' => 'btn btn-default'],
+            'toggleButton' => ['label' => '<span class="fa fa-plus"></span> '.Yii::t('app', '批量创建用户'), 'class' => 'btn btn-default'],
         ]);?>
 
 
@@ -53,13 +53,13 @@ $this->title = Yii::t('app', 'Users');
         <?php Modal::end(); ?>
         </div>
         <div class="btn-group">
-            <a id="general-user" class="btn btn-success" href="javascript:void(0);"><span class="glyphicon glyphicon-user"></span> 设为普通用户</a>
+            <a id="general-user" class="btn btn-success" href="javascript:void(0);"><span class="fa fa-user"></span> 设为普通用户</a>
         </div>
         <div class="btn-group">
-            <a id="vip-user" class="btn btn-success" href="javascript:void(0);"><span class="glyphicon glyphicon-fire"></span> 设为VIP用户</a>
+            <a id="vip-user" class="btn btn-success" href="javascript:void(0);"><span class="fa fa-key"></span> 设为VIP用户</a>
         </div>
         <div class="btn-group">
-            <a id="admin-user" class="btn btn-success" href="javascript:void(0);"><span class="glyphicon glyphicon-globe"></span> 设为管理员</a>
+            <a id="admin-user" class="btn btn-success" href="javascript:void(0);"><span class="fa fa-globe"></span> 设为管理员</a>
         </div>
 
     </div>

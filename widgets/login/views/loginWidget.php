@@ -24,14 +24,14 @@ $this->registerCss('
   <div class="panel-body">
     <?php $form = ActiveForm::begin(['id' => 'login-form', 'enableClientValidation' => false]); ?>
         <?= $form->field($user, 'username', [
-            'template' => '<div class="input-group"><span class="input-group-addon"><i class="glyphicon glyphicon-user"></i></span>{input}</div>{error}',
+            'template' => '<div class="input-group"><span class="input-group-addon"><i class="fa fa-user"></i></span>{input}</div>{error}',
             'inputOptions' => [
               'placeholder' => $user->getAttributeLabel('username'),
             ],
           ])->label(false);
         ?>
         <?= $form->field($user, 'password', [
-            'template' => '<div class="input-group"><span class="input-group-addon"><i class="glyphicon glyphicon-lock"></i></span>{input}</div>{error}',
+            'template' => '<div class="input-group"><span class="input-group-addon"><i class="fa fa-lock"></i></span>{input}</div>{error}',
             'inputOptions' => [
               'placeholder' => $user->getAttributeLabel('password'),
             ],

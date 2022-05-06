@@ -22,7 +22,7 @@ use yii\widgets\ActiveForm;
 
     <div class="col-md-3">
         <?= $form->field($model, 'id', [
-            'template' => "{label}\n<div class=\"input-group btn-group-justified\"><span style='width:30%' class=\"input-group-addon\"><span class='glyphicon glyphicon-book'></span></span>{input}</div>",
+            'template' => "{label}\n<div class=\"input-group btn-group-justified\"><span style='width:30%' class=\"input-group-addon\"><span class='fa fa-book'></span></span>{input}</div>",
         ])->textInput(['maxlength' => 128, 'autocomplete' => 'off', 'placeholder' => Yii::t('app', 'Problem ID')])->label(false) ?>
     </div>
 
@@ -41,7 +41,7 @@ use yii\widgets\ActiveForm;
         <div class="form-group">
             <div class="btn-group btn-group-justified">
                 <div class="btn-group">
-                    <?= Html::submitButton("<span class='glyphicon glyphicon-search'></span> " . Yii::t('app', 'Search'), ['class' => 'btn btn-primary']) ?>
+                    <?= Html::submitButton("<span class='fa fa-search'></span> " . Yii::t('app', 'Search'), ['class' => 'btn btn-primary']) ?>
                 </div>
                 <div class="btn-group">
                     <?= Html::resetButton(Yii::t('app', 'Reset'), ['class' => 'btn btn-default']) ?>

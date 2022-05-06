@@ -37,7 +37,7 @@ $contest_id = $model->id;
                 'toggleButton' => ['label' => Yii::t('app', 'Scroll Scoreboard'), 'class' => 'btn btn-success']
             ]); ?>
             <?= Html::beginForm(['contest/scroll-scoreboard', 'id' => $model->id], 'get', ['target' => '_blank']) ?>
-            <div class="alert alert-light"><i class="glyphicon glyphicon-info-sign"></i> 滚榜只支持罚时 20 分钟的比赛，其他值请先修改 web/js/scrollboard.js。</div>
+            <div class="alert alert-light"><i class="fa fa-info-circle"></i> 滚榜只支持罚时 20 分钟的比赛，其他值请先修改 web/js/scrollboard.js。</div>
             <div class="form-group">
                 <?= Html::label(Yii::t('app', 'Number of gold medals'), 'gold') ?>
                 <?= Html::textInput('gold', round($model->getContestUserCount() * 0.1), ['class' => 'form-control']) ?>
@@ -64,7 +64,7 @@ $contest_id = $model->id;
                     3. 建议把浏览器设为全屏显示（打开页面后，按<code>F11</code>键）体验更佳。
                 </p>
             <?php else : ?>
-                <div class="alert alert-light"><i class="glyphicon glyphicon-info-sign"></i> 比赛尚未结束，暂时不能滚榜。</div>
+                <div class="alert alert-light"><i class="fa fa-info-circle"></i> 比赛尚未结束，暂时不能滚榜。</div>
             <?php endif; ?>
             <?= Html::endForm(); ?>
             <?php Modal::end(); ?>
@@ -116,7 +116,7 @@ $contest_id = $model->id;
         ]); ?>
 
         <?php $form = ActiveForm::begin(); ?>
-    <div class="alert alert-light"><i class="glyphicon glyphicon-info-sign"></i> 公告发布后将显示在比赛界面中。也可以使用 <?= Html::a('全局公告', ['/admin/setting']) ?>。</div>
+    <div class="alert alert-light"><i class="fa fa-info-circle"></i> 公告发布后将显示在比赛界面中。也可以使用 <?= Html::a('全局公告', ['/admin/setting']) ?>。</div>
     <?= $form->field($newAnnouncement, 'content')->textarea(['rows' => 6]) ?>
 
     <div class="form-group">
@@ -144,7 +144,7 @@ $contest_id = $model->id;
                                 'data-method' => 'post',
                                 'data-pjax' => '0',
                             ];
-                            return Html::a('<span class="glyphicon glyphicon-trash"></span>', Url::toRoute(['contest/delete_announcement', 'contest_id' => $contest_id, 'id' => $model->id]), $options);
+                            return Html::a('<span class="fa fa-trash"></span>', Url::toRoute(['contest/delete_announcement', 'contest_id' => $contest_id, 'id' => $model->id]), $options);
                         },
                     ]
                 ],
@@ -161,7 +161,7 @@ $contest_id = $model->id;
         'toggleButton' => ['label' => '设置下列所有题目的来源', 'class' => 'btn btn-success btn-xs'],
     ]); ?>
     <?= Html::beginForm(['contest/set-problem-source', 'id' => $model->id]) ?>
-    <div class="alert alert-light"><i class="glyphicon glyphicon-info-sign"></i> 设置来源有利于在题库中根据题目来源来搜索题目。此操作会修改题目的来源信息。</div>
+    <div class="alert alert-light"><i class="fa fa-info-circle"></i> 设置来源有利于在题库中根据题目来源来搜索题目。此操作会修改题目的来源信息。</div>
     <div class="form-group">
         <?= Html::label(Yii::t('app', 'Source'), 'problem_id') ?>
         <?= Html::textInput('source', $model->title, ['class' => 'form-control']) ?>
@@ -178,7 +178,7 @@ $contest_id = $model->id;
         'toggleButton' => ['label' => '设置题目在前台显示状态', 'class' => 'btn btn-success btn-xs'],
     ]); ?>
     <?= Html::beginForm(['contest/set-problem-status', 'id' => $model->id]) ?>
-    <div class="alert alert-light"><i class="glyphicon glyphicon-info-sign"></i> 该操作用于该场比赛目前添加的所有题目在前台设为隐藏或可见。</div>
+    <div class="alert alert-light"><i class="fa fa-info-circle"></i> 该操作用于该场比赛目前添加的所有题目在前台设为隐藏或可见。</div>
     <div class="form-group">
         <?= Html::label(Yii::t('app', 'Status'), 'status') ?>
         <label class="radio-inline">
@@ -266,7 +266,7 @@ $contest_id = $model->id;
                         ]); ?>
 
                         <?= Html::beginForm(['contest/addproblem', 'id' => $model->id]) ?>
-                        <div class="alert alert-light"><i class="glyphicon glyphicon-info-sign"></i> 多个题目可以用空格或逗号键分开；连续题目，可以用 1001-1005 这样的格式。</div>
+                        <div class="alert alert-light"><i class="fa fa-info-circle"></i> 多个题目可以用空格或逗号键分开；连续题目，可以用 1001-1005 这样的格式。</div>
                         <div class="form-group">
                             <div class="input-group">
                                 <span class="input-group-addon"><?= Html::label(Yii::t('app', 'Problem ID'), 'problem_id') ?></span>

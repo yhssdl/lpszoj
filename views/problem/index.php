@@ -63,13 +63,13 @@ function getColorLabel($i){
         <div class="col-md-3">
             <div class="btn-group btn-group-justified search-submit">
                 <div class="btn-group">
-                    <?= Html::submitButton('<span class="glyphicon glyphicon-search"></span> '.Yii::t('app', 'Search'), ['class' => 'btn btn-primary']) ?>
+                    <?= Html::submitButton('<span class="fa fa-search"></span> '.Yii::t('app', 'Search'), ['class' => 'btn btn-primary']) ?>
                 </div>
                 <div class="btn-group">
                     <button class="btn btn-default" type="button" data-toggle="modal" data-target="#myModal"><span class="glyphicon glyphicon-tags"></span> <?= Yii::t('app', 'Tags') ?></button>
                 </div>
                 <div class="btn-group">
-                    <?= Html::a('<span class="glyphicon glyphicon-plus"></span>&nbsp;'.Yii::t('app', 'Question'), ['/polygon'], ['class' => 'btn btn-default'])?>
+                    <?= Html::a('<span class="fa fa-plus"></span>&nbsp;'.Yii::t('app', 'Question'), ['/polygon'], ['class' => 'btn btn-default'])?>
                 </div>
             </div>
         </div>
@@ -91,7 +91,7 @@ function getColorLabel($i){
                 <div class="input-group">
                     <?= Html::textInput('q', '', ['class' => 'form-control', 'placeholder' => '题号 / 标题 / 来源']) ?>
                     <span class="input-group-btn">
-                        <?= Html::submitButton('<span class="glyphicon glyphicon-search"></span>', ['class' => 'btn btn-primary']) ?>
+                        <?= Html::submitButton('<span class="fa fa-search"></span>', ['class' => 'btn btn-primary']) ?>
                     </span>
 
                 </div>

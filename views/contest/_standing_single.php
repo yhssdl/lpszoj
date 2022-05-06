@@ -15,7 +15,7 @@ $result = $rankResult['rank_result'];
 $submit_count = $rankResult['submit_count'];
 ?>
 <?php if ($model->isScoreboardFrozen()) : ?>
-    <div class="alert alert-light"><i class=" glyphicon glyphicon-info-sign"></i> 现已是封榜状态，榜单将不再实时更新，待赛后再揭晓</div>
+    <div class="alert alert-light"><i class=" fa fa-info-circle"></i> 现已是封榜状态，榜单将不再实时更新，待赛后再揭晓</div>
 <?php endif; ?>
 <table class="table table-bordered table-rank">
     <thead>
@@ -24,7 +24,7 @@ $submit_count = $rankResult['submit_count'];
             <th width="200px"><?= Yii::t('app', 'Who') ?></th>
             <th colspan="2"><?= Yii::t('app', 'Score') ?>
                 <span data-toggle="tooltip" data-placement="top" title="分别为通过数量以及得分,第一个解题成功的拿最高分，之后随时间减少得分，答错则扣分。">
-                    <span class="glyphicon glyphicon-question-sign"></span>
+                    <span class="fa fa-question-circle"></span>
                 </span>
             </th>
             <?php foreach ($problems as $key => $p) : ?>

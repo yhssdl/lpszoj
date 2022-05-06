@@ -26,7 +26,7 @@ if (!Yii::$app->user->isGuest || Yii::$app->setting->get('isDefGroup') == 1) {
 
 <?php if (Yii::$app->setting->get('isDefGroup') == 0) : ?>
 
-    <div class="alert alert-light"><i class=" glyphicon glyphicon-info-sign"></i> 当前小组功能已经关闭。</div>
+    <div class="alert alert-light"><i class=" fa fa-info-circle"></i> 当前小组功能已经关闭。</div>
 
 <?php else : ?>
 
@@ -71,9 +71,9 @@ if (!Yii::$app->user->isGuest || Yii::$app->setting->get('isDefGroup') == 1) {
         ]);
     } else {
         if ($searchModel == null) {
-            echo '<div class="alert alert-light"><i class=" glyphicon glyphicon-info-sign"></i> 当前未加入任何小组。</div>';
+            echo '<div class="alert alert-light"><i class=" fa fa-info-circle"></i> 当前未加入任何小组。</div>';
         } else {
-            echo '<div class="alert alert-light"><i class=" glyphicon glyphicon-info-sign"></i> 当前没有公开的小组。</div>';
+            echo '<div class="alert alert-light"><i class=" fa fa-info-circle"></i> 当前没有公开的小组。</div>';
         }
     }
 

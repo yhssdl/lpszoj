@@ -83,9 +83,9 @@ $this->params['breadcrumbs'][] = $this->title;
     <h3>
     <?php for ($i = 1; $i <= $model->getTestCount(); $i++): ?>
     <?php if ($i <= $model->getPassedTestCount()) : ?>
-    <span class="glyphicon glyphicon-ok-circle text-success"></span>
+    <span class="fa fa-check-circle text-success"></span>
     <?php else: ?>
-    <span class="glyphicon glyphicon-remove-circle text-danger"></span>
+    <span class="fa fa-remove-circle text-danger"></span>
     <?php endif; ?>
     <?php endfor; ?>
     </h3>

@@ -178,7 +178,7 @@ $nextProblemID = $model->getNextProblemID();
                 <div class="separator"></div>
                 <div>
                     <p>       
-                        <?= Html::a('<span class="glyphicon glyphicon-signal"></span> ' . Yii::t('app', 'Stats'),
+                        <?= Html::a('<span class="fa fa-tasks"></span> ' . Yii::t('app', 'Stats'),
                             ['/problem/statistics', 'id' => $model->id],
                             ['view' => 'classic'])?>
                     </p>
@@ -254,12 +254,12 @@ $nextProblemID = $model->getNextProblemID();
                     <?php endif; ?>
                 </div>
                 <div class="problem-footer">
-                    <?= Html::a('<span class="glyphicon glyphicon-arrow-left"></span> 上一题',
+                    <?= Html::a('<span class="fa fa-arrow-left"></span> 上一题',
                         $previousProblemID ? ['/problem/view', 'id' => $previousProblemID] : 'javascript:void(0);',
                         ['class' => 'btn btn-default', 'disabled' => !$previousProblemID]
                     )?>&nbsp;
 
-                    <?= Html::a('下一题 <span class="glyphicon glyphicon-arrow-right"></span>',
+                    <?= Html::a('下一题 <span class="fa fa-arrow-right"></span>',
                         $nextProblemID ? ['/problem/view', 'id' => $nextProblemID] : 'javascript:void(0);',
                         ['class' => 'btn btn-default', 'disabled' => !$nextProblemID]
                     )?>
@@ -295,18 +295,18 @@ $nextProblemID = $model->getNextProblemID();
                 <div class="problem-footer">
                 <?php
                     if (Yii::$app->user->isGuest) {
-                        echo '<span><i class=" glyphicon glyphicon-info-sign"></i> 登录以提交代码</span>';
+                        echo '<span><i class=" fa fa-info-circle"></i> 登录以提交代码</span>';
                         
                     } else {
-                        echo Html::submitButton('<span class="glyphicon glyphicon-send"></span> ' .Yii::t('app', 'Submit'), ['class' => 'btn btn-success']);  
+                        echo Html::submitButton('<span class="fa fa-send"></span> ' .Yii::t('app', 'Submit'), ['class' => 'btn btn-success']);  
     
                         if (Yii::$app->setting->get('isDiscuss')){
-                        echo Html::a('<span class="glyphicon glyphicon-comment"></span> ' . Yii::t('app', 'Discuss'),
+                        echo Html::a('<span class="fa fa-comment"></span> ' . Yii::t('app', 'Discuss'),
                             ['/problem/discuss', 'id' => $model->id],
                             ['class' => 'btn btn-default']);
                         }
                         if (!empty($model->solution)){
-                            echo Html::a('<i class="glyphicon glyphicon-info-sign"></i> ' . Yii::t('app', '题解'),
+                            echo Html::a('<i class="fa fa-info-circle"></i> ' . Yii::t('app', '题解'),
                                 ['/problem/solution', 'id' => $model->id],
                                 ['class' => 'btn btn-default']);
                         }                           

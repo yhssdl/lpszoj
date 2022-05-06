@@ -45,8 +45,8 @@ foreach ($problems as $key => $p) {
             'size' => Modal::SIZE_LARGE,
             'toggleButton' => ['label' => '前台可见性', 'class' => 'btn btn-default'],
         ]); ?>
-        <div class="alert alert-light"><i class="glyphicon glyphicon-info-sign"></i> 公开提交将同步提交数据到公共题库状态页，允许任何用户查看代码及出错数据等信息。</div>
-        <div class="alert alert-danger"><i class="glyphicon glyphicon-info-sign"></i> 比赛期间设置公开提交将导致不可预知的后果，请在比赛结束后再根据需要开放。</div>
+        <div class="alert alert-light"><i class="fa fa-info-circle"></i> 公开提交将同步提交数据到公共题库状态页，允许任何用户查看代码及出错数据等信息。</div>
+        <div class="alert alert-danger"><i class="fa fa-info-circle"></i> 比赛期间设置公开提交将导致不可预知的后果，请在比赛结束后再根据需要开放。</div>
         <div class="btn-group btn-group-justified">
             <div class="btn-group"><?= Html::a('设为公开', ['/admin/contest/status', 'id' => $model->id, 'active' => 1], ['class' => 'btn btn-success']) ?></div>
             <div class="btn-group"><?= Html::a('设为隐藏', ['/admin/contest/status', 'id' => $model->id, 'active' => 2], ['class' => 'btn btn-primary']) ?></div>

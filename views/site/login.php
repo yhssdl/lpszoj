@@ -17,17 +17,17 @@ $this->title = Yii::t('app', 'Login');
                 'class' => 'form-signin'
             ]
         ]); ?>
-        <div class="alert alert-light"><i class="glyphicon glyphicon-info-sign"></i> 欢迎回来。</div>
+        <div class="alert alert-light"><i class="fa fa-info-circle"></i> 欢迎回来。</div>
         <img src="<?= Yii::getAlias('@web') . '/images/login.jpg' ?>" width="100%" class="card-img-top d-none d-md-block"><br><br>
         <?= $form->field($model, 'username', [
-            'template' => '<div class="input-group"><span class="input-group-addon"><i class="glyphicon glyphicon-user"></i></span>{input}</div>{error}',
+            'template' => '<div class="input-group"><span class="input-group-addon"><i class="fa fa-user"></i></span>{input}</div>{error}',
             'inputOptions' => [
                 'placeholder' => $model->getAttributeLabel('username'),
             ],
         ])->label(false);
         ?>
         <?= $form->field($model, 'password', [
-            'template' => '<div class="input-group"><span class="input-group-addon"><i class="glyphicon glyphicon-lock"></i></span>{input}</div>{error}',
+            'template' => '<div class="input-group"><span class="input-group-addon"><i class="fa fa-lock"></i></span>{input}</div>{error}',
             'inputOptions' => [
                 'placeholder' => $model->getAttributeLabel('password'),
             ],

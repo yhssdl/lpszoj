@@ -48,49 +48,49 @@ $status = $model->getRunStatus();
         ],
     ]);
     $menuItems = [
-        ['label' => '<span class="glyphicon glyphicon-home"></span> ' . Yii::t('app', 'Home'), 'url' => ['/site/index']],
-        ['label' => '<span class="glyphicon glyphicon-list"></span> ' . Yii::t('app', 'Problems'), 'url' => ['/problem/index']],
-        ['label' => '<span class="glyphicon glyphicon-signal"></span> ' . Yii::t('app', 'Status'), 'url' => ['/solution/index']],
+        ['label' => '<span class="fa fa-home"></span> ' . Yii::t('app', 'Home'), 'url' => ['/site/index']],
+        ['label' => '<span class="fa fa-book"></span> ' . Yii::t('app', 'Problems'), 'url' => ['/problem/index']],
+        ['label' => '<span class="fa fa-tasks"></span> ' . Yii::t('app', 'Status'), 'url' => ['/solution/index']],
         [
-            'label' => '<span class="glyphicon glyphicon-king"></span> ' . Yii::t('app', 'Rating'),
+            'label' => '<span class="fa fa-bar-chart"></span> ' . Yii::t('app', 'Rating'),
             'url' => ['/rating/problem'],
             'active' => Yii::$app->controller->id == 'rating'
         ],
         [
-            'label' => '<span class="glyphicon glyphicon-user"></span> ' . Yii::t('app', 'Group'),
+            'label' => '<span class="fa fa-group"></span> ' . Yii::t('app', 'Group'),
             'url' => Yii::$app->user->isGuest ? ['/group/index'] : ['/group/my-group'],
             'visible' => Yii::$app->setting->get('isDefGroup') !=0
         ],
-        ['label' => '<span class="glyphicon glyphicon-knight"></span> ' . Yii::t('app', 'Contests'), 'url' => ['/contest/index']],
+        ['label' => '<span class="fa fa-trophy"></span> ' . Yii::t('app', 'Contests'), 'url' => ['/contest/index']],
         [
-            'label' => '<i class="glyphicon glyphicon-info-sign"></i> '. Yii::t('app', 'Wiki'),
+            'label' => '<i class="fa fa-info-circle"></i> '. Yii::t('app', 'Wiki'),
             'url' => ['/wiki/index'],
             'active' => Yii::$app->controller->id == 'wiki'
         ],
     ];
     if (Yii::$app->user->isGuest) {
-        $menuItems[] = ['label' => '<span class="glyphicon glyphicon-new-window"></span> ' . Yii::t('app', 'Signup'), 'url' => ['/site/signup']];
-        $menuItems[] = ['label' => '<span class="glyphicon glyphicon-log-in"></span> ' . Yii::t('app', 'Login'), 'url' => ['/site/login']];
+        $menuItems[] = ['label' => '<span class="fa fa-sign-in"></span> ' . Yii::t('app', 'Signup'), 'url' => ['/site/signup']];
+        $menuItems[] = ['label' => '<span class="fa fa-user"></span> ' . Yii::t('app', 'Login'), 'url' => ['/site/login']];
     } else {
         if (Yii::$app->user->identity->isAdmin()) {
             $menuItems[] =  [
-                'label' => '<span class="glyphicon glyphicon-user"></span> ' . Yii::$app->user->identity->nickname,
+                'label' => '<span class="fa fa-user"></span> ' . Yii::$app->user->identity->nickname,
                 'items' => [
-                    ['label' => '<span class="glyphicon glyphicon-wrench"></span> ' . Yii::t('app', 'Backend'), 'url' => ['/admin']],
-                    ['label' => '<span class="glyphicon glyphicon-home"></span> ' . Yii::t('app', 'Profile'), 'url' => ['/user/view', 'id' => Yii::$app->user->id]],
-                    ['label' => '<span class="glyphicon glyphicon-cog"></span> ' . Yii::t('app', 'Setting'), 'url' => ['/user/setting', 'action' => 'profile']],
+                    ['label' => '<span class="fa fa-cog"></span> ' . Yii::t('app', 'Backend'), 'url' => ['/admin']],
+                    ['label' => '<span class="fa fa-address-book"></span> ' . Yii::t('app', 'Profile'), 'url' => ['/user/view', 'id' => Yii::$app->user->id]],
+                    ['label' => '<span class="fa fa-wrench"></span> ' . Yii::t('app', 'Setting'), 'url' => ['/user/setting', 'action' => 'profile']],
                     '<li class="divider"></li>',
-                    ['label' => '<span class="glyphicon glyphicon-log-out"></span> ' . Yii::t('app', 'Logout'), 'url' => ['/site/logout']],
+                    ['label' => '<span class="fa fa-sign-out"></span> ' . Yii::t('app', 'Logout'), 'url' => ['/site/logout']],
                 ]
             ];
         }else{
             $menuItems[] =  [
-                'label' => '<span class="glyphicon glyphicon-user"></span> ' . Yii::$app->user->identity->nickname,
+                'label' => '<span class="fa fa-user"></span> ' . Yii::$app->user->identity->nickname,
                 'items' => [
-                    ['label' => '<span class="glyphicon glyphicon-home"></span> ' . Yii::t('app', 'Profile'), 'url' => ['/user/view', 'id' => Yii::$app->user->id]],
-                    ['label' => '<span class="glyphicon glyphicon-cog"></span> ' . Yii::t('app', 'Setting'), 'url' => ['/user/setting', 'action' => 'profile']],
+                    ['label' => '<span class="fa fa-book"></span> ' . Yii::t('app', 'Profile'), 'url' => ['/user/view', 'id' => Yii::$app->user->id]],
+                    ['label' => '<span class="fa fa-wrench"></span> ' . Yii::t('app', 'Setting'), 'url' => ['/user/setting', 'action' => 'profile']],
                     '<li class="divider"></li>',
-                    ['label' => '<span class="glyphicon glyphicon-log-out"></span> ' . Yii::t('app', 'Logout'), 'url' => ['/site/logout']],
+                    ['label' => '<span class="fa fa-sign-out"></span> ' . Yii::t('app', 'Logout'), 'url' => ['/site/logout']],
                 ]
             ];
         }
@@ -141,7 +141,7 @@ $status = $model->getRunStatus();
                <span>                    
                    <b>类型</b>: <?= $model->getType()?>　 <b>状态</b>: <?= $model->getRunStatus(1) ?>　
                    <?php if ($model->group_id != 0 && $model->isContestAdmin()): ?>
-                                <?= Html::a('<span class="glyphicon glyphicon-cog"></span> ' . Yii::t('app', 'Setting'),
+                                <?= Html::a('<span class="fa fa-address-book"></span> ' . Yii::t('app', 'Setting'),
                                     ['/homework/update', 'id' => $model->id]) ?>
                    
                         <?php endif; ?>
@@ -165,16 +165,16 @@ $status = $model->getRunStatus();
                 <?php
                 $menuItems = [
                     [
-                        'label' => '<span class="glyphicon glyphicon-home"></span> ' . Yii::t('app', 'Information'),
+                        'label' => '<span class="fa fa-home"></span> ' . Yii::t('app', 'Information'),
                         'url' => ['contest/view', 'id' => $model->id],
                     ],
                     [
-                        'label' => '<span class="glyphicon glyphicon-list"></span> ' . Yii::t('app', 'Problem'),
+                        'label' => '<span class="fa fa-book"></span> ' . Yii::t('app', 'Problem'),
                         'url' => ['contest/problem', 'id' => $model->id],
                         'linkOptions' => ['data-pjax' => 0]
                     ],
                     [
-                        'label' => '<span class="glyphicon glyphicon-signal"></span> ' . Yii::t('app' , 'Status'),
+                        'label' => '<span class="fa fa-tasks"></span> ' . Yii::t('app' , 'Status'),
                         'url' => ['contest/status', 'id' => $model->id],
                         'linkOptions' => ['data-pjax' => 0],
                     ],
@@ -185,7 +185,7 @@ $status = $model->getRunStatus();
                 ];
                 if($model->enable_clarify==1 || ($model->enable_clarify==2 && $model->isContestEnd())){
                     $menuItems[] = [
-                        'label' => '<span class="glyphicon glyphicon-comment"></span> ' . Yii::t('app', 'Clarification'),
+                        'label' => '<span class="fa fa-comment"></span> ' . Yii::t('app', 'Clarification'),
                         'url' => ['contest/clarify', 'id' => $model->id],
                     ];
                 }
@@ -197,7 +197,7 @@ $status = $model->getRunStatus();
                 }
                 if ($model->isContestEnd()) {
                     $menuItems[] = [
-                        'label' => '<i class="glyphicon glyphicon-info-sign"></i> ' . Yii::t('app', 'Editorial'),
+                        'label' => '<i class="fa fa-info-circle"></i> ' . Yii::t('app', 'Editorial'),
                         'url' => ['contest/editorial', 'id' => $model->id]
                     ];
                 }

@@ -123,7 +123,7 @@ $nextProblemID = $model->getNextProblemID();
             'header' => Yii::t('app','Submit') . '：' . Html::encode($model->id . '. ' . $model->title),
             'size' => Modal::SIZE_LARGE,
             'toggleButton' => [
-                'label' => '<span class="glyphicon glyphicon-plus"></span> ' . Yii::t('app', 'Submit'),
+                'label' => '<span class="fa fa-plus"></span> ' . Yii::t('app', 'Submit'),
                 'class' => 'btn btn-success'
             ]
         ]); ?>
@@ -160,37 +160,37 @@ $nextProblemID = $model->getNextProblemID();
                
 
                 <div class="form-group">
-                    <?= Html::submitButton('<span class="glyphicon glyphicon-send"></span> ' . Yii::t('app', 'Submit'), ['class' => 'btn btn-success btn-block']) ?>
+                    <?= Html::submitButton('<span class="fa fa-send"></span> ' . Yii::t('app', 'Submit'), ['class' => 'btn btn-success btn-block']) ?>
                 </div>
                 <?php ActiveForm::end(); ?>
             <?php endif; ?>
         <?php Modal::end(); ?>
 
         <?php if (Yii::$app->setting->get('isDiscuss')): ?>
-        <?= Html::a('<span class="glyphicon glyphicon-comment"></span> ' . Yii::t('app', 'Discuss'),
+        <?= Html::a('<span class="fa fa-comment"></span> ' . Yii::t('app', 'Discuss'),
             ['/problem/discuss', 'id' => $model->id],
             ['class' => 'btn btn-default'])
         ?>
         <?php endif; ?> 
         <?php if (!empty($model->solution)): ?>
-        <?= Html::a('<i class="glyphicon glyphicon-info-sign"></i> ' . Yii::t('app', '题解'),
+        <?= Html::a('<i class="fa fa-info-circle"></i> ' . Yii::t('app', '题解'),
             ['/problem/solution', 'id' => $model->id],
             ['class' => 'btn btn-default'])
         ?>
         <?php endif; ?>
-        <?= Html::a('<span class="glyphicon glyphicon-signal"></span> ' . Yii::t('app', 'Stats'),
+        <?= Html::a('<span class="fa fa-tasks"></span> ' . Yii::t('app', 'Stats'),
             ['/problem/statistics', 'id' => $model->id],
             ['class' => 'btn btn-default']
         )?>
 
         <hr />
 
-        <?= Html::a('<span class="glyphicon glyphicon-arrow-left"></span> 上一题',
+        <?= Html::a('<span class="fa fa-arrow-left"></span> 上一题',
             $previousProblemID ? ['/problem/view', 'id' => $previousProblemID, 'view' => 'classic'] : 'javascript:void(0);',
             ['class' => 'btn btn-default', 'style' => 'width: 40%', 'disabled' => !$previousProblemID]
         )?>
 
-        <?= Html::a('下一题 <span class="glyphicon glyphicon-arrow-right"></span>',
+        <?= Html::a('下一题 <span class="fa fa-arrow-right"></span>',
             $nextProblemID ? ['/problem/view', 'id' => $nextProblemID, 'view' => 'classic'] : 'javascript:void(0);',
             ['class' => 'btn btn-default', 'style' => 'width: 50%', 'disabled' => !$nextProblemID]
         )?>

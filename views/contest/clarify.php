@@ -56,7 +56,7 @@ if ($discuss != null) {
         echo '<hr>';
     }
     ?>
-    <div class="alert alert-light"><i class=" glyphicon glyphicon-info-sign"></i> 如果你认为题目存在歧义，可以在这里提出。</div>
+    <div class="alert alert-light"><i class=" fa fa-info-circle"></i> 如果你认为题目存在歧义，可以在这里提出。</div>
 </div>
 
 <?= GridView::widget([
@@ -117,7 +117,7 @@ if ($discuss != null) {
         <?php ActiveForm::end(); ?>
   
 <?php else : ?>
-    <div class="alert alert-light"><i class=" glyphicon glyphicon-info-sign"></i> <?= Yii::t('app', 'The contest has ended.') ?></div>
+    <div class="alert alert-light"><i class=" fa fa-info-circle"></i> <?= Yii::t('app', 'The contest has ended.') ?></div>
 <?php endif; ?>
 
 </div>

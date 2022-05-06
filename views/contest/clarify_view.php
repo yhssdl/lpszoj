@@ -16,17 +16,17 @@ $this->params['model'] = $model;
         <hr>
         <?= Yii::$app->formatter->asMarkdown($clarify->content) ?>
         <hr>
-        <span class="glyphicon glyphicon-user"></span> <?= $clarify->user->nickname ?>
+        <span class="fa fa-user"></span> <?= $clarify->user->nickname ?>
         &nbsp;•&nbsp;
-        <span class="glyphicon glyphicon-time"></span> <?= Yii::$app->formatter->asRelativeTime($clarify->created_at) ?>
+        <span class="fa fa-clock-o"></span> <?= Yii::$app->formatter->asRelativeTime($clarify->created_at) ?>
     </div>
     <?php foreach ($clarify->reply as $reply): ?>
         <div class="alert alert-light">
             <?= Yii::$app->formatter->asMarkdown($reply->content) ?>
             <hr>
-            <span class="glyphicon glyphicon-user"></span> <?= Html::encode($reply->user->nickname) ?>
+            <span class="fa fa-user"></span> <?= Html::encode($reply->user->nickname) ?>
             &nbsp;•&nbsp;
-            <span class="glyphicon glyphicon-time"></span> <?= Yii::$app->formatter->asRelativeTime($reply->created_at) ?>
+            <span class="fa fa-clock-o"></span> <?= Yii::$app->formatter->asRelativeTime($reply->created_at) ?>
         </div>
     <?php endforeach; ?>
 
@@ -40,7 +40,7 @@ $this->params['model'] = $model;
         </div>
         <?php ActiveForm::end(); ?>
         <?php else: ?>
-            <div class="alert alert-light"><i class=" glyphicon glyphicon-info-sign"></i> <?= Yii::t('app', 'The contest has ended.') ?></div>
+            <div class="alert alert-light"><i class=" fa fa-info-circle"></i> <?= Yii::t('app', 'The contest has ended.') ?></div>
         <?php endif; ?>
 
 </div>

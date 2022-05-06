@@ -151,7 +151,7 @@ $scoreboardFrozenTime = Yii::$app->setting->get('scoreboardFrozenTime') / 3600;
                         'data-method' => 'post',
                         'data-pjax' => '0',
                     ];
-                    return Html::a('<span class="glyphicon glyphicon-trash"></span>', $url, $options);
+                    return Html::a('<span class="fa fa-trash"></span>', $url, $options);
                 }
             ],
             'visible' => $model->hasPermission(),

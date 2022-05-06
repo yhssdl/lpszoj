@@ -32,7 +32,7 @@ use yii\widgets\ActiveForm;
 
     <div class="col-lg-2">
         <div class="btn-group btn-block search-submit">
-            <?= Html::submitButton('<i class="glyphicon glyphicon-search"></i> ' . Yii::t('app', 'Search'), ['class' => 'btn btn-primary btn-block']) ?>
+            <?= Html::submitButton('<i class="fa fa-search"></i> ' . Yii::t('app', 'Search'), ['class' => 'btn btn-primary btn-block']) ?>
         </div>
     </div>
 </div>

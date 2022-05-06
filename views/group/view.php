@@ -59,7 +59,7 @@ $scoreboardFrozenTime = Yii::$app->setting->get('scoreboardFrozenTime') / 3600;
                 ]);
             } else {
 
-                echo '<div class="alert alert-light"><i class=" glyphicon glyphicon-info-sign"></i> 组长还未创建题目。</div>';
+                echo '<div class="alert alert-light"><i class=" fa fa-info-circle"></i> 组长还未创建题目。</div>';
             }
             ?>
         </div>

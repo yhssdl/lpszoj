@@ -20,7 +20,7 @@ $contest_id = $model->id;
     'toggleButton' => ['label' => Yii::t('app', '添加打星用户'), 'class' => 'btn btn-success btn-block']
 ]);?>
 <?= Html::beginForm(['contest/star', 'id' => $model->id]) ?>
-<div class="alert alert-light"><i class="glyphicon glyphicon-info-sign"></i> 在这里填写用户名，必须是已经注册本比赛的用户。一个名字占据一行，请自行删除多余的空行。</div>
+<div class="alert alert-light"><i class="fa fa-info-circle"></i> 在这里填写用户名，必须是已经注册本比赛的用户。一个名字占据一行，请自行删除多余的空行。</div>
     <div class="form-group">
         <?= Html::textarea('user', '',['class' => 'form-control', 'rows' => 10]) ?>
     </div>
@@ -75,7 +75,7 @@ $contest_id = $model->id;
                         'data-confirm' => '取消打星？',
                         'data-method' => 'post',
                     ];
-                    return Html::a('<span class="glyphicon glyphicon-trash"></span>', Url::toRoute(['contest/star', 'id' => $contest_id, 'uid' => $model->user->id]), $options);
+                    return Html::a('<span class="fa fa-trash"></span>', Url::toRoute(['contest/star', 'id' => $contest_id, 'uid' => $model->user->id]), $options);
                 },
             ]
         ],

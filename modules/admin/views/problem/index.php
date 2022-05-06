@@ -18,31 +18,31 @@ $this->title = Yii::t('app', 'Problems');
     <br>
     <div class="btn-group btn-group-justified">
         <div class="btn-group">
-            <?= Html::a('<span class="glyphicon glyphicon-plus"></span> '.Yii::t('app', 'Create Problem'), ['create'], ['class' => 'btn btn-default','title' => '创建一个新的题目', 'data-toggle'=>"tooltip",'data-placement'=>"top" ]) ?>
+            <?= Html::a('<span class="fa fa-plus"></span> '.Yii::t('app', 'Create Problem'), ['create'], ['class' => 'btn btn-default','title' => '创建一个新的题目', 'data-toggle'=>"tooltip",'data-placement'=>"top" ]) ?>
         </div>
 
         <div class="btn-group">
-            <?= Html::a('<span class="glyphicon glyphicon-star"></span> '.Yii::t('app', 'Polygon Problem'), ['create-from-polygon'], ['class' => 'btn btn-default','title' => '从Polygon中导入题目', 'data-toggle'=>"tooltip",'data-placement'=>"top" ]) ?>
+            <?= Html::a('<span class="fa fa-star"></span> '.Yii::t('app', 'Polygon Problem'), ['create-from-polygon'], ['class' => 'btn btn-default','title' => '从Polygon中导入题目', 'data-toggle'=>"tooltip",'data-placement'=>"top" ]) ?>
         </div>
 
         <div class="btn-group">
-            <?= Html::a('<span class="glyphicon glyphicon-download-alt"></span> '.Yii::t('app', 'Import Problem'), ['import'], ['class' => 'btn btn-default','title' => '从HUSTOJ导入题目', 'data-toggle'=>"tooltip",'data-placement'=>"top" ]) ?>
+            <?= Html::a('<span class="fa fa-arrow-circle-o-down"></span> '.Yii::t('app', 'Import Problem'), ['import'], ['class' => 'btn btn-default','title' => '从HUSTOJ导入题目', 'data-toggle'=>"tooltip",'data-placement'=>"top" ]) ?>
         </div>
 
         <div class="btn-group">
-            <a id="available" class="btn btn-success" href="javascript:void(0);" data-toggle="tooltip" data-placement="top" title="选中项设为可见，任何用户均能在前台看见题目"><span class="glyphicon glyphicon-eye-open"></span> 设为可见</a>
+            <a id="available" class="btn btn-success" href="javascript:void(0);" data-toggle="tooltip" data-placement="top" title="选中项设为可见，任何用户均能在前台看见题目"><span class="fa fa-eye"></span> 设为可见</a>
         </div>
 
         <div class="btn-group">
-            <a id="reserved" class="btn btn-success" href="javascript:void(0);" data-toggle="tooltip" data-placement="top" title="选中项设为隐藏，题目只能在后台查看"><span class="glyphicon glyphicon-eye-close"></span> 设为隐藏</a>
+            <a id="reserved" class="btn btn-success" href="javascript:void(0);" data-toggle="tooltip" data-placement="top" title="选中项设为隐藏，题目只能在后台查看"><span class="fa fa-eye-slash"></span> 设为隐藏</a>
         </div>
 
         <div class="btn-group">
-            <a id="private" class="btn btn-success" href="javascript:void(0);" data-toggle="tooltip" data-placement="top" title="选中项设为VIP，前台题目列表会出现题目标题，但只有VIP用户才能查看题目信息"><span class="glyphicon glyphicon-fire"></span> 设为私有</a>
+            <a id="private" class="btn btn-success" href="javascript:void(0);" data-toggle="tooltip" data-placement="top" title="选中项设为VIP，前台题目列表会出现题目标题，但只有VIP用户才能查看题目信息"><span class="fa fa-key"></span> 设为私有</a>
         </div>
 
         <div class="btn-group">
-            <a id="delete" class="btn btn-danger" href="javascript:void(0);" data-toggle="tooltip" data-placement="top" title="删除选中题目，不可恢复"><span class="glyphicon glyphicon-trash"></span> 删除</a>
+            <a id="delete" class="btn btn-danger" href="javascript:void(0);" data-toggle="tooltip" data-placement="top" title="删除选中题目，不可恢复"><span class="fa fa-trash"></span> 删除</a>
         </div>
     </div>
     <br>

@@ -14,7 +14,7 @@ $this->params['model'] = $model;
 <?php if ($model->status == Contest::STATUS_PRIVATE) : ?>
     <p class="lead">私密比赛</p>
     <div class="alert alert-light">
-        <i class=" glyphicon glyphicon-info-sign"></i> 该比赛仅参赛人员可见。
+        <i class=" fa fa-info-circle"></i> 该比赛仅参赛人员可见。
     </div>
     <?php
     $this->title = '私密比赛';
@@ -29,9 +29,9 @@ $this->params['model'] = $model;
             <div class="alert alert-light">
                 <i class="fas fa-fw fa-info-circle"></i>
                 <?php if (strtotime($model->end_time) >= Contest::TIME_INFINIFY) : ?>
-                    <i class=" glyphicon glyphicon-info-sign"></i> <b>永久开放的题目集</b> 任何时候均可进行作答。
+                    <i class=" fa fa-info-circle"></i> <b>永久开放的题目集</b> 任何时候均可进行作答。
                 <?php else : ?>
-                    <i class=" glyphicon glyphicon-info-sign"></i> <b>限时开放的题目集</b> 只有在规定时间内的作答才会被计入比赛正式榜单。
+                    <i class=" fa fa-info-circle"></i> <b>限时开放的题目集</b> 只有在规定时间内的作答才会被计入比赛正式榜单。
                 <?php endif; ?>
             </div>
             <p></p>
@@ -47,12 +47,12 @@ $this->params['model'] = $model;
 
             <?php if ($model->scenario == Contest::SCENARIO_OFFLINE) : ?>
                 <div class="alert alert-light">
-                    <p><i class=" glyphicon glyphicon-info-sign"></i> 该比赛必须是指定的参赛用户才能参赛，请联系管理员申请参赛，或比赛结束后再来访问。</p>
+                    <p><i class=" fa fa-info-circle"></i> 该比赛必须是指定的参赛用户才能参赛，请联系管理员申请参赛，或比赛结束后再来访问。</p>
                 </div>
 
             <?php else : ?>
                 <div class="alert alert-light">
-                    <div><i class=" glyphicon glyphicon-info-sign"></i> 您尚未报名参加该比赛，请报名参赛或比赛结束后再来访问。</div><br>
+                    <div><i class=" fa fa-info-circle"></i> 您尚未报名参加该比赛，请报名参赛或比赛结束后再来访问。</div><br>
                     <?php if (!Yii::$app->user->isGuest) : ?>
                         <?php if ($model->invite_code) : ?>
                             <?= Html::beginForm(['/contest/register', 'id' => $model->id, 'register' => 1], 'get') ?>

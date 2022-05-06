@@ -12,7 +12,7 @@ $this->title = $name;
 
 
 <div class="alert alert-danger">
-    <i class="glyphicon glyphicon-info-sign"></i> <?= nl2br(Html::encode($message)) ?>
+    <i class="fa fa-info-circle"></i> <?= nl2br(Html::encode($message)) ?>
 </div>
 
 <div class="card animate__animated animate__fadeInUp">

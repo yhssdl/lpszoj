@@ -16,7 +16,7 @@ $this->title = Html::encode($model->name);
 ?>
 <p class="lead"><?= Html::a(Html::encode($model->name), ['/group/view', 'id' => $model->id]) ?></p>
 <?php if (Yii::$app->user->isGuest) : ?>
-    <div class="alert alert-light"><i class=" glyphicon glyphicon-info-sign"></i> 请先登录后再尝试加入小组</div>
+    <div class="alert alert-light"><i class=" fa fa-info-circle"></i> 请先登录后再尝试加入小组</div>
 <?php else : ?>
     <?php if ($model->getRole() == GroupUser::ROLE_INVITING) : ?>
         <p class="lead">邀请你加入小组：</p>

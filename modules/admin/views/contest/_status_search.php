@@ -23,13 +23,13 @@ use yii\bootstrap\ActiveForm;
 
     <div class="col-md-3">
         <?= $form->field($model, 'problem_id', [
-            'template' => "{label}\n<div class=\"input-group  btn-group-justified\"><span style='width:60px'  class=\"input-group-addon\"><span class='glyphicon glyphicon-book'></span></span>{input}</div>",
+            'template' => "{label}\n<div class=\"input-group  btn-group-justified\"><span style='width:60px'  class=\"input-group-addon\"><span class='fa fa-book'></span></span>{input}</div>",
         ])->dropDownList($nav)->label(false) ?>
     </div>
 
     <div class="col-md-3">
         <?= $form->field($model, 'username', [
-            'template' => "{label}\n<div class=\"input-group  btn-group-justified\"><span style='width:60px'  class=\"input-group-addon\"><span class='glyphicon glyphicon-user'></span></span>{input}</div>",
+            'template' => "{label}\n<div class=\"input-group  btn-group-justified\"><span style='width:60px'  class=\"input-group-addon\"><span class='fa fa-user'></span></span>{input}</div>",
         ])->textInput(['maxlength' => 128, 'autocomplete' => 'off', 'placeholder' => Yii::t('app', 'Who')])->label(false) ?>
     </div>
 

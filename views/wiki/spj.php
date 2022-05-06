@@ -1,6 +1,6 @@
 
 <div class="alert alert-light">
-    <i class="glyphicon glyphicon-info-sign"></i> 本页面已被隐藏，非管理员将无法查看此页面。
+    <i class="fa fa-info-circle"></i> 本页面已被隐藏，非管理员将无法查看此页面。
 </div>
 
 <h3>Special Judge</h3>

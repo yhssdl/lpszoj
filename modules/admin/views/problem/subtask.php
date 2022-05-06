@@ -15,7 +15,7 @@ $this->params['model'] = $model;
 <div class="solutions-view animate__animated animate__fadeInUp">
     <?php if (Yii::$app->setting->get('oiMode')) : ?>
         <div class="alert alert-light">
-            <i class="glyphicon glyphicon-info-sign"></i> 如果题目需要配置子任务的，可以在下面填写子任务的配置。参考：<?= Html::a('子任务配置要求', ['/wiki/oi']) ?>
+            <i class="fa fa-info-circle"></i> 如果题目需要配置子任务的，可以在下面填写子任务的配置。参考：<?= Html::a('子任务配置要求', ['/wiki/oi']) ?>
         </div>
 
 
