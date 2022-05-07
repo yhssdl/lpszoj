@@ -139,8 +139,10 @@ if (!Yii::$app->user->isGuest) {
     $solution->language = Yii::$app->user->identity->language;
 }
 
-$theme = $_COOKIE['theme'];
-if ($theme == '') $theme = "solarized";
+if(isset($_COOKIE['theme']))
+    $theme = $_COOKIE['theme'];
+else 
+    $theme = "solarized";
 
 $model->setSamples();
 

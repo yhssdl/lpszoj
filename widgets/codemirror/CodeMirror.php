@@ -37,8 +37,10 @@ class CodeMirror extends InputWidget
      */
     public function registerScripts()
     {
-        $theme = $_COOKIE['theme'];
-        if($theme=='') $theme = "solarized";
+        if(isset($_COOKIE['theme']))
+            $theme = $_COOKIE['theme'];
+        else 
+            $theme = "solarized";
         CodeMirrorAsset::register($this->view);
         $id = $this->options['id'];
         $script = <<<EOF
