@@ -109,13 +109,22 @@ $nextProblemID = $model->getNextProblemID();
                     <tr>
                         <td><?= Yii::t('app', 'Time Limit') ?></td>
                         <td>
-                            <?= Yii::t('app', '{t, plural, =1{# second} other{# seconds}}', ['t' => intval($model->time_limit)]); ?>
+                        <i class="fa fa-clock-o"></i> <?= Yii::t('app', '{t, plural, =1{# second} other{# seconds}}', ['t' => intval($model->time_limit)]); ?>
                         </td>
                     </tr>
                     <tr>
                         <td><?= Yii::t('app', 'Memory Limit') ?></td>
-                        <td><?= $model->memory_limit ?> MB</td>
+                        <td><i class="fa fa-save"></i> <?= $model->memory_limit ?> MB</td>
                     </tr>
+                    <tr>
+                        <td><?= Yii::t('app', '提交次数') ?></td>
+                        <td><i class="fa fa-share-square-o"></i> <?= $model->submit ?></td>
+                    </tr>                       
+                    <tr>
+                        <td><?= Yii::t('app', '通过次数') ?></td>
+                        <td><i class="fa fa-check-square-o"></i> <?= $model->accepted ?></td>
+                    </tr>
+                                     
                 </tbody>
             </table>
         </div>

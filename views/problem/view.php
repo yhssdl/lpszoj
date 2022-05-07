@@ -186,7 +186,7 @@ $nextProblemID = $model->getNextProblemID();
                             ['view' => 'classic']
                         ) ?>
                     </p>
-                    <p><?= Html::a('旧版界面', ['/problem/view', 'id' => $model->id, 'view' => 'classic']) ?></p>
+                    <p></p>
                 </div>
             </div>
         </div>

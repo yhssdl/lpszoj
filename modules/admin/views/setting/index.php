@@ -88,7 +88,6 @@ $this->title = Yii::t('app', 'Setting');
     <p class="hint-block">
         注意，如需启动 OI 模式，除了在此处选择是外，还需要在启动判题服务时加上 sudo ./dispatcher <code>-o</code>参数。
     </p>
-
 </div>
 
 
@@ -113,6 +112,14 @@ $this->title = Yii::t('app', 'Setting');
     <?= Html::radioList('isShowStatus', $settings['isShowStatus'], [
         1 => '导航栏中显示状态菜单',
         0 => '导航栏中关闭状态菜单'
+    ]) ?>
+</div>
+
+<div class="form-group">
+    <?= Html::label(Yii::t('app', '答题界面'), 'showMode') ?>
+    <?= Html::radioList('showMode', $settings['showMode'], [
+        1 => '左右模式答题界面',
+        0 => '经典模式答题界面'
     ]) ?>
 </div>
 

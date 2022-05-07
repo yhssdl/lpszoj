@@ -165,7 +165,7 @@ class ProblemController extends BaseController
      * @param integer $id
      * @return mixed
      */
-    public function actionView($id, $view = 'view')
+    public function actionView($id)
     {
         $model = $this->findModel($id);
         $solution = new Solution();
@@ -201,7 +201,9 @@ class ProblemController extends BaseController
             }
             return $this->refresh();
         }
-        $view = ($view == 'view' ? 'view' : 'classic');
+
+
+        $view = (Yii::$app->setting->get('showMode') ? 'view' : 'classic');
 
         return $this->render($view, [
             'solution' => $solution,
