@@ -98,7 +98,6 @@ class ProblemController extends BaseController
             'dataProvider' => $dataProvider,
             'tags' => $tags,
             'solvedProblem' => $solvedProblem,
-            'showTags' => $showTags,
             'page' => $page,
             'tag' => $tag            
         ]);
