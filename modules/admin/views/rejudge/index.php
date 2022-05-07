@@ -30,7 +30,7 @@ $this->title = Yii::t('app', 'Rejudge');
 
     <div class="alert alert-warning"><i class="fa fa-info-circle"></i> 重判提交将带来不可预知的后果，对于进行中或已经结束的比赛，在非必要的情况下（特指数据造水了）不应该进行重判。</div>
     <div class="form-group">
-        <?= Html::submitButton(Yii::t('app', 'Submit'), ['class' => 'btn btn-danger btn-block']) ?>
+    <div class="row"><div class="col-md-2 col-md-offset-5"><?= Html::submitButton(Yii::t('app', 'Submit'), ['class' => 'btn btn-danger btn-block']) ?></div></div>
     </div>
 
     <?php ActiveForm::end(); ?>

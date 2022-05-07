@@ -37,6 +37,8 @@ $scoreboardFrozenTime = Yii::$app->setting->get('scoreboardFrozenTime') / 3600;
 
 
     <?php if ($model->hasPermission()) : ?>
+
+        <div class="row"><div class="col-md-2">
         <?php Modal::begin([
             'header' => Yii::t('app', 'Invite Member'),
             'toggleButton' => [
@@ -56,10 +58,12 @@ $scoreboardFrozenTime = Yii::$app->setting->get('scoreboardFrozenTime') / 3600;
             <?= $form->field($newGroupUser, 'role')->radioList(['2' => '邀请中'], ['value' => [2]]) ?>
         <?php endif; ?>
         <div class="form-group">
-            <?= Html::submitButton(Yii::t('app', 'Submit'), ['class' => 'btn btn-success btn-block']) ?>
+        <div class="row"><div class="col-md-4 col-md-offset-4"><?= Html::submitButton(Yii::t('app', 'Submit'), ['class' => 'btn btn-success btn-block']) ?></div></div>
         </div>
         <?php ActiveForm::end(); ?>
         <?php Modal::end(); ?>
+</div></div>
+
         <br>
     <?php endif; ?>
 </div>

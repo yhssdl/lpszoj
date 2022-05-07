@@ -78,7 +78,7 @@ use yii\helpers\Url;
     <?= $form->field($model, 'contest_id')->label(Yii::t('app', 'Contest ID'))->dropDownList(\app\models\Contest::getContestList()) ?>
 
     <div class="form-group">
-        <?= Html::submitButton(Yii::t('app', 'Save'), ['class' => 'btn btn-success btn-block']) ?>
+    <div class="row"><div class="col-md-2 col-md-offset-5"><?= Html::submitButton(Yii::t('app', 'Save'), ['class' => 'btn btn-success btn-block']) ?></div></div>
     </div>
 
     <?php ActiveForm::end(); ?>

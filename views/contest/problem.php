@@ -163,7 +163,7 @@ $loadingImgUrl = Yii::getAlias('@web/images/loading.gif');
                         <?= $form->field($solution, 'source')->widget('app\widgets\codemirror\CodeMirror')->label(false); ?>
 
                         <div class="form-group">
-                            <?= Html::submitButton('<span class="fa fa-send"></span> ' . Yii::t('app', 'Submit'), ['class' => 'btn btn-success btn-block']) ?>
+                        <div class="row"><div class="col-md-4 col-md-offset-4"><?= Html::submitButton('<span class="fa fa-send"></span> ' . Yii::t('app', 'Submit'), ['class' => 'btn btn-success btn-block']) ?></div></div>
                         </div>
                         <?php ActiveForm::end(); ?>
                     <?php endif; ?>

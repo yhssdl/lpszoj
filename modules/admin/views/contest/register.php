@@ -34,7 +34,7 @@ $contest_id = $model->id;
         </div>
 
         <div class="form-group">
-            <?= Html::submitButton(Yii::t('app', 'Submit'), ['class' => 'btn btn-success btn-block']) ?>
+        <div class="row"><div class="col-md-4 col-md-offset-4"><?= Html::submitButton(Yii::t('app', 'Submit'), ['class' => 'btn btn-success btn-block']) ?></div></div>
         </div>
         <?= Html::endForm(); ?>
         <?php Modal::end(); ?>
@@ -68,7 +68,7 @@ $contest_id = $model->id;
         <?= $form->field($generatorForm, 'names')->textarea(['rows' => 10])->label(false) ?>
 
         <div class="form-group">
-            <?= Html::submitButton(Yii::t('app', 'Generate'), ['class' => 'btn btn-success btn-block']) ?>
+        <div class="row"><div class="col-md-4 col-md-offset-4"><?= Html::submitButton(Yii::t('app', 'Generate'), ['class' => 'btn btn-success btn-block']) ?></div></div>
         </div>
 
         <?php ActiveForm::end(); ?>

@@ -12,7 +12,7 @@ $this->title = Yii::t('app', 'Problems');
 
 ?>
 <p class="lead">欢迎访问 Polygon 出题系统</p>
-<?= Html::a(Yii::t('app', 'Create Problem'), ['/polygon/problem/create'], ['class' => 'btn btn-success btn-block']) ?>
+<div class="row"><div class="col-md-2"><?= Html::a(Yii::t('app', 'Create Problem'), ['/polygon/problem/create'], ['class' => 'btn btn-success btn-block']) ?></div></div>
 <br>
 <div class="problem-index">
 

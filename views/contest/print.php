@@ -55,7 +55,7 @@ $this->params['model'] = $model;
     <?= $form->field($newContestPrint, 'source')->widget('app\widgets\codemirror\CodeMirror')->label(false); ?>
 
     <div class="form-group">
-        <?= Html::submitButton('提交', ['class' => 'btn btn-success btn-block']) ?>
+    <div class="row"><div class="col-md-2 col-md-offset-5"><?= Html::submitButton('提交', ['class' => 'btn btn-success btn-block']) ?></div></div>
     </div>
 
     <?php ActiveForm::end(); ?>

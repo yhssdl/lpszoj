@@ -15,7 +15,7 @@ $this->title = Yii::t('app', 'Contests');
     <?php Pjax::begin(); ?>
 
     <p>
-        <?= Html::a(Yii::t('app', 'Create Contest'), ['create'], ['class' => 'btn btn-success btn-block']) ?>
+        <div class="row"><div class="col-md-2"> <?= Html::a(Yii::t('app', 'Create Contest'), ['create'], ['class' => 'btn btn-success btn-block']) ?></div></div>
     </p>
 
     <?= GridView::widget([

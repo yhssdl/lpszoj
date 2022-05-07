@@ -112,7 +112,7 @@ if ($discuss != null) {
         <?= $form->field($newClarify, 'content')->widget(Yii::$app->setting->get('ojEditor')); ?>
 
         <div class="form-group">
-            <?= Html::submitButton(Yii::t('app', 'Submit'), ['class' => 'btn btn-success btn-block']) ?>
+        <div class="row"><div class="col-md-2 col-md-offset-5"><?= Html::submitButton(Yii::t('app', 'Submit'), ['class' => 'btn btn-success btn-block']) ?></div></div>
         </div>
         <?php ActiveForm::end(); ?>
   

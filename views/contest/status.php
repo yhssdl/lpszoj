@@ -19,23 +19,23 @@ $problems = $model->problems;
 $nav = [];
 $nav[''] = 'All';
 foreach ($problems as $key => $p) {
-    $nav[$p['problem_id']] = 'P'. ($key + 1) . '-' . $p['title'];
+    $nav[$p['problem_id']] = 'P' . ($key + 1) . '-' . $p['title'];
 }
 $userInContest = $model->isUserInContest();
 $isContestEnd = $model->isContestEnd();
 ?>
 <div class="solution-index" style="margin-top: 20px">
-    <?php if ($model->isScoreboardFrozen()) :?>
+    <?php if ($model->isScoreboardFrozen()) : ?>
         <p class="text-center">现已是封榜状态，榜单将不再实时更新，只显示封榜前的提交及您个人的所有提交记录。</p>
     <?php endif; ?>
     <?php Pjax::begin() ?>
-    <?php if ($model->type != Contest::TYPE_OI || $isContestEnd): ?>
-    <?= $this->render('_status_search', ['model' => $searchModel, 'nav' => $nav, 'contest_id' => $model->id]); ?>
+    <?php if ($model->type != Contest::TYPE_OI || $isContestEnd) : ?>
+        <?= $this->render('_status_search', ['model' => $searchModel, 'nav' => $nav, 'contest_id' => $model->id]); ?><br>
     <?php endif; ?>
 
     <?= GridView::widget([
         'layout' => '{items}{pager}',
-        'pager' =>[
+        'pager' => [
             'firstPageLabel' => Yii::t('app', 'First'),
             'prevPageLabel' => '« ',
             'nextPageLabel' => '» ',
@@ -43,7 +43,7 @@ $isContestEnd = $model->isContestEnd();
             'maxButtonCount' => 10
         ],
         'dataProvider' => $dataProvider,
-        'rowOptions' => function($model, $key, $index, $grid) {
+        'rowOptions' => function ($model, $key, $index, $grid) {
             return ['class' => 'animate__animated animate__fadeInUp'];
         },
         'options' => ['class' => 'table-responsive'],
@@ -75,8 +75,10 @@ $isContestEnd = $model->isContestEnd();
                     if (!isset($res->num)) {
                         return $model->problem->title;
                     }
-                    return Html::a('P'.($res->num + 1). ' - ' . $model->problem->title,
-                        ['/contest/problem', 'id' => $res->contest_id, 'pid' => $res->num]);
+                    return Html::a(
+                        'P' . ($res->num + 1) . ' - ' . $model->problem->title,
+                        ['/contest/problem', 'id' => $res->contest_id, 'pid' => $res->num]
+                    );
                 },
                 'format' => 'raw'
             ],
@@ -90,7 +92,8 @@ $isContestEnd = $model->isContestEnd();
                     $otherCan = ($isContestEnd && Yii::$app->setting->get('isShareCode'));
                     $createdBy = (!Yii::$app->user->isGuest && ($model->created_by == Yii::$app->user->id || Yii::$app->user->id == $solution->created_by));
                     if ($otherCan || $createdBy || $model->type == Contest::TYPE_HOMEWORK || ($userInContest && $isContestEnd)) {
-                        return Html::a($solution->getResult(),
+                        return Html::a(
+                            $solution->getResult(),
                             ['/solution/result', 'id' => $solution->id],
                             ['onclick' => 'return false', 'data-click' => "solution_info", 'data-pjax' => 0]
                         );
@@ -104,7 +107,7 @@ $isContestEnd = $model->isContestEnd();
             [
                 'attribute' => 'score',
                 'visible' => $model->type == Contest::TYPE_IOI || $model->type == Contest::TYPE_HOMEWORK ||
-                            ($model->type == Contest::TYPE_OI && $isContestEnd),
+                    ($model->type == Contest::TYPE_OI && $isContestEnd),
                 'enableSorting' => false
             ],
             [
@@ -114,7 +117,7 @@ $isContestEnd = $model->isContestEnd();
                     if ($model->type == \app\models\Contest::TYPE_OI && !$isContestEnd) {
                         return "－";
                     }
-                    return $solution->time  .' '. Yii::t('app', 'MS');
+                    return $solution->time  . ' ' . Yii::t('app', 'MS');
                 },
                 'enableSorting' => false,
                 'format' => 'raw'
@@ -136,7 +139,8 @@ $isContestEnd = $model->isContestEnd();
                 'value' => function ($solution, $key, $index, $column) use ($model, $isContestEnd) {
                     $otherCan = ($isContestEnd && Yii::$app->setting->get('isShareCode'));
                     if ($solution->canViewSource() || $otherCan) {
-                        return Html::a($solution->getLang(),
+                        return Html::a(
+                            $solution->getLang(),
                             ['/solution/source', 'id' => $solution->id],
                             ['onclick' => 'return false', 'data-click' => "solution_info", 'data-pjax' => 0]
                         );
@@ -162,10 +166,10 @@ $isContestEnd = $model->isContestEnd();
             ]
         ],
     ]); ?>
-<?php
-$url = \yii\helpers\Url::toRoute(['/solution/verdict']);
-$loadingImgUrl = Yii::getAlias('@web/images/loading.gif');
-$js = <<<EOF
+    <?php
+    $url = \yii\helpers\Url::toRoute(['/solution/verdict']);
+    $loadingImgUrl = Yii::getAlias('@web/images/loading.gif');
+    $js = <<<EOF
 $('[data-click=solution_info]').click(function() {
     $.ajax({
         url: $(this).attr('href'),
@@ -226,8 +230,8 @@ if (waitingCount > 0) {
     interval = setInterval(testWaitingsDone, 1000);
 }
 EOF;
-$this->registerJs($js);
-?>
+    $this->registerJs($js);
+    ?>
     <?php Pjax::end() ?>
 </div>
 <?php Modal::begin([

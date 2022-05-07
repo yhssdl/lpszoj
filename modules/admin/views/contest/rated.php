@@ -15,7 +15,7 @@ $this->title = $model->title;
     <p class="lead"><?= Html::encode($this->title) ?></p>
     <?php if ($model->getRunStatus() == Contest::STATUS_ENDED): ?>
         <div class="alert alert-light"><i class=" fa fa-info-circle"></i> 点击下方按钮将计算参加该场比赛的用户在该场比赛所的积分。计算出来的积分用于在排行榜排名。重复点击只会计算一次。</div>
-        <?= Html::a(Yii::t('app', 'Rated'), ['rated', 'id' => $model->id, 'cal' => 1], ['class' => 'btn btn-success btn-block']) ?>
+        <div class="row"><div class="col-md-2"><?= Html::a(Yii::t('app', 'Rated'), ['rated', 'id' => $model->id, 'cal' => 1], ['class' => 'btn btn-success btn-block']) ?></div></div>
         <br>
         <?= GridView::widget([
             'layout' => '{items}{pager}',

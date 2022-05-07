@@ -30,7 +30,7 @@ $this->params['model'] = $model;
             <?php if (extension_loaded('zip')): ?>
                 <br>
                 <p>
-                    <?= Html::a('下载全部数据', ['download-data', 'id' => $model->id], ['class' => 'btn btn-success btn-block']); ?>
+                <div class="row"><div class="col-md-2 col-md-offset-5"><?= Html::a('下载全部数据', ['download-data', 'id' => $model->id], ['class' => 'btn btn-success btn-block']); ?></div></div>
                 </p>
             <?php else: ?>
                 <p>

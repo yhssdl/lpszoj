@@ -28,7 +28,7 @@ $this->params['model'] = $model;
         </div>
 
         <div class="form-group">
-            <?= Html::submitButton(Yii::t('app', 'Submit'), ['class' => 'btn btn-success btn-block']) ?>
+        <div class="row"><div class="col-md-2 col-md-offset-5"><?= Html::submitButton(Yii::t('app', 'Submit'), ['class' => 'btn btn-success btn-block']) ?></div></div>
         </div>
         <?= Html::endForm(); ?>
     <?php else : ?>

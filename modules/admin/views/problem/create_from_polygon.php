@@ -38,7 +38,7 @@ $this->title = Yii::t('app', 'Import Problem From Polygon System');
     </div>
 
     <div class="form-group animate__animated animate__fadeInUp">
-        <?= Html::submitButton(Yii::t('app', 'Submit'), ['class' => 'btn btn-success btn-block']) ?>
+    <div class="row"><div class="col-md-2 col-md-offset-5"><?= Html::submitButton(Yii::t('app', 'Submit'), ['class' => 'btn btn-success btn-block']) ?></div></div>
     </div>
 
     <?= Html::endForm() ?>

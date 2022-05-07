@@ -46,7 +46,7 @@ $this->title = Yii::t('app', 'Users');
 
 
         <div class="form-group">
-            <?= Html::submitButton(Yii::t('app', 'Generate'), ['class' => 'btn btn-success  btn-block']) ?>
+        <div class="row"><div class="col-md-4 col-md-offset-4"><?= Html::submitButton(Yii::t('app', 'Generate'), ['class' => 'btn btn-success  btn-block']) ?></div></div>
         </div>
 
         <?php ActiveForm::end(); ?>

@@ -70,7 +70,7 @@ use yii\helpers\Url;
         ->hint('<i class="fa fa-info-circle"></i> 多标签用逗号隔开。如：dfs, bfs, dp, 暴力，贪心，最短路') ?>
 
     <div class="form-group">
-        <?= Html::submitButton(Yii::t('app', 'Save'), ['class' => 'btn btn-success btn-block']) ?>
+    <div class="row"><div class="col-md-2 col-md-offset-5"><?= Html::submitButton(Yii::t('app', 'Save'), ['class' => 'btn btn-success btn-block']) ?></div></div>
     </div>
 
     <?php ActiveForm::end(); ?>

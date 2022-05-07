@@ -25,7 +25,7 @@ $maxFileSize = min(ini_get("upload_max_filesize"), ini_get("post_max_size"));
         )->label(true, ['class' => 'custom-file-label', 'id' => 'myfile']) ?>
         <p></p>
 
-        <?= Html::submitButton(Yii::t('app', 'Submit'), ['class' => 'btn btn-success btn-block']) ?>
+        <div class="row"><div class="col-md-2 col-md-offset-5"><?= Html::submitButton(Yii::t('app', 'Submit'), ['class' => 'btn btn-success btn-block']) ?></div></div>
 
         <?php ActiveForm::end() ?>
     <?php else : ?>

@@ -25,6 +25,7 @@ $this->params['model'] = $model;
         <div class="col-md-12">
             <?php if (extension_loaded('zip')): ?>
                 <br>
+                <div class="row"><div class="col-md-4 col-md-offset-4">
                 <div class="btn-group btn-group-justified">
                     <div class="btn-group">
                         <?= Html::a('下载全部数据', ['download-data', 'id' => $model->id], ['class' => 'btn btn-success btn-block']); ?>
@@ -33,6 +34,7 @@ $this->params['model'] = $model;
                     <?= Html::a('生成输出数据', ['/polygon/problem/run', 'id' => $model->id], ['class' => 'btn btn-primary','title' => '运行标程程序，根据输入文件自动生成输出文件。点击后需要时间生成输出文件，请稍后刷新页面。', 'data-toggle'=>"tooltip",'data-placement'=>"bottom" ]) ?>
                     </div>
                 </div>
+                </div></div>
                 <br>
             <?php else: ?>
                 <div class="alert alert-light"><i class="fa fa-info-circle"></i> 服务器未启用 php-zip 扩展，如需下载测试数据，请安装 php-zip　扩展。</div>    

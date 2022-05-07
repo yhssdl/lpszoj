@@ -12,9 +12,9 @@ $this->title = Yii::t('app', 'News');
 
     <p class="lead">创建和管理新闻</p>
 
-    <p>
-        <?= Html::a(Yii::t('app', 'Release news'), ['create'], ['class' => 'btn btn-success btn-block']) ?>
-    </p>
+  <p>
+    <div class="row"><div class="col-md-2"><?= Html::a(Yii::t('app', 'Release news'), ['create'], ['class' => 'btn btn-success btn-block']) ?></div></div>
+  </p>
 
     <?= GridView::widget([
         'layout' => '{items}{pager}',

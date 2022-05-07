@@ -15,28 +15,30 @@ $contest_id = $model->id;
 ?>
 <p class="lead">管理比赛 <?= Html::a(Html::encode($model->title), ['view', 'id' => $model->id]) ?> 打星用户。</p>
 
+<div class="row"><div class="col-md-2">
 <?php Modal::begin([
     'header' => '添加打星用户',
     'toggleButton' => ['label' => Yii::t('app', '添加打星用户'), 'class' => 'btn btn-success btn-block']
-]);?>
+]); ?>
 <?= Html::beginForm(['contest/star', 'id' => $model->id]) ?>
 <div class="alert alert-light"><i class="fa fa-info-circle"></i> 在这里填写用户名，必须是已经注册本比赛的用户。一个名字占据一行，请自行删除多余的空行。</div>
-    <div class="form-group">
-        <?= Html::textarea('user', '',['class' => 'form-control', 'rows' => 10]) ?>
-    </div>
+<div class="form-group">
+    <?= Html::textarea('user', '', ['class' => 'form-control', 'rows' => 10]) ?>
+</div>
 
-    <div class="form-group">
-        <?= Html::submitButton(Yii::t('app', 'Submit'), ['class' => 'btn btn-success btn-block']) ?>
-    </div>
-    <?= Html::endForm(); ?>
+<div class="form-group">
+<div class="row"><div class="col-md-4 col-md-offset-4"><?= Html::submitButton(Yii::t('app', 'Submit'), ['class' => 'btn btn-success btn-block']) ?></div></div>
+</div>
+<?= Html::endForm(); ?>
 <?php Modal::end(); ?>
+</div></div>
 
 <p></p>
 
 <?= GridView::widget([
     'dataProvider' => $dataProvider,
     'layout' => '{items}{pager}',
-    'pager' =>[
+    'pager' => [
         'firstPageLabel' => Yii::t('app', 'First'),
         'prevPageLabel' => '« ',
         'nextPageLabel' => '» ',

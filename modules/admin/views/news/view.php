@@ -11,9 +11,17 @@ $this->title = $model->title;
 
     <p class="lead"> 预览《<?= Html::encode($model->title) ?>》发布渲染效果</p>
 
+    <div class="list-group">
+        <div class="list-group-item animate__animated animate__fadeInUp">
+         <?= Yii::$app->formatter->asMarkdown($model->content) ?> </div>
+    </div>
+
+    <p></p>
+
+    <div class="row"><div class="col-md-4 col-md-offset-4">
     <div class="btn-group btn-group-justified">
         <div class="btn-group">
-        <?= Html::a(Yii::t('app', 'Update'), ['update', 'id' => $model->id], ['class' => 'btn btn-primary']) ?>
+        <?= Html::a(Yii::t('app', 'Edit'), ['update', 'id' => $model->id], ['class' => 'btn btn-success']) ?>
         </div>
         <div class="btn-group">
         <?= Html::a(Yii::t('app', 'Delete'), ['delete', 'id' => $model->id], ['class' => 'btn btn-danger',
@@ -24,10 +32,5 @@ $this->title = $model->title;
         ]) ?>
         </div>
     </div>
-    <p></p>
-
-    <div class="list-group">
-        <div class="list-group-item animate__animated animate__fadeInUp">
-         <?= Yii::$app->formatter->asMarkdown($model->content) ?> </div>
-    </div>
+    </div></div>
 </div>
