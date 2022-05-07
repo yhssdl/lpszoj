@@ -36,7 +36,7 @@ $this->title = Yii::t('app', 'Setting');
             0 => '关闭首页公告'
         ]) ?>
         <p class="hint-block">
-            开启后，首页公告将展示在着页的右上方。
+            开启后，首页公告将展示在首页的右上方。
         </p>
     </div>
     <div class="form-group">
