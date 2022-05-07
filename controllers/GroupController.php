@@ -68,7 +68,10 @@ class GroupController extends BaseController
                 'pageSize' => 20,
             ],
         ]);
+
+        $searchModel = null;
         return $this->render('index', [
+            'searchModel' => $searchModel,
             'dataProvider' => $dataProvider,
         ]);
     }
