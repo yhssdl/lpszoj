@@ -184,7 +184,6 @@ return [
     'Make an announcement' => '发布公告',
     'User' => '用户',
     'Create' => '创建',
-    'Jiangnan' => '江南',
     'Generator' => '生成器',
     'Content' => '内容',
     'Save' => '保存',

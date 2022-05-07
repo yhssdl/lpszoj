@@ -10,7 +10,7 @@ class InstallController extends Controller
     public function actionIndex()
     {
         echo "================================================\n";
-        echo " Jiangnan Online Judge Initialization Tool v1.0\n";
+        echo " Lpsz Online Judge Initialization Tool v1.0\n";
         echo "================================================\n\n";
         $root = str_replace('\\', '/', __DIR__ . '/..');
         $env = [
