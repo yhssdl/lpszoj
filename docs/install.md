@@ -16,7 +16,7 @@
 
 **注意！！！此方法目前仅在 Ubuntu 20.04/18.04/16.04、Debian 11 中测试通过。其它 Linux 系统还未测试。**
 
-执行以下命令，进行安装：
+执行以下命令，进行安装(如果安装过程中出现错误，可以再次尝试运行安装命令)：
 ```
 Ubuntu运行：
 wget https://gitee.com/yhssdl/lpszoj/raw/master/docs/install.sh && sudo bash install.sh
