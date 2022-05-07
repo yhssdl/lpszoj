@@ -72,13 +72,13 @@ $scoreboardFrozenTime = Yii::$app->setting->get('scoreboardFrozenTime') / 3600;
 
 
     <?= $form->field($model, 'enable_print')->radioList([
-        '0' => '关闭打印',
         '1' => '开启打印',
+        '0' => '关闭打印',
     ]) ?>
 
     <?= $form->field($model, 'enable_clarify')->radioList([
-        0 => '关闭答疑',
         1 => '开启答疑',
+        0 => '关闭答疑',
     ])->hint('答疑界面在比赛中可以根据需要开启或关闭。') ?>
 
     <?= $form->field($model, 'enable_board')->radioList([
