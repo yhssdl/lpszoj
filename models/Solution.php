@@ -481,6 +481,12 @@ class Solution extends ActiveRecord
 
     public static function testHtml($id, $caseJsonObject)
     {
+        $isAdmin = false;
+        //管理员有权限查看所有情况
+        if (!Yii::$app->user->isGuest && Yii::$app->user->identity->role == User::ROLE_ADMIN){
+            $isAdmin = true;
+        }
+        
         $html_str = "";
         if ($caseJsonObject->verdict == Solution::OJ_AC) {
             $html_str = $html_str . '<div class="panel panel-default test-for-popup"> 
@@ -494,7 +500,7 @@ class Solution extends ActiveRecord
             </div>';
         } else {
             $html_str = $html_str .  '<div class="panel panel-default test-for-popup"><div class="panel-heading" role="tab" id="heading' . $id . '">';
-            if (Yii::$app->setting->get('isShowError')){
+            if (Yii::$app->setting->get('isShowError') || $isAdmin){
                 $html_str = $html_str .  '<a class="collapsed" role="button" data-toggle="collapse" data-parent="#accordion"
                       href="#test-' . $id . '" aria-expanded="false" aria-controls="test-' . $id . '"><span class=" text-danger">';
             }
@@ -504,10 +510,10 @@ class Solution extends ActiveRecord
     
             $html_str = $html_str .  '测试点' . $id . ': ' . Solution::getResultList($caseJsonObject->verdict) . ', 
                     时间: ' . $caseJsonObject->time . ' 毫秒,内存: ' . $caseJsonObject->memory . ' KB </span>';
-            if (Yii::$app->setting->get('isShowError')) $html_str = $html_str .  '</a>';
+            if (Yii::$app->setting->get('isShowError') || $isAdmin) $html_str = $html_str .  '</a>';
             $html_str = $html_str .  '</div>';
     
-            if (Yii::$app->setting->get('isShowError')){
+            if (Yii::$app->setting->get('isShowError') || $isAdmin){
     
                 $html_str = $html_str .  '<div id="test-' . $id . '" class="panel-collapse collapse" role="tabpanel" aria-labelledby="heading' . $id . '">
                     <div class="panel-body">
@@ -540,5 +546,29 @@ class Solution extends ActiveRecord
         }
         return $html_str;
     }
+
+    public static function  subtaskHtml($id, $score, $verdict,$subtask_body)
+    {
+        $scoregot = $score;
+        $csscolor = 'panel-success';
+        if ($verdict != 4) {
+          $scoregot = 0;
+          $csscolor = 'panel-warning';
+        }
+        return '<div class="panel ' . $csscolor . ' test-for-popup">
+              <div class="panel-heading" role="tab" id="subtask-heading-' . $id . '">
+                  <h4 class="panel-title">
+                      <a role="button" data-toggle="collapse"
+                          href="#subtask-' . $id . '" aria-expanded="false" aria-controls="subtask-' . $id . '">
+                          子任务 #' . $id . ', 分数: ' . $score . ', 得分: ' . $scoregot . '
+                      </a> 
+                  </h4> 
+              </div> 
+              <div id="subtask-' . $id . '" class="panel-collapse collapse" role="tabpanel" aria-labelledby="subtask-heading-' . $id . '"> 
+                  <div id="subtask-body-' . $id . '" class="panel-body">' . $subtask_body . 
+                  '</div>
+              </div>
+          </div>';
+    }    
     
 }

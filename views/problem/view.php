@@ -326,8 +326,9 @@ $nextProblemID = $model->getNextProblemID();
                         }
                     }
                     ?>
-                    <div>
+
                         <?php if (!Yii::$app->user->isGuest && !empty($submissions)) : ?>
+                            <div>
                             <?php Modal::begin([
                                 'header' => Yii::t('app', 'Submit') . '：' . Html::encode($model->id . '. ' . $model->title),
                                 'toggleButton' => [
@@ -381,8 +382,9 @@ $nextProblemID = $model->getNextProblemID();
                                 </tbody>
                             </table>
                             <?php Modal::end(); ?>
+                         
                             <?php $sub = $submissions[0]; ?>
-                            <span><?= Yii::$app->formatter->asRelativeTime($sub['created_at']) ?></span>
+                            <span>&nbsp;&nbsp;<?= Yii::$app->formatter->asRelativeTime($sub['created_at']) ?>&nbsp;&nbsp;</span>
                             <span>
                                 <?php
                                 if ($sub['result'] <= Solution::OJ_WAITING_STATUS) {
@@ -394,14 +396,14 @@ $nextProblemID = $model->getNextProblemID();
                                 }
                                 $innerHtml =  'data-verdict="' . $sub['result'] . '" data-submissionid="' . $sub['id'] . '" ' . $waitingHtmlDom;
                                 if ($sub['result'] == Solution::OJ_AC) {
-                                    $span = '<strong class="text-success"' . $innerHtml . '>' . Solution::getResultList($sub['result']) . '</strong>';
+                                    $span = '<span class="text-success"' . $innerHtml . '>' . Solution::getResultList($sub['result']) . '</span>';
                                     echo Html::a(
                                         $span,
                                         ['/solution/source', 'id' => $sub['id']],
                                         ['onclick' => 'return false', 'data-click' => "solution_info", 'data-pjax' => 0]
                                     );
                                 } else {
-                                    $span = '<strong class="text-danger" ' . $innerHtml . '>' . Solution::getResultList($sub['result']) . $loadingImg . '</strong>';
+                                    $span = '<span class="text-danger" ' . $innerHtml . '>' . Solution::getResultList($sub['result']) . $loadingImg . '</span>';
                                     echo Html::a(
                                         $span,
                                         ['/solution/result', 'id' => $sub['id']],
@@ -411,15 +413,16 @@ $nextProblemID = $model->getNextProblemID();
                                 ?>
                             </span>
                             <span>
-                                <?= Html::a(
+                            &nbsp;&nbsp;<?= Html::a(
                                     '<span class="fa fa-pencil-square-o"></span>',
                                     ['/solution/source', 'id' => $sub['id']],
                                     ['title' => '查看源码', 'onclick' => 'return false', 'data-click' => "solution_info", 'data-pjax' => 0]
                                 )
                                 ?>
                             </span>
+                            </div>
                         <?php endif; ?>
-                    </div>
+
                 </div>
                 <?php ActiveForm::end(); ?>
             </div>
