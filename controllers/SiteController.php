@@ -49,7 +49,7 @@ class SiteController extends BaseController
 
     public function actionNews($id)
     {
-        $model = Discuss::find()->where( 'status>=1',['id' => $id, 'entity' => Discuss::ENTITY_NEWS])->one();
+        $model = Discuss::find()->where(['id' => $id, 'status' => Discuss::STATUS_PUBLIC, 'entity' => [Discuss::ENTITY_NEWS,Discuss::STATUS_FULLTEXT]])->one();
 
         if ($model === null) {
             throw new NotFoundHttpException('The requested page does not exist.');
