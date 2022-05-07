@@ -112,7 +112,7 @@ function getColorLabel($i){
 
 <?php
 
-$title_str .= '标题 <span class="float-right">'. Html::checkbox('showTags', $showTags, ['id' => 'showTags','style' => 'vertical-align:middle;']).' 显示标签</span>';
+$title_str = '标题 <span class="float-right">'. Html::checkbox('showTags', $showTags, ['id' => 'showTags','style' => 'vertical-align:middle;']).' 显示标签</span>';
 $label_i = 0;
 ?>
 
