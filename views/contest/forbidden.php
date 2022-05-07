@@ -27,7 +27,6 @@ $this->params['model'] = $model;
     <div class="row animate__animated animate__fadeInUp">
         <div class="col-lg-8">
             <div class="alert alert-light">
-                <i class="fas fa-fw fa-info-circle"></i>
                 <?php if (strtotime($model->end_time) >= Contest::TIME_INFINIFY) : ?>
                     <i class=" fa fa-info-circle"></i> <b>永久开放的题目集</b> 任何时候均可进行作答。
                 <?php else : ?>

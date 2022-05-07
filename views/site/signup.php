@@ -45,7 +45,7 @@ $this->title = Yii::t('app', 'Signup');
             ],
         ])->widget(\yii\captcha\Captcha::class, [
             'template' => '<div class="input-group btn-group-justified">{input}</div>
-            <div class="list-group text-center" style="margin-top: 1rem;"><div class="list-group-item">{image}<a href="#" class="text-secondary" data-toggle="tooltip" title="点击图片以重置验证码"><span class="fas fa-fw fa-info-circle"></span></a></div></div>',
+            <div class="list-group text-center" style="margin-top: 1rem;"><div class="list-group-item">{image}<a href="#" class="text-secondary" data-toggle="tooltip" title="点击图片以重置验证码"><span class="fas fa-info-circle"></span></a></div></div>',
         ])->label(false);
         ?>
 
