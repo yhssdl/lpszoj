@@ -8,18 +8,15 @@ use yii\helpers\Html;
 
 $this->title = Yii::t('app', 'Create Group');
 
-if(!Yii::$app->user->isGuest || Yii::$app->setting->get('isDefGroup') == 1)
-{
-    $DefGp = true; 
-}
-elseif ((Yii::$app->setting->get('isDefGroup')==2) && (Yii::$app->user->identity->role === User::ROLE_ADMIN) ) {
-    $DefGp = true; 
-}
-elseif(Yii::$app->setting->get('isDefGroup')==3 && (Yii::$app->user->identity->role === User::ROLE_ADMIN || Yii::$app->user->identity->role === User::ROLE_VIP)){
-    $DefGp = true; 
-}
-else{
-    $DefGp = false;  
+$DefGp = false;
+if (!Yii::$app->user->isGuest){
+    if (Yii::$app->setting->get('isDefGroup') == 1) {
+        $DefGp = true;
+    } elseif ((Yii::$app->setting->get('isDefGroup') == 2) && (Yii::$app->user->identity->role === User::ROLE_ADMIN)) {
+        $DefGp = true;
+    } elseif (Yii::$app->setting->get('isDefGroup') == 3 && (Yii::$app->user->identity->role === User::ROLE_ADMIN || Yii::$app->user->identity->role === User::ROLE_VIP)) {
+        $DefGp = true;
+    }
 }
 
 

@@ -10,29 +10,21 @@ use yii\widgets\ListView;
 $this->title = Yii::t('app', 'Groups');
 ?>
 <?php
-if (!Yii::$app->user->isGuest || Yii::$app->setting->get('isDefGroup') == 1) {
-    $DefGp = true;
-} elseif ((Yii::$app->setting->get('isDefGroup') == 2) && (Yii::$app->user->identity->role === User::ROLE_ADMIN)) {
-    $DefGp = true;
-} elseif (Yii::$app->setting->get('isDefGroup') == 3 && (Yii::$app->user->identity->role === User::ROLE_ADMIN || Yii::$app->user->identity->role === User::ROLE_VIP)) {
-    $DefGp = true;
-} else {
-    $DefGp = false;
+
+$DefGp = false;
+if (!Yii::$app->user->isGuest){
+    if (Yii::$app->setting->get('isDefGroup') == 1) {
+        $DefGp = true;
+    } elseif ((Yii::$app->setting->get('isDefGroup') == 2) && (Yii::$app->user->identity->role === User::ROLE_ADMIN)) {
+        $DefGp = true;
+    } elseif (Yii::$app->setting->get('isDefGroup') == 3 && (Yii::$app->user->identity->role === User::ROLE_ADMIN || Yii::$app->user->identity->role === User::ROLE_VIP)) {
+        $DefGp = true;
+    }
 }
-
-
-
 ?>
-
 <?php if (Yii::$app->setting->get('isDefGroup') == 0) : ?>
-
     <div class="alert alert-light"><i class=" fa fa-info-circle"></i> 当前小组功能已经关闭。</div>
-
 <?php else : ?>
-
-
-
-
     <?= Nav::widget([
         'items' => [
             [
