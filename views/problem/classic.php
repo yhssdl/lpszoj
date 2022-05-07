@@ -231,14 +231,14 @@ $nextProblemID = $model->getNextProblemID();
                                     }
                                     $innerHtml =  'data-verdict="' . $sub['result'] . '" data-submissionid="' . $sub['id'] . '" ' . $waitingHtmlDom;
                                     if ($sub['result'] == Solution::OJ_AC) {
-                                        $span = '<strong class="text-success"' . $innerHtml . '>' . Solution::getResultList($sub['result']) . '</strong>';
+                                        $span = '<span class="text-success"' . $innerHtml . '>' . Solution::getResultList($sub['result']) . '</span>';
                                         echo Html::a(
                                             $span,
                                             ['/solution/source', 'id' => $sub['id']],
                                             ['onclick' => 'return false', 'data-click' => "solution_info", 'data-pjax' => 0]
                                         );
                                     } else {
-                                        $span = '<strong class="text-danger" ' . $innerHtml . '>' . Solution::getResultList($sub['result']) . $loadingImg . '</strong>';
+                                        $span = '<span class="text-danger" ' . $innerHtml . '>' . Solution::getResultList($sub['result']) . $loadingImg . '</span>';
                                         echo Html::a(
                                             $span,
                                             ['/solution/result', 'id' => $sub['id']],

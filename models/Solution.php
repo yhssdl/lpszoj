@@ -443,9 +443,7 @@ class Solution extends ActiveRecord
             return true;
         }
 
-        if( !Yii::$app->setting->get('isShowError')) {
-            return false;
-        }
+
 
 
         // 状态可见且设置了分享状态可以查看。以下代码中 isShareCode 的说明参见后台设置页面。
@@ -478,4 +476,69 @@ class Solution extends ActiveRecord
         }
         return false;
     }
+
+
+
+    public static function testHtml($id, $caseJsonObject)
+    {
+        $html_str = "";
+        if ($caseJsonObject->verdict == Solution::OJ_AC) {
+            $html_str = $html_str . '<div class="panel panel-default test-for-popup"> 
+            <div class="panel-heading" role="tab" id="heading' . $id . '"> 
+            <span class="text-success">  
+                        测试点' . $id . ' 
+                        : ' . Solution::getResultList($caseJsonObject->verdict) . ', 
+                        时间: ' . $caseJsonObject->time . ' 毫秒, 
+                        内存: ' . $caseJsonObject->memory . ' KB 
+                    </span> 
+            </div>';
+        } else {
+            $html_str = $html_str .  '<div class="panel panel-default test-for-popup"><div class="panel-heading" role="tab" id="heading' . $id . '">';
+            if (Yii::$app->setting->get('isShowError')){
+                $html_str = $html_str .  '<a class="collapsed" role="button" data-toggle="collapse" data-parent="#accordion"
+                      href="#test-' . $id . '" aria-expanded="false" aria-controls="test-' . $id . '"><span class=" text-danger">';
+            }
+            else{
+                $html_str = $html_str .  '<span class="text-danger">';
+            }
+    
+            $html_str = $html_str .  '测试点' . $id . ': ' . Solution::getResultList($caseJsonObject->verdict) . ', 
+                    时间: ' . $caseJsonObject->time . ' 毫秒,内存: ' . $caseJsonObject->memory . ' KB </span>';
+            if (Yii::$app->setting->get('isShowError')) $html_str = $html_str .  '</a>';
+            $html_str = $html_str .  '</div>';
+    
+            if (Yii::$app->setting->get('isShowError')){
+    
+                $html_str = $html_str .  '<div id="test-' . $id . '" class="panel-collapse collapse" role="tabpanel" aria-labelledby="heading' . $id . '">
+                    <div class="panel-body">
+                        <div class="sample-test">
+                            <div class="input">
+                                <b>&nbsp;输入数据</b>
+                                <pre>' . $caseJsonObject->input . '</pre>
+                            </div>
+                            <div class="output">
+                                <b>&nbsp;标准答案</b>
+                                <pre>' . $caseJsonObject->output . '</pre>
+                            </div>
+                            <div class="output">
+                                <b>&nbsp;你的答案</b>
+                                <pre>' . $caseJsonObject->user_output . '</pre>
+                            </div>
+                            <div class="output">
+                                <b>&nbsp;检查日志</b>
+                                <pre>' . $caseJsonObject->checker_log . '</pre>
+                            </div>
+                            <div class="output">
+                                <b>&nbsp;系统信息</b>
+                                <pre>exit code: ' . $caseJsonObject->exit_code . ', checker exit code: ' . $caseJsonObject->checker_exit_code . '</pre>
+                            </div>
+                        </div>
+                    </div>
+                </div>
+            </div>';
+            }
+        }
+        return $html_str;
+    }
+    
 }
