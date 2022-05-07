@@ -354,14 +354,14 @@ $nextProblemID = $model->getNextProblemID();
                                                 }
                                                 $innerHtml =  'data-verdict="' . $sub['result'] . '" data-submissionid="' . $sub['id'] . '" ' . $waitingHtmlDom;
                                                 if ($sub['result'] == Solution::OJ_AC) {
-                                                    $span = '<strong class="text-success"' . $innerHtml . '>' . Solution::getResultList($sub['result']) . '</strong>';
+                                                    $span = '<span class="text-success"' . $innerHtml . '>' . Solution::getResultList($sub['result']) . '</span>';
                                                     echo Html::a(
                                                         $span,
                                                         ['/solution/source', 'id' => $sub['id']],
                                                         ['onclick' => 'return false', 'data-click' => "solution_info", 'data-pjax' => 0]
                                                     );
                                                 } else {
-                                                    $span = '<strong class="text-danger" ' . $innerHtml . '>' . Solution::getResultList($sub['result']) . $loadingImg . '</strong>';
+                                                    $span = '<span class="text-danger" ' . $innerHtml . '>' . Solution::getResultList($sub['result']) . $loadingImg . '</span>';
                                                     echo Html::a(
                                                         $span,
                                                         ['/solution/result', 'id' => $sub['id']],
@@ -470,18 +470,18 @@ function updateVerdictByKey(submission) {
         }
     });
 }
-var waitingCount = $("strong[waiting=true]").length;
+var waitingCount = $("span[waiting=true]").length;
 if (waitingCount > 0) {
     console.log("There is waitingCount=" + waitingCount + ", starting submissionsEventCatcher...");
     var interval = null;
     var waitingQueue = [];
-    $("strong[waiting=true]").each(function(){
+    $("span[waiting=true]").each(function(){
         waitingQueue.push($(this));
     });
     waitingQueue.reverse();
     var testWaitingsDone = function () {
         updateVerdictByKey(waitingQueue[0]);
-        var waitingCount = $("strong[waiting=true]").length;
+        var waitingCount = $("span[waiting=true]").length;
         while (waitingCount < waitingQueue.length) {
             if (waitingCount < waitingQueue.length) {
                 waitingQueue.shift();
@@ -490,7 +490,7 @@ if (waitingCount > 0) {
                 break;
             }
             updateVerdictByKey(waitingQueue[0]);
-            waitingCount = $("strong[waiting=true]").length;
+            waitingCount = $("span[waiting=true]").length;
         }
         console.log("There is waitingCount=" + waitingCount + ", starting submissionsEventCatcher...");
         

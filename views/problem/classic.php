@@ -328,18 +328,18 @@ function updateVerdictByKey(submission) {
         }
     });
 }
-var waitingCount = $("strong[waiting=true]").length;
+var waitingCount = $("span[waiting=true]").length;
 if (waitingCount > 0) {
     console.log("There is waitingCount=" + waitingCount + ", starting submissionsEventCatcher...");
     var interval = null;
     var waitingQueue = [];
-    $("strong[waiting=true]").each(function(){
+    $("span[waiting=true]").each(function(){
         waitingQueue.push($(this));
     });
     waitingQueue.reverse();
     var testWaitingsDone = function () {
         updateVerdictByKey(waitingQueue[0]);
-        var waitingCount = $("strong[waiting=true]").length;
+        var waitingCount = $("span[waiting=true]").length;
         while (waitingCount < waitingQueue.length) {
             if (waitingCount < waitingQueue.length) {
                 waitingQueue.shift();
@@ -348,7 +348,7 @@ if (waitingCount > 0) {
                 break;
             }
             updateVerdictByKey(waitingQueue[0]);
-            waitingCount = $("strong[waiting=true]").length;
+            waitingCount = $("span[waiting=true]").length;
         }
         console.log("There is waitingCount=" + waitingCount + ", starting submissionsEventCatcher...");
         
