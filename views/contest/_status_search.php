@@ -23,23 +23,24 @@ use yii\bootstrap\ActiveForm;
     <div class="row">
         <div class="col-md-2">
             <?= $form->field($model, 'problem_id', [
-                'template' => "{label}\n<div class=\"input-group\"><span class=\"input-group-addon\"><span class='fa fa-filter'></span></span>{input}</div>",
+                'template' => "{label}\n<div class=\"input-group btn-group-justified\"><span style= \"width:30%\" class=\"input-group-addon\"><span class='fa fa-filter'></span></span>{input}</div>",
             ])->dropDownList($nav)->label(false) ?>
         </div>
         <div class="col-md-2">
             <?= $form->field($model, 'username', [
-                'template' => "{label}\n<div class=\"input-group\"><span class=\"input-group-addon\"><span class='fa fa-user'></span></span>{input}</div>",
+                'template' => "{label}\n<div class=\"input-group btn-group-justified\"><span style= \"width:30%\" class=\"input-group-addon\"><span class='fa fa-user'></span></span>{input}</div>",
             ])->textInput(['maxlength' => 128, 'autocomplete' => 'off', 'placeholder' => Yii::t('app', 'Who')])->label(false) ?>
         </div>
 
         <div class="col-md-3">
+
             <?= $form->field($model, 'result', [
-                'template' => "{label}\n<div class=\"input-group\"><span class=\"input-group-addon\">" . Yii::t('app', 'Result') . "</span>{input}</div>",
+                'template' => "{label}\n<div class=\"input-group btn-group-justified\"><span style= \"width:30%\" class=\"input-group-addon\">" . Yii::t('app', 'Result') . "</span>{input}</div>",
             ])->dropDownList($model::getResultList())->label(false) ?>
         </div>
         <div class="col-md-2">
             <?= $form->field($model, 'language', [
-                'template' => "{label}\n<div class=\"input-group\"><span class=\"input-group-addon\">" . Yii::t('app', 'Lang') . "</span>{input}</div>",
+                'template' => "{label}\n<div class=\"input-group btn-group-justified\"><span style= \"width:30%\" class=\"input-group-addon\">" . Yii::t('app', 'Lang') . "</span>{input}</div>",
             ])->dropDownList($model::getLanguageList())->label(false) ?>
         </div>
         <div class="col-md-3">

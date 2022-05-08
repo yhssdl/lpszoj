@@ -1078,3 +1078,7 @@ a.status-ended:hover ,a.status-ended:focus {
 .site-login .tips{
     font-weight: normal;
 }
+
+.btn-group-justified secect {
+    width:100%;
+}
