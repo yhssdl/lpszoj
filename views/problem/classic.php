@@ -33,23 +33,24 @@ $nextProblemID = $model->getNextProblemID();
     <?php if ($this->beginCache('problem-' . $model->id)) : ?>
         <div class="col-md-9 problem-view">
 
-            <h1><?= Html::encode($this->title) ?></h1>
+        <div class="text-center content-title"><?= Html::encode($this->title) ?></div>
 
+            <div class="content-header"><?= Yii::t('app', 'Description') ?></div>
             <div class="content-wrapper">
                 <?= Yii::$app->formatter->asMarkdown($model->description) ?>
             </div>
 
-            <h3><?= Yii::t('app', 'Input') ?></h3>
+            <div class="content-header"><?= Yii::t('app', 'Input') ?></div>
             <div class="content-wrapper">
                 <?= Yii::$app->formatter->asMarkdown($model->input) ?>
             </div>
 
-            <h3><?= Yii::t('app', 'Output') ?></h3>
+            <div class="content-header"><?= Yii::t('app', 'Output') ?></div>
             <div class="content-wrapper">
                 <?= Yii::$app->formatter->asMarkdown($model->output) ?>
             </div>
 
-            <h3><?= Yii::t('app', 'Examples') ?></h3>
+            <div class="content-header"><?= Yii::t('app', 'Examples') ?></div>
             <div class="content-wrapper">
                 <div class="sample-test">
                     <div class="input">
@@ -86,14 +87,14 @@ $nextProblemID = $model->getNextProblemID();
             </div>
 
             <?php if (!empty($model->hint)) : ?>
-                <h3><?= Yii::t('app', 'Hint') ?></h3>
+                <div class="content-header"><?= Yii::t('app', 'Hint') ?></div>
                 <div class="content-wrapper">
                     <?= Yii::$app->formatter->asMarkdown($model->hint) ?>
                 </div>
             <?php endif; ?>
 
             <?php if (!empty($model->source)) : ?>
-                <h3><?= Yii::t('app', 'Source') ?></h3>
+                <div class="content-header"><?= Yii::t('app', 'Source') ?></div>
                 <div class="content-wrapper">
                     <?= Yii::$app->formatter->asMarkdown($model->source) ?>
                 </div>
@@ -103,6 +104,7 @@ $nextProblemID = $model->getNextProblemID();
     <?php endif; ?>
     <div class="col-md-3 problem-info">
         <div class="panel panel-default">
+        <div class="content-header text-center">题目参数</div>
             <!-- Table -->
             <table class="table">
                 <tbody>

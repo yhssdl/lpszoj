@@ -52,24 +52,24 @@ $loadingImgUrl = Yii::getAlias('@web/images/loading.gif');
     <div class="row animate__animated animate__fadeInUp">
         <div class="col-md-9 problem-view">
             <?php if ($this->beginCache('contest_problem_view' . $model->id . '_' . $problem['num'] . '_ ' . $problem['id'])) : ?>
-                <p class="lead"><?= Html::encode('P' . (1 + $problem['num']). '. ' . $problem['title']) ?></p>
+                <div class="text-center content-title"><?= Html::encode('P' . (1 + $problem['num']). '. ' . $problem['title']) ?></div>
 
-                <h3><?= Yii::t('app', 'Description') ?></h3>
+                <div class="content-header"><?= Yii::t('app', 'Description') ?></div>
                 <div class="content-wrapper">
                     <?= Yii::$app->formatter->asMarkdown($problem['description']) ?>
                 </div>
 
-                <h3><?= Yii::t('app', 'Input') ?></h3>
+                <div class="content-header"><?= Yii::t('app', 'Input') ?></div>
                 <div class="content-wrapper">
                     <?= Yii::$app->formatter->asMarkdown($problem['input']) ?>
                 </div>
 
-                <h3><?= Yii::t('app', 'Output') ?></h3>
+                <div class="content-header"><?= Yii::t('app', 'Output') ?></div>
                 <div class="content-wrapper">
                     <?= Yii::$app->formatter->asMarkdown($problem['output']) ?>
                 </div>
 
-                <h3><?= Yii::t('app', 'Examples') ?></h3>
+                <div class="content-header"><?= Yii::t('app', 'Examples') ?></div>
                 <div class="content-wrapper">
                     <div class="sample-test">
                         <div class="input">
@@ -105,15 +105,14 @@ $loadingImgUrl = Yii::getAlias('@web/images/loading.gif');
                     </div>
                 </div>
                 <?php if (!empty($problem['hint'])) : ?>
-                    <h3><?= Yii::t('app', 'Hint') ?></h3>
+                    <div class="content-header"><?= Yii::t('app', 'Hint') ?></div>
                     <div class="content-wrapper">
                         <?= Yii::$app->formatter->asMarkdown($problem['hint']) ?>
                     </div>
                 <?php endif; ?>
                 <?php $this->endCache(); ?>
             <?php endif; ?>
-            <hr>
-            <h3 id="submit-code"><?= Yii::t('app', 'Submit') ?></h3>
+            <div class="content-header" id="submit-code"><?= Yii::t('app', 'Submit') ?></div><br>
             <div class="content-wrapper">
                 <?php if ($model->isContestEnd() && time() < strtotime($model->end_time) + 5 * 60 && !Yii::$app->user->isGuest && $model->isUserInContest() && !Yii::$app->user->identity->isAdmin() && !Yii::$app->user->identity->isVip()) : ?>
                     <div class="alert alert-light"><i class=" fa fa-info-circle"></i> 比赛已结束，比赛结束五分钟后开放提交。</div>
@@ -172,6 +171,7 @@ $loadingImgUrl = Yii::getAlias('@web/images/loading.gif');
         </div>
         <div class="col-md-3 problem-info">
             <div class="panel panel-default">
+            <div class="content-header text-center">题目参数</div>
                 <!-- Table -->
                 <table class="table">
                     <tbody>

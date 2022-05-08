@@ -139,9 +139,9 @@ if (!Yii::$app->user->isGuest) {
     $solution->language = Yii::$app->user->identity->language;
 }
 
-if(isset($_COOKIE['theme']))
+if (isset($_COOKIE['theme']))
     $theme = $_COOKIE['theme'];
-else 
+else
     $theme = "solarized";
 
 $model->setSamples();
@@ -153,61 +153,26 @@ $nextProblemID = $model->getNextProblemID();
 
 <div class="main-container">
     <div class="problem-container">
-        <div class="problem-header">
-            <div class="problem-title">
-                <h2><?= Html::encode($this->title) ?></h2>
-            </div>
-            <div class="problem-meta">
-                <div>
-                    <p><?= Yii::t('app', 'Time Limit') ?> </p>
-                    <p><?= intval($model->time_limit) ?> 秒</p>
-                </div>
-                <div class="separator"></div>
-                <div>
-                    <p><?= Yii::t('app', 'Memory Limit') ?> </p>
-                    <p><?= $model->memory_limit ?> MB</p>
-                </div>
-                <div class="separator"></div>
-                <div class="problem-submit-count">
-                    <p>通过次数</p>
-                    <p><?= $model->accepted ?></p>
-                </div>
-                <div class="separator"></div>
-                <div class="problem-accepted-count">
-                    <p>提交次数</p>
-                    <p><?= $model->submit ?></p>
-                </div>
-                <div class="separator"></div>
-                <div>
-                    <p>
-                        <?= Html::a(
-                            '<span class="fa fa-tasks"></span> ' . Yii::t('app', 'Stats'),
-                            ['/problem/statistics', 'id' => $model->id],
-                            ['view' => 'classic']
-                        ) ?>
-                    </p>
-                    <p></p>
-                </div>
-            </div>
-        </div>
         <div class="problem-splitter">
             <div class="problem-left">
+            <div class="text-center content-title"><?= Html::encode($this->title) ?></div>
                 <div class="problem-description">
+                    <div class="content-header"><?= Yii::t('app', 'Description') ?></div>
                     <div class="content-wrapper">
                         <?= Yii::$app->formatter->asMarkdown($model->description) ?>
                     </div>
 
-                    <h4><?= Yii::t('app', 'Input') ?></h4>
+                    <div class="content-header"><?= Yii::t('app', 'Input') ?></div>
                     <div class="content-wrapper">
                         <?= Yii::$app->formatter->asMarkdown($model->input) ?>
                     </div>
 
-                    <h4><?= Yii::t('app', 'Output') ?></h4>
+                    <div class="content-header"><?= Yii::t('app', 'Output') ?></div>
                     <div class="content-wrapper">
                         <?= Yii::$app->formatter->asMarkdown($model->output) ?>
                     </div>
 
-                    <h4><?= Yii::t('app', 'Examples') ?></h4>
+                    <div class="content-header"><?= Yii::t('app', 'Examples') ?></div>
                     <div class="content-wrapper">
                         <div class="sample-test">
                             <div class="input">
@@ -244,14 +209,14 @@ $nextProblemID = $model->getNextProblemID();
                     </div>
 
                     <?php if (!empty($model->hint)) : ?>
-                        <h4><?= Yii::t('app', 'Hint') ?></h4>
+                        <div class="content-header"><?= Yii::t('app', 'Hint') ?></div>
                         <div class="content-wrapper">
                             <?= Yii::$app->formatter->asMarkdown($model->hint) ?>
                         </div>
                     <?php endif; ?>
 
                     <?php if (!empty($model->source)) : ?>
-                        <h4><?= Yii::t('app', 'Source') ?></h4>
+                        <div class="content-header"><?= Yii::t('app', 'Source') ?></div>
                         <div class="content-wrapper">
                             <?= Yii::$app->formatter->asMarkdown($model->source) ?>
                         </div>
@@ -272,6 +237,41 @@ $nextProblemID = $model->getNextProblemID();
                 </div>
             </div>
             <div class="problem-right">
+
+                <div class="problem-header">
+                    <div class="problem-meta">
+                        <div>
+                            <p><?= Yii::t('app', 'Time Limit') ?> </p>
+                            <p><?= intval($model->time_limit) ?> 秒</p>
+                        </div>
+                        <div class="separator"></div>
+                        <div>
+                            <p><?= Yii::t('app', 'Memory Limit') ?> </p>
+                            <p><?= $model->memory_limit ?> MB</p>
+                        </div>
+                        <div class="separator"></div>
+                        <div class="problem-submit-count">
+                            <p>通过次数</p>
+                            <p><?= $model->accepted ?></p>
+                        </div>
+                        <div class="separator"></div>
+                        <div class="problem-accepted-count">
+                            <p>提交次数</p>
+                            <p><?= $model->submit ?></p>
+                        </div>
+                        <div class="separator"></div>
+                        <div>
+                            <p>
+                                <?= Html::a(
+                                    '<span class="fa fa-tasks"></span> ' . Yii::t('app', 'Stats'),
+                                    ['/problem/statistics', 'id' => $model->id],
+                                    ['view' => 'classic']
+                                ) ?>
+                            </p>
+                            <p></p>
+                        </div>
+                    </div>
+                </div>
                 <?php $form = ActiveForm::begin(['options' => ['class' => 'problem-editor']]); ?>
 
                 <div>
@@ -327,8 +327,8 @@ $nextProblemID = $model->getNextProblemID();
                     }
                     ?>
 
-                        <?php if (!Yii::$app->user->isGuest && !empty($submissions)) : ?>
-                            <div>
+                    <?php if (!Yii::$app->user->isGuest && !empty($submissions)) : ?>
+                        <div>
                             <?php Modal::begin([
                                 'header' => Yii::t('app', 'Submit') . '：' . Html::encode($model->id . '. ' . $model->title),
                                 'toggleButton' => [
@@ -382,7 +382,7 @@ $nextProblemID = $model->getNextProblemID();
                                 </tbody>
                             </table>
                             <?php Modal::end(); ?>
-                         
+
                             <?php $sub = $submissions[0]; ?>
                             <span>&nbsp;&nbsp;<?= Yii::$app->formatter->asRelativeTime($sub['created_at']) ?>&nbsp;&nbsp;</span>
                             <span>
@@ -413,15 +413,15 @@ $nextProblemID = $model->getNextProblemID();
                                 ?>
                             </span>
                             <span>
-                            &nbsp;&nbsp;<?= Html::a(
-                                    '<span class="fa fa-pencil-square-o"></span>',
-                                    ['/solution/source', 'id' => $sub['id']],
-                                    ['title' => '查看源码', 'onclick' => 'return false', 'data-click' => "solution_info", 'data-pjax' => 0]
-                                )
-                                ?>
+                                &nbsp;&nbsp;<?= Html::a(
+                                                '<span class="fa fa-pencil-square-o"></span>',
+                                                ['/solution/source', 'id' => $sub['id']],
+                                                ['title' => '查看源码', 'onclick' => 'return false', 'data-click' => "solution_info", 'data-pjax' => 0]
+                                            )
+                                            ?>
                             </span>
-                            </div>
-                        <?php endif; ?>
+                        </div>
+                    <?php endif; ?>
 
                 </div>
                 <?php ActiveForm::end(); ?>

@@ -273,7 +273,7 @@ return [
     'Answer' => '解题',
     'All' => '所有' ,
     'Print' => '打印',
-    'Source' => '源代码',
+    'Source' => '来源',
     'Kanban' => '看板',
     'Back' => '返回' ,
     'Current time' => '当前时间',
