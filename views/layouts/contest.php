@@ -108,7 +108,7 @@ $status = $model->getRunStatus();
     NavBar::end();
     ?>
 
-    <div class="container  radius">
+    <div class="container radius">
         <?= Breadcrumbs::widget([
             'links' => isset($this->params['breadcrumbs']) ? $this->params['breadcrumbs'] : [],
         ]) ?>
