@@ -21,9 +21,11 @@ $this->title = Yii::t('app', 'Problems');
             <?= Html::a('<span class="fa fa-plus"></span> '.Yii::t('app', 'Create Problem'), ['create'], ['class' => 'btn btn-default','title' => '创建一个新的题目', 'data-toggle'=>"tooltip",'data-placement'=>"top" ]) ?>
         </div>
 
+        <?php  if(Yii::$app->setting->get('isEnablePolygon')): ?>
         <div class="btn-group">
             <?= Html::a('<span class="fa fa-star"></span> '.Yii::t('app', 'Polygon Problem'), ['create-from-polygon'], ['class' => 'btn btn-default','title' => '从Polygon中导入题目', 'data-toggle'=>"tooltip",'data-placement'=>"top" ]) ?>
         </div>
+        <?php endif; ?>
 
         <div class="btn-group">
             <?= Html::a('<span class="fa fa-arrow-circle-o-down"></span> '.Yii::t('app', 'Import Problem'), ['import'], ['class' => 'btn btn-default','title' => '从HUSTOJ导入题目', 'data-toggle'=>"tooltip",'data-placement'=>"top" ]) ?>

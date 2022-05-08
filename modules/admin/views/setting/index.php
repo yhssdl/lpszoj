@@ -77,8 +77,6 @@ $this->title = Yii::t('app', 'Setting');
     </p>
 </div>
 
-
-
 <div class="form-group">
     <?= Html::label(Yii::t('app', 'OI 模式'), 'oiMode') ?>
     <?= Html::radioList('oiMode', $settings['oiMode'], [
@@ -88,6 +86,41 @@ $this->title = Yii::t('app', 'Setting');
     <p class="hint-block">
         注意，如需启动 OI 模式，除了在此处选择是外，还需要在启动判题服务时加上 sudo ./dispatcher <code>-o</code>参数。
     </p>
+</div>
+
+<div class="form-group">
+    <?= Html::label(Yii::t('app', 'Show Status'), 'isShowStatus') ?>
+    <?= Html::radioList('isShowStatus', $settings['isShowStatus'], [
+        1 => '导航栏中显示状态菜单',
+        0 => '导航栏中关闭状态菜单'
+    ]) ?>
+</div>
+
+<div class="form-group">
+    <?= Html::label(Yii::t('app', '启用Polygon出题系统'), 'isEnablePolygon') ?>
+    <?= Html::radioList('isEnablePolygon', $settings['isEnablePolygon'], [
+        1 => '启用Polygon出现系统',
+        0 => '关闭Polygon出题系统'
+    ]) ?>
+        <p class="hint-block">
+        开启该功能后,问题列表界面会显示Polygon出现按钮,普通用户可以自主出题，管理员可以后台导入Polygon题目。
+    </p>
+</div>
+
+<div class="form-group">
+    <?= Html::label(Yii::t('app', '用户注册'), 'isUserReg') ?>
+    <?= Html::radioList('isUserReg', $settings['isUserReg'], [
+        1 => '开放',
+        0 => '关闭'
+    ]) ?>
+</div>
+
+<div class="form-group">
+    <?= Html::label(Yii::t('app', '开启讨论'), 'isDiscuss') ?>
+    <?= Html::radioList('isDiscuss', $settings['isDiscuss'], [
+        1 => '开启',
+        0 => '关闭'
+    ]) ?>
 </div>
 
 
@@ -107,13 +140,7 @@ $this->title = Yii::t('app', 'Setting');
     ]) ?>
 </div>
 
-<div class="form-group">
-    <?= Html::label(Yii::t('app', 'Show Status'), 'isShowStatus') ?>
-    <?= Html::radioList('isShowStatus', $settings['isShowStatus'], [
-        1 => '导航栏中显示状态菜单',
-        0 => '导航栏中关闭状态菜单'
-    ]) ?>
-</div>
+
 
 <div class="form-group">
     <?= Html::label(Yii::t('app', '答题界面'), 'showMode') ?>
@@ -124,27 +151,11 @@ $this->title = Yii::t('app', 'Setting');
 </div>
 
 <div class="form-group">
-    <?= Html::label(Yii::t('app', '用户注册'), 'isUserReg') ?>
-    <?= Html::radioList('isUserReg', $settings['isUserReg'], [
-        1 => '开放',
-        0 => '关闭'
-    ]) ?>
-</div>
-
-<div class="form-group">
     <?= Html::label(Yii::t('app', '用户昵称'), 'isChangeNickName') ?>
     <?= Html::radioList('isChangeNickName', $settings['isChangeNickName'], [
         2 => '只允许修改一次',
         1 => '允许修改',
         0 => '不允许修改'
-    ]) ?>
-</div>
-
-<div class="form-group">
-    <?= Html::label(Yii::t('app', '开启讨论'), 'isDiscuss') ?>
-    <?= Html::radioList('isDiscuss', $settings['isDiscuss'], [
-        1 => '开启',
-        0 => '关闭'
     ]) ?>
 </div>
 

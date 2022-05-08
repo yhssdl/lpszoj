@@ -68,9 +68,11 @@ function getColorLabel($i){
                 <div class="btn-group">
                     <button class="btn btn-default" type="button" data-toggle="modal" data-target="#myModal"><span class="fa fa-tags"></span> <?= Yii::t('app', 'Tags') ?></button>
                 </div>
+                <?php if(Yii::$app->setting->get('isEnablePolygon')): ?>
                 <div class="btn-group">
                     <?= Html::a('<span class="fa fa-plus"></span>&nbsp;'.Yii::t('app', 'Question'), ['/polygon'], ['class' => 'btn btn-default'])?>
                 </div>
+                <?php endif; ?>
             </div>
         </div>
 </div>

@@ -54,9 +54,11 @@ class ProblemController extends Controller
      */
     public function actionIndex()
     {
+        if(!Yii::$app->setting->get('isEnablePolygon')) $this->redirect('/');
         $this->layout = '/main';
         $searchModel = new ProblemSearch();
         $dataProvider = $searchModel->search(Yii::$app->request->queryParams);
+
 
         return $this->render('index', [
             'dataProvider' => $dataProvider,
@@ -109,6 +111,7 @@ class ProblemController extends Controller
      */
     public function actionView($id)
     {
+        if(!Yii::$app->setting->get('isEnablePolygon')) $this->redirect('/');
         $model = $this->findModel($id);
         $model->setSamples();
         return $this->render('view', [
@@ -239,6 +242,7 @@ class ProblemController extends Controller
      */
     public function actionDownloadData($id)
     {
+
         $model = $this->findModel($id);
         $filename = Yii::$app->params['polygonProblemDataPath'] . $model->id;
         $zipName = '/tmp/' . time() . $id . '.zip';
@@ -313,6 +317,7 @@ class ProblemController extends Controller
      */
     public function actionCreate()
     {
+        if(!Yii::$app->setting->get('isEnablePolygon')) $this->redirect('/');
         $this->layout = '/main';
         $model = new Problem();
 
@@ -345,6 +350,7 @@ class ProblemController extends Controller
      */
     public function actionUpdate($id)
     {
+        if(!Yii::$app->setting->get('isEnablePolygon')) $this->redirect('/');
         $model = $this->findModel($id);
 
         if ($model->load(Yii::$app->request->post())) {
@@ -365,6 +371,7 @@ class ProblemController extends Controller
 
     public function actionSubtask($id)
     {
+        if(!Yii::$app->setting->get('isEnablePolygon')) $this->redirect('/');
         $model = $this->findModel($id);
 
         $dataPath = Yii::$app->params['polygonProblemDataPath'] . $model->id;
@@ -398,7 +405,6 @@ class ProblemController extends Controller
     public function actionDelete($id)
     {
         $this->findModel($id)->delete();
-
         return $this->redirect(['index']);
     }
 
