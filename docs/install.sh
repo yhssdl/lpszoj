@@ -163,9 +163,9 @@ install_dependencies(){
         ln -s /opt/remi/php74/root/usr/bin/php /usr/bin/php > /dev/null 2>&1
     elif check_sys sysRelease debian; then
         apt_depends=(
-            nginx
+            nginx 
+            php7.4-mysqlnd php7.4-common php7.4-gd php7.4-zip php7.4-xml php7.4-mbstring php7.4-opcache php7.4-fpm
             mariadb-server
-            php-fpm php-mysql php-common php-gd php-zip php-mbstring php-xml
             libmysql++-dev git make gcc g++
             openjdk-11-jdk
         )
