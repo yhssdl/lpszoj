@@ -61,7 +61,8 @@ $this->title = '打印代码';
             ],
             'created_at:datetime',
             [
-                'class' => 'yii\grid\ActionColumn'
+                'class' => 'yii\grid\ActionColumn',
+                'contentOptions' => ['class'=>'a_just']
             ],
         ],
     ]); ?>

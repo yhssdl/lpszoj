@@ -134,6 +134,7 @@ $contest_id = $model->id;
                 'created_at:datetime',
                 [
                     'class' => 'yii\grid\ActionColumn',
+                    'contentOptions' => ['class'=>'a_just'],
                     'template' => '{delete}',
                     'buttons' => [
                         'delete' => function ($url, $model, $key) use ($contest_id) {

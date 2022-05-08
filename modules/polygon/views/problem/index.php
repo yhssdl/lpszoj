@@ -57,7 +57,9 @@ $this->title = Yii::t('app', 'Problems');
                 'enableSorting' => false,
             ],
             
-            ['class' => 'yii\grid\ActionColumn']
+            ['class' => 'yii\grid\ActionColumn',
+            'contentOptions' => ['class'=>'a_just']
+            ],
                 
             
         ],

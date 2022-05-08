@@ -52,7 +52,9 @@ $this->title = Yii::t('app', 'News');
             //'entity_id',
             //'entity',
 
-            ['class' => 'yii\grid\ActionColumn'],
+            ['class' => 'yii\grid\ActionColumn',
+            'contentOptions' => ['class'=>'a_just']
+            ],
         ],
     ]); ?>
 </div>

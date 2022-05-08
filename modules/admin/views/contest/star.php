@@ -68,6 +68,7 @@ $contest_id = $model->id;
         ],
         [
             'class' => 'yii\grid\ActionColumn',
+            'contentOptions' => ['class'=>'a_just'],
             'template' => '{delete}',
             'buttons' => [
                 'delete' => function ($url, $model, $key) use ($contest_id) {

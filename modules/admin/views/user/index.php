@@ -134,7 +134,9 @@ $this->title = Yii::t('app', 'Users');
             // 'status',
             // 'created_at',
             // 'updated_at',
-            ['class' => 'yii\grid\ActionColumn'],
+            ['class' => 'yii\grid\ActionColumn',
+            'contentOptions' => ['class'=>'a_just']
+            ],
         ],
     ]);
     $this->registerJs('

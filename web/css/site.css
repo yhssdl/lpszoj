@@ -1082,3 +1082,9 @@ a.status-ended:hover ,a.status-ended:focus {
 .btn-group-justified secect {
     width:100%;
 }
+
+.a_just a {
+
+    margin: 0px 5px;
+
+}

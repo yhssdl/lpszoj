@@ -121,7 +121,9 @@ $this->title = Yii::t('app', 'Problems');
                 'enableSorting' => false,
                 'format' => 'raw',
             ],
-            ['class' => 'yii\grid\ActionColumn'],
+            ['class' => 'yii\grid\ActionColumn',
+            'contentOptions' => ['class'=>'a_just']
+            ],
         ],
     ]);
     $this->registerJs('

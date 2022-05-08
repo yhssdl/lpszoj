@@ -133,6 +133,7 @@ $scoreboardFrozenTime = Yii::$app->setting->get('scoreboardFrozenTime') / 3600;
         ],
         [
             'class' => 'yii\grid\ActionColumn', 'header' => '操作',
+            'contentOptions' => ['class'=>'a_just'],
             'template' => '{user-update} {user-delete}',
             'buttons' => [
                 'user-update' => function ($url, $date) {

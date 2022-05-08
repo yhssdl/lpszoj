@@ -43,6 +43,7 @@ $this->params['model'] = $model;
             'created_at:datetime',
             [
                 'class' => 'yii\grid\ActionColumn',
+                'contentOptions' => ['class'=>'a_just'],
                 'controller' => 'print'
             ],
         ],
