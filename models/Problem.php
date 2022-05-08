@@ -274,4 +274,23 @@ class Problem extends ActiveRecord
             ->bindValues([':id' => $this->id, ':status' => Problem::STATUS_VISIBLE])
             ->queryScalar();
     }
+
+    public static function getColorLabel($i){
+        $i = $i % 5;
+        switch ($i)
+        {
+        case 0:
+            return 'label label-success';
+        case 1:
+            return 'label label-warning';
+        case 2:
+            return 'label label-info';
+        case 3:
+            return 'label label-danger';    
+        default:
+            return 'label label-primary';  
+        }
+    
+    }
+
 }

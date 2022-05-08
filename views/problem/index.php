@@ -32,26 +32,6 @@ if(isset($_COOKIE['showtags']))
     $showTags = $_COOKIE['showtags'];
 else 
     $showTags = 1;
-
-function getColorLabel($i){
-    $i = $i % 5;
-    switch ($i)
-    {
-    case 0:
-        return 'label label-success';
-    case 1:
-        return 'label label-warning';
-    case 2:
-        return 'label label-info';
-    case 3:
-        return 'label label-danger';    
-    default:
-        return 'label label-primary';  
-    }
-
-}
-
-
 ?>
 
 <?= Html::beginForm('', 'post') ?>
@@ -163,7 +143,7 @@ $label_i = 0;
                             $res .= '<span class="problem-list-tags">';
 
                             foreach ((array)$tags as $tag) {
-                                $label = getColorLabel($label_i);
+                                $label = Problem::getColorLabel($label_i);
                                 $label_i = $label_i + 1;
                                 $res .= Html::a(Html::encode($tag), [
                                     '/problem/index', 'tag' => $tag

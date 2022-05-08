@@ -4,7 +4,7 @@ use yii\helpers\Html;
 use yii\widgets\ActiveForm;
 use yii\bootstrap\Modal;
 use app\models\Solution;
-
+use app\models\Problem;
 /* @var $this yii\web\View */
 /* @var $model app\models\Problem */
 /* @var $solution app\models\Solution */
@@ -155,7 +155,7 @@ $nextProblemID = $model->getNextProblemID();
     <div class="problem-container">
         <div class="problem-splitter">
             <div class="problem-left">
-            <div class="text-center content-title"><?= Html::encode($this->title) ?></div>
+                <div class="text-center content-title"><?= Html::encode($this->title) ?></div>
                 <div class="problem-description">
                     <div class="content-header"><?= Yii::t('app', 'Description') ?></div>
                     <div class="content-wrapper">
@@ -219,6 +219,32 @@ $nextProblemID = $model->getNextProblemID();
                         <div class="content-header"><?= Yii::t('app', 'Source') ?></div>
                         <div class="content-wrapper">
                             <?= Yii::$app->formatter->asMarkdown($model->source) ?>
+                        </div>
+                    <?php endif; ?>
+
+                    <?php if (!empty($model->tags)) : ?>
+                        <div class="content-header"><?= Yii::t('app', 'Tags') ?></div>
+                        <div class="content-wrapper">
+                            <?php
+                            $tags = explode(',', $model->tags);
+                            $tagsCount = count($tags);
+                            if ($tagsCount > 0) {
+                                $res .= '<span>';
+                                foreach ((array)$tags as $tag) {
+                                    $label = Problem::getColorLabel($label_i);
+                                    $label_i = $label_i + 1;
+                                    $res .= Html::a(Html::encode($tag), [
+                                        '/problem/index', 'tag' => $tag
+                                    ], ['class' => $label]);
+                                    $res .= ' ';
+                                }
+                                $res .= '</span>';
+                            }
+
+                            echo $res;
+
+                            ?>
+
                         </div>
                     <?php endif; ?>
                 </div>
