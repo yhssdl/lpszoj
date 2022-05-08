@@ -48,3 +48,7 @@ tests/_support/_generated
 .htaccess
 nginx.htaccess
 .gitignore
+
+
+#logo
+/web/images/logo.png
