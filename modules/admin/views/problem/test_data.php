@@ -32,9 +32,10 @@ $this->params['model'] = $model;
                 <p>
                 <div class="row"><div class="col-md-2 col-md-offset-5"><?= Html::a('下载全部数据', ['download-data', 'id' => $model->id], ['class' => 'btn btn-success btn-block']); ?></div></div>
                 </p>
+                <br>
             <?php else: ?>
                 <p>
-                    服务器未启用 php-zip 扩展，如需下载测试数据，请安装 php-zip　扩展。
+                <div class="alert alert-light"><i class=" fa fa-info-circle"></i> 服务器未启用 php-zip 扩展，如需下载测试数据，请安装 php-zip　扩展。</div>
                 </p>
             <?php endif; ?>
         </div>
