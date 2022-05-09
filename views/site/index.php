@@ -24,7 +24,7 @@ $count = count($full_news);
         <?php
         if ($dataProvider->count > 0) {
             echo '<hr>';
-            echo '<span class="lead">最近比赛</span>';
+            echo '<h3 class="text-center">最近比赛</span>';
             echo  ListView::widget([
                 'dataProvider' => $dataProvider,
                 'itemView' => '_contest_item',
@@ -38,14 +38,13 @@ $count = count($full_news);
 
         <?php if (!empty($full_news)) : ?>
             <hr>
-            <p class="lead">全文新闻</p>
             <div class="list-group">
                 <?php $i = 1 ?>
                 <?php foreach ($full_news as $new) : ?>
                     <div class="blog">
                         <div class="animate__animated animate__fadeInUp">
                             <div>
-                                <h3><?= Html::a(Html::encode($new['title']), ['/site/news', 'id' => $new['id']], ['class' => 'text-dark']) ?>
+                                <h3 class="text-center"><?= Html::a(Html::encode($new['title']), ['/site/news', 'id' => $new['id']], ['class' => 'text-dark']) ?>
                                 </h3>
                                 <?= Yii::$app->formatter->asMarkdown($new['content']) ?>
                             </div>
