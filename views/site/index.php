@@ -24,7 +24,7 @@ $count = count($full_news);
         <?php
         if ($dataProvider->count > 0) {
             echo '<hr>';
-            echo '<h3 class="text-center">最近比赛</span>';
+            echo '<h3 class="text-center">最近比赛</h3>';
             echo  ListView::widget([
                 'dataProvider' => $dataProvider,
                 'itemView' => '_contest_item',
