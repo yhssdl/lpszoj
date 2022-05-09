@@ -50,24 +50,4 @@ class ImageController extends BaseController
             throw new ForbiddenHttpException('You are not allowed to perform this action.');
         }
     }
-
-    public function actionKindupload()
-    {
-        if (Yii::$app->request->isPost && !Yii::$app->user->isGuest) {
-            $up = new Uploader('imgFile');
-            $info = $up->getFileInfo();
-            if ($info['state'] == 'SUCCESS') {
-                $info['url'] = Yii::getAlias('@web') . '/' . $info['url'];
-                $info['error'] = 0;
-            } else {
-                $info['error'] = 1;
-            }
-            echo json_encode($info);
-        } else {
-            throw new ForbiddenHttpException('You are not allowed to perform this action.');
-        }
-    }
-
-
-
 }

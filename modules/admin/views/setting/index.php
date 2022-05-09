@@ -216,18 +216,14 @@ $this->title = Yii::t('app', 'Setting');
 <div class="form-group">
     <?= Html::label(Yii::t('app', '编辑器'), 'ojEditor') ?>
     <?= Html::radioList('ojEditor', $settings['ojEditor'], [
-        'app\widgets\ckeditor\CKeditor' => '内置编辑器',
-        'app\widgets\editormd\Editormd' => 'MarkDown编辑器',
-        'app\widgets\kindeditor\KindEditor' => 'KindEditor编辑器'
+        'app\widgets\ckeditor\CKeditor' => 'CKEditor编辑器',
+        'app\widgets\editormd\Editormd' => 'MarkDown编辑器'
     ]) ?>
     <p class="hint-block">
-        内置编辑器 ：为OJ系统旧版内置编辑器， 在IE上不能正常使用。
+        CKEditor编辑器 ：所见即所得的编辑器。
     </p>
     <p class="hint-block">
-        MarkDown编辑器：为新版内置支持MarkDown语法的编辑器。
-    </p>
-    <p class="hint-block">
-        KindEditor编辑器：另行添加的一个编辑器，可以在IE上正常使用，可设置文字颜色。
+        MarkDown编辑器：支持MarkDown语法的编辑器。
     </p>
 </div>
 
