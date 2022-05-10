@@ -35,7 +35,7 @@ $nextProblemID = $model->getNextProblemID();
     <?php if ($this->beginCache('problem-' . $model->id)) : ?>
         <div class="col-md-9 problem-view">
 
-        <div class="text-center content-title"><?= Html::encode($this->title) ?></div>
+            <div class="text-center content-title"><?= Html::encode($this->title) ?></div>
 
             <div class="content-header"><?= Yii::t('app', 'Description') ?></div>
             <div class="content-wrapper">
@@ -105,26 +105,26 @@ $nextProblemID = $model->getNextProblemID();
             <?php if (!empty($model->tags)) : ?>
                 <div class="content-header"><?= Yii::t('app', 'Tags') ?></div>
                 <div class="content-wrapper">
-                    <?php  
-                       $tags = explode(',', $model->tags);
-                       $tagsCount = count($tags);
-                       if ($tagsCount > 0) {
-                           $res .= '<span>';
-                           foreach ((array)$tags as $tag) {
-                               $label = Problem::getColorLabel($label_i);
-                               $label_i = $label_i + 1;
-                               $res .= Html::a(Html::encode($tag), [
-                                   '/problem/index', 'tag' => $tag
-                               ], ['class' => $label]);
-                               $res .= ' ';
-                           }
-                           $res .= '</span>';
-                       }
+                    <?php
+                    $tags = explode(',', $model->tags);
+                    $tagsCount = count($tags);
+                    if ($tagsCount > 0) {
+                        $res .= '<span>';
+                        foreach ((array)$tags as $tag) {
+                            $label = Problem::getColorLabel($label_i);
+                            $label_i = $label_i + 1;
+                            $res .= Html::a(Html::encode($tag), [
+                                '/problem/index', 'tag' => $tag
+                            ], ['class' => $label]);
+                            $res .= ' ';
+                        }
+                        $res .= '</span>';
+                    }
 
-                       echo $res;
-        
+                    echo $res;
+
                     ?>
-                    
+
                 </div>
             <?php endif; ?>
         </div>
@@ -132,7 +132,7 @@ $nextProblemID = $model->getNextProblemID();
     <?php endif; ?>
     <div class="col-md-3 problem-info">
         <div class="panel panel-default">
-        <div class="content-header text-center">题目参数</div>
+            <div class="content-header text-center">题目参数</div>
             <!-- Table -->
             <table class="table">
                 <tbody>
@@ -249,57 +249,59 @@ $nextProblemID = $model->getNextProblemID();
             </div>
         </div>
 
-            <hr />
-            <div class="btn-group btn-group-justified">
+        <hr />
+        <div class="btn-group btn-group-justified">
             <div class="btn-group">
-            <?= Html::a(
-                '<span class="fa fa-arrow-left"></span> 上一题',
-                $previousProblemID ? ['/problem/view', 'id' => $previousProblemID, 'view' => 'classic'] : 'javascript:void(0);',
-                ['class' => 'btn btn-default', 'disabled' => !$previousProblemID]
-            ) ?>
+                <?= Html::a(
+                    '<span class="fa fa-arrow-left"></span> 上一题',
+                    $previousProblemID ? ['/problem/view', 'id' => $previousProblemID, 'view' => 'classic'] : 'javascript:void(0);',
+                    ['class' => 'btn btn-default', 'disabled' => !$previousProblemID]
+                ) ?>
             </div>
             <div class="btn-group">
-            <?= Html::a(
-                '下一题 <span class="fa fa-arrow-right"></span>',
-                $nextProblemID ? ['/problem/view', 'id' => $nextProblemID, 'view' => 'classic'] : 'javascript:void(0);',
-                ['class' => 'btn btn-default',  'disabled' => !$nextProblemID]
-            ) ?>
-            </div></div>
+                <?= Html::a(
+                    '下一题 <span class="fa fa-arrow-right"></span>',
+                    $nextProblemID ? ['/problem/view', 'id' => $nextProblemID, 'view' => 'classic'] : 'javascript:void(0);',
+                    ['class' => 'btn btn-default',  'disabled' => !$nextProblemID]
+                ) ?>
+            </div>
+        </div>
 
-            <?php if (!Yii::$app->user->isGuest && !empty($submissions)) : ?>
-                <div class="panel panel-default" style="margin-top: 40px">
-                    <div class="panel-heading"><?= Yii::t('app', 'Submissions') ?></div>
-                    <!-- Table -->
-                    <table class="table">
-                        <tbody>
-                            <?php foreach ($submissions as $sub) : ?>
-                                <tr>
-                                    <td title="<?= $sub['created_at'] ?>">
-                                        <?= Yii::$app->formatter->asRelativeTime($sub['created_at']) ?>
-                                    </td>
-                                    <td>
-                                        <?php
-                                        if ($sub['result'] <= Solution::OJ_WAITING_STATUS) {
-                                            $waitingHtmlDom = 'waiting="true"';
-                                            $loadingImg = "<img src=\"{$loadingImgUrl}\">";
-                                        } else {
-                                            $waitingHtmlDom = 'waiting="false"';
-                                            $loadingImg = "";
-                                        }
-                                        $innerHtml =  'data-verdict="' . $sub['result'] . '" data-submissionid="' . $sub['id'] . '" ' . $waitingHtmlDom;
-                                        if ($sub['result'] == Solution::OJ_AC) {
-                                            echo '<span class="text-success"' . $innerHtml . '>' . Solution::getResultList($sub['result']) . '</span>';
-                                        } else {
-                                            $span = '<span class="text-danger" ' . $innerHtml . '>' . Solution::getResultList($sub['result']) . $loadingImg . '</span>';
-                                            echo Html::a(
-                                                $span,
-                                                ['/solution/result', 'id' => $sub['id']],
-                                                ['onclick' => 'return false', 'data-click' => "solution_info", 'data-pjax' => 0]
-                                            );                                                
-                                        }
-                                        ?>
-                                    </td>
-                                    <?php if(Yii::$app->setting->get('isShareCode')!=2 || Yii::$app->user->identity->role == User::ROLE_ADMIN): ?>
+        <?php if (!Yii::$app->user->isGuest && !empty($submissions)) : ?>
+            <div class="panel panel-default" style="margin-top: 40px">
+                <div class="panel-heading"><?= Yii::t('app', 'Submissions') ?></div>
+                <!-- Table -->
+                <table class="table">
+                    <tbody>
+                        <?php foreach ($submissions as $sub) : ?>
+                            <tr>
+                                <td title="<?= $sub['created_at'] ?>">
+                                    <?= Yii::$app->formatter->asRelativeTime($sub['created_at']) ?>
+                                </td>
+                                <td>
+                                    <?php
+                                    if ($sub['result'] <= Solution::OJ_WAITING_STATUS) {
+                                        $waitingHtmlDom = 'waiting="true"';
+                                        $loadingImg = "<img src=\"{$loadingImgUrl}\">";
+                                    } else {
+                                        $waitingHtmlDom = 'waiting="false"';
+                                        $loadingImg = "";
+                                    }
+                                    $innerHtml =  'data-verdict="' . $sub['result'] . '" data-submissionid="' . $sub['id'] . '" ' . $waitingHtmlDom;
+                                    if ($sub['result'] == Solution::OJ_AC) {
+                                        $span = '<span class="text-success"' . $innerHtml . '>' . Solution::getResultList($sub['result']) . '</span>';
+                                    } else {
+                                        $span = '<span class="text-danger" ' . $innerHtml . '>' . Solution::getResultList($sub['result']) . $loadingImg . '</span>';
+                                    }
+                                    echo Html::a(
+                                        $span,
+                                        ['/solution/result', 'id' => $sub['id']],
+                                        ['onclick' => 'return false', 'data-click' => "solution_info", 'data-pjax' => 0]
+                                    );
+
+                                    ?>
+                                </td>
+                                <?php if (Yii::$app->setting->get('isShareCode') != 2 || Yii::$app->user->identity->role == User::ROLE_ADMIN) : ?>
                                     <td>
                                         <?= Html::a(
                                             '<span class="fa fa-pencil-square-o"></span>',
@@ -307,26 +309,26 @@ $nextProblemID = $model->getNextProblemID();
                                             ['title' => '查看源码', 'onclick' => 'return false', 'data-click' => "solution_info", 'data-pjax' => 0]
                                         ) ?>
                                     </td>
-                                    <?php endif; ?>
-                                </tr>
-                            <?php endforeach; ?>
-                        </tbody>
-                    </table>
-                </div>
-            <?php endif; ?>
-        </div>
+                                <?php endif; ?>
+                            </tr>
+                        <?php endforeach; ?>
+                    </tbody>
+                </table>
+            </div>
+        <?php endif; ?>
     </div>
+</div>
 
-    <?php Modal::begin([
-        'options' => ['id' => 'solution-info']
-    ]); ?>
-    <div id="solution-content">
-    </div>
-    <?php Modal::end(); ?>
+<?php Modal::begin([
+    'options' => ['id' => 'solution-info']
+]); ?>
+<div id="solution-content">
+</div>
+<?php Modal::end(); ?>
 
-    <?php
-    $url = \yii\helpers\Url::toRoute(['/solution/verdict']);
-    $js = <<<EOF
+<?php
+$url = \yii\helpers\Url::toRoute(['/solution/verdict']);
+$js = <<<EOF
 $('[data-click=solution_info]').click(function() {
     $.ajax({
         url: $(this).attr('href'),
@@ -388,12 +390,12 @@ if (waitingCount > 0) {
     interval = setInterval(testWaitingsDone, 1000);
 }
 EOF;
-    $this->registerJs($js);
-    ?>
-    <script>
-        function themeChange() {
-            var sel_theme = document.getElementById("solution-theme").value;
-            editor.setOption("theme", sel_theme);
-            document.cookie = "theme=" + sel_theme;
-        }
-    </script>
+$this->registerJs($js);
+?>
+<script>
+    function themeChange() {
+        var sel_theme = document.getElementById("solution-theme").value;
+        editor.setOption("theme", sel_theme);
+        document.cookie = "theme=" + sel_theme;
+    }
+</script>
