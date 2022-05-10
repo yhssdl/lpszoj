@@ -106,9 +106,9 @@ $label_i = 0;
                             $res .= ' ';
                         }
                         $res .= '</span>';
+                        return $res;
                     }
-                    return $res;
-
+                    return '';  
                 },
                 'format' => 'raw'
             ],
