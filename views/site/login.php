@@ -46,7 +46,7 @@ $this->registerCss("
         <img src="/images/login.png">
     </div>
     <div class="col-md-6">
-    <div class="login-title">账户登录</div>
+    <div class="login-title"><?= Yii::t('app', 'User Login') ?></div>
         <?php $form = ActiveForm::begin([
             'id' => 'login-form',
             'options' => [
