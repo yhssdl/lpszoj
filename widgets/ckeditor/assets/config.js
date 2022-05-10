@@ -16,4 +16,6 @@ CKEDITOR.editorConfig = function( config ) {
 	];
 
 	config.removeButtons = 'Underline,Subscript,Superscript,Font,Cut,Copy,Paste,Outdent,Indent,Anchor';
+	config.extraPlugins = 'uploadimage';
+	config.filebrowserImageUploadUrl ='/image/upload';
 };
