@@ -2,13 +2,14 @@
 
 use yii\helpers\Html;
 use yii\grid\GridView;
-use yii\bootstrap\Modal;
+use app\models\Problem;
 
 /* @var $this yii\web\View */
 /* @var $searchModel app\models\ProblemSearch */
 /* @var $dataProvider yii\data\ActiveDataProvider */
 
 $this->title = Yii::t('app', 'Problems');
+$label_i = 0;
 ?>
 <div class="problem-index">
 
@@ -89,6 +90,33 @@ $this->title = Yii::t('app', 'Problems');
                 'format' => 'raw'
             ],
             [
+                'attribute' => 'tags',
+                'value' => function ($model, $key, $index, $column) {
+                    global $label_i;
+                    $tags = !empty($model->tags) ? explode(',', $model->tags) : [];
+                    $tagsCount = count($tags);
+                    if ($tagsCount > 0) {
+                        $res = '<span>';
+                        foreach ((array)$tags as $tag) {
+                            $label = Problem::getColorLabel($label_i);
+                            $label_i = $label_i + 1;
+                            $res .= Html::a(Html::encode($tag), [
+                                '/problem/index', 'tag' => $tag
+                            ], ['class' => $label,'target' => '_blank']);
+                            $res .= ' ';
+                        }
+                        $res .= '</span>';
+                    }
+                    return $res;
+
+                },
+                'format' => 'raw'
+            ],
+            [
+                'attribute' => 'source',
+            ],
+
+            [
                 'attribute' => 'status',
                 'value' => function ($model, $key, $index, $column) {
                     if ($model->status == \app\models\Problem::STATUS_VISIBLE) {
@@ -120,6 +148,7 @@ $this->title = Yii::t('app', 'Problems');
                 },
                 'enableSorting' => false,
                 'format' => 'raw',
+                'visible' => Yii::$app->setting->get('isEnablePolygon'),
             ],
             ['class' => 'yii\grid\ActionColumn',
             'contentOptions' => ['class'=>'a_just']
