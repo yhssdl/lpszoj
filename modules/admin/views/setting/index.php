@@ -7,6 +7,13 @@ use yii\helpers\Html;
 /* @var $form yii\widgets\ActiveForm */
 
 $this->title = Yii::t('app', 'Setting');
+
+$editorName = Yii::$app->setting->get('ojEditor');
+if($editorName=='app\\widgets\\kindeditor\\KindEditor'){
+    $editorName = 'app\\widgets\\ckeditor\\CKeditor';
+}
+
+
 ?>
 <p class="lead">设置系统选项</p>
 <div class="setting-form animate__animated animate__fadeInUp">
@@ -25,7 +32,7 @@ $this->title = Yii::t('app', 'Setting');
 
     <div class="form-group">
         <?php
-        echo Yii::$app->setting->get('ojEditor')::widget(['name' => 'notice', 'id' => 'notice', 'value' => $settings['notice']]);
+        echo $editorName::widget(['name' => 'notice', 'id' => 'notice', 'value' => $settings['notice']]);
         ?>
     </div>
 
@@ -41,7 +48,7 @@ $this->title = Yii::t('app', 'Setting');
     </div>
     <div class="form-group">
         <?php
-        echo Yii::$app->setting->get('ojEditor')::widget(['name' => 'homeNotice', 'id' => 'homeNotice', 'value' => $settings['homeNotice']]);
+        echo $editorName::widget(['name' => 'homeNotice', 'id' => 'homeNotice', 'value' => $settings['homeNotice']]);
         ?>
     </div>
 </div>
