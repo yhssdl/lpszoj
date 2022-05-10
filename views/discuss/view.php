@@ -63,7 +63,7 @@ $this->params['breadcrumbs'][] = ['label' => Html::encode($model->problem->title
 
     <?php $form = ActiveForm::begin(); ?>
     <?= $form->field($newDiscuss, 'content')->widget(Yii::$app->setting->get('ojEditor'))->label(false); ?>
-    <?= Html::submitButton(Yii::t('app', 'Reply'), ['class' => 'btn btn-success btn-block']) ?>
+    <div class="row"><div class="col-md-2 col-md-offset-5"><?= Html::submitButton(Yii::t('app', 'Reply'), ['class' => 'btn btn-success btn-block']) ?></div></div>
     <?php ActiveForm::end(); ?>
 
 </div>
