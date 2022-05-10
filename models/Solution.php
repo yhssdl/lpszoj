@@ -321,14 +321,20 @@ class Solution extends ActiveRecord
         if (Yii::$app->user->isGuest){
             return false;
         }
+
+        // 管理员有权限查看
+        if (!Yii::$app->user->isGuest && Yii::$app->user->identity->role == User::ROLE_ADMIN) {
+            return true;
+        }
+
+        if (Yii::$app->setting->get('isShareCode')==2) {
+            return false;
+        } 
+
         // 状态可见且设置了分享状态可以查看。以下代码中 isShareCode 的说明参见后台设置页面。
         // 对于比赛中的提交， status 的值默认为 STATUS_HIDDEN，比赛结束时可以在后台设为 STATUS_VISIBLE 以供普通用户查看
         // 对于后台验题时的提交，status 的值为 STATUS_HIDDEN
-        if ($this->status == Solution::STATUS_VISIBLE && Yii::$app->setting->get('isShareCode')) {
-            return true;
-        }
-        // 管理员有权限查看
-        if (Yii::$app->user->identity->role == User::ROLE_ADMIN) {
+        if ($this->status == Solution::STATUS_VISIBLE && Yii::$app->setting->get('isShareCode')==1) {
             return true;
         }
 
@@ -375,6 +381,18 @@ class Solution extends ActiveRecord
         if (Yii::$app->user->isGuest){
             return false;
         }
+
+        // 管理员有权限查看
+        if (!Yii::$app->user->isGuest && Yii::$app->user->identity->role == User::ROLE_ADMIN) {
+            return true;
+        }
+
+
+        if (Yii::$app->setting->get('isShareCode')==2) {
+            return false;
+        }  
+
+
         // 提交代码的作者有权限查看
         if ($this->created_by == Yii::$app->user->id) {
             return true;
@@ -382,13 +400,10 @@ class Solution extends ActiveRecord
         // 状态可见且设置了分享状态可以查看。以下代码中 isShareCode 的说明参见后台设置页面。
         // 对于比赛中的提交， status 的值默认为 STATUS_HIDDEN，比赛结束时可以在后台设为 STATUS_VISIBLE 以供普通用户查看
         // 对于后台验题时的提交，status 的值为 STATUS_HIDDEN
-        if ($this->status == Solution::STATUS_VISIBLE && Yii::$app->setting->get('isShareCode')) {
+        if ($this->status == Solution::STATUS_VISIBLE && Yii::$app->setting->get('isShareCode')==1) {
             return true;
         }
-        // 管理员有权限查看
-        if (!Yii::$app->user->isGuest && Yii::$app->user->identity->role == User::ROLE_ADMIN) {
-            return true;
-        }
+
         if (!empty($this->contest_id)) {
             $contest = self::getContestInfo($this->contest_id);
             // 比赛结束都可以看
@@ -444,12 +459,10 @@ class Solution extends ActiveRecord
         }
 
 
-
-
         // 状态可见且设置了分享状态可以查看。以下代码中 isShareCode 的说明参见后台设置页面。
         // 对于比赛中的提交， status 的值默认为 STATUS_HIDDEN，比赛结束时可以在后台设为 STATUS_VISIBLE 以供普通用户查看
         // 对于后台验题时的提交，status 的值为 STATUS_HIDDEN
-        if ($this->status == Solution::STATUS_VISIBLE && Yii::$app->setting->get('isShareCode')) {
+        if ($this->status == Solution::STATUS_VISIBLE && Yii::$app->setting->get('isShareCode')==1) {
             return true;
         }
 

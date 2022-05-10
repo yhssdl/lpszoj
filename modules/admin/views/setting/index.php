@@ -135,7 +135,8 @@ if($editorName=='app\\widgets\\kindeditor\\KindEditor'){
     <?= Html::label(Yii::t('app', '是否要共享代码'), 'isShareCode') ?>
     <?= Html::radioList('isShareCode', $settings['isShareCode'], [
         1 => '用户可以查看其他用户的代码',
-        0 => '用户的代码只能由自己或者管理员查看'
+        0 => '用户的代码只能由自己或者管理员查看',
+        2 => '只有管理员可以查看代码'
     ]) ?>
 </div>
 

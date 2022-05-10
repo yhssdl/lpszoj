@@ -5,7 +5,7 @@ use yii\grid\GridView;
 use yii\widgets\Pjax;
 use yii\bootstrap\Modal;
 use app\models\Contest;
-
+use app\models\User;
 /* @var $this yii\web\View */
 /* @var $model app\models\Contest */
 /* @var $searchModel app\models\SolutionSearch */
@@ -89,7 +89,12 @@ $isContestEnd = $model->isContestEnd();
                     if ($model->type == Contest::TYPE_OI && !$isContestEnd) {
                         return Yii::t('app', 'Pending');
                     }
-                    $otherCan = ($isContestEnd && Yii::$app->setting->get('isShareCode'));
+
+                    if(Yii::$app->user->isGuest || Yii::$app->user->identity->role != User::ROLE_ADMIN && Yii::$app->setting->get('isShareCode')==2){
+                        return $solution->getResult();
+                    }
+
+                    $otherCan = ($isContestEnd && Yii::$app->setting->get('isShareCode')==1);
                     $createdBy = (!Yii::$app->user->isGuest && ($model->created_by == Yii::$app->user->id || Yii::$app->user->id == $solution->created_by));
                     if ($otherCan || $createdBy || $model->type == Contest::TYPE_HOMEWORK || ($userInContest && $isContestEnd)) {
                         return Html::a(
@@ -137,7 +142,7 @@ $isContestEnd = $model->isContestEnd();
             [
                 'attribute' => 'language',
                 'value' => function ($solution, $key, $index, $column) use ($model, $isContestEnd) {
-                    $otherCan = ($isContestEnd && Yii::$app->setting->get('isShareCode'));
+                    $otherCan = ($isContestEnd && Yii::$app->setting->get('isShareCode')==1);
                     if ($solution->canViewSource() || $otherCan) {
                         return Html::a(
                             $solution->getLang(),

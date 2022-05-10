@@ -5,6 +5,7 @@ use yii\widgets\ActiveForm;
 use yii\bootstrap\Modal;
 use app\models\Solution;
 use app\models\Problem;
+use app\models\User;
 /* @var $this yii\web\View */
 /* @var $model app\models\Problem */
 /* @var $solution app\models\Solution */
@@ -15,7 +16,7 @@ $this->title = $model->id . ' - ' . $model->title;
 $this->registerJsFile(Yii::getAlias('@web/js/splitter.min.js'));
 $this->registerJs("
 Split(['.problem-left', '.problem-right'], {
-    sizes: [60, 40],
+    sizes: [50, 50],
 });
 ");
 $this->registerCss("
@@ -380,12 +381,8 @@ $nextProblemID = $model->getNextProblemID();
                                                 }
                                                 $innerHtml =  'data-verdict="' . $sub['result'] . '" data-submissionid="' . $sub['id'] . '" ' . $waitingHtmlDom;
                                                 if ($sub['result'] == Solution::OJ_AC) {
-                                                    $span = '<span class="text-success"' . $innerHtml . '>' . Solution::getResultList($sub['result']) . '</span>';
-                                                    echo Html::a(
-                                                        $span,
-                                                        ['/solution/source', 'id' => $sub['id']],
-                                                        ['onclick' => 'return false', 'data-click' => "solution_info", 'data-pjax' => 0]
-                                                    );
+                                                    echo  '<span class="text-success"' . $innerHtml . '>' . Solution::getResultList($sub['result']) . '</span>';
+   
                                                 } else {
                                                     $span = '<span class="text-danger" ' . $innerHtml . '>' . Solution::getResultList($sub['result']) . $loadingImg . '</span>';
                                                     echo Html::a(
@@ -396,6 +393,7 @@ $nextProblemID = $model->getNextProblemID();
                                                 }
                                                 ?>
                                             </td>
+                                            <?php if(Yii::$app->setting->get('isShareCode')!=2 || Yii::$app->user->identity->role == User::ROLE_ADMIN): ?>
                                             <td>
                                                 <?= Html::a(
                                                     '<span class="fa fa-pencil-square-o"></span>',
@@ -403,6 +401,7 @@ $nextProblemID = $model->getNextProblemID();
                                                     ['title' => '查看源码', 'onclick' => 'return false', 'data-click' => "solution_info", 'data-pjax' => 0]
                                                 ) ?>
                                             </td>
+                                            <?php endif; ?>
                                         </tr>
                                     <?php endforeach; ?>
                                 </tbody>
@@ -422,12 +421,7 @@ $nextProblemID = $model->getNextProblemID();
                                 }
                                 $innerHtml =  'data-verdict="' . $sub['result'] . '" data-submissionid="' . $sub['id'] . '" ' . $waitingHtmlDom;
                                 if ($sub['result'] == Solution::OJ_AC) {
-                                    $span = '<span class="text-success"' . $innerHtml . '>' . Solution::getResultList($sub['result']) . '</span>';
-                                    echo Html::a(
-                                        $span,
-                                        ['/solution/source', 'id' => $sub['id']],
-                                        ['onclick' => 'return false', 'data-click' => "solution_info", 'data-pjax' => 0]
-                                    );
+                                    echo '<span class="text-success"' . $innerHtml . '>' . Solution::getResultList($sub['result']) . '</span>';
                                 } else {
                                     $span = '<span class="text-danger" ' . $innerHtml . '>' . Solution::getResultList($sub['result']) . $loadingImg . '</span>';
                                     echo Html::a(
@@ -438,14 +432,16 @@ $nextProblemID = $model->getNextProblemID();
                                 }
                                 ?>
                             </span>
+                            <?php if(Yii::$app->setting->get('isShareCode')!=2 || Yii::$app->user->identity->role == User::ROLE_ADMIN): ?>
                             <span>
-                                &nbsp;&nbsp;<?= Html::a(
+                                &nbsp;<?= Html::a(
                                                 '<span class="fa fa-pencil-square-o"></span>',
                                                 ['/solution/source', 'id' => $sub['id']],
                                                 ['title' => '查看源码', 'onclick' => 'return false', 'data-click' => "solution_info", 'data-pjax' => 0]
                                             )
                                             ?>
                             </span>
+                            <?php endif; ?>
                         </div>
                     <?php endif; ?>
 
