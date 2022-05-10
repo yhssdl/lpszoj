@@ -20,9 +20,9 @@ use yii\widgets\ActiveForm;
     ]); ?>
 
 
-    <div class="col-md-3">
+    <div class="col-md-2">
         <?= $form->field($model, 'id', [
-            'template' => "{label}\n<div class=\"input-group btn-group-justified\"><span style='width:30%' class=\"input-group-addon\"><span class='fa fa-book'></span></span>{input}</div>",
+            'template' => "{label}\n<div class=\"input-group btn-group-justified\"><span style='width:40%' class=\"input-group-addon\"><span class='fa fa-book'></span></span>{input}</div>",
         ])->textInput(['maxlength' => 128, 'autocomplete' => 'off', 'placeholder' => Yii::t('app', 'Problem ID')])->label(false) ?>
     </div>
 
@@ -32,11 +32,18 @@ use yii\widgets\ActiveForm;
         ])->textInput(['maxlength' => 128, 'autocomplete' => 'off', 'placeholder' => Yii::t('app', 'Title')])->label(false) ?>
     </div>
 
-    <div class="col-md-3">
+    <div class="col-md-2">
         <?= $form->field($model, 'source', [
-            'template' => "{label}\n<div class=\"input-group btn-group-justified\"><span style='width:30%' class=\"input-group-addon\">来源</span>{input}</div>",
+            'template' => "{label}\n<div class=\"input-group btn-group-justified\"><span style='width:40%' class=\"input-group-addon\">来源</span>{input}</div>",
         ])->textInput(['maxlength' => 128, 'autocomplete' => 'off', 'placeholder' => Yii::t('app', 'Source')])->label(false) ?>
     </div>
+
+    <div class="col-md-2">
+        <?= $form->field($model, 'tags', [
+            'template' => "{label}\n<div class=\"input-group btn-group-justified\"><span style='width:40%' class=\"input-group-addon\">标签</span>{input}</div>",
+        ])->textInput(['maxlength' => 128, 'autocomplete' => 'off', 'placeholder' => Yii::t('app', 'Tags')])->label(false) ?>
+    </div>
+
     <div class="col-md-3">
         <div class="form-group">
             <div class="btn-group btn-group-justified">

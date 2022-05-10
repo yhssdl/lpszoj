@@ -17,7 +17,7 @@ class ProblemSearch extends Problem
     {
         return [
             [['id', 'time_limit', 'memory_limit', 'accepted', 'submit', 'solved'], 'integer'],
-            [['title', 'description', 'input', 'output', 'sample_input', 'sample_output', 'spj', 'hint', 'source', 'created_at', 'status'], 'safe'],
+            [['title', 'description', 'input', 'output', 'sample_input', 'sample_output', 'spj', 'hint', 'source', 'tags','created_at', 'status'], 'safe'],
         ];
     }
 
@@ -77,6 +77,7 @@ class ProblemSearch extends Problem
             ->andFilterWhere(['like', 'sample_output', $this->sample_output])
             ->andFilterWhere(['like', 'spj', $this->spj])
             ->andFilterWhere(['like', 'hint', $this->hint])
+            ->andFilterWhere(['like', 'tags', $this->tags])
             ->andFilterWhere(['like', 'source', $this->source])
             ->andFilterWhere(['like', 'status', $this->status]);
 
