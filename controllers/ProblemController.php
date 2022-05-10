@@ -54,9 +54,14 @@ class ProblemController extends BaseController
             $query->andWhere('tags LIKE :tag', [':tag' => '%' . Yii::$app->request->get('tag') . '%']);
         }
         if (($post = Yii::$app->request->post())) {
-            $query->orWhere(['like', 'title', $post['q']])
-                ->orWhere(['like', 'id', $post['q']])
-                ->orWhere(['like', 'source', $post['q']]);
+            if(isset($post['q'])) {
+                $query->orWhere(['like', 'title', $post['q']])
+                    ->orWhere(['like', 'id', $post['q']])
+                    ->orWhere(['like', 'source', $post['q']]);
+            }
+            if(isset($post['tag'])) {
+                $query->orWhere(['like', 'tags', $post['tag']]);
+            }
         }
         $query->andWhere('status<>' . Problem::STATUS_HIDDEN);
 

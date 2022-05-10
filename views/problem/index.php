@@ -65,13 +65,12 @@ else
             <div class="modal-header">
                 <?= Yii::t('app', 'Tags') ?>
                 <button type="button" class="close" data-dismiss="modal" aria-hidden="true">&times;</button>
-
             </div>
             <div class="modal-body">
 
                 <?= Html::beginForm('', 'post') ?>
                 <div class="input-group">
-                    <?= Html::textInput('q', '', ['class' => 'form-control', 'placeholder' => '题号 / 标题 / 来源']) ?>
+                    <?= Html::textInput('tag', '', ['class' => 'form-control', 'placeholder' => '标签']) ?>
                     <span class="input-group-btn">
                         <?= Html::submitButton('<span class="fa fa-search"></span>', ['class' => 'btn btn-primary']) ?>
                     </span>
