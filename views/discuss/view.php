@@ -61,9 +61,13 @@ $this->params['breadcrumbs'][] = ['label' => Html::encode($model->problem->title
         'pagination' => $pages,
     ]); ?>
 
+<?php if (Yii::$app->user->isGuest): ?>
+    <div class="alert alert-light"><i class=" fa fa-info-circle"></i> <?= Yii::t('app','Login before discuss') ?></div>
+<?php else: ?>
     <?php $form = ActiveForm::begin(); ?>
     <?= $form->field($newDiscuss, 'content')->widget(Yii::$app->setting->get('ojEditor'))->label(false); ?>
     <div class="row"><div class="col-md-2 col-md-offset-5"><?= Html::submitButton(Yii::t('app', 'Reply'), ['class' => 'btn btn-success btn-block']) ?></div></div>
     <?php ActiveForm::end(); ?>
+<?php endif; ?>
 
 </div>
