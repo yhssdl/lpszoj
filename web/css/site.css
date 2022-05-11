@@ -944,12 +944,12 @@ a.contest-tag-green:hover ,a.contest-tag-green:focus {
 }
 
 .contest-tag-blue {
-    background: #218ce9;
+    background: #337ab7;
     color:#fff;
 }
 
 a.contest-tag-blue:hover ,a.contest-tag-blue:focus {
-    background: #1a7ed5;
+    background: #286498;
     color:#fff;
 }
 
