@@ -81,7 +81,7 @@ $count = count($full_news);
         <?php endif; ?>
         <?php if ((Yii::$app->setting->get('isDiscuss')) && (!empty($discusses))) : ?>
             <ol class="list-group">
-                <li class="list-group-item text-center"><i class="fa fa-comments-o"></i> 最近讨论</li>
+                <li class="alert-light list-group-item text-center"><i class="fa fa-comments-o"></i> 最近讨论</li>
 
                 <?php foreach ($discusses as $discuss) : ?>
                     <?= Html::a('<div class="text-ellipsis">' . Html::encode($discuss['title']) . '</div><div class="text-ellipsis"><small>' . Html::encode($discuss['nickname']) . '&nbsp;&nbsp;&nbsp;' . Yii::$app->formatter->asRelativeTime($discuss['created_at']) . '&nbsp;&nbsp;&nbsp;' . Html::encode($discuss['ptitle']) . '</small></div>', ['/discuss/view', 'id' => $discuss['id']], ['class' => 'list-group-item list-group-item-action']) ?>
