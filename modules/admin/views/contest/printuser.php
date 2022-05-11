@@ -31,9 +31,9 @@ table  td{
     </tr>
     <?php foreach ($users as $user): ?>
         <tr>
+            <td><?= $user->user->username ?></td>
             <td><?= $user->user->nickname ?></td>
             <td><?= $user->user_password ?></td>
-            <td><?= $user->user->username ?></td>
         </tr>
     <?php endforeach; ?>
     </tbody>
