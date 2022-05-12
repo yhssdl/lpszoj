@@ -12,7 +12,7 @@ class m220104_124300_add_group extends BaseMigration
      */
     public function safeUp()
     {
-        $this->addColumn('{{%group}}', 'is_train', $this->tinyInteger()->notNull());
+        $this->addColumn('{{%group}}', 'is_train', $this->tinyInteger()->defaultValue(0)->notNull());
     }
 
     /**
