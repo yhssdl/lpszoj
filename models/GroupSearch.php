@@ -18,7 +18,7 @@ class GroupSearch extends Group
     public function rules()
     {
         return [
-            [['id', 'status'], 'integer'],
+            [['id', 'status','is_train'], 'integer'],
             [['name', 'description', 'created_at', 'updated_at'], 'safe'],
         ];
     }
@@ -39,10 +39,11 @@ class GroupSearch extends Group
      *
      * @return ActiveDataProvider
      */
-    public function search($params)
+    public function search($params,$is_train=Group::MODE_GROUP)
     {
         $query = Group::find();
-
+        $query->where(['is_train' => $is_train]);
+    
         // add conditions that should always apply here
         if (Yii::$app->user->isGuest || !Yii::$app->user->identity->isAdmin()) {
             $query->where(['status' => Group::STATUS_VISIBLE]);

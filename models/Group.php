@@ -19,6 +19,9 @@ use Yii;
  */
 class Group extends ActiveRecord
 {
+    const MODE_GROUP = 0;
+    const MODE_TRAIN = 1;
+
     const STATUS_HIDDEN = 0;
     const STATUS_VISIBLE = 1;
 
@@ -50,7 +53,7 @@ class Group extends ActiveRecord
     {
         return [
             [['name', 'status', 'join_policy'], 'required'],
-            [['status'], 'integer'],
+            [['is_train','status'], 'integer'],
             [['created_at', 'updated_at'], 'safe'],
             [['name'], 'string', 'max' => 32],
             [['description'], 'string', 'max' => 255],
