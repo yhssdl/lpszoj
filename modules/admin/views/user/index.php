@@ -53,13 +53,17 @@ $this->title = Yii::t('app', 'Users');
         <?php Modal::end(); ?>
         </div>
         <div class="btn-group">
-            <a id="general-user" class="btn btn-success" href="javascript:void(0);"><span class="fa fa-user"></span> 设为普通用户</a>
+            <a id="general-user" class="btn btn-success" href="javascript:void(0);" data-toggle="tooltip" data-placement="top" title="将选中的用户设置为普通用户"><span class="fa fa-user"></span> 设为普通用户</a>
         </div>
         <div class="btn-group">
-            <a id="vip-user" class="btn btn-success" href="javascript:void(0);"><span class="fa fa-key"></span> 设为VIP用户</a>
+            <a id="vip-user" class="btn btn-success" href="javascript:void(0);" data-toggle="tooltip" data-placement="top" title="将选中的用户设置为VIP用户"><span class="fa fa-key"></span> 设为VIP用户</a>
         </div>
         <div class="btn-group">
-            <a id="admin-user" class="btn btn-success" href="javascript:void(0);"><span class="fa fa-globe"></span> 设为管理员</a>
+            <a id="admin-user" class="btn btn-success" href="javascript:void(0);" data-toggle="tooltip" data-placement="top" title="将选中的用户设置为管理员"><span class="fa fa-globe"></span> 设为管理员</a>
+        </div>
+
+        <div class="btn-group">
+            <a id="delete" class="btn btn-danger" href="javascript:void(0);" data-toggle="tooltip" data-placement="top" title="删除选中用户，不可恢复"><span class="fa fa-trash"></span> 删除</a>
         </div>
 
     </div>
@@ -140,6 +144,9 @@ $this->title = Yii::t('app', 'Users');
         ],
     ]);
     $this->registerJs('
+    $(function () {
+        $(\'[data-toggle="tooltip"]\').tooltip()
+      })
     $("#general-user").on("click", function () {
         var keys = $("#grid").yiiGridView("getSelectedRows");
         $.post({
@@ -164,6 +171,17 @@ $this->title = Yii::t('app', 'Users');
            data: {keylist: keys}
         });
     });
+    $("#delete").on("click", function () {
+        if (confirm("确定要删除？此操作不可恢复！")) {
+            var keys = $("#grid").yiiGridView("getSelectedRows");
+            $.post({
+               url: "' . \yii\helpers\Url::to(['/admin/user/index', 'action' => 'delete']) . '", 
+               dataType: \'json\',
+               data: {keylist: keys}
+            });
+        }
+    });
+
     ');
     ?>
 </div>

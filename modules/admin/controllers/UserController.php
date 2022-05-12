@@ -67,15 +67,40 @@ class UserController extends Controller
         $generatorForm->language = Yii::$app->setting->get('defaultLanguage');
 
         if (Yii::$app->request->get('action') && Yii::$app->request->isPost) {
-            $keys = Yii::$app->request->post('keylist');
             $action = Yii::$app->request->get('action');
-            foreach ($keys as $key) {
-                if(Yii::$app->user->id != $key){
-                    Yii::$app->db->createCommand()->update('{{%user}}', [
-                        'role' => $action
-                    ], ['id' => $key])->execute();                   
+            $keys = Yii::$app->request->post('keylist');
+            if ($action == 'delete') {
+                foreach ($keys as $key) {
+                    $model = $this->findModel($key);
+                    try {
+                        Yii::$app->db->createCommand()->delete('{{%user_profile}}',['user_id' => $model->id])->execute();
+                        Yii::$app->db->createCommand()->delete('{{%contest_user}}',['user_id' => $model->id])->execute();
+                        Yii::$app->db->createCommand()->delete('{{%group_user}}',['user_id' => $model->id])->execute();
+                        Yii::$app->db->createCommand()->delete('{{%discuss}}',['created_by' => $model->id])->execute(); 
+                        Yii::$app->db->createCommand('DELETE solution_info, solution FROM solution_info, solution  WHERE solution_info.solution_id=solution.id AND solution.created_by=:uid',[':uid' => $model->id])->execute(); 
+                        $this->findModel($model->id)->delete();
+                        
+                    } catch (\ErrorException $e) {
+                        Yii::$app->session->setFlash('error', '删除失败:' . $e->getMessage());
+                        return $this->redirect(['index']);
+                    }
+                    $model->delete();
+                    Yii::$app->session->setFlash('success', Yii::t('app', 'Delete successfully'));
+                }
+            } else{
+                foreach ($keys as $key) {
+                    if(Yii::$app->user->id != $key){
+                        Yii::$app->db->createCommand()->update('{{%user}}', [
+                            'role' => $action
+                        ], ['id' => $key])->execute();                   
+                    }
                 }
             }
+
+
+
+
+
             return $this->refresh();
         }
         return $this->render('index', [
