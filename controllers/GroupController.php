@@ -57,12 +57,12 @@ class GroupController extends BaseController
     public function actionMyGroup()
     {
         $count = Yii::$app->db->createCommand('
-            SELECT COUNT(*) FROM {{%group}} AS g LEFT JOIN {{%group_user}} AS u ON u.group_id=g.id WHERE u.user_id=:id',
-            [':id' => Yii::$app->user->id]
+            SELECT COUNT(*) FROM {{%group}} AS g LEFT JOIN {{%group_user}} AS u ON u.group_id=g.id WHERE u.user_id=:id and g.is_train=:is_train',
+            [':id' => Yii::$app->user->id,':is_train' => Group::MODE_GROUP]
         )->queryScalar();
         $dataProvider = new SqlDataProvider([
-            'sql' => 'SELECT g.id,g.name,g.description,g.join_policy,g.logo_url FROM {{%group}} AS g LEFT JOIN {{%group_user}} AS u ON u.group_id=g.id WHERE u.user_id=:id AND u.role <> 0',
-            'params' => [':id' => Yii::$app->user->id],
+            'sql' => 'SELECT g.id,g.name,g.description,g.join_policy,g.logo_url FROM {{%group}} AS g LEFT JOIN {{%group_user}} AS u ON u.group_id=g.id WHERE u.user_id=:id AND g.is_train=:is_train AND u.role <> 0',
+            'params' => [':id' => Yii::$app->user->id,':is_train' => Group::MODE_GROUP],
             'totalCount' => $count,
             'pagination' => [
                 'pageSize' => 20,
@@ -313,8 +313,9 @@ class GroupController extends BaseController
     public function actionCreate()
     {
         $model = new Group();
+        $model->is_train = 0;
         $model->status = Group::STATUS_VISIBLE;
-        $model->join_policy = Group::JOIN_POLICY_INVITE;
+        $model->join_policy = Group::JOIN_POLICY_FREE;
 
         if ($model->load(Yii::$app->request->post()) && $model->save()) {
             $groupUser = new GroupUser();

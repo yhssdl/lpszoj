@@ -150,18 +150,4 @@ $scoreboardFrozenTime = Yii::$app->setting->get('scoreboardFrozenTime') / 3600;
 
 </div>
 <?php
-$js = <<<EOF
-$('[data-click=user-manager]').click(function() {
-    $.ajax({
-        url: $(this).attr('href'),
-        type:'post',
-        error: function(){alert('error');},
-        success:function(html){
-        $('#solution-content').html(html);
-        $('#solution-info').modal('show');
-    }
-    });
-});
-EOF;
-$this->registerJs($js);
 ?>

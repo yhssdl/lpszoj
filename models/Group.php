@@ -53,7 +53,7 @@ class Group extends ActiveRecord
     {
         return [
             [['name', 'status', 'join_policy'], 'required'],
-            [['is_train','status'], 'integer'],
+            [['created_by','is_train','status'], 'integer'],
             [['created_at', 'updated_at'], 'safe'],
             [['name'], 'string', 'max' => 32],
             [['description'], 'string', 'max' => 255],
@@ -76,6 +76,7 @@ class Group extends ActiveRecord
             'updated_at' => Yii::t('app', 'Updated At'),
             'kanban' => Yii::t('app', 'Kanban'),
             'logo_url' => Yii::t('app', 'Logo Url'),
+            'created_by' => Yii::t('app', 'Created By')
         ];
     }
 
@@ -194,6 +195,11 @@ class Group extends ActiveRecord
         $role = $this->getRole();
         return $role == GroupUser::ROLE_LEADER || $role == GroupUser::ROLE_MANAGER ||
             $role == GroupUser::ROLE_MEMBER || Yii::$app->user->identity->isAdmin();
+    }
+
+    public function getUser()
+    {
+        return $this->hasOne(User::className(), ['id' => 'created_by']);
     }
 
     /**

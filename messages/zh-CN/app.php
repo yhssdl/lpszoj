@@ -283,6 +283,9 @@ return [
     'Show Solution' => '查看解题',
     'Show Status' => '导航栏中显示状态菜单',
     'User Login' => '用户登录',
-    'Training' => '训练'
+    'Training' => '训练',
+    'Create Training' => '创建训练' ,
+    'Training Name' => '训练名称' ,
+    'Create Section' => '创建小节'
 
 ];
