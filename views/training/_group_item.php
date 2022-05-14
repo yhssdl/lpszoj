@@ -25,14 +25,10 @@ if($lerder) {
 if($model['logo_url']){
     $pic = $model['logo_url'];
 }else{
-    $pic = Yii::getAlias('@web') . '/images/group.png';   
+    $pic = Yii::getAlias('@web') . '/images/task.png';   
 }
 
 
-
-if($model['join_policy']==Group::JOIN_POLICY_INVITE) $join = '<span class="contest-tag status-ended"><span class="fa fa-lock"></span> 私有小组</span>';
-else if($model['join_policy']==Group::JOIN_POLICY_APPLICATION) $join = '<span class="contest-tag contest-tag-blue"><span class="fa fa-street-view"></span> 普通小组</span>';
-else $join = '<span class="contest-tag contest-tag-green"><span class="fa fa-key"></span> 公开小组</span>';
 
 $content = '
 <div class="section-body">
@@ -40,15 +36,12 @@ $content = '
     <div class="media__body medium">
         <div class="contest__title">'. $title .' </div>
         <ul class="supplementary list">
-            <li>
-                '.$join.'
-            </li>
             '. $lerder_name .'
             <li>
                 <span class="fa fa-user"></span> '. $user_count .' 人
             </li>
             <li>
-            <span class="fa fa-rocket "></span> '. $contest_count .' 个任务
+            <span class="fa fa-rocket "></span> '. $contest_count .' 个小节
             </li>
             <li>
             <span class="fa fa-info-circle"></span> '. $description .'
@@ -59,6 +52,6 @@ $content = '
 ';
 
 
-echo Html::a($content, ['/group/view', 'id' => $model['id']], ['class' => 'list-group-item list-group-item-action','style' => 'padding:0px;']);
+echo Html::a($content, ['view', 'id' => $model['id']], ['class' => 'list-group-item list-group-item-action','style' => 'padding:0px;']);
 ?>
 

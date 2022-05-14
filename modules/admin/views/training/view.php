@@ -1,13 +1,10 @@
 <?php
 
 use yii\helpers\Html;
-use yii\grid\GridView;
 use yii\bootstrap\Modal;
 use yii\widgets\ActiveForm;
-use app\models\GroupUser;
 use yii\widgets\ListView;
-use app\models\Contest;
-use yii\bootstrap\Nav;
+
 
 /* @var $this yii\web\View */
 /* @var $model app\models\Group */
@@ -40,19 +37,13 @@ $this->title = $model->name;
                     <?php $form = ActiveForm::begin(); ?>
                     <?= $form->field($newContest, 'title', ['template' => '<div class="input-group"><span class="input-group-addon">' . Yii::t('app', 'Title') . '</span>{input}</div>'])->textInput()->label(false) ?>
 
+
+                    <?= $form->field($newContest, 'punish_time', ['template' => '<div class="input-group"><span class="input-group-addon">' . Yii::t('app', '过关题数') . '</span>{input}</div>{hint}'])->textInput()->hint('完成并通过指定的题目数量即可过关，如果为<code>-1</code>时需要通过所有题目。') ?>
+
                     <?= $form->field($newContest, 'enable_clarify')->radioList([
                         0 => '未完成前隐藏下一小节',
                         1 => '显示下一小节',
                     ])->label(false) ?>
-
-                    <?= $form->field($newContest, 'punish_time')->radioList([
-                        0 => '0题',
-                        1 => '1题',
-                        2 => '2题',
-                        3 => '3题',
-                        4 => '4题',
-                        5 => '5题',
-                    ])->label('几题未完成即可过关') ?>
 
                     <?= $form->field($newContest, 'language')->radioList([
                         -1 => 'All',

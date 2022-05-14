@@ -170,7 +170,9 @@ $contest_id = $model->id;
             ])->hint('为 All 时可以使用任意的语言编程，否则在比赛中只能以指定的语言编程并提交。') ?>
 
             <div class="form-group">
+            <div class="row"><div class="col-md-2 col-md-offset-5">
                 <?= Html::submitButton(Yii::t('app', 'Save'), ['class' => 'btn btn-success btn-block']) ?>
+                </div></div>
             </div>
             <?php ActiveForm::end(); ?>
         </div>
@@ -232,12 +234,12 @@ $contest_id = $model->id;
         ]) ?>
 
         <hr>
-
+        <div class="row"><div class="col-md-2 col-md-offset-5">
         <?= Html::a('删除该比赛', ['/homework/delete', 'id' => $model->id], [
             'class' => 'btn btn-danger btn-block',
             'data-confirm' => '此操作不可恢复，你确定要删除吗？',
             'data-method' => 'post',
-        ]) ?>
+        ]) ?></div></div>
     </div>
 
 </div>

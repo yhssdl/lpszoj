@@ -40,6 +40,12 @@ AppAsset::register($this);
         ['label' => '<span class="fa fa-home"></span> ' . Yii::t('app', 'Home'), 'url' => ['/site/index']],
         ['label' => '<span class="fa fa-book"></span> ' . Yii::t('app', 'Problems'), 'url' => ['/problem/index']],
         ['label' => '<span class="fa fa-magic"></span> ' . Yii::t('app', 'Training'), 'url' => ['/training/index']],
+        [
+            'label' => '<span class="fa fa-group"></span> ' . Yii::t('app', 'Group'),
+            'url' => Yii::$app->user->isGuest ? ['/group/index'] : ['/group/my-group'],
+            'visible' => Yii::$app->setting->get('isDefGroup') !=0
+        ],
+        ['label' => '<span class="fa fa-trophy"></span> ' . Yii::t('app', 'Contests'), 'url' => ['/contest/index']],
         [   
             'label' => '<span class="fa fa-tasks"></span> ' . Yii::t('app', 'Status'), 
             'url' => ['/solution/index'],
@@ -50,12 +56,6 @@ AppAsset::register($this);
             'url' => ['/rating/problem'],
             'active' => Yii::$app->controller->id == 'rating'
         ],
-        [
-            'label' => '<span class="fa fa-group"></span> ' . Yii::t('app', 'Group'),
-            'url' => Yii::$app->user->isGuest ? ['/group/index'] : ['/group/my-group'],
-            'visible' => Yii::$app->setting->get('isDefGroup') !=0
-        ],
-        ['label' => '<span class="fa fa-trophy"></span> ' . Yii::t('app', 'Contests'), 'url' => ['/contest/index']],
         [
             'label' => '<i class="fa fa-info-circle"></i> '. Yii::t('app', 'Wiki'),
             'url' => ['/wiki/index'],

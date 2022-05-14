@@ -15,7 +15,7 @@ $start_time = strtotime($model->start_time);
     <div class="media__body medium">
         <div class="contest__title"><?= Html::a(Html::encode($model->title), ['/contest/view', 'id' => $model->id], ['class' => 'text-dark']); ?></div>
         <ul class="supplementary list">
-            <li><?= Html::a('<span class="fa fa-address-book"></span> 设置', ['/homework/update', 'id' => $model->id], ['class' => 'contest-tag  status-not-start text-none-decoration']) ?></li>
+            <li><?= Html::a('<span class="fa fa-pencil-square-o"></span> 编辑', ['/homework/update', 'id' => $model->id], ['class' => 'contest-tag  status-not-start text-none-decoration']) ?></li>
             <li>
                 <span class="contest-tag <?= $model->getRunStatus(2) ?> text-white"><span class="fa fa-flag"></span> <?= $model->getRunStatus(1) ?></span>
             </li>

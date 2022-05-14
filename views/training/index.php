@@ -9,47 +9,8 @@ use yii\widgets\ListView;
 
 $this->title = Yii::t('app', 'Groups');
 ?>
-<?php
-
-$DefGp = false;
-if (!Yii::$app->user->isGuest){
-    if (Yii::$app->setting->get('isDefGroup') == 1) {
-        $DefGp = true;
-    } elseif ((Yii::$app->setting->get('isDefGroup') == 2) && (Yii::$app->user->identity->role === User::ROLE_ADMIN)) {
-        $DefGp = true;
-    } elseif (Yii::$app->setting->get('isDefGroup') == 3 && (Yii::$app->user->identity->role === User::ROLE_ADMIN || Yii::$app->user->identity->role === User::ROLE_VIP)) {
-        $DefGp = true;
-    }
-}
-?>
-<?php if (Yii::$app->setting->get('isDefGroup') == 0) : ?>
-    <div class="alert alert-light"><i class=" fa fa-info-circle"></i> 当前小组功能已经关闭。</div>
-<?php else : ?>
-    <?= Nav::widget([
-        'items' => [
-            [
-                'label' => Yii::t('app', 'My Groups'),
-                'url' => ['group/my-group'],
-                'visible' => !Yii::$app->user->isGuest
-            ],
-            [
-                'label' => Yii::t('app', 'Explore'),
-                'url' => ['group/index']
-            ],
-            [
-                'label' => Yii::t('app', 'Create'),
-                'url' => 'create',
-                'visible' => $DefGp,
-                'options' => ['class' => 'pull-right']
-            ]
-        ],
-        'options' => ['class' => 'nav-tabs']
-    ]) ?>
-    <br>
-
     <?php
     if ($dataProvider->count > 0) {
-        if ($searchModel != null) echo $this->render('_search', ['model' => $searchModel]);
         echo ListView::widget([
             'dataProvider' => $dataProvider,
             'itemView' => '_group_item',
@@ -62,13 +23,7 @@ if (!Yii::$app->user->isGuest){
             ]
         ]);
     } else {
-        if ($searchModel == null) {
-            echo '<div class="alert alert-light"><i class=" fa fa-info-circle"></i> 当前未加入任何小组。</div>';
-        } else {
-            echo '<div class="alert alert-light"><i class=" fa fa-info-circle"></i> 当前没有公开的小组。</div>';
-        }
+        echo '<div class="alert alert-light"><i class=" fa fa-info-circle"></i> 当前没有可以训练的内容。</div>';
     }
 
     ?>
-
-<?php endif; ?>
