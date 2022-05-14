@@ -88,7 +88,7 @@ class TrainingController extends Controller
         $model = new Group();
         $model->is_train = 1;
         $model->status = Group::STATUS_VISIBLE;
-        $model->join_policy = Group::JOIN_POLICY_INVITE;
+        $model->join_policy = Group::JOIN_POLICY_FREE;
 
         if ($model->load(Yii::$app->request->post()) && $model->save()) {
             $groupUser = new GroupUser();

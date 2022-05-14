@@ -18,15 +18,20 @@ $this->title = Html::encode($model->name);
 <?php if (Yii::$app->user->isGuest) : ?>
     <div class="alert alert-light"><i class=" fa fa-info-circle"></i> 请先登录后再尝试加入小组</div>
 <?php else : ?>
+
+    <div class="row">
     <?php if ($model->getRole() == GroupUser::ROLE_INVITING) : ?>
         <p class="lead">邀请你加入小组：</p>
-        <?= Html::a('同意加入', ['/group/accept', 'id' => $model->id, 'accept' => 1], ['class' => 'btn btn-success btn-block']) ?>
-        <?= Html::a('残忍拒绝', ['/group/accept', 'id' => $model->id, 'accept' => 0], ['class' => 'btn btn-danger btn-block']) ?>
+        
+        <div class="col-md-2"><?= Html::a('同意加入', ['/group/accept', 'id' => $model->id, 'accept' => 1], ['class' => 'btn btn-success btn-block']) ?></div>
+        <div class="col-md-2"><?= Html::a('残忍拒绝', ['/group/accept', 'id' => $model->id, 'accept' => 0], ['class' => 'btn btn-danger btn-block']) ?></div>
     <?php elseif ($model->join_policy == Group::JOIN_POLICY_APPLICATION) : ?>
-        <?= Html::a('申请加入', ['/group/accept', 'id' => $model->id, 'accept' => 3], ['class' => 'btn btn-success btn-block']) ?>
+        <div class="col-md-2"><?= Html::a('申请加入', ['/group/accept', 'id' => $model->id, 'accept' => 3], ['class' => 'btn btn-success btn-block']) ?></div>
     <?php elseif ($model->join_policy == Group::JOIN_POLICY_FREE) : ?>
-        <?= Html::a('加入小组', ['/group/accept', 'id' => $model->id, 'accept' => 2], ['class' => 'btn btn-success btn-block']) ?>
+        <div class="col-md-2"><?= Html::a('加入小组', ['/group/accept', 'id' => $model->id, 'accept' => 2], ['class' => 'btn btn-success btn-block']) ?></div>
     <?php endif; ?>
+    </div>
+
     <br>
     <?= GridView::widget([
         'layout' => '{items}{pager}',

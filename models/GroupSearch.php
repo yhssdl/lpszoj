@@ -46,12 +46,14 @@ class GroupSearch extends Group
     
         // add conditions that should always apply here
         if (Yii::$app->user->isGuest || !Yii::$app->user->identity->isAdmin()) {
-            $query->where(['status' => Group::STATUS_VISIBLE]);
+            $query->andFilterWhere(['status' => Group::STATUS_VISIBLE]);
         }
 
         $dataProvider = new ActiveDataProvider([
             'query' => $query,
         ]);
+
+        if($is_train==Group::MODE_TRAIN)  return $dataProvider;
 
         $this->load($params);
 

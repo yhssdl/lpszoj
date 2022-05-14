@@ -11,16 +11,17 @@ $title = Html::encode($model['name']);
 
 $g_model = Group::findOne($model['id']);
 
+
 $user_count = $g_model->getGroupUserCount();
 $contest_count = $g_model->getContestCount();
 
 
-$lerder =  $g_model->getLeader();
-if($lerder) {
-    $lerder_name = '<li><span class="contest-tag contest-tag-info"><span class="fa fa-user-o"></span> 组长:'. $lerder->nickname.'</span></li>';
-} else {
-    $lerder_name = '';
+if (!Yii::$app->user->isGuest && $model->isUserInGroup()){
+    $in_group = '<li><span class="contest-tag  contest-tag-info"><span class="fa fa-check"></span> 已参加</sapn></li>';
+}else {
+    $in_group = "";
 }
+
 
 if($model['logo_url']){
     $pic = $model['logo_url'];
@@ -36,7 +37,7 @@ $content = '
     <div class="media__body medium">
         <div class="contest__title">'. $title .' </div>
         <ul class="supplementary list">
-            '. $lerder_name .'
+            '. $in_group .'
             <li>
                 <span class="fa fa-user"></span> '. $user_count .' 人
             </li>

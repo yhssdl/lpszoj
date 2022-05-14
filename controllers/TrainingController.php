@@ -75,49 +75,59 @@ class TrainingController extends BaseController
      */
     public function actionView($id,$sort=0)
     {
+
         $model = $this->findModel($id);
-        $role = $model->getRole();
-        if (!$model->isMember() && ($role == GroupUser::ROLE_INVITING ||
-                                    $role == GroupUser::ROLE_APPLICATION ||
-                                    $model->join_policy == Group::JOIN_POLICY_FREE ||
-                                    $model->join_policy == Group::JOIN_POLICY_APPLICATION)) {
-            return $this->redirect(['/group/accept', 'id' => $model->id]);
-        } else if (!$model->isMember() && $model->join_policy == Group::JOIN_POLICY_INVITE) {
-            throw new ForbiddenHttpException('当前小组为私有小组，需要小组管理员邀请才能加入。');
-        }
-     
-        $newContest = new Contest();
-        $newContest->type = Contest::TYPE_HOMEWORK;
-        $newContest->language = -1;
-        $newContest->enable_clarify = 1;
-        $contestDataProvider = new ActiveDataProvider([
+
+
+        if(!$model->isUserInGroup()) return $this->redirect(['accept', 'id' => $model->id]);
+
+
+        $trainingDataProvider = new ActiveDataProvider([
             'query' => Contest::find()->where([
                 'group_id' => $model->id
-            ])->orderBy(['id' => SORT_DESC]),
-            'pagination' => [
-                'pageSize' => 20,
-             ]
+            ])->orderBy(['id' => SORT_ASC])
         ]);
 
-
-        if ($newContest->load(Yii::$app->request->post())) {
-            if (!$model->hasPermission()) {
-                throw new ForbiddenHttpException('You are not allowed to perform this action.');
-            }
-            $newContest->group_id = $model->id;
-            $newContest->scenario = Contest::SCENARIO_ONLINE;
-            $newContest->status = Contest::STATUS_PRIVATE;
-            $newContest->save();
-            return $this->refresh();
-        }
 
         return $this->render('view', [
             'model' => $model,
-            'contestDataProvider' => $contestDataProvider,
-            'newContest' => $newContest
+            'trainingDataProvider' => $trainingDataProvider
         ]);
     }
 
+
+    /**
+     * 加入训练页面
+     * @param $id
+     * @param $accept
+     * @return string
+     * @throws ForbiddenHttpException
+     * @throws NotFoundHttpException
+     */
+    public function actionAccept($id, $accept = -1)
+    {
+        $model = $this->findModel($id);
+        if ($model->isUserInGroup()) {
+            return $this->redirect(['view', 'id' => $model->id]);
+        }
+
+
+        if (!Yii::$app->user->isGuest && $accept==1) {
+
+                Yii::$app->db->createCommand()->insert('{{%group_user}}', [
+                    'user_id' => Yii::$app->user->id,
+                    'group_id' => $model->id,
+                    'created_at' => new Expression('NOW()'),
+                    'role' => GroupUser::ROLE_MEMBER
+                ])->execute();
+                Yii::$app->session->setFlash('info', '已加入');
+                return $this->redirect(['view', 'id' => $model->id]);
+        }
+
+        return $this->render('accept', [
+            'model' => $model,
+        ]);
+    }
 
    
     /**

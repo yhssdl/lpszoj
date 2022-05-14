@@ -159,6 +159,18 @@ class Group extends ActiveRecord
         return $this->hasMany(GroupUser::className(), ['group_id' => 'id']);
     }
 
+    /**
+     * 判断用户是否加入小组
+     * @return boolean
+     */
+    public function isUserInGroup()
+    {
+        return Yii::$app->db->createCommand('SELECT count(*) FROM {{%group_user}} WHERE user_id=:uid AND group_id=:id', [
+            ':uid' => Yii::$app->user->id,
+            ':id' => $this->id
+        ])->queryScalar();
+    }
+
     public function getGroupUserCount(){
 
         $count = Yii::$app->db->createCommand('

@@ -13,7 +13,7 @@ $this->title = Yii::t('app', 'Groups');
     if ($dataProvider->count > 0) {
         echo ListView::widget([
             'dataProvider' => $dataProvider,
-            'itemView' => '_group_item',
+            'itemView' => '_training_item',
             'itemOptions' => ['tag' => false],
             'layout' => '{items}<p></p>{pager}',
             'options' => ['class' => 'list-group animate__animated animate__fadeInUp'],
