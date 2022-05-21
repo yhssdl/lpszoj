@@ -7,7 +7,7 @@ use Yii;
 use app\models\Group;
 use app\models\GroupUser;
 use app\models\GroupSearch;
-use app\models\Contest;
+use app\models\Training;
 use yii\data\SqlDataProvider;
 use yii\db\Query;
 use yii\filters\AccessControl;
@@ -16,7 +16,7 @@ use yii\web\NotFoundHttpException;
 use yii\filters\VerbFilter;
 use yii\db\Expression;
 use yii\data\ActiveDataProvider;
-
+use app\models\Solution;
 
 /**
  * GroupController implements the CRUD actions for Group model.
@@ -83,7 +83,7 @@ class TrainingController extends BaseController
 
 
         $trainingDataProvider = new ActiveDataProvider([
-            'query' => Contest::find()->where([
+            'query' => Training::find()->where([
                 'group_id' => $model->id
             ])->orderBy(['id' => SORT_ASC])
         ]);
@@ -360,6 +360,110 @@ class TrainingController extends BaseController
 
         throw new ForbiddenHttpException('You are not allowed to perform this action.');
     }
+
+
+
+    /**
+     * 显示比赛问题
+     * @param integer $id Contest Id
+     * @param integer $pid Problem Id
+     * @return mixed
+     */
+    public function actionProblem($id, $pid = 0)
+    {
+
+        if (Yii::$app->setting->get('isContestMode') && (Yii::$app->user->isGuest || (!Yii::$app->user->identity->isAdmin())) && Yii::$app->setting->get('examContestId') && $id != Yii::$app->setting->get('examContestId')) {
+            throw new ForbiddenHttpException('You are not allowed to perform this action.');
+        }
+
+        $model = $this->findContestModel($id);
+
+        // 访问权限检查
+        if (!$model->canView()) {
+            return $this->render('/contest/forbidden', ['model' => $model]);
+        }
+        $solution = new Solution();
+
+        $problem = $model->getProblemById(intval($pid));
+
+        if (!Yii::$app->user->isGuest && $solution->load(Yii::$app->request->post())) {
+            // 判断是否已经参赛，提交即参加比赛
+            if (!$model->isUserInContest()) {
+                Yii::$app->db->createCommand()->insert('{{%contest_user}}', [
+                    'contest_id' => $model->id,
+                    'user_id' => Yii::$app->user->id
+                ])->execute();
+            }
+
+            $st = time() - Yii::$app->session['Submit_time'];
+            $jt = intval(Yii::$app->setting->get('submitTime'));
+            if($st > $jt) {            
+                $solution->problem_id = $problem['id'];
+                $solution->contest_id = $model->id;
+                if($model->language!=-1){
+                    $solution->language = $model->language;
+                }
+                $solution->status = Solution::STATUS_HIDDEN;
+                $solution->save();
+                Yii::$app->session->setFlash('success', Yii::t('app', 'Submitted successfully'));
+                Yii::$app->session['Submit_time']= time();
+            } else {
+                $st = $jt - $st;
+                $tip = sprintf(Yii::t('app', 'The submission interval is %d seconds, and you can submit again after %d seconds.'),$jt,$st);
+                Yii::$app->session->setFlash('error', $tip);
+            }
+            return $this->refresh();
+        }
+        $submissions = [];
+        if (!Yii::$app->user->isGuest) {
+            $submissions = (new Query())->select('created_at, result, id')
+                ->from('{{%solution}}')
+                ->where([
+                    'problem_id' => $problem['id'] ?? null,
+                    'contest_id' => $model->id,
+                    'created_by' => Yii::$app->user->id
+                ])
+                ->orderBy('id DESC')
+                ->limit(10)
+                ->all();
+        }
+        if (Yii::$app->request->isPjax) {
+            return $this->renderAjax('/training/problem', [
+                'model' => $model,
+                'solution' => $solution,
+                'problem' => $problem,
+                'submissions' => $submissions
+            ]);
+        } else {
+            return $this->render('/training/problem', [
+                'model' => $model,
+                'solution' => $solution,
+                'problem' => $problem,
+                'submissions' => $submissions
+            ]);
+        }
+    }
+
+    /**
+     * Finds the Contest model based on its primary key value.
+     * If the model is not found, a 404 HTTP exception will be thrown.
+     * @param integer $id
+     * @return Training the loaded model
+     * @throws NotFoundHttpException if the model cannot be found
+     * @throws ForbiddenHttpException if the model cannot be viewed
+     */
+    protected function findContestModel($id)
+    {
+        if (($model = Training::findOne($id)) !== null) {
+            if ($model->status != Training::STATUS_HIDDEN || !Yii::$app->user->isGuest && Yii::$app->user->id === $model->created_by) {
+                return $model;
+            } else {
+                throw new ForbiddenHttpException('You are not allowed to perform this action.');
+            }
+        }
+        throw new NotFoundHttpException('The requested page does not exist.');
+    }
+
 
     /**
      * Finds the Group model based on its primary key value.

@@ -230,7 +230,7 @@ $nextProblemID = $model->getNextProblemID();
                             $tags = explode(',', $model->tags);
                             $tagsCount = count($tags);
                             if ($tagsCount > 0) {
-                                $res .= '<span>';
+                                $res = '<span>';
                                 foreach ((array)$tags as $tag) {
                                     $label = Problem::getColorLabel($label_i);
                                     $label_i = $label_i + 1;

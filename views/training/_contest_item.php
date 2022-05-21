@@ -2,40 +2,36 @@
 
 use yii\helpers\Html;
 
-$start_time = strtotime($model->start_time);
+$problems = $model->problems;
 ?>
 
-<div class="section-body">
-    <div class="media__left medium">
-        <div class="contest__date numbox">
-            <div class="numbox__num large"><?= date('d', $start_time) ?></div>
-            <div class="numbox__text"><?= date('Y-m', $start_time) ?></div>
-        </div>
-    </div>
-    <div class="media__body medium">
-        <div class="contest__title"><?= Html::a(Html::encode($model->title), ['/contest/view', 'id' => $model->id], ['class' => 'text-dark']); ?></div>
-        <ul class="supplementary list">
-            <li><?= Html::a('<span class="fa fa-pencil-square-o"></span> 编辑', ['/homework/update', 'id' => $model->id], ['class' => 'contest-tag  status-not-start text-none-decoration']) ?></li>
-            <li>
-                <span class="contest-tag <?= $model->getRunStatus(2) ?> text-white"><span class="fa fa-flag"></span> <?= $model->getRunStatus(1) ?></span>
-            </li>
-            <li>
-                <span class="contest-tag contest-tag-green"><span class="fa fa-trophy"></span> <?= $model->getType() ?></span>
-            </li>
-
-            <?php if (!Yii::$app->user->isGuest && $model->isUserInContest()) : ?>
-                <li><span class="contest-tag  contest-tag-info"><span class="fa fa-check"></span> 已参赛</sapn>
-                </li>
-            <?php endif; ?>
-            <?php if ($model->invite_code) : ?>
-                <li><span class="contest-tag  contest-tag-blue"><span class="fa fa-lock"></span>需邀请码</sapn>
-                </li>
-            <?php endif; ?>
-            <li><span class="fa fa-clock-o text-blue"></span> 时长:<?= $model->getContestTimeLen() ?></li>
-            <li><span class="fa fa-user"></span> 参与人数:<?= $model->getContestUserCount() ?></li>
-            </li>
-
-        </ul>
-    </div>
-
+<div>
+    <table class="table table-bordered table-problem-list table-striped ">
+        <thead>
+            <tr>
+                <th colspan="4"><?= $t_model->title ?></th>
+            </tr>
+        </thead>
+        <tbody>
+            <?php foreach ($problems as $key => $p) : ?>
+                <tr class="animate__animated animate__fadeInUp">
+                    <th><?= Html::a('P' . ($key + 1), ['/training/problem', 'id' => $model->id, 'pid' => $key, '#' => 'problem-anchor']) ?></th>
+                    <td><?= Html::a(Html::encode($p['title']), ['/training/problem', 'id' => $model->id, 'pid' => $key, '#' => 'problem-anchor']) ?></td>
+                    <th>
+                        <?= $submissionStatistics[$p['problem_id']]['solved'] . ' / ' . $submissionStatistics[$p['problem_id']]['submit'] ?>
+                    </th>
+                    <th>
+                        <?php if (!isset($loginUserProblemSolvingStatus[$p['problem_id']])) : ?>
+                        <?php elseif ($loginUserProblemSolvingStatus[$p['problem_id']] == \app\models\Solution::OJ_AC) : ?>
+                            <span class="fa fa-check text-success" title="正确解答"></span>
+                        <?php elseif ($loginUserProblemSolvingStatus[$p['problem_id']] < 4) : ?>
+                            <span class="fa fa-question-circle text-muted" title="等待测评"></span>
+                        <?php else : ?>
+                            <span class="fa fa-remove text-danger" title="未正确解答"></span>
+                        <?php endif; ?>
+                    </th>
+                </tr>
+            <?php endforeach; ?>
+        </tbody>
+    </table>
 </div>
