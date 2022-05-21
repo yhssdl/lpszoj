@@ -15,6 +15,11 @@ use yii\bootstrap\Nav;
 $this->title = Html::encode($model->title) . ' - ' . ($problem['title'] ?? null);
 $this->params['model'] = $model;
 
+if (isset($_COOKIE['theme']))
+    $theme = $_COOKIE['theme'];
+else
+    $theme = "solarized";
+
 if (!Yii::$app->user->isGuest) {
     if ($model->language == -1)
         $solution->language = Yii::$app->user->identity->language;
