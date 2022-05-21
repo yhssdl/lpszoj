@@ -3,9 +3,9 @@
 use app\migrations\BaseMigration;
 
 /**
- * Class m220104_124300_add_group
+ * Class m220512_201500_add_group
  */
-class m220104_124300_add_group extends BaseMigration
+class m220512_201500_add_group extends BaseMigration
 {
     /**
      * {@inheritdoc}
