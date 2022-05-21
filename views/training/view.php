@@ -40,9 +40,12 @@ $this->title = $model->name;
                             $sum = count($problems);
                             $pass_sum = 0;
                             foreach ($problems as $key => $p){
-                                if ($loginUserProblemSolvingStatus[$p['problem_id']] == \app\models\Solution::OJ_AC){
-                                    $pass_sum++;
+                                if(isset($loginUserProblemSolvingStatus[$p['problem_id']])){
+                                    if ($loginUserProblemSolvingStatus[$p['problem_id']] == \app\models\Solution::OJ_AC){
+                                        $pass_sum++;
+                                    }                                   
                                 }
+
                             }
 
                             if($training->punish_time<0) $training->punish_time = $sum;
