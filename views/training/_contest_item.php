@@ -2,6 +2,7 @@
 
 use yii\helpers\Html;
 $problems = $model->problems;
+$showDown = $pass;
 if($t_model->punish_time==0 && $passProblem<$problemSum ) $pass = false;
 ?>
 
@@ -10,11 +11,11 @@ if($t_model->punish_time==0 && $passProblem<$problemSum ) $pass = false;
         <div class="panel-heading">
             <h4 class="panel-title">
                 <a data-toggle="collapse" data-parent="#accordion" href="#collapse<?= $pos ?>" aria-expanded="true" class=""><?= $t_model->title ?></a>
-                <a class="pull-right openswitch" data-toggle="collapse" data-parent="#accordion" href="#collapse<?= $pos ?>" aria-expanded="true"><span class="fa fa-angle-double-<?php if($pass) echo "down"; else echo "up";?>" title="<?php if($pass) echo "展开"; else echo "收起";?>"></span></a>
+                <a class="pull-right openswitch" data-toggle="collapse" data-parent="#accordion" href="#collapse<?= $pos ?>" aria-expanded="true"><span class="fa fa-angle-double-<?php if($showDown) echo "down"; else echo "up";?>" title="<?php if($showDown) echo "展开"; else echo "收起";?>"></span></a>
                 <span class="pull-right" style="margin-right:20px;"> 共<?= $problemSum ?>题<?php if($pass) echo "，已完成";?> </span>
             </h4>
         </div>
-        <div id="collapse<?= $pos ?>" class="panel-collapse collapse <?php if($t_model->punish_time!=0 && !$pass) echo "in" ?>" aria-expanded="true">
+        <div id="collapse<?= $pos ?>" class="panel-collapse collapse <?php if(!$showDown) echo "in" ?>" aria-expanded="true">
             <div class="panel-body">
             <?php if(!$pass) : ?>
             <div class="alert alert-light"><i class=" fa fa-info-circle"></i> 本小节共 <strong><?= $problemSum ?></strong> 题，至少要完成 <strong><?= $t_model->punish_time ? $t_model->punish_time : $problemSum ?></strong> 题才能通过。</div>
