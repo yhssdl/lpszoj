@@ -25,7 +25,7 @@ $this->title = $model->name;
                     $bShow = true;
                     $pass_title = "";
                     
-                    $pos = 1;
+                    $pos = count($trainings);
                    foreach ($trainings as $training){
                        
                         if($bShow){
@@ -65,7 +65,7 @@ $this->title = $model->name;
 
                             if($pass_sum < $training->punish_time) $bShow = false;
 
-                            if(!$bShow && $training->enable_clarify==0){
+                            if(!$bShow && $training->enable_clarify==0 && $pos>1){
                                 echo '<br><div class="alert alert-light"><i class=" fa fa-info-circle"></i> 后续小节已经被隐藏，需要完成当前小节才能显示。</div>';
                                 break;
                             }
@@ -80,7 +80,7 @@ $this->title = $model->name;
                             
                         }
                        
-                        $pos++;
+                        $pos--;
 
                    }
                   
