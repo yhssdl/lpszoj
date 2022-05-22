@@ -286,6 +286,7 @@ return [
     'Training' => '训练',
     'Create Training' => '创建训练' ,
     'Training Name' => '训练名称' ,
-    'Create Section' => '创建小节'
+    'Create Section' => '创建小节',
+    'Show Training' => '导航栏中显示训练菜单'
 
 ];
