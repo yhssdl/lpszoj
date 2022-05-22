@@ -12,9 +12,8 @@ $this->title = $model->title;
 $this->params['model'] = $model;
 ?>
 <?php if ($model->status == Contest::STATUS_PRIVATE) : ?>
-    <p class="lead">私密比赛</p>
     <div class="alert alert-light">
-        <i class=" fa fa-info-circle"></i> 该比赛仅参赛人员可见。
+        <i class=" fa fa-info-circle"></i> 私密比赛，该比赛仅参赛人员可见。
     </div>
     <?php
     $this->title = '私密比赛';

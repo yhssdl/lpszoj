@@ -206,7 +206,10 @@ class Contest extends \yii\db\ActiveRecord
         $current_time = time();
         if ($mode) {
 
-            if ($start_time > $current_time) {
+            if($start_time=="") {
+                return $mode==1 ? Yii::t('app', 'Unkonw') : "status-ended";
+            }
+            else if ($start_time > $current_time) {
                 return $mode==1 ? Yii::t('app', 'Not started yet') : "status-not-start";
             } else if ($start_time <= $current_time && $current_time <= $end_time) {
 
