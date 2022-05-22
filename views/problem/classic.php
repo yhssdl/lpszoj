@@ -23,7 +23,8 @@ if (isset($_COOKIE['theme']))
     $theme = $_COOKIE['theme'];
 else
     $theme = "solarized";
-
+    
+$label_i = 0;
 $model->setSamples();
 
 $loadingImgUrl = Yii::getAlias('@web/images/loading.gif');
