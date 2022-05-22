@@ -6,7 +6,7 @@ LPSZOJ 更新
 在你部署 LPSZOJ 后，若需要更新到最新版，需要在 lpszoj 目录下执行以下命令：
 
 ```bash
-git pull                  # 获取GitHub上最新代码
+git pull                  # 获取Gitee上最新代码
 
 ./yii migrate             # 数据库迁移工具，用于更新数据库的变化情况
 

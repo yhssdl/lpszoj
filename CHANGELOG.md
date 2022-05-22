@@ -5,7 +5,7 @@ LPSZOJ Change Log
 
 方括号内标注的 `web` 表示只修改了 Web 端；`db` 表示修改了数据库；`judge` 表示修改了判题部分。
 
-- `web`: 意味着你只需要获取最新 Github 文件来更新即可。
+- `web`: 意味着你只需要获取最新 Gitee 文件来更新即可。
 - `db`: 意味着需要你在 `lpszoj` 目录下执行 `./yii migrate` 来更新数据库
 - `judge`: 意味着需要你重新编译判题机并重新启动
 
