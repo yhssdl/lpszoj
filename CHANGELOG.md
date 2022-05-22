@@ -12,6 +12,7 @@ LPSZOJ Change Log
 请阅读 [update.md](https://gitee.com/yhssdl/lpszoj/raw/master/docs/update.md) 来获取更新方法。
 
 ---------------------------------------
+- 2022.5.22 Bug: [web、db] 新增训练模式,可以让练习方式变得更加丰富。
 - 2022.5.8 Bug: [web] 修复了Debian 11系统一键安装时第一次会失败，需要再次安装才能成功的情况。
 - 2022.5.8 Enh: [web、db] 增加了是否启用Polygon出题系统的选项。
 - 2022.5.7 Bug: [web、db] 修正了部分前期修改后出现的BUG，增加了答题模式的选项。
