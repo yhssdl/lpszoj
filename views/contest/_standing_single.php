@@ -64,7 +64,7 @@ $submit_count = $rankResult['submit_count'];
                     $rank['finalrank'] = "?";
                 }
             }
-           if ((!Yii::$app->user->isGuest) && Yii::$app->user->id == $rank['user_id']) {
+            if ((!Yii::$app->user->isGuest) && Yii::$app->user->id == $rank['user_id']) {
                 $front_color = "bg-isyou";
             } else {
                 $front_color = "";
@@ -72,20 +72,14 @@ $submit_count = $rankResult['submit_count'];
             ?>
             <tr class="animate__animated animate__fadeInUp <?= $front_color ?>">
                 <th>
-                <?= $rank['finalrank'] ?>
+                    <?= $rank['finalrank'] ?>
                 </th>
                 <th>
                     <?= Html::a(User::getColorNameByRating($rank['nickname'], $rank['rating']), ['/user/view', 'id' => $rank['user_id']]) ?>
                 </th>
-                <?php if ($model->type == Contest::TYPE_OI && $showStandingBeforeEnd == 1) : ?>
-                    <th class="score-solved">
-                        <?= $rank['total_score'] ?>
-                    </th>
-                <?php else : ?>
-                    <th>
-                        <?= $rank['correction_score'] ?>
-                    </th>
-                <?php endif ?>
+                <th class="score-solved">
+                    <?= $rank['solved'] ?>
+                </th>
                 <th class="score-time">
                     <?= intval($rank['time']) ?>
                 </th>
