@@ -17,7 +17,7 @@ if($t_model->punish_time==0 && $passProblem<$problemSum ) $pass = false;
         <div id="collapse<?= $pos ?>" class="panel-collapse collapse <?php if($t_model->punish_time!=0 && !$pass) echo "in" ?>" aria-expanded="true">
             <div class="panel-body">
             <?php if(!$pass) : ?>
-            <div class="alert alert-light"><i class=" fa fa-info-circle"></i> 本小节共<strong><?= $problemSum ?></strong>题，至少要完成<strong><?= $t_model->punish_time ? $t_model->punish_time : $problemSum ?></strong>题才能通过。</div>
+            <div class="alert alert-light"><i class=" fa fa-info-circle"></i> 本小节共 <strong><?= $problemSum ?></strong> 题，至少要完成 <strong><?= $t_model->punish_time ? $t_model->punish_time : $problemSum ?></strong> 题才能通过。</div>
             <?php endif; ?> 
             <?php if ($model->description) : ?>
             <?= Yii::$app->formatter->asMarkdown($model->description) ?>
