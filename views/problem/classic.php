@@ -13,8 +13,6 @@ use app\models\User;
 /* @var $submissions array */
 
 $this->title = $model->id . ' - ' . $model->title;
-$this->params['breadcrumbs'][] = ['label' => Yii::t('app', 'Problems'), 'url' => ['index']];
-$this->params['breadcrumbs'][] = $this->title;
 
 if (!Yii::$app->user->isGuest) {
     $solution->language = Yii::$app->user->identity->language;
@@ -110,7 +108,7 @@ $nextProblemID = $model->getNextProblemID();
                     $tags = explode(',', $model->tags);
                     $tagsCount = count($tags);
                     if ($tagsCount > 0) {
-                        $res .= '<span>';
+                        $res = '<span>';
                         foreach ((array)$tags as $tag) {
                             $label = Problem::getColorLabel($label_i);
                             $label_i = $label_i + 1;
