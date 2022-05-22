@@ -1,8 +1,8 @@
 <?php
 
 use yii\helpers\Html;
-
 $problems = $model->problems;
+if($t_model->punish_time==0 && $passProblem<$problemSum ) $pass = false;
 ?>
 
 <div>
@@ -14,11 +14,15 @@ $problems = $model->problems;
                 <span class="pull-right" style="margin-right:20px;"> 共<?= $problemSum ?>题<?php if($pass) echo "，已完成";?> </span>
             </h4>
         </div>
-        <div id="collapse<?= $pos ?>" class="panel-collapse collapse <?php if(!$pass) echo "in" ?>" aria-expanded="true">
+        <div id="collapse<?= $pos ?>" class="panel-collapse collapse <?php if($t_model->punish_time!=0 && !$pass) echo "in" ?>" aria-expanded="true">
             <div class="panel-body">
+            <?php if(!$pass) : ?>
+            <div class="alert alert-light"><i class=" fa fa-info-circle"></i> 本小节共<strong><?= $problemSum ?></strong>题，至少要完成<strong><?= $t_model->punish_time ? $t_model->punish_time : $problemSum ?></strong>题才能通过。</div>
+            <?php endif; ?> 
             <?php if ($model->description) : ?>
             <?= Yii::$app->formatter->asMarkdown($model->description) ?>
             <?php endif; ?>
+           
                 <table class="table table-bordered table-problem-list table-striped ">
                 <thead>
                 <tr>

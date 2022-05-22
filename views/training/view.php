@@ -58,6 +58,7 @@ $this->title = $model->name;
                             'loginUserProblemSolvingStatus' => $loginUserProblemSolvingStatus,
                             'submissionStatistics' => $submissionStatistics,
                             'problemSum' => $sum,
+                            'passProblem' => $pass_sum,
                             'pass' => $bPass,
                             'pos' => $pos
                             ]);
