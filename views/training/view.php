@@ -23,20 +23,20 @@ $this->title = $model->name;
 
                     $trainings = $trainingDataProvider->getModels();
                     $bShow = true;
+                    $pass_title = "";
                     
+                    $pos = 1;
                    foreach ($trainings as $training){
-
+                       
                         if($bShow){
+
                             $t_model = Training::findOne($training->id);
                             $problems = $t_model->problems;
                             $loginUserProblemSolvingStatus = $t_model->getLoginUserProblemSolvingStatus();
                             $submissionStatistics = $t_model->getSubmissionStatistics();
-                            echo $this->render('_contest_item',
-                            ['t_model' => $training,
-                            'model'=>$t_model,
-                            'loginUserProblemSolvingStatus' => $loginUserProblemSolvingStatus,
-                            'submissionStatistics' => $submissionStatistics
-                            ]);
+
+                            $pass_title = $t_model->title;
+
                             $sum = count($problems);
                             $pass_sum = 0;
                             foreach ($problems as $key => $p){
@@ -45,10 +45,23 @@ $this->title = $model->name;
                                         $pass_sum++;
                                     }                                   
                                 }
-
                             }
-
                             if($training->punish_time<0) $training->punish_time = $sum;
+                            $bPass = false;
+                            if($pass_sum >= $training->punish_time) $bPass = true;
+
+
+
+                            echo $this->render('_contest_item',
+                            ['t_model' => $training,
+                            'model'=>$t_model,
+                            'loginUserProblemSolvingStatus' => $loginUserProblemSolvingStatus,
+                            'submissionStatistics' => $submissionStatistics,
+                            'problemSum' => $sum,
+                            'pass' => $bPass,
+                            'pos' => $pos
+                            ]);
+
                             if($pass_sum < $training->punish_time) $bShow = false;
 
                             if(!$bShow && $training->enable_clarify==0){
@@ -58,16 +71,15 @@ $this->title = $model->name;
 
                         }else{
                             echo $this->render('_contest_item1',
-                            ['t_model' => $training
+                            ['t_model' => $training,
+                            'model'=>$t_model,
+                            'pos' => $pos,
+                            'pass_title' => $pass_title
                             ]);
                             
                         }
-                        echo "<br>";
-
-
-
-
-
+                       
+                        $pos++;
 
                    }
                   
@@ -95,4 +107,14 @@ $this->title = $model->name;
 
 </div>
 <?php
+$js = <<<EOF
+    $('.panel-collapse ').on('show.bs.collapse', function () {
+        $(this).prev(".panel-heading").find(".openswitch").html("<span class='fa fa-angle-double-up' title='收起'></span>");
+    });
+
+    $('.panel-collapse ').on('hide.bs.collapse', function () {
+        $(this).prev(".panel-heading").find(".openswitch").html("<span class='fa fa-angle-double-down' title='展开'></span>");
+    });
+EOF;
+    $this->registerJs($js);
 ?>
