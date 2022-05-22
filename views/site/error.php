@@ -17,7 +17,6 @@ $this->title = $name;
 
 <div class="card animate__animated animate__fadeInUp">
     <div class="card-body">
-        <h3 class="card-title"><?= Html::encode($this->title) ?></h3>
         页面没有如您所期望地加载，请确认您输入的地址无误且拥有访问当前页面的权限。<br>
         如果您认为这是站点本身的问题，欢迎您联系 <a target="_blank" href="https://gitee.com/yhssdl/lpszoj">Online Judge 开发组</a>。
 

@@ -251,7 +251,7 @@ class ProblemController extends BaseController
                                (Yii::$app->user->identity->role === User::ROLE_VIP || Yii::$app->user->identity->role === User::ROLE_ADMIN))) {
                 return $model;
             } else {
-                throw new ForbiddenHttpException('You are not allowed to perform this action.');
+                throw new ForbiddenHttpException($isPrivate?'当前题目为VIP题目，普通用户没有权限访问。':'You are not allowed to perform this action.');
             }
         }
 
