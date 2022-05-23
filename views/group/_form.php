@@ -60,7 +60,7 @@ $url = \yii\helpers\Url::toRoute(['/image/mdupload']);
 <?php
 $js = <<<EOF
 $('#upload_img').click(function() {
-    $(this).parent().parent().parent().prev('form').find('[name="editormd-image-file"]').trigger('click');
+    $('#upload_from').find('[name="editormd-image-file"]').trigger('click');
 });
 
 $('[name="editormd-image-file"]').change(function() {
