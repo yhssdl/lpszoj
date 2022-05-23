@@ -26,7 +26,7 @@ $url = \yii\helpers\Url::toRoute(['/image/mdupload']);
     ])->textInput(['maxlength' => 128, 'autocomplete' => 'off']) ?>
 
 
-    <p class="hint-block">可以上传或填写训练LOGO的URL地址，如果留空就显示默认图标。</p>
+    <p class="hint-block">可以上传或填写小组LOGO的URL地址，如果留空就显示默认图标。</p>
 
     <?= $form->field($model, 'description')->textarea(['maxlength' => true]) ?>
 
