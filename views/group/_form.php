@@ -7,12 +7,13 @@ use yii\widgets\ActiveForm;
 /* @var $this yii\web\View */
 /* @var $model app\models\Group */
 /* @var $form yii\widgets\ActiveForm */
+
 $url = \yii\helpers\Url::toRoute(['/image/mdupload']);
 ?>
 
 <div class="group-form">
 
-    <form id="upload_from" action="<?=$url?>" style="display:none" method="post" enctype="multipart/form-data">
+    <form id="upload_from" action="<?= $url ?>" style="display:none" method="post" enctype="multipart/form-data">
         <input type="file" name="editormd-image-file" value="">
     </form>
 
@@ -25,7 +26,7 @@ $url = \yii\helpers\Url::toRoute(['/image/mdupload']);
     ])->textInput(['maxlength' => 128, 'autocomplete' => 'off']) ?>
 
 
-    <p class="hint-block">可以填写小组LOGO的URL地址，如果留空就显示默认图标。您可以使用下方的编辑器上传图标LOGO后，将获取的URL填写到这儿。</p>
+    <p class="hint-block">可以上传或填写训练LOGO的URL地址，如果留空就显示默认图标。</p>
 
     <?= $form->field($model, 'description')->textarea(['maxlength' => true]) ?>
 
