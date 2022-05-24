@@ -32,47 +32,47 @@ $contest_id = $model->id;
                         <th><?= Html::a($p['problem_id'], '') ?></th>
                         <td><?= Html::a(Html::encode($p['title']), ['view', 'id' => $model->id, 'action' => 'problem', 'problem_id' => $key]) ?></td>
                         <th>
-                            <div class="btn-group">
-                                <?php Modal::begin([
-                                    'header' => Yii::t('app', 'Modify') . ' : P' . (1 + $key),
-                                    'toggleButton' => ['label' => Yii::t('app', 'Modify'), 'class' => 'btn btn-success'],
-                                ]); ?>
 
-                                <?= Html::beginForm(['updateproblem', 'id' => $model->id]) ?>
+                            <?php Modal::begin([
+                                'header' => Yii::t('app', 'Modify') . ' : P' . (1 + $key),
+                                'toggleButton' => ['label' => Yii::t('app', 'Modify'), 'class' => 'btn btn-warning'],
+                            ]); ?>
 
-                                <div class="form-group">
-                                    <div class="input-group">
-                                        <span class="input-group-addon"><?= Html::label(Yii::t('app', 'Current Problem ID'), 'problem_id') ?></span>
-                                        <?= Html::textInput('problem_id', $p['problem_id'], ['class' => 'form-control', 'readonly' => 1]) ?>
-                                    </div>
+                            <?= Html::beginForm(['updateproblem', 'id' => $model->id]) ?>
+
+                            <div class="form-group">
+                                <div class="input-group">
+                                    <span class="input-group-addon"><?= Html::label(Yii::t('app', 'Current Problem ID'), 'problem_id') ?></span>
+                                    <?= Html::textInput('problem_id', $p['problem_id'], ['class' => 'form-control', 'readonly' => 1]) ?>
                                 </div>
-
-                                <div class="form-group">
-                                    <div class="input-group">
-                                        <span class="input-group-addon"><?= Html::label(Yii::t('app', 'New Problem ID'), 'new_problem_id') ?></span>
-                                        <?= Html::textInput('new_problem_id', $p['problem_id'], ['class' => 'form-control']) ?>
-                                    </div>
-                                </div>
-
-                                <div class="form-group">
-                                    <?= Html::submitButton(Yii::t('app', 'Submit'), ['class' => 'btn btn-success btn-block']) ?>
-                                </div>
-                                <?= Html::endForm(); ?>
-
-                                <?php Modal::end(); ?>
-
-                                <?= Html::a(Yii::t('app', 'Delete'), [
-                                    'deleteproblem',
-                                    'id' => $model->id,
-                                    'pid' => $p['problem_id']
-                                ], [
-                                    'class' => 'btn btn-danger',
-                                    'data' => [
-                                        'confirm' => Yii::t('app', 'Are you sure you want to delete this item?'),
-                                        'method' => 'post',
-                                    ],
-                                ]) ?>
                             </div>
+
+                            <div class="form-group">
+                                <div class="input-group">
+                                    <span class="input-group-addon"><?= Html::label(Yii::t('app', 'New Problem ID'), 'new_problem_id') ?></span>
+                                    <?= Html::textInput('new_problem_id', $p['problem_id'], ['class' => 'form-control']) ?>
+                                </div>
+                            </div>
+
+                            <div class="form-group">
+                                <?= Html::submitButton(Yii::t('app', 'Submit'), ['class' => 'btn btn-success btn-block']) ?>
+                            </div>
+                            <?= Html::endForm(); ?>
+
+                            <?php Modal::end(); ?>
+
+                            <?= Html::a(Yii::t('app', 'Delete'), [
+                                'deleteproblem',
+                                'id' => $model->id,
+                                'pid' => $p['problem_id']
+                            ], [
+                                'class' => 'btn btn-danger',
+                                'data' => [
+                                    'confirm' => Yii::t('app', 'Are you sure you want to delete this item?'),
+                                    'method' => 'post',
+                                ],
+                            ]) ?>
+
                         </th>
                     </tr>
                 <?php endforeach; ?>
@@ -134,20 +134,24 @@ $contest_id = $model->id;
         ])->hint('为 All 时可以使用任意的语言编程，否则在比赛中只能以指定的语言编程并提交。') ?>
 
         <div class="form-group">
-        <div class="row"><div class="col-md-2 col-md-offset-5">
-            <?= Html::submitButton(Yii::t('app', 'Save'), ['class' => 'btn btn-success btn-block']) ?>
-            </div></div>
+            <div class="row">
+                <div class="col-md-2 col-md-offset-5">
+                    <?= Html::submitButton(Yii::t('app', 'Save'), ['class' => 'btn btn-success btn-block']) ?>
+                </div>
+            </div>
         </div>
         <?php ActiveForm::end(); ?>
     </div>
-<hr>
-<div class="row"><div class="col-md-2 col-md-offset-5">
-    <?= Html::a('删除该小节', ['delete_section', 'id' => $model->id], [
-        'class' => 'btn btn-danger btn-block',
-        'data-confirm' => '此操作不可恢复，你确定要删除吗？',
-        'data-method' => 'post',
-    ]) ?>
-    </div></div>
+    <hr>
+    <div class="row">
+        <div class="col-md-2 col-md-offset-5">
+            <?= Html::a('删除该小节', ['delete_section', 'id' => $model->id], [
+                'class' => 'btn btn-danger btn-block',
+                'data-confirm' => '此操作不可恢复，你确定要删除吗？',
+                'data-method' => 'post',
+            ]) ?>
+        </div>
+    </div>
 </div>
 
 </div>
