@@ -129,6 +129,7 @@ $contest_id = $model->id;
     <div class="animate__animated animate__fadeInUp">
         <?= \yii\grid\GridView::widget([
             'dataProvider' => $announcements,
+            'tableOptions' => ['class' => 'table table-striped table-bordered table-text-center'],
             'columns' => [
                 'content:ntext',
                 'created_at:datetime',
@@ -214,10 +215,10 @@ $contest_id = $model->id;
                         <td class="animate__animated animate__fadeInUp"><?= Html::a($p['problem_id'], ['/admin/problem/view', 'id' => $p['problem_id']]) ?></td>
                         <td class="animate__animated animate__fadeInUp"><?= Html::a(Html::encode($p['title']), ['/admin/problem/view', 'id' => $p['problem_id']]) ?></td>
                         <td>
-                            <div class="btn-group">
+                       
                                 <?php Modal::begin([
                                     'header' => Yii::t('app', 'Modify') . ' : ' . ($key + 1),
-                                    'toggleButton' => ['label' => Yii::t('app', 'Modify'), 'class' => 'btn btn-success'],
+                                    'toggleButton' => ['label' => Yii::t('app', 'Modify'), 'class' => 'btn btn-warning'],
                                 ]); ?>
 
                                 <?= Html::beginForm(['contest/updateproblem', 'id' => $model->id]) ?>
@@ -253,7 +254,7 @@ $contest_id = $model->id;
                                         'method' => 'post',
                                     ],
                                 ]) ?>
-                            </div>
+                       
                         </td>
                     </tr>
                 <?php endforeach; ?>
