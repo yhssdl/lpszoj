@@ -51,7 +51,8 @@ class m220524_171930_mysql extends BaseMigration
         $this->insert('{{%mysql}}', [
             'id' => 5,
             'description' => '更新问题列表中的解题数量',
-            'command' => 'UPDATE problem AS p INNER JOIN ( SELECT problem_id, COUNT(*) AS num FROM solution WHERE result=4 GROUP BY problem_id) AS c ON p.id = c.problem_id SET p.accepted = c.num\nUPDATE problem AS p INNER JOIN (SELECT problem_id, COUNT(*) AS num FROM solution GROUP BY problem_id) AS c ON p.id = c.problem_id SET p.submit = c.num',
+            'command' => 'UPDATE problem AS p INNER JOIN ( SELECT problem_id, COUNT(*) AS num FROM solution WHERE result=4 GROUP BY problem_id) AS c ON p.id = c.problem_id SET p.accepted = c.num\
+            UPDATE problem AS p INNER JOIN (SELECT problem_id, COUNT(*) AS num FROM solution GROUP BY problem_id) AS c ON p.id = c.problem_id SET p.submit = c.num',
             'alt_msg' => ''
         ]);
 
