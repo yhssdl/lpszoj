@@ -12,6 +12,7 @@ LPSZOJ Change Log
 请阅读 [update.md](https://gitee.com/yhssdl/lpszoj/raw/master/docs/update.md) 来获取更新方法。
 
 ---------------------------------------
+- 2022.5.24 Bug: [web、db] 后台增加数据库 SQL 命令自定义与运行功能。
 - 2022.5.24 Bug: [web] 后台增加数据库备份与恢复功能。
 - 2022.5.22 Bug: [web、db] 新增训练模式,可以让练习方式变得更加丰富。
 - 2022.5.8 Bug: [web] 修复了Debian 11系统一键安装时第一次会失败，需要再次安装才能成功的情况。
