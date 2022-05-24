@@ -6,6 +6,7 @@ use yii\helpers\Url;
 echo GridView::widget ( [ 
 		'id' => 'install-grid',
 		'dataProvider' => $dataProvider,
+		'tableOptions' => ['class' => 'table table-striped table-bordered table-text-center'],
 		'columns' => array (
             ['class' => 'yii\grid\SerialColumn'],
             [
