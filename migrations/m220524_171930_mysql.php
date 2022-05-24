@@ -30,7 +30,7 @@ class m220524_171930_mysql extends BaseMigration
         $this->insert('{{%mysql}}', [
             'id' => 2,
             'description' => '将所有用户语言改为 C++',
-            'command' => 'UPDATE `user` SET `language`=2  WHERE 1',
+            'command' => 'UPDATE `user` SET `language`=1  WHERE 1',
             'alt_msg' => '该操作不可恢复，请谨慎操作！'
         ]);
      
