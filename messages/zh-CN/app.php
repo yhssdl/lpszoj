@@ -291,6 +291,10 @@ return [
     'Unkonw' => '未知',
     'Database' => '数据库',
     'Manage database backup files' => '管理数据库备份文件',
-    'Create Backup' => '创建备份'
+    'Create Backup' => '创建备份',
+    'Command' => '自定义SQL',
+    'Manage database SQL' => '管理数据库SQL',
+    'Create SQL' => '创建 SQL',
+    'Warning information' => '警示信息'
 
 ];

@@ -4,7 +4,14 @@ use yii\grid\GridView;
 use yii\helpers\Url;
 
 echo GridView::widget ( [ 
-		'id' => 'install-grid',
+	'layout' => '{items}{pager}',
+	'pager' => [
+		'firstPageLabel' => Yii::t('app', 'First'),
+		'prevPageLabel' => '« ',
+		'nextPageLabel' => '» ',
+		'lastPageLabel' => Yii::t('app', 'Last'),
+		'maxButtonCount' => 10
+	],
 		'dataProvider' => $dataProvider,
 		'tableOptions' => ['class' => 'table table-striped table-bordered table-text-center'],
 		'rowOptions' => function($model, $key, $index, $grid) {
@@ -28,19 +35,19 @@ echo GridView::widget ( [
 				array (
 						'header' => '操作',
 						'class' => 'yii\grid\ActionColumn',
-						'template' => '{restore}{delete}{download}',
+						'template' => '{restore} {delete} {download}',
+						'contentOptions' => ['style' => 'width:200px;'],
 						'buttons' => [ 
-								'delete' => function ($url, $model) {
-                                    return Html::a('<button  class="btn btn-danger btn-flat">删除</button> ', $url, ["title" => "删除", 'data-confirm' => Yii::t('yii', '是否要删除此备份?'), 'data-method' => 'post']);
-								},
-								
 								'restore' => function ($url, $model) {
-									return Html::a ( '<button  class="btn btn-warning btn-flat">恢复备份</button> ', $url, ["title" => "恢复备份", 'data-confirm' => Yii::t('yii', '是否要恢复此备份,当前数据将回滚至此备份?'), 'data-method' => 'post']);
+									return Html::a ( '恢复', $url, ['class' => 'btn btn-warning',"title" => "恢复备份", 'data-confirm' => Yii::t('yii', '是否要恢复此备份,当前数据将回滚至此备份?'), 'data-method' => 'post']);
+								} ,	
 
-								} ,								
+								'delete' => function ($url, $model) {
+                                    return Html::a('删除', $url, ['class' => 'btn btn-danger',"title" => "删除", 'data-confirm' => Yii::t('yii', '是否要删除此备份?'), 'data-method' => 'post']);
+								},
+							
 								'download' => function ($url, $model) {
-									return Html::a ( '<button  class="btn btn-success btn-flat">下载</button> ', $url, ["title" => "下载文件",  'data-method' => 'post']);
-
+									return Html::a ( '下载', $url, ['class' => 'btn btn-success',"title" => "下载文件",  'data-method' => 'post']);
 								} 
 						],
 						'urlCreator' => function ($action, $model, $key, $index) {
@@ -56,4 +63,3 @@ echo GridView::widget ( [
 				 
 		) 
 ] );
-?>

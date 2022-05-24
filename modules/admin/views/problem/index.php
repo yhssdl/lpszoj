@@ -53,7 +53,7 @@ $label_i = 0;
    
 
     <?= GridView::widget([
-        'layout' => '{items}{pager}',
+        'layout' => '{items}{summary}{pager}',
         'pager' =>[
             'firstPageLabel' => Yii::t('app', 'First'),
             'prevPageLabel' => '« ',

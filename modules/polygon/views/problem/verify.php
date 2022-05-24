@@ -23,7 +23,7 @@ $solution->language = Yii::$app->user->identity->language;
     </div>
 
     <?= GridView::widget([
-        'layout' => '{items}{pager}',
+        'layout' => '{items}{summary}{pager}',
         'pager' => [
             'firstPageLabel' => Yii::t('app', 'First'),
             'prevPageLabel' => '« ',

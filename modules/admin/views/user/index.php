@@ -69,7 +69,7 @@ $this->title = Yii::t('app', 'Users');
     </div>
     <br>
     <?= GridView::widget([
-        'layout' => '{items}{pager}',
+        'layout' => '{items}{summary}{pager}',
         'pager' =>[
             'firstPageLabel' => Yii::t('app', 'First'),
             'prevPageLabel' => '« ',

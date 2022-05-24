@@ -19,7 +19,7 @@ $this->title = Yii::t('app', 'Contests');
     </p>
 
     <?= GridView::widget([
-        'layout' => '{items}{pager}',
+        'layout' => '{items}{summary}{pager}',
         'pager' =>[
             'firstPageLabel' => Yii::t('app', 'First'),
             'prevPageLabel' => '« ',
