@@ -16,6 +16,7 @@ class InstallController extends Controller
         $env = [
             'setWritable' => [
                 'runtime',
+                'db',
                 'web/assets',
                 'web/uploads',
                 'polygon/log',
