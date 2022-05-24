@@ -24,7 +24,7 @@ echo GridView::widget ( [
 				array (
 						'header' => '操作',
 						'class' => 'yii\grid\ActionColumn',
-						'template' => '{restore}{delete}',
+						'template' => '{restore}{delete}{download}',
 						'buttons' => [ 
 								'delete' => function ($url, $model) {
                                     return Html::a('<button  class="btn btn-danger btn-flat">删除</button> ', $url, ["title" => "删除", 'data-confirm' => Yii::t('yii', '是否要删除此备份?'), 'data-method' => 'post']);
@@ -32,6 +32,10 @@ echo GridView::widget ( [
 								
 								'restore' => function ($url, $model) {
 									return Html::a ( '<button  class="btn btn-warning btn-flat">恢复备份</button> ', $url, ["title" => "恢复备份", 'data-confirm' => Yii::t('yii', '是否要恢复此备份,当前数据将回滚至此备份?'), 'data-method' => 'post']);
+
+								} ,								
+								'download' => function ($url, $model) {
+									return Html::a ( '<button  class="btn btn-success btn-flat">下载</button> ', $url, ["title" => "下载文件",  'data-method' => 'post']);
 
 								} 
 						],
