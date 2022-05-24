@@ -288,6 +288,9 @@ return [
     'Training Name' => '训练名称' ,
     'Create Section' => '创建小节',
     'Show Training' => '导航栏中显示训练菜单',
-    'Unkonw' => '未知'
+    'Unkonw' => '未知',
+    'Database' => '数据库',
+    'Manage database backup files' => '管理数据库备份文件',
+    'Create Backup' => '创建备份'
 
 ];
