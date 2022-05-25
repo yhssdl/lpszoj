@@ -327,26 +327,26 @@ class Solution extends ActiveRecord
             return true;
         }
 
-        if (Yii::$app->setting->get('isShareCode')==2) {
+        if (Yii::$app->setting->get('isShowError')==0) {
             return false;
         } 
 
         // 状态可见且设置了分享状态可以查看。以下代码中 isShareCode 的说明参见后台设置页面。
         // 对于比赛中的提交， status 的值默认为 STATUS_HIDDEN，比赛结束时可以在后台设为 STATUS_VISIBLE 以供普通用户查看
         // 对于后台验题时的提交，status 的值为 STATUS_HIDDEN
-        if ($this->status == Solution::STATUS_VISIBLE && Yii::$app->setting->get('isShareCode')==1) {
+        if ($this->status == Solution::STATUS_VISIBLE && Yii::$app->setting->get('isShowError')==1) {
             return true;
         }
 
         // contest_id 为空，说明不是比赛模式
-        if (empty($this->contest_id)) {
+        if (empty($this->contest_id) && Yii::$app->setting->get('isShowError')!=2) {
             return true;
         }
 
         $contest = self::getContestInfo($this->contest_id);
 
         // 作业模式无限制
-        if ($contest['type'] == Contest::TYPE_HOMEWORK) {
+        if ($contest['type'] == Contest::TYPE_HOMEWORK && Yii::$app->setting->get('isShowError')!=2) {
             return true;
         }
 
@@ -357,7 +357,7 @@ class Solution extends ActiveRecord
                 ':gid' => $contest['group_id']
             ])->queryScalar();
             // 小组管理员
-            if ($role == GroupUser::ROLE_LEADER || $role == GroupUser::ROLE_MANAGER) {
+            if (($role == GroupUser::ROLE_LEADER || $role == GroupUser::ROLE_MANAGER) && Yii::$app->setting->get('isShowError')==2) {
                 return true;
             }
             if ($role != GroupUser::ROLE_MEMBER) {
@@ -366,7 +366,7 @@ class Solution extends ActiveRecord
         }
 
         // OI 模式比赛结束时才可以看
-        if ($contest['type'] != Contest::TYPE_OI || time() >= strtotime($contest['end_time'])) {
+        if (($contest['type'] != Contest::TYPE_OI || time() >= strtotime($contest['end_time'])) && Yii::$app->setting->get('isShowError')!=2) {
             return true;
         }
         return false;
@@ -394,7 +394,7 @@ class Solution extends ActiveRecord
 
 
         // 提交代码的作者有权限查看
-        if ($this->created_by == Yii::$app->user->id) {
+        if ($this->created_by == Yii::$app->user->id  && Yii::$app->setting->get('isShareCode')==0) {
             return true;
         }
         // 状态可见且设置了分享状态可以查看。以下代码中 isShareCode 的说明参见后台设置页面。
@@ -407,7 +407,7 @@ class Solution extends ActiveRecord
         if (!empty($this->contest_id)) {
             $contest = self::getContestInfo($this->contest_id);
             // 比赛结束都可以看
-            if (time() >= strtotime($contest['end_time'])) {
+            if (time() >= strtotime($contest['end_time']) && Yii::$app->setting->get('isShareCode')==1) {
                 return true;
             }
             // 小组
@@ -417,7 +417,7 @@ class Solution extends ActiveRecord
                     ':gid' => $contest['group_id']
                 ])->queryScalar();
                 // 小组管理员
-                if ($role == GroupUser::ROLE_LEADER || $role == GroupUser::ROLE_MANAGER) {
+                if (($role == GroupUser::ROLE_LEADER || $role == GroupUser::ROLE_MANAGER) && Yii::$app->setting->get('isShareCode')==3) {
                     return true;
                 }
                 if ($role != GroupUser::ROLE_MEMBER) {
@@ -458,41 +458,47 @@ class Solution extends ActiveRecord
             return true;
         }
 
+        if (Yii::$app->setting->get('isShowError')==0) {
+            return false;
+        }  
 
-        // 状态可见且设置了分享状态可以查看。以下代码中 isShareCode 的说明参见后台设置页面。
-        // 对于比赛中的提交， status 的值默认为 STATUS_HIDDEN，比赛结束时可以在后台设为 STATUS_VISIBLE 以供普通用户查看
-        // 对于后台验题时的提交，status 的值为 STATUS_HIDDEN
-        if ($this->status == Solution::STATUS_VISIBLE && Yii::$app->setting->get('isShareCode')==1) {
+        // 提交代码的作者有权限查看
+        if ($this->created_by == Yii::$app->user->id  && Yii::$app->setting->get('isShowError')==1) {
             return true;
         }
 
-        if (!empty($this->contest_id)) {
-            $contest = self::getContestInfo($this->contest_id);
-            // 比赛结束都可以看
-            if (time() >= strtotime($contest['end_time'])) {
-                return true;
-            }
-
-            // 作业模式无限制
-            if ($contest['type'] == Contest::TYPE_HOMEWORK) {
-                return true;
-            }
-
-            // 对于比赛中的提交，普通用户能查看自己的 Compile Error 所记录的信息
-            if ($this->created_by == Yii::$app->user->id && $this->result == self::OJ_CE) {
-                return true;
-            }
-        }
-        //　非比赛中的提交，普通用户也能查看自己的出错信息
-        if ($this->status == Solution::STATUS_VISIBLE && $this->created_by == Yii::$app->user->id) {
+        // 对于比赛中的提交，普通用户能查看自己的 Compile Error 所记录的信息
+        if ($this->created_by == Yii::$app->user->id && $this->result == self::OJ_CE) {
             return true;
+        }
+
+        // contest_id 为空，说明不是比赛模式
+        if (empty($this->contest_id)) {
+           return false;
+        }
+
+        $contest = self::getContestInfo($this->contest_id);
+
+        // 小组
+        if ($contest['group_id'] && !Yii::$app->user->isGuest) {
+            $role = Yii::$app->db->createCommand('SELECT role FROM {{%group_user}} WHERE user_id=:uid AND group_id=:gid', [
+                ':uid' => Yii::$app->user->id,
+                ':gid' => $contest['group_id']
+            ])->queryScalar();
+            // 小组管理员
+            if (($role == GroupUser::ROLE_LEADER || $role == GroupUser::ROLE_MANAGER)  && Yii::$app->setting->get('isShowError')==2){
+                return true;
+            }
+            if ($role != GroupUser::ROLE_MEMBER) {
+                return false;
+            }
         }
         return false;
     }
 
 
 
-    public static function testHtml($id, $caseJsonObject)
+    public static function testHtml($model,$id, $caseJsonObject)
     {
         $isAdmin = false;
         //管理员有权限查看所有情况
@@ -513,7 +519,7 @@ class Solution extends ActiveRecord
             </div>';
         } else {
             $html_str = $html_str .  '<div class="panel panel-default test-for-popup"><div class="panel-heading" role="tab" id="heading' . $id . '">';
-            if (Yii::$app->setting->get('isShowError') || $isAdmin){
+            if ($model->canViewErrorInfo()){
                 $html_str = $html_str .  '<a class="collapsed" role="button" data-toggle="collapse" data-parent="#accordion"
                       href="#test-' . $id . '" aria-expanded="false" aria-controls="test-' . $id . '"><span class=" text-danger">';
             }
@@ -523,10 +529,10 @@ class Solution extends ActiveRecord
     
             $html_str = $html_str .  '测试点' . $id . ': ' . Solution::getResultList($caseJsonObject->verdict) . ', 
                     时间: ' . $caseJsonObject->time . ' 毫秒,内存: ' . $caseJsonObject->memory . ' KB </span>';
-            if (Yii::$app->setting->get('isShowError') || $isAdmin) $html_str = $html_str .  '</a>';
+            if ($model->canViewErrorInfo()) $html_str = $html_str .  '</a>';
             $html_str = $html_str .  '</div>';
     
-            if (Yii::$app->setting->get('isShowError') || $isAdmin){
+            if ($model->canViewErrorInfo()){
     
                 $html_str = $html_str .  '<div id="test-' . $id . '" class="panel-collapse collapse" role="tabpanel" aria-labelledby="heading' . $id . '">
                     <div class="panel-body">

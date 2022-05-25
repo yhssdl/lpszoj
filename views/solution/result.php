@@ -36,28 +36,31 @@ if (!$model->canViewErrorInfo()) {
                 $obj = json_decode($json);
                 $testId = 1;
 
-                // 通过对象循环
-                foreach ($obj as $key => $subtasks) {
-                    for ($i = 0; $i < count($subtasks); $i++) {
-                        $cases = $subtasks[$i]->cases;
-                        $score = $subtasks[$i]->score;
-                        $isSubtask = count($subtasks) != 1;
-                        if ($isSubtask) {
-                            $verdict = $cases[count($cases) - 1]->verdict;
-                            $subtask_body = "";
-                            for ($j = 0; $j < count($cases); $j++) {
-                                $id = $i + 1;
-                                $subtask_body = $subtask_body . Solution::testHtml($testId, $cases[$j]);
-                                $testId++;
-                            }
-                            echo Solution::subtaskHtml($i + 1, $score, $verdict, $subtask_body);
-                        } else {
-                            for ($j = 0; $j < count($cases); $j++) {
-                                echo Solution::testHtml($testId, $cases[$j]);
-                                $testId++;
+                if($obj!=null){
+                    // 通过对象循环
+                    foreach ($obj as $key => $subtasks) {
+                        for ($i = 0; $i < count($subtasks); $i++) {
+                            $cases = $subtasks[$i]->cases;
+                            $score = $subtasks[$i]->score;
+                            $isSubtask = count($subtasks) != 1;
+                            if ($isSubtask) {
+                                $verdict = $cases[count($cases) - 1]->verdict;
+                                $subtask_body = "";
+                                for ($j = 0; $j < count($cases); $j++) {
+                                    $id = $i + 1;
+                                    $subtask_body = $subtask_body . Solution::testHtml($model,$testId, $cases[$j]);
+                                    $testId++;
+                                }
+                                echo Solution::subtaskHtml($i + 1, $score, $verdict, $subtask_body);
+                            } else {
+                                for ($j = 0; $j < count($cases); $j++) {
+                                    echo Solution::testHtml($model,$testId, $cases[$j]);
+                                    $testId++;
+                                }
                             }
                         }
                     }
+
                 }
                 ?>
 

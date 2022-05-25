@@ -90,13 +90,7 @@ $isContestEnd = $model->isContestEnd();
                         return Yii::t('app', 'Pending');
                     }
 
-                    if(Yii::$app->user->isGuest || Yii::$app->user->identity->role != User::ROLE_ADMIN && Yii::$app->setting->get('isShareCode')==2){
-                        return $solution->getResult();
-                    }
-
-                    $otherCan = ($isContestEnd && Yii::$app->setting->get('isShareCode')==1);
-                    $createdBy = (!Yii::$app->user->isGuest && ($model->created_by == Yii::$app->user->id || Yii::$app->user->id == $solution->created_by));
-                    if ($otherCan || $createdBy || $model->type == Contest::TYPE_HOMEWORK || ($userInContest && $isContestEnd)) {
+                    if ($solution->canViewErrorInfo()) {
                         return Html::a(
                             $solution->getResult(),
                             ['/solution/result', 'id' => $solution->id],
