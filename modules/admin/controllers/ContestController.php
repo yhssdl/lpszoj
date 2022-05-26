@@ -95,12 +95,13 @@ class ContestController extends Controller
                     ->exists();
                 if ($problem_in_contest) {
                     Yii::$app->session->setFlash('info', Yii::t('app', 'This problem has in the contest.'));
-                    return $this->refresh();
+                    return $this->redirect(['contest/view', 'id' => $id]);
                 }
 
                 Yii::$app->db->createCommand()->update('{{%contest_problem}}', [
                     'problem_id' => $new_pid,
                 ], ['problem_id' => $pid, 'contest_id' => $model->id])->execute();
+                Yii::$app->cache->flush();
                 Yii::$app->session->setFlash('success', Yii::t('app', 'Submitted successfully'));
             } else {
                 Yii::$app->session->setFlash('error', Yii::t('app', 'No such problem.'));

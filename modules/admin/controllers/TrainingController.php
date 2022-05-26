@@ -314,13 +314,14 @@ class TrainingController extends Controller
                     ->exists();
                 if ($problemInContest) {
                     Yii::$app->session->setFlash('info', Yii::t('app', 'This problem has in the contest.'));
-                    return $this->refresh();
+                    return $this->redirect(['section', 'id' => $id]);
                 }
                 if ($newProblemStatus == Problem::STATUS_VISIBLE || Yii::$app->user->identity->role == User::ROLE_ADMIN
                     || ($newProblemStatus == Problem::STATUS_PRIVATE && Yii::$app->user->identity->role == User::ROLE_VIP)) {
                     Yii::$app->db->createCommand()->update('{{%contest_problem}}', [
                         'problem_id' => $new_pid,
                     ], ['problem_id' => $pid, 'contest_id' => $model->id])->execute();
+                    Yii::$app->cache->flush();
                     Yii::$app->session->setFlash('success', Yii::t('app', 'Submitted successfully'));
                 }
             } else {

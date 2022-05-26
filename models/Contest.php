@@ -4,7 +4,6 @@ namespace app\models;
 
 use Yii;
 use yii\db\Query;
-use yii\db\Expression;
 use yii\helpers\FileHelper;
 use yii\caching\TagDependency;
 
