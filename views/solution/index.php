@@ -58,7 +58,7 @@ $this->title = Yii::t('app', 'Status');
             [
                 'attribute' => 'result',
                 'value' => function ($model, $key, $index, $column) {
-                    if ($model->canViewErrorInfo()) {
+                    if ($model->canViewResult()) {
                         return Html::a($model->getResult(),
                             ['/solution/result', 'id' => $model->id],
                             ['onclick' => 'return false', 'data-click' => "solution_info"]

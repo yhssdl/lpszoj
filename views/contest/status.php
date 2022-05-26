@@ -90,7 +90,7 @@ $isContestEnd = $model->isContestEnd();
                         return Yii::t('app', 'Pending');
                     }
 
-                    if ($solution->canViewErrorInfo()) {
+                    if ($solution->canViewResult()) {
                         return Html::a(
                             $solution->getResult(),
                             ['/solution/result', 'id' => $solution->id],

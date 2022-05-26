@@ -312,116 +312,47 @@ class Solution extends ActiveRecord
         return $this->contestProblem;
     }
 
-    /**
-     * OI 比赛模式，用户是否有权限查看过题情况
-     */
-    public function canViewResult()
-    {
-        //游客不能查看
-        if (Yii::$app->user->isGuest){
-            return false;
-        }
-
-        // 管理员有权限查看
-        if (!Yii::$app->user->isGuest && Yii::$app->user->identity->role == User::ROLE_ADMIN) {
-            return true;
-        }
-
-        if (Yii::$app->setting->get('isShowError')==0) {
-            return false;
-        } 
-
-        // 状态可见且设置了分享状态可以查看。以下代码中 isShareCode 的说明参见后台设置页面。
-        // 对于比赛中的提交， status 的值默认为 STATUS_HIDDEN，比赛结束时可以在后台设为 STATUS_VISIBLE 以供普通用户查看
-        // 对于后台验题时的提交，status 的值为 STATUS_HIDDEN
-        if ($this->status == Solution::STATUS_VISIBLE && Yii::$app->setting->get('isShowError')==1) {
-            return true;
-        }
-
-        // contest_id 为空，说明不是比赛模式
-        if (empty($this->contest_id) && Yii::$app->setting->get('isShowError')!=2) {
-            return true;
-        }
-
-        $contest = self::getContestInfo($this->contest_id);
-
-        // 作业模式无限制
-        if ($contest['type'] == Contest::TYPE_HOMEWORK && Yii::$app->setting->get('isShowError')!=2) {
-            return true;
-        }
-
-        // 小组
-        if ($contest['group_id'] && !Yii::$app->user->isGuest) {
-            $role = Yii::$app->db->createCommand('SELECT role FROM {{%group_user}} WHERE user_id=:uid AND group_id=:gid', [
-                ':uid' => Yii::$app->user->id,
-                ':gid' => $contest['group_id']
-            ])->queryScalar();
-            // 小组管理员
-            if (($role == GroupUser::ROLE_LEADER || $role == GroupUser::ROLE_MANAGER) && Yii::$app->setting->get('isShowError')==2) {
-                return true;
-            }
-            if ($role != GroupUser::ROLE_MEMBER) {
-                return false;
-            }
-        }
-
-        // OI 模式比赛结束时才可以看
-        if (($contest['type'] != Contest::TYPE_OI || time() >= strtotime($contest['end_time'])) && Yii::$app->setting->get('isShowError')!=2) {
-            return true;
-        }
-        return false;
-    }
-
+    
     /**
      * 用户是否有权限查看代码
      */
     public function canViewSource()
     {
+
         //游客不能查看
         if (Yii::$app->user->isGuest){
             return false;
         }
 
+        //用户可查看其它用户代码
+        if(Yii::$app->setting->get('isShareCode')==0){
+            return true;
+        }
+
         // 管理员有权限查看
-        if (!Yii::$app->user->isGuest && Yii::$app->user->identity->role == User::ROLE_ADMIN) {
+        if (Yii::$app->user->identity->role == User::ROLE_ADMIN) {
             return true;
         }
 
-
-        if (Yii::$app->setting->get('isShareCode')==2) {
-            return false;
-        }  
-
-
-        // 提交代码的作者有权限查看
-        if ($this->created_by == Yii::$app->user->id  && Yii::$app->setting->get('isShareCode')==0) {
-            return true;
-        }
-        // 状态可见且设置了分享状态可以查看。以下代码中 isShareCode 的说明参见后台设置页面。
-        // 对于比赛中的提交， status 的值默认为 STATUS_HIDDEN，比赛结束时可以在后台设为 STATUS_VISIBLE 以供普通用户查看
-        // 对于后台验题时的提交，status 的值为 STATUS_HIDDEN
-        if ($this->status == Solution::STATUS_VISIBLE && Yii::$app->setting->get('isShareCode')==1) {
+        // 提交代码的作者,在前2个选项时,可查看.
+        if ($this->created_by == Yii::$app->user->id  && Yii::$app->setting->get('isShareCode')<=1) {
             return true;
         }
 
-        if (!empty($this->contest_id)) {
+        if (!empty($this->contest_id) && Yii::$app->setting->get('isShareCode')!=3) {
             $contest = self::getContestInfo($this->contest_id);
-            // 比赛结束都可以看
-            if (time() >= strtotime($contest['end_time']) && Yii::$app->setting->get('isShareCode')==1) {
-                return true;
-            }
+
             // 小组
-            if ($contest['group_id'] && !Yii::$app->user->isGuest) {
+            if ($contest['group_id']) {
                 $role = Yii::$app->db->createCommand('SELECT role FROM {{%group_user}} WHERE user_id=:uid AND group_id=:gid', [
                     ':uid' => Yii::$app->user->id,
                     ':gid' => $contest['group_id']
                 ])->queryScalar();
+
                 // 小组管理员
-                if (($role == GroupUser::ROLE_LEADER || $role == GroupUser::ROLE_MANAGER) && Yii::$app->setting->get('isShareCode')==3) {
+                if (($role == GroupUser::ROLE_LEADER || $role == GroupUser::ROLE_MANAGER)) {
+                    //只要不是只有管理员可查看选项,小组组长可以看过题情况.
                     return true;
-                }
-                if ($role != GroupUser::ROLE_MEMBER) {
-                    return false;
                 }
             }
         }
@@ -442,55 +373,90 @@ class Solution extends ActiveRecord
         return $contest;
     }
 
-    /**
-     * 用户是否有权限可以查看错误信息
-     */
-    public function canViewErrorInfo()
-    {
 
+    /**
+     * OI 比赛模式，用户是否有权限查看过题情况
+     */
+    public function canViewResult()
+    {
         //游客不能查看
         if (Yii::$app->user->isGuest){
             return false;
         }
 
-        // 管理员有权限查看所有情况
+        // 管理员有权限查看
         if (Yii::$app->user->identity->role == User::ROLE_ADMIN) {
             return true;
         }
 
-        if (Yii::$app->setting->get('isShowError')==0) {
-            return false;
-        }  
-
-        // 提交代码的作者有权限查看
-        if ($this->created_by == Yii::$app->user->id  && Yii::$app->setting->get('isShowError')==1) {
+        // 提交代码的作者,在前2个选项时,可查看过题情况.
+        if ($this->created_by == Yii::$app->user->id  && Yii::$app->setting->get('isShowError')<=1) {
             return true;
         }
 
-        // 对于比赛中的提交，普通用户能查看自己的 Compile Error 所记录的信息
-        if ($this->created_by == Yii::$app->user->id && $this->result == self::OJ_CE) {
-            return true;
-        }
+        if (!empty($this->contest_id) && Yii::$app->setting->get('isShowError')!=3) {
+            $contest = self::getContestInfo($this->contest_id);
 
-        // contest_id 为空，说明不是比赛模式
-        if (empty($this->contest_id)) {
-           return false;
-        }
+            // 小组
+            if ($contest['group_id']) {
+                $role = Yii::$app->db->createCommand('SELECT role FROM {{%group_user}} WHERE user_id=:uid AND group_id=:gid', [
+                    ':uid' => Yii::$app->user->id,
+                    ':gid' => $contest['group_id']
+                ])->queryScalar();
 
-        $contest = self::getContestInfo($this->contest_id);
-
-        // 小组
-        if ($contest['group_id'] && !Yii::$app->user->isGuest) {
-            $role = Yii::$app->db->createCommand('SELECT role FROM {{%group_user}} WHERE user_id=:uid AND group_id=:gid', [
-                ':uid' => Yii::$app->user->id,
-                ':gid' => $contest['group_id']
-            ])->queryScalar();
-            // 小组管理员
-            if (($role == GroupUser::ROLE_LEADER || $role == GroupUser::ROLE_MANAGER)  && Yii::$app->setting->get('isShowError')==2){
-                return true;
+                // 小组管理员
+                if (($role == GroupUser::ROLE_LEADER || $role == GroupUser::ROLE_MANAGER)) {
+                    //只要不是只有管理员可查看选项,小组组长可以看过题情况.
+                    return true;
+                }
             }
-            if ($role != GroupUser::ROLE_MEMBER) {
-                return false;
+        }
+        return false;
+    }
+
+    /**
+     * 用户是否有权限可以查看错误信息
+     */
+    public function canViewErrorInfo()
+    {
+        //游客不能查看
+        if (Yii::$app->user->isGuest){
+            return false;
+        }
+
+        // 管理员有权限查看
+        if (Yii::$app->user->identity->role == User::ROLE_ADMIN) {
+            return true;
+        }
+
+        
+        if ($this->created_by == Yii::$app->user->id){
+            // 提交代码的作者,在前１个选项时,可查看错误数据情况.
+            if(Yii::$app->setting->get('isShowError')<1){
+                  return true;
+            }
+
+           // 对于比赛中的提交，普通用户能查看自己的 Compile Error 所记录的信息
+            if ($this->result == self::OJ_CE) {
+                return true;
+            }    
+        }
+
+        if (!empty($this->contest_id) && Yii::$app->setting->get('isShowError')!=3) {
+            $contest = self::getContestInfo($this->contest_id);
+
+            // 小组
+            if ($contest['group_id']) {
+                $role = Yii::$app->db->createCommand('SELECT role FROM {{%group_user}} WHERE user_id=:uid AND group_id=:gid', [
+                    ':uid' => Yii::$app->user->id,
+                    ':gid' => $contest['group_id']
+                ])->queryScalar();
+
+                // 小组管理员
+                if (($role == GroupUser::ROLE_LEADER || $role == GroupUser::ROLE_MANAGER)) {
+                    //只要不是只有管理员可查看选项,小组组长可以看过题情况.
+                    return true;
+                }
             }
         }
         return false;

@@ -98,7 +98,7 @@ $this->params['breadcrumbs'][] = $this->title;
     </div>
 <?php endif; ?>
 
-<?php if ($model->solutionInfo != null && $model->canViewErrorInfo()) : ?>
+<?php if ($model->solutionInfo != null && $model->canViewResult()) : ?>
     <hr>
     <h3><?= Yii::t('app', 'Judgement Protocol') ?>:</h3>
     <div id="run-info">

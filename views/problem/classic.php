@@ -292,15 +292,19 @@ $nextProblemID = $model->getNextProblemID();
                                     } else {
                                         $span = '<span class="text-danger" ' . $innerHtml . '>' . Solution::getResultList($sub['result']) . $loadingImg . '</span>';
                                     }
-                                    echo Html::a(
-                                        $span,
-                                        ['/solution/result', 'id' => $sub['id']],
-                                        ['onclick' => 'return false', 'data-click' => "solution_info", 'data-pjax' => 0]
-                                    );
+                                    if ($solution->canViewResult()) {
+                                        echo Html::a(
+                                            $span,
+                                            ['/solution/result', 'id' => $sub['id']],
+                                            ['onclick' => 'return false', 'data-click' => "solution_info", 'data-pjax' => 0]
+                                        );
+                                    }else{
+                                        echo $span;
+                                    }
 
                                     ?>
                                 </td>
-                                <?php if (Yii::$app->setting->get('isShareCode') != 2 || Yii::$app->user->identity->role == User::ROLE_ADMIN) : ?>
+                                <?php if ($solution->canViewSource()) : ?>
                                     <td>
                                         <?= Html::a(
                                             '<span class="fa fa-pencil-square-o"></span>',

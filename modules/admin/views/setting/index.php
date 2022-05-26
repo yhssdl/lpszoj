@@ -142,19 +142,20 @@ if($editorName=='app\\widgets\\kindeditor\\KindEditor'){
 <div class="form-group">
     <?= Html::label(Yii::t('app', '是否要共享代码'), 'isShareCode') ?>
     <?= Html::radioList('isShareCode', $settings['isShareCode'], [
-        1 => '用户可以查看其他用户的代码',
-        0 => '用户的代码只能由自己或者管理员查看',
-        3 => '小组组长与管理员可以查看代码',
-        2 => '只有管理员可以查看代码'
+        0 => '用户可以查看其他用户的代码',
+        1 => '用户可以查看由自己的代码',
+        2 => '只有小组组长与管理员可以查看代码',
+        3 => '只有管理员可以查看代码'
     ]) ?>
 </div>
 
 <div class="form-group">
     <?= Html::label(Yii::t('app', '是否可查看错误测试数据'), 'isShowError') ?>
     <?= Html::radioList('isShowError', $settings['isShowError'], [
-        1 => '用户可以查看提交代码的错误测试数据',
-        2 => '小组组长与管理员可查看提交代码的错误测试数据',
-        0 => '只有管理员可查看提交代码的错误测试数据'
+        0 => '用户可以查看错误测试数据',
+        1 => '用户可查看过题情况，但不能查看错误测试数据',
+        2 => '只有小组组长与管理员可查看错误测试数据',
+        3 => '只有管理员可查看错误测试数据'
 
     ]) ?>
 </div>

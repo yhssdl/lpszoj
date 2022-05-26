@@ -9,7 +9,7 @@ use app\models\Solution;
 $this->title = $model->id;
 $json = NULL;
 
-if (!$model->canViewErrorInfo()) {
+if (!$model->canViewResult()) {
     return '暂无权限查看出错信息';
 }
 ?>

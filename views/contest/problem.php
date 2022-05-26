@@ -227,21 +227,30 @@ $loadingImgUrl = Yii::getAlias('@web/images/loading.gif');
                                         $innerHtml =  'data-verdict="' . $sub['result'] . '" data-submissionid="' . $sub['id'] . '" ' . $waitingHtmlDom;
                                         if ($sub['result'] == Solution::OJ_AC) {
                                             $span = '<span class="text-success"' . $innerHtml . '>' . Solution::getResultList($sub['result']) . '</span>';
-                                            echo Html::a(
-                                                $span,
-                                                ['/solution/source', 'id' => $sub['id']],
-                                                ['onclick' => 'return false', 'data-click' => "solution_info", 'data-pjax' => 0]
-                                            );
+                                            if ($solution->canViewResult()) {
+                                                echo Html::a(
+                                                    $span,
+                                                    ['/solution/source', 'id' => $sub['id']],
+                                                    ['onclick' => 'return false', 'data-click' => "solution_info", 'data-pjax' => 0]
+                                                );
+                                            }{
+                                                echo $span;
+                                            }
                                         } else {
                                             $span = '<span class="text-danger" ' . $innerHtml . '>' . Solution::getResultList($sub['result']) . $loadingImg . '</span>';
-                                            echo Html::a(
-                                                $span,
-                                                ['/solution/result', 'id' => $sub['id']],
-                                                ['onclick' => 'return false', 'data-click' => "solution_info", 'data-pjax' => 0]
-                                            );
+                                            if ($solution->canViewResult()) {
+                                                echo Html::a(
+                                                    $span,
+                                                    ['/solution/result', 'id' => $sub['id']],
+                                                    ['onclick' => 'return false', 'data-click' => "solution_info", 'data-pjax' => 0]
+                                                );
+                                            }else{
+                                                echo $span;
+                                            }
                                         }
                                         ?>
                                     </td>
+                                    <?php if ($solution->canViewSource()) : ?>
                                     <td>
                                         <?= Html::a(
                                             '<span class="fa fa-pencil-square-o"></span>',
@@ -249,6 +258,7 @@ $loadingImgUrl = Yii::getAlias('@web/images/loading.gif');
                                             ['title' => '查看源码', 'onclick' => 'return false', 'data-click' => "solution_info", 'data-pjax' => 0]
                                         ) ?>
                                     </td>
+                                    <?php endif; ?>
                                 </tr>
                             <?php endforeach; ?>
                         </tbody>
