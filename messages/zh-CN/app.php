@@ -296,6 +296,7 @@ return [
     'Manage database SQL' => '管理数据库SQL',
     'Create SQL' => '创建 SQL',
     'Warning information' => '警示信息',
-    'This problem has in the contest.' => '该题目已经在比赛中了。'
+    'This problem has in the contest.' => '该题目已经在比赛中了。',
+    'Join time' => '加入时间'
 
 ];

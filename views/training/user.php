@@ -6,6 +6,7 @@ use yii\bootstrap\Modal;
 use yii\widgets\ActiveForm;
 use app\models\GroupUser;
 use app\models\User;
+use app\models\Contest;
 use yii\bootstrap\Nav;
 
 /* @var $this yii\web\View */
@@ -21,50 +22,17 @@ $this->title = $model->name;
     'items' => [
         [
             'label' => $this->title,
-            'url' => ['group/view', 'id' => $model->id]
+            'url' => ['training/view', 'id' => $model->id]
         ],
         [
             'label' => Yii::t('app', 'Member'),
-            'url' => ['group/user', 'id' => $model->id]
+            'url' => ['training/user', 'id' => $model->id]
         ],
     ],
     'options' => ['class' => 'nav-tabs']
 ]) ?>
 <br>
 <div class="group-view">
-
-
-    <?php if ($model->hasPermission()) : ?>
-
-        <div class="row"><div class="col-md-2">
-        <?php Modal::begin([
-            'header' => Yii::t('app', 'Invite Member'),
-            'toggleButton' => [
-                'label' => Yii::t('app', 'Invite Member'),
-                'tag' => 'a',
-                'style' => 'cursor:pointer;',
-                'class' => 'btn btn-success btn-block'
-            ]
-        ]); ?>
-        <?php $form = ActiveForm::begin(); ?>
-        <p class="hint-block">1. 一个用户占据一行，每行格式为<code>username</code>。</p>
-        <p class="hint-block">2. 必须是已经注册过的用户。</p>
-        <?= $form->field($newGroupUser, 'username')->textarea(['rows' => 10]) ?>
-        <?php if (Yii::$app->setting->get('isGroupJoin')) : ?>
-            <?= $form->field($newGroupUser, 'role')->radioList(['2' => '邀请中', '4' => '普通成员'], ['value' => [4]]) ?>
-        <?php else : ?>
-            <?= $form->field($newGroupUser, 'role')->radioList(['2' => '邀请中'], ['value' => [2]]) ?>
-        <?php endif; ?>
-        <div class="form-group">
-        <div class="row"><div class="col-md-4 col-md-offset-4"><?= Html::submitButton(Yii::t('app', 'Submit'), ['class' => 'btn btn-success btn-block']) ?></div></div>
-        </div>
-        <?php ActiveForm::end(); ?>
-        <?php Modal::end(); ?>
-</div></div>
-
-        <br>
-    <?php endif; ?>
-</div>
 <?= GridView::widget([
     'layout' => '{items}{pager}',
     'pager' => [
@@ -128,37 +96,6 @@ $this->title = $model->name;
                 return Yii::$app->formatter->asRelativeTime($date['created_at']);
             },
             'options' => ['width' => '150px']
-        ],
-        [
-            'class' => 'yii\grid\ActionColumn', 'header' => '操作',
-            'contentOptions' => ['class'=>'a_just'],
-            'template' => '{user-update} {user-delete}',
-            'buttons' => [
-                'user-update' => function ($url, $date) {
-                    $url = '/group/user-update?id=' . $date['id'];
-                    $options = [
-                        'title' => Yii::t('yii', 'Update'),
-                        'aria-label' => Yii::t('yii', 'Update'),
-                        'data-pjax' => '0',
-                        'onclick' => 'return false',
-                        'data-click' => "user-manager"
-                    ];
-                    return Html::a('<span class="fa fa-pencil"></span>', $url, $options);
-                },
-                'user-delete' => function ($url, $date) {
-                    $url = '/group/user-delete?id=' . $date['id'];
-                    $options = [
-                        'title' => Yii::t('yii', 'Delete'),
-                        'aria-label' => Yii::t('yii', 'Delete'),
-                        'data-confirm' => Yii::t('yii', 'Are you sure you want to delete this item?'),
-                        'data-method' => 'post',
-                        'data-pjax' => '0',
-                    ];
-                    return Html::a('<span class="fa fa-trash"></span>', $url, $options);
-                }
-            ],
-            'visible' => $model->hasPermission(),
-            'options' => ['width' => '90px']
         ]
     ],
 ]); ?>

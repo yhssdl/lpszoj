@@ -17,6 +17,7 @@ use yii\filters\VerbFilter;
 use yii\db\Expression;
 use yii\data\ActiveDataProvider;
 use app\models\Solution;
+use app\models\User;
 
 /**
  * GroupController implements the CRUD actions for Group model.
@@ -139,6 +140,11 @@ class TrainingController extends BaseController
      */
     public function actionUser($id,$sort=0)
     {
+
+        if(!Yii::$app->user->isGuest && Yii::$app->user->identity->role != User::ROLE_ADMIN){
+            return $this->redirect(['view', 'id' => $id]);
+        }
+
         $model = $this->findModel($id);
         $role = $model->getRole();
         if (!$model->isMember() && ($role == GroupUser::ROLE_INVITING ||

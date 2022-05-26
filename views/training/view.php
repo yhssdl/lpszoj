@@ -6,10 +6,29 @@
 /* @var $newContest app\models\Contest */
 /* @var $newGroupUser app\models\GroupUser */
 use app\models\Training;
+use yii\bootstrap\Nav;
+use app\models\User;
 
 $this->title = $model->name;
 ?>
-
+<?php 
+if(!Yii::$app->user->isGuest && Yii::$app->user->identity->role == User::ROLE_ADMIN){
+   echo Nav::widget([
+        'items' => [
+            [
+                'label' => $this->title,
+                'url' => ['training/view', 'id' => $model->id]
+            ],
+            [
+                'label' => Yii::t('app', 'Member'),
+                'url' => ['training/user', 'id' => $model->id]
+            ],
+        ],
+        'options' => ['class' => 'nav-tabs']
+    ]);
+}
+ ?>
+<br>
 <div class="group-view">
     <div class="row">
 
