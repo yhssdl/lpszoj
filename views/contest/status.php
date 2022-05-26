@@ -136,8 +136,7 @@ $isContestEnd = $model->isContestEnd();
             [
                 'attribute' => 'language',
                 'value' => function ($solution, $key, $index, $column) use ($model, $isContestEnd) {
-                    $otherCan = ($isContestEnd && Yii::$app->setting->get('isShareCode')==1);
-                    if ($solution->canViewSource() || $otherCan) {
+                    if ($solution->canViewSource()) {
                         return Html::a(
                             $solution->getLang(),
                             ['/solution/source', 'id' => $solution->id],
