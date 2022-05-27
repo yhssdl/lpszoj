@@ -410,7 +410,8 @@ install_lpszoj(){
     echo
     echo "Successful installation"
     echo "App running at:"
-    echo "http://your_ip_address"
+    ip=`ifconfig -a|grep inet|grep -v 127.0.0.1|grep -v inet6|awk '{print $2}'|tr -d "addr:"​`
+    echo http://$ip    
     echo
     echo -e "[${green}Administrator account${plain}] admin"
     echo -e "[${green}Password${plain}] 123456"
