@@ -161,6 +161,11 @@ $contest_id = $model->id;
             1 => '开启',
         ])->hint('答疑界面在作业中可以根据需要开启或关闭。') ?>
 
+    <?= $form->field($model, 'enable_board')->radioList([
+        '1' => '开启榜单',
+        '0' => '关闭榜单',
+        ])->hint('是否开启榜单功能。关闭榜单后，只能在榜单中看到自己的信息。') ?>
+
         <?= $form->field($model, 'language')->radioList([
             -1 => 'All',
             0 => 'C',

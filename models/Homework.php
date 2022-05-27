@@ -49,6 +49,7 @@ class Homework extends Contest
             'lock_board_time' => Yii::t('app', 'Lock Board Time'),
             'language' => Yii::t('app', 'Language'),
             'enable_clarify' => Yii::t('app', 'Clarification'),
+            'enable_board' => Yii::t('app','Enable Board'),
             'ext_link' => '站外比赛',
             'invite_code' => '邀请码（仅站外比赛有效）',            
         ];
