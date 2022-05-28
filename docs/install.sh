@@ -203,10 +203,22 @@ install_check(){
     fi
 }
 
+
+
+
 config_lpszoj(){
+	key="abcdefghijklmnopqrstuvwxyzABCDEFGHIJKLMNOPQRSTUVWXYZ0123456789"
+	pass=""
+	for i in {1..10}
+	do
+	  num=$[RANDOM%${#key}]
+	  tmp=${key:num:1}
+	  pass=${pass}${tmp}
+	done
+
     DBNAME="ojdate"
     DBUSER="root"
-    DBPASS="123456"
+    DBPASS=$pass
     PHP_VERSION=7.`php -v>&1|awk '{print $2}'|awk -F '.' '{print $2}'`
 
     if check_sys sysRelease centos; then
@@ -406,12 +418,10 @@ install_lpszoj(){
     cd /home/judge/lpszoj/polygon
     make
     ./polygon
-
     echo
-    echo "Successful installation"
-    echo "App running at:"
-    ip=`ifconfig -a|grep inet|grep -v 127.0.0.1|grep -v inet6|awk '{print $2}'|tr -d "addr:"​`
-    echo http://$ip    
+    echo
+    echo -e "[${green}Mysql account${plain}] $DBUSER"
+    echo -e "[${green}Password${plain}] $DBPASS"
     echo
     echo -e "[${green}Administrator account${plain}] admin"
     echo -e "[${green}Password${plain}] 123456"
@@ -419,6 +429,14 @@ install_lpszoj(){
     echo "Enjoy it!"
     echo "Welcome to visit: https://gitee.com/yhssdl"
     echo
+    echo "Successful installation"
+    echo    
+    echo "App running at:"
+    ip=`ifconfig -a|grep inet|grep -v 127.0.0.1|grep -v inet6|awk '{print $2}'|tr -d "addr:"​`
+    echo -e "${red}http://$ip${plain}" 
+    echo
+    echo
+
 }
 
 install_lpszoj
