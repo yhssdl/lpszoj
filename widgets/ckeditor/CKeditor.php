@@ -28,7 +28,7 @@ class CKeditor extends InputWidget
         if ($this->hasModel()) {
             echo Html::activeTextArea($this->model, $this->attribute, $options);
         } else {
-            echo Html:: TextArea($this->name, $this->value, $options);
+            echo Html::textArea($this->name, $this->value, $options);
         }
         $this->registerScripts();
     }
@@ -38,15 +38,20 @@ class CKeditor extends InputWidget
      */
     public function registerScripts()
     {
-    	
         CKeditorAsset::register($this->view);
         $id = $this->options['id'];
         $uploadUrl = \yii\helpers\Url::toRoute(['/image/upload']);
         $script = <<<EOF
-CKEDITOR.config.height = 'auto';
-CKEDITOR.config.width = 'auto';
-var editorElement = CKEDITOR.document.getById( '{$id}' );
-CKEDITOR.replace( '{$id}', {
+ClassicEditor.create( document.querySelector('#{$id}'), {
+   ckfinder: {
+       uploadUrl: "{$uploadUrl}"
+   }
+})
+.then( editor => {
+    console.log( editor );
+})
+.catch( error => {
+    console.error( error );
 });
 EOF;
         $this->view->registerJs($script);
