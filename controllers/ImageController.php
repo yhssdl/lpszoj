@@ -6,7 +6,6 @@ use app\components\BaseController;
 use Yii;
 use yii\web\ForbiddenHttpException;
 use app\components\Uploader;
-use app\components\MdUploader;
 
 /**
  * 用来接收 CKeditor 编辑器上传的图片
@@ -14,6 +13,21 @@ use app\components\MdUploader;
 class ImageController extends BaseController
 {
     public $enableCsrfValidation = false;
+
+    /**
+     * @inheritdoc
+     */
+    public function actions()
+    {
+        return [
+            'ueupload' => [
+                'class' => 'app\widgets\ueditor\UEditorAction'
+            ]
+        ];
+    }
+
+
+
 
     public function actionUpload()
     {

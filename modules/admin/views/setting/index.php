@@ -236,11 +236,15 @@ if($editorName=='app\\widgets\\kindeditor\\KindEditor'){
 <div class="form-group">
     <?= Html::label(Yii::t('app', '编辑器'), 'ojEditor') ?>
     <?= Html::radioList('ojEditor', $settings['ojEditor'], [
+        'app\widgets\ueditor\UEditor' => 'UEditor编辑器',
         'app\widgets\ckeditor\CKeditor' => 'CKEditor编辑器',
         'app\widgets\editormd\Editormd' => 'MarkDown编辑器'
     ]) ?>
     <p class="hint-block">
-        CKEditor编辑器 ：所见即所得的编辑器。
+        UEditor编辑器 ：所见即所得的编辑器，支持IE浏览器。
+    </p>    
+    <p class="hint-block">
+        CKEditor编辑器 ：所见即所得的编辑器，不支持IE浏览器。
     </p>
     <p class="hint-block">
         MarkDown编辑器：支持MarkDown语法的编辑器。
