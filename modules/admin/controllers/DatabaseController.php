@@ -174,7 +174,6 @@ class DatabaseController extends Controller
 	{
 		ini_set('max_execution_time', 0);
 		//ini_set('memory_limit', '512M');
-
 		$message = 'OK';
 		//$this->layout = null;
 		//$this->updateMenuItems ();
