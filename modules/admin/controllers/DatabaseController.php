@@ -176,7 +176,7 @@ class DatabaseController extends Controller
 		//ini_set('memory_limit', '512M');
 
 		$message = 'OK';
-		$this->layout = null;
+		//$this->layout = null;
 		//$this->updateMenuItems ();
 
 		$list = $this->getFileList();
@@ -207,9 +207,14 @@ class DatabaseController extends Controller
 		]);
 
 		if (isset($file)) {
-			$sql = new MysqlBackup();
-			$sqlZipFile = $this->path . basename($file);
-			$sqlFile = $sql->unzip($sqlZipFile);
+			$sql = new MysqlBackup();	
+			$str=strtolower(pathinfo($file, PATHINFO_EXTENSION));
+			if($str=='zip'){
+				$sqlZipFile = $this->path . basename($file);
+				$sqlFile = $sql->unzip($sqlZipFile);
+			}else{
+				$sqlFile = $this->path . basename($file);
+			}
 			$message = $sql->execSqlFile($sqlFile);
 			if ($message == 'ok')
 				\yii::$app->session->setFlash('success', '恢复成功！' . $file);

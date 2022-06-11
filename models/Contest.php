@@ -1086,6 +1086,4 @@ class Contest extends \yii\db\ActiveRecord
             }
         });
     }
-
-
 }
