@@ -6,6 +6,8 @@
     <br>
 </p>
 
+演示网址： [LPSZOJ](http://myoj.f3322.net:8088/)
+
 LPSZOJ 派生自 [JNOJ](https://github.com/shi-yang/jnoj)，参考了 [SCNUOJ](https://github.com/scnu-socoding/scnuoj)界面设计，是一个在线评测系统。
 
 LPSZOJ 可对用户在线提交的源代码进行编译和执行，并通过预先设计的测试数据检验代码的正确性。
