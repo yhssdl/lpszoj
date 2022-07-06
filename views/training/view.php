@@ -85,11 +85,17 @@ if(!Yii::$app->user->isGuest && Yii::$app->user->identity->role == User::ROLE_AD
                             if($pass_sum < $training->punish_time) $bShow = false;
 
                             if(!$bShow && $training->enable_clarify==0 && $pos>1){
-                                echo '<br><div class="alert alert-light"><i class=" fa fa-info-circle"></i> 后续小节已经被隐藏，需要完成当前小节才能显示。</div>';
+                                echo '<br><div class="alert alert-light"><i class=" fa fa-info-circle"></i> 后续小节已经被隐藏，需要完成前一小节才能显示。</div>';
                                 break;
                             }
 
                         }else{
+
+                            if($training->enable_clarify==0 && $pos>1){
+                                echo '<br><div class="alert alert-light"><i class=" fa fa-info-circle"></i> 后续小节已经被隐藏，需要完成前一小节才能显示。</div>';
+                                break;
+                            }
+
                             echo $this->render('_contest_item1',
                             ['t_model' => $training,
                             'model'=>$t_model,
