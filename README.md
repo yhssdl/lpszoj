@@ -6,7 +6,7 @@
     <br>
 </p>
 
-演示网址： [LPSZOJ](http://myoj.f3322.net:8088/)
+演示网址： [LPSZOJ](http://myoj.f3322.net:2080/)
 
 LPSZOJ 派生自 [JNOJ](https://github.com/shi-yang/jnoj)，参考了 [SCNUOJ](https://github.com/scnu-socoding/scnuoj)界面设计，是一个在线评测系统。
 
