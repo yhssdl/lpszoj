@@ -12,6 +12,7 @@ LPSZOJ Change Log
 请阅读 [update.md](https://gitee.com/yhssdl/lpszoj/raw/master/docs/update.md) 来获取更新方法。
 
 ---------------------------------------
+- 2022.9.28 Enh: [judge] 修改了judge判题机代码，用于支持ARM平台，已经在华为悦盒EC6108V9C上刷Ubunut后测试通过，64位ARM平台未测试。
 - 2022.5.28 Bug: [web] 一键安装脚本中数据库密码由123456改为随机密码，增强安全性。
 - 2022.5.26 Bug: [web] 修正比赛或作业修改题目时显示不更新的BUG。
 - 2022.5.26 Bug: [web] 优化代码分享与错误查看功能，后台增加了选项。

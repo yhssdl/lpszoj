@@ -29,7 +29,6 @@
 #include <ctype.h>
 #include <getopt.h>
 #include <sys/wait.h>
-#include <sys/ptrace.h>
 #include <sys/types.h>
 #include <sys/user.h>
 #include <sys/syscall.h>
@@ -37,6 +36,8 @@
 #include <sys/resource.h>
 #include <sys/signal.h>
 #include <sys/stat.h>
+#include <sys/ptrace.h>
+#include <asm/ptrace.h>
 #include <unistd.h>
 #include <errno.h>
 #include <mysql/mysql.h>
@@ -46,6 +47,23 @@
 #include "common.h"
 #include "language.h"
 #include "cJSON.h"
+
+
+
+#ifdef __i386
+	#define REG_SYSCALL orig_eax
+	#define REG_RET eax
+	#define REG_ARG0 ebx
+	#define REG_ARG1 ecx
+#else
+	#define REG_SYSCALL orig_rax
+	#define REG_RET rax
+	#define REG_ARG0 rdi
+	#define REG_ARG1 rsi
+#endif
+
+
+
 
 #define STD_MB 1048576LL
 #define STD_T_LIM 2
@@ -58,17 +76,7 @@
 /*copy from ZOJ
  http://code.google.com/p/zoj/source/browse/trunk/judge_client/client/tracer.cc?spec=svn367&r=367#39
  */
-#ifdef __i386
-#define REG_SYSCALL orig_eax
-#define REG_RET eax
-#define REG_ARG0 ebx
-#define REG_ARG1 ecx
-#else
-#define REG_SYSCALL orig_rax
-#define REG_RET rax
-#define REG_ARG0 rdi
-#define REG_ARG1 rsi
-#endif
+
 
 typedef struct {
     int id;
@@ -433,7 +441,7 @@ int compile(int lang, char * work_dir)
             execute_cmd("mount -o remount,ro usr");
             execute_cmd("mount -o bind /lib lib");
             execute_cmd("mount -o remount,ro lib");
-#ifndef __i386__
+#if defined (__x86_64__) || (__aarch64__)
             execute_cmd("mount -o bind /lib64 lib64");
             execute_cmd("mount -o remount,ro lib64");
 #endif
@@ -686,6 +694,7 @@ void record_data(problem_struct problem,
 void run_solution(problem_struct problem, int lang, char * work_dir,
                   int usedtime)
 {
+
     nice(19);
     // now the user is "judge"
     chdir(work_dir);
@@ -892,6 +901,37 @@ void print_runtimeerror(char * err)
     fclose(ferr);
 }
 
+#if defined (__arm__) || (__aarch64__)
+long getSysCallNo(int pid)
+{
+    struct pt_regs reg;
+    long scno = 0;
+    ptrace(PTRACE_GETREGS, pid, NULL, &reg);  
+    scno = ptrace(PTRACE_PEEKTEXT, pid, (void *)(reg.ARM_pc - 4), NULL);
+    if(scno == 0)
+        return 0;
+
+    if (scno == 0xef000000) {
+        scno = reg.ARM_r7;
+    } else {
+        if ((scno & 0x0ff00000) != 0x0f900000) {
+            return 10000;
+        }
+        scno &= 0x000fffff;
+    }
+    return scno;    
+}
+#else
+long getSysCallNo(int pid)
+{
+     struct user_regs_struct reg;
+      long scno = 0;
+     ptrace(PTRACE_GETREGS, pid, NULL, &reg);  
+     scno = (unsigned int)reg.REG_SYSCALL % CALL_ARRAY_SIZE;
+     return scno;
+}
+#endif
+
 void watch_solution(problem_struct problem,
                     verdict_struct * verdict_res,
                     pid_t pidApp,
@@ -906,7 +946,6 @@ void watch_solution(problem_struct problem,
                 pidApp, solution_id, infile);
 
     int status, sig, exitcode;
-    struct user_regs_struct reg;
     struct rusage ruse;
     bool first_run = true;
     for (;;) {
@@ -1023,8 +1062,8 @@ void watch_solution(problem_struct problem,
         // WSTOPSIG: get the signal if it was stopped by signal
 
         // check the system calls
-        ptrace(PTRACE_GETREGS, pidApp, NULL, &reg);
-        call_id = (unsigned int)reg.REG_SYSCALL % CALL_ARRAY_SIZE;
+        call_id =getSysCallNo(pidApp) % CALL_ARRAY_SIZE;
+       
         if (call_counter[call_id]) {
             //call_counter[reg.REG_SYSCALL]--;
         } else if (record_call) {
@@ -1127,13 +1166,13 @@ void init_parameters(int argc, char ** argv, int * solution_id, int * runner_id)
 void mk_shm_workdir(char * work_dir)
 {
     char shm_path[BUFFER_SIZE];
-    sprintf(shm_path, "/dev/shm/jnoj%s", work_dir);
+    sprintf(shm_path, "/dev/shm/lpszoj%s", work_dir);
     execute_cmd("/bin/mkdir -p %s", shm_path);
     execute_cmd("/bin/ln -s %s %s", shm_path, oj_home);
     execute_cmd("/bin/chown judge %s ", shm_path);
     execute_cmd("chmod 755 %s ", shm_path);
     //sim need a soft link in shm_dir to work correctly
-    sprintf(shm_path, "/dev/shm/jnoj%s", oj_home);
+    sprintf(shm_path, "/dev/shm/lpszoj%s", oj_home);
     execute_cmd("/bin/ln -s %sdata %s", oj_home, shm_path);
 }
 
