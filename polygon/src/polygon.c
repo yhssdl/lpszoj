@@ -481,7 +481,7 @@ void set_path()
 
 int main(int argc, char *argv[])
 {
-    char ch;
+    int ch;
     opterr = 0;
     while ((ch = getopt(argc, argv, "doh")) != -1) {
         switch (ch) {
