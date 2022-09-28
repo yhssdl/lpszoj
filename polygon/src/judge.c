@@ -29,6 +29,7 @@
 #include <ctype.h>
 #include <sys/wait.h>
 #include <sys/ptrace.h>
+#include <asm/ptrace.h>
 #include <sys/types.h>
 #include <sys/user.h>
 #include <sys/syscall.h>
@@ -449,7 +450,7 @@ int compile(int lang, char * work_dir)
             execute_cmd("mount -o remount,ro usr");
             execute_cmd("mount -o bind /lib lib");
             execute_cmd("mount -o remount,ro lib");
-#ifndef __i386__
+#if defined (__x86_64__) || (__aarch64__)
             execute_cmd("mount -o bind /lib64 lib64");
             execute_cmd("mount -o remount,ro lib64");
 #endif
@@ -849,6 +850,39 @@ void print_runtimeerror(char * err)
     fclose(ferr);
 }
 
+
+#if defined (__arm__) || (__aarch64__)
+long getSysCallNo(int pid)
+{
+    struct pt_regs reg;
+    long scno = 0;
+    ptrace(PTRACE_GETREGS, pid, NULL, &reg);  
+    scno = ptrace(PTRACE_PEEKTEXT, pid, (void *)(reg.ARM_pc - 4), NULL);
+    if(scno == 0)
+        return 0;
+
+    if (scno == 0xef000000) {
+        scno = reg.ARM_r7;
+    } else {
+        if ((scno & 0x0ff00000) != 0x0f900000) {
+            return 10000;
+        }
+        scno &= 0x000fffff;
+    }
+    return scno;    
+}
+#else
+long getSysCallNo(int pid)
+{
+     struct user_regs_struct reg;
+      long scno = 0;
+     ptrace(PTRACE_GETREGS, pid, NULL, &reg);  
+     scno = (unsigned int)reg.REG_SYSCALL % CALL_ARRAY_SIZE;
+     return scno;
+}
+#endif
+
+
 void watch_solution(struct problem_struct problem, pid_t pidApp, char * infile,
                     int * ACflg, char * userfile, char * outfile,
                     int solution_id, int lang, int * topmemory, int * usedtime,
@@ -862,7 +896,6 @@ void watch_solution(struct problem_struct problem, pid_t pidApp, char * infile,
                 pidApp, solution_id, infile);
 
     int status, sig, exitcode;
-    struct user_regs_struct reg;
     struct rusage ruse;
     bool first_run = true;
     for (;;) {
@@ -981,8 +1014,8 @@ void watch_solution(struct problem_struct problem, pid_t pidApp, char * infile,
         // WSTOPSIG: get the signal if it was stopped by signal
 
         // check the system calls
-        ptrace(PTRACE_GETREGS, pidApp, NULL, &reg);
-        call_id = (unsigned int)reg.REG_SYSCALL % CALL_ARRAY_SIZE;
+        call_id =getSysCallNo(pidApp) % CALL_ARRAY_SIZE;
+        
         if (call_counter[call_id]) {
             //call_counter[reg.REG_SYSCALL]--;
         } else if (record_call) {

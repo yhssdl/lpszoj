@@ -16,21 +16,24 @@
  * You should have received a copy of the GNU General Public License
  * along with HUSTOJ. if not, see <http://www.gnu.org/licenses/>.
  */
-#include <sys/syscall.h>
-#define HOJ_MAX_LIMIT -1
-
-#ifdef __arm__
-   #include "okcalls_arm32.h"
-#endif
-
-#ifdef __aarch64__
-   #include "okcalls_arm64.h"
-#endif
-
-#ifdef __i386
-   #include "okcalls32.h"
-#endif
-
-#ifdef __x86_64__
-   #include "okcalls64.h"
-#endif
+//c & c++
+int LANG_CV[256] = { 0,85, 8,140,  252,272, 0 };
+//java
+int LANG_JV[256] = { 0,272,295,  0 };
+//python
+int LANG_YV[256]={0,3,4,5,6,11,33,45,54,85,116,122,125,140,174,175,183,
+		191,192,195,196,197,199,200,201,202,220,243,252,258,272,
+		311,13,41,91,102,186,221,240,295,0};
+//php
+int LANG_PHV[256] = {0,3,4,5,6,11,13,33,45,54,78,91,122,125,140,174,175,183,191,192,195,
+		     196,197,240,243,252,258,272,295,311,146, 158, 117, 60, 39, 102, 0 };
+		
+struct ok_call {
+	int * call;
+};
+struct ok_call ok_calls[] = {
+	{LANG_CV},
+	{LANG_CV},
+	{LANG_JV},
+	{LANG_YV}
+};
