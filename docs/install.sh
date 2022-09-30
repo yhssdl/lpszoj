@@ -192,7 +192,6 @@ install_dependencies(){
            apt_depends[${#apt_depends[@]}]="openjdk-11-jdk"
         fi
 
-        apt -y update
         for depend in ${apt_depends[@]}; do
             error_detect_depends "apt -y install ${depend}"
         done
