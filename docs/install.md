@@ -21,7 +21,7 @@
 Ubuntu运行：
 wget https://gitee.com/yhssdl/lpszoj/raw/master/docs/install.sh && sudo bash install.sh
 
-Debian 11运行(root账号)：
+Debian(Armbian) 11运行(root账号)：
 apt install -y wget && wget https://gitee.com/yhssdl/lpszoj/raw/master/docs/install.sh && bash install.sh
 
 CentOS运行：
