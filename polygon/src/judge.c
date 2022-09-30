@@ -900,7 +900,7 @@ long getSysCallNo(int pid)
     }
     return scno;    
 #elif defined (__arm__)
-    ptrace(PTRACE_GETREGS, pid, NULL, &reg);  
+    ptrace(PTRACE_GETREGS, pid, NULL, &regs);  
     scno = ptrace(PTRACE_PEEKTEXT, pid, (void *)(regs.ARM_pc - 4), NULL);
     if(scno == 0)
         return 0;
