@@ -36,6 +36,9 @@ check_sys(){
     if [[ -f /etc/redhat-release ]]; then
         release="centos"
         systemPackage="yum"
+    elif grep -Eqi "ubuntu" /proc/version; then
+        release="ubuntu"
+        systemPackage="apt"        
     elif grep -Eqi "debian|raspbian|armbian" /etc/issue; then
         release="debian"
         systemPackage="apt"
@@ -47,9 +50,6 @@ check_sys(){
         systemPackage="yum"
     elif grep -Eqi "debian|raspbian|armbian" /proc/version; then
         release="debian"
-        systemPackage="apt"
-    elif grep -Eqi "ubuntu" /proc/version; then
-        release="ubuntu"
         systemPackage="apt"
     elif grep -Eqi "centos|red hat|redhat" /proc/version; then
         release="centos"
@@ -175,10 +175,14 @@ install_dependencies(){
             error_detect_depends "apt -y install ${depend}"
         done
     elif check_sys packageManager apt; then   
+        apt-get install software-properties-common
+        echo -e "\n" | add-apt-repository ppa:ondrej/php
+        apt-get update
+
         apt_depends=(
             nginx
             mysql-server
-            php-fpm php-mysql php-common php-gd php-zip php-mbstring php-xml
+            php7.4-fpm php7.4-mysql php7.4-common php7.4-gd php7.4-zip php7.4-mbstring php7.4-xml php7.4-opcache 
             libmysqlclient-dev libmysql++-dev git make gcc g++
         )
         ver=`echo "$(getversion)" | awk -F '.' '{print $1}'`
