@@ -177,7 +177,7 @@ install_dependencies(){
     elif check_sys packageManager apt; then   
         apt-get install software-properties-common
         echo -e "\n" | add-apt-repository ppa:ondrej/php
-        apt-get update
+        apt -y update
 
         apt_depends=(
             nginx
