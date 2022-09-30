@@ -36,8 +36,11 @@
 #include <sys/resource.h>
 #include <sys/signal.h>
 #include <sys/stat.h>
-#include <sys/ptrace.h>
+#if defined(__aarch64__) ||  defined(__asm__)
 #include <asm/ptrace.h>
+#endif
+#include <sys/ptrace.h>
+#include <sys/uio.h>
 #include <unistd.h>
 #include <errno.h>
 #include <mysql/mysql.h>
@@ -62,6 +65,23 @@
 	#define REG_ARG1 rsi
 #endif
 
+#if defined(__i386__) ||  defined(__amd64__)    
+#define pt_regs         user_regs_struct    
+#elif defined(__aarch64__)
+#define pt_regs         user_pt_regs  
+#define uregs	regs
+#define ARM_pc	pc
+#define ARM_sp	sp
+#define ARM_cpsr	pstate
+#define ARM_lr		regs[30]
+#define ARM_r0		regs[0]  
+#define ARM_r7		regs[7]  
+#define PTRACE_GETREGS PTRACE_GETREGSET
+#define PTRACE_SETREGS PTRACE_SETREGSET
+#endif  
+
+
+#define NT_PRSTATUS 1
 
 
 
@@ -901,18 +921,26 @@ void print_runtimeerror(char * err)
     fclose(ferr);
 }
 
-#if defined (__arm__) || (__aarch64__)
+
 long getSysCallNo(int pid)
 {
-    struct pt_regs reg;
     long scno = 0;
-    ptrace(PTRACE_GETREGS, pid, NULL, &reg);  
-    scno = ptrace(PTRACE_PEEKTEXT, pid, (void *)(reg.ARM_pc - 4), NULL);
+    struct pt_regs regs;
+#if defined (__aarch64__)
+		int regset = NT_PRSTATUS;
+		struct iovec ioVec;
+		
+		ioVec.iov_base = &regs;
+		ioVec.iov_len = sizeof(regs);
+    if (ptrace(PTRACE_GETREGSET, pid, (void*)regset, &ioVec) < 0) {    
+        return 0;    
+    }    
+    scno = ptrace(PTRACE_PEEKTEXT, pid, (void *)(regs.ARM_pc - 4), NULL);
     if(scno == 0)
         return 0;
 
     if (scno == 0xef000000) {
-        scno = reg.ARM_r7;
+        scno = regs.ARM_r7;
     } else {
         if ((scno & 0x0ff00000) != 0x0f900000) {
             return 10000;
@@ -920,17 +948,31 @@ long getSysCallNo(int pid)
         scno &= 0x000fffff;
     }
     return scno;    
-}
+#elif defined (__arm__)
+    ptrace(PTRACE_GETREGS, pid, NULL, &reg);  
+    scno = ptrace(PTRACE_PEEKTEXT, pid, (void *)(regs.ARM_pc - 4), NULL);
+    if(scno == 0)
+        return 0;
+
+    if (scno == 0xef000000) {
+        scno = regs.ARM_r7;
+    } else {
+        if ((scno & 0x0ff00000) != 0x0f900000) {
+            return 10000;
+        }
+        scno &= 0x000fffff;
+    }
+    return scno;   
 #else
-long getSysCallNo(int pid)
-{
-     struct user_regs_struct reg;
-      long scno = 0;
-     ptrace(PTRACE_GETREGS, pid, NULL, &reg);  
-     scno = (unsigned int)reg.REG_SYSCALL % CALL_ARRAY_SIZE;
-     return scno;
+    if (ptrace(PTRACE_GETREGS, pid, NULL, &regs) < 0) {    
+        return 0;    
+    }    
+    scno = (unsigned int)regs.REG_SYSCALL % CALL_ARRAY_SIZE;
+    return scno;  
+#endif    
+  
 }
-#endif
+
 
 void watch_solution(problem_struct problem,
                     verdict_struct * verdict_res,
