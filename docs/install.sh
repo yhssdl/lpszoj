@@ -383,6 +383,7 @@ enable_server(){
         systemctl start php74-php-fpm
         systemctl enable php74-php-fpm
         systemctl enable mariadb
+        service mysql restart
     else
         systemctl enable php${PHP_VERSION}-fpm
         systemctl enable mysql
