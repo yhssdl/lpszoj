@@ -165,7 +165,7 @@ install_dependencies(){
         apt_depends=(
             nginx 
             php-mysql php-common php-gd php-zip php-xml php-mbstring php-opcache php-fpm
-            mariadb mariadb-devel mariadb-server
+            libmariadbclient-dev mariadb-server
             git make gcc g++
             openjdk-11-jdk
             net-tools
