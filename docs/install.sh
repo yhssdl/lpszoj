@@ -36,18 +36,18 @@ check_sys(){
     if [[ -f /etc/redhat-release ]]; then
         release="centos"
         systemPackage="yum"
-    elif grep -Eqi "ubuntu" /proc/version; then
+    elif grep -Eqi "ubuntu|jammy|focal" /etc/issue; then
         release="ubuntu"
-        systemPackage="apt"        
+        systemPackage="apt"
     elif grep -Eqi "debian|raspbian|armbian" /etc/issue; then
         release="debian"
-        systemPackage="apt"
-    elif grep -Eqi "ubuntu" /etc/issue; then
-        release="ubuntu"
         systemPackage="apt"
     elif grep -Eqi "centos|red hat|redhat" /etc/issue; then
         release="centos"
         systemPackage="yum"
+    elif grep -Eqi "ubuntu" /proc/version; then
+        release="ubuntu"
+        systemPackage="apt"            
     elif grep -Eqi "debian|raspbian|armbian" /proc/version; then
         release="debian"
         systemPackage="apt"
