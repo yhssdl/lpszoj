@@ -164,7 +164,7 @@ install_dependencies(){
     elif check_sys sysRelease debian; then
         apt_depends=(
             nginx 
-            php7.4-mysqlnd php7.4-common php7.4-gd php7.4-zip php7.4-xml php7.4-mbstring php7.4-opcache php7.4-fpm
+            php-mysql php-common php-gd php-zip php-xml php-mbstring php-opcache php-fpm
             mariadb-server
             libmysql++-dev git make gcc g++
             openjdk-11-jdk
@@ -203,7 +203,7 @@ install_dependencies(){
 install_check(){
     if (! check_sys packageManager yum && ! check_sys packageManager apt) || centosversion 5; then
         echo -e "[${red}Error${plain}] Your OS is not supported to run it!"
-        echo "Please change to CentOS 6+/Debian 7+/Ubuntu 16+ and try again."
+        echo "Please change to CentOS 6+/Debian 11+/Ubuntu 20+ and try again."
         exit 1
     fi
 }
