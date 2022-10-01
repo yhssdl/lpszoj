@@ -19,9 +19,9 @@
 //c & c++
 int LANG_CV[256] = { 85, 8,140, SYS_time, SYS_read, SYS_uname, SYS_write, SYS_open,
 		SYS_close, SYS_execve, SYS_access, SYS_brk, SYS_munmap, SYS_mprotect,
-		SYS_mmap2, SYS_fstat64, SYS_set_thread_area, 252, 0 };
+		SYS_mmap2, SYS_fstat64, SYS_set_thread_area, 218,252,262,302,318,334, 0 };
 //java
-int LANG_JV[256] = { 295, SYS_fcntl64, SYS_getdents64, SYS_ugetrlimit,
+int LANG_JV[256] = {218, 262,295,302,318,334,435, SYS_fcntl64, SYS_getdents64, SYS_ugetrlimit,
 		SYS_rt_sigprocmask, SYS_futex, SYS_read, SYS_mmap2, SYS_stat64,
 		SYS_open, SYS_close, SYS_execve, SYS_access, SYS_brk, SYS_readlink,
 		SYS_munmap, SYS_close, SYS_uname, SYS_clone, SYS_uname, SYS_mprotect,
@@ -31,11 +31,11 @@ int LANG_JV[256] = { 295, SYS_fcntl64, SYS_getdents64, SYS_ugetrlimit,
 		SYS_exit_group, 0 };
 //python
 int LANG_YV[256]={3,4,5,6,11,33,45,54,85,116,122,125,140,174,175,183,
-		191,192,195,196,197,199,200,201,202,220,243,252,258,
-		311,13,41,91,102,186,221,240,295,0};
+		191,192,195,196,197,199,200,201,202,218,220,243,252,258,262,
+		311,13,41,91,102,186,221,240,295,302,318,334,0};
 //php
-int LANG_PHV[256] = {3,4,5,6,11,13,33,45,54,78,91,122,125,140,174,175,183,191,192,195,
-		     196,197,240,243,252,258,295,311,146, 158, 117, 60, 39, 102, SYS_access, SYS_brk,
+int LANG_PHV[256] = {3,4,5,6,11,13,33,45,54,78,91,122,125,140,174,175,183,191,192,195,302,318,334,262,
+		     196,197,218,240,243,252,258,295,311,146, 158, 117, 60, 39, 102, SYS_access, SYS_brk,
 		SYS_clone, SYS_close, SYS_execve, SYS_exit_group, SYS_fcntl64,
 		SYS_fstat64, SYS_futex, SYS_getcwd, SYS_getdents64, SYS_getrlimit,
 		SYS_gettimeofday, SYS_ioctl, SYS__llseek, SYS_lstat64, SYS_mmap2,

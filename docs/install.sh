@@ -231,7 +231,7 @@ config_lpszoj(){
 server {
         listen 80 default_server;
         listen [::]:80 default_server;
-        root /home/judge/lpszoj/web;
+        root /var/www/lpszoj/web;
         index index.php;
         server_name _;
         client_max_body_size    128M;
@@ -254,15 +254,15 @@ EOF
         sed -i "s/;listen.mode = 0660/listen.mode = 0666/g" /etc/opt/remi/php74/php-fpm.d/www.conf
         sed -i "s/127.0.0.1:9000/\\/var\\/opt\\/remi\\/php74\\/run\\/php-fpm\\/www.sock/g" /etc/opt/remi/php74/php-fpm.d/www.conf
         sed -i "s/80 default/800 default/g" /etc/nginx/nginx.conf
-        chmod 755 /home/judge
-        chown nginx -R /home/judge/lpszoj
+        chmod 755 /var/www
+        chown nginx -R /var/www/lpszoj
     elif check_sys sysRelease debian; then
         mv /etc/nginx/conf.d/default.conf /etc/nginx/conf.d/default.back
         cat>/etc/nginx/conf.d/lpszoj.conf<<EOF
 server {
         listen 80 default_server;
         listen [::]:80 default_server;
-        root /home/judge/lpszoj/web;
+        root /var/www/lpszoj/web;
         index index.php;
         server_name _;
         client_max_body_size    128M;
@@ -288,7 +288,7 @@ EOF
 server {
         listen 80 default_server;
         listen [::]:80 default_server;
-        root /home/judge/lpszoj/web;
+        root /var/www/lpszoj/web;
         index index.php;
         server_name _;
         client_max_body_size    128M;
@@ -316,7 +316,7 @@ Description=Judge
 After=network.target mysql.service mariadb.service
 
 [Service]
-ExecStart=-/home/judge/lpszoj/judge/dispatcher -o
+ExecStart=-/var/www/lpszoj/judge/dispatcher -o
 ExecStop=/bin/pkill -9 dispatcher
 RemainAfterExit=yes
 KillMode=control-group
@@ -332,7 +332,7 @@ Description=Polygon
 After=network.target mysql.service mariadb.service
 
 [Service]
-ExecStart=-/home/judge/lpszoj/polygon/polygon
+ExecStart=-/var/www/lpszoj/polygon/polygon
 ExecStop=/bin/pkill -9 polygon
 RemainAfterExit=yes
 KillMode=control-group
@@ -347,15 +347,15 @@ EOF
     mysql -h localhost -u$DBUSER -p$DBPASS -e "create database ojdate;"
     if [ $? -eq 0 ]; then
         # Modify database information
-        sed -i "s/'username' => 'ojdate'/'username' => '$DBUSER'/g" /home/judge/lpszoj/config/db.php
-        sed -i "s/OJ_USER_NAME=ojdate/OJ_USER_NAME=$DBUSER'/g" /home/judge/lpszoj/judge/config.ini
-        sed -i "s/OJ_USER_NAME=ojdate/OJ_USER_NAME=$DBUSER'/g" /home/judge/lpszoj/polygon/config.ini       
-        sed -i "s/123456/$DBPASS/g" /home/judge/lpszoj/config/db.php
-        sed -i "s/123456/$DBPASS/g"  /home/judge/lpszoj/judge/config.ini
-        sed -i "s/123456/$DBPASS/g"  /home/judge/lpszoj/polygon/config.ini
+        sed -i "s/'username' => 'ojdate'/'username' => '$DBUSER'/g" /var/www/lpszoj/config/db.php
+        sed -i "s/OJ_USER_NAME=ojdate/OJ_USER_NAME=$DBUSER'/g" /var/www/lpszoj/judge/config.ini
+        sed -i "s/OJ_USER_NAME=ojdate/OJ_USER_NAME=$DBUSER'/g" /var/www/lpszoj/polygon/config.ini       
+        sed -i "s/123456/$DBPASS/g" /var/www/lpszoj/config/db.php
+        sed -i "s/123456/$DBPASS/g"  /var/www/lpszoj/judge/config.ini
+        sed -i "s/123456/$DBPASS/g"  /var/www/lpszoj/polygon/config.ini
 
-        sed -i "s/OJ_MYSQL_UNIX_PORT/#OJ_MYSQL_UNIX_PORT/g"  /home/judge/lpszoj/judge/config.ini
-        sed -i "s/OJ_MYSQL_UNIX_PORT/#OJ_MYSQL_UNIX_PORT/g"  /home/judge/lpszoj/polygon/config.ini
+        sed -i "s/OJ_MYSQL_UNIX_PORT/#OJ_MYSQL_UNIX_PORT/g"  /var/www/lpszoj/judge/config.ini
+        sed -i "s/OJ_MYSQL_UNIX_PORT/#OJ_MYSQL_UNIX_PORT/g"  /var/www/lpszoj/polygon/config.ini
     fi
 }
 
@@ -405,7 +405,7 @@ install_lpszoj(){
     install_dependencies
 
     /usr/sbin/useradd -m -u 1536 judge
-    cd /home/judge/
+    cd /var/www/
     git clone https://gitee.com/yhssdl/lpszoj.git
 
     config_lpszoj
@@ -414,12 +414,12 @@ install_lpszoj(){
     fi
     enable_server
 
-    cd /home/judge/lpszoj
+    cd /var/www/lpszoj
     echo -e "yes" "\n" "admin" "\n" "123456" "\n" "admin@lpszoj.org" | ./yii install
-    cd /home/judge/lpszoj/judge
+    cd /var/www/lpszoj/judge
     make
     ./dispatcher -o
-    cd /home/judge/lpszoj/polygon
+    cd /var/www/lpszoj/polygon
     make
     ./polygon
     echo
