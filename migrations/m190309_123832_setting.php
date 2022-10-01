@@ -25,7 +25,7 @@ class m190309_123832_setting extends Migration
         $this->insert('{{%setting}}', ['key' => 'isChangeNickName', 'value' => '2']);
         $this->insert('{{%setting}}', ['key' => 'isGroupJoin', 'value' => '0']);
         $this->insert('{{%setting}}', ['key' => 'isGroupReset', 'value' => '0']);        
-        $this->insert('{{%setting}}', ['key' => 'submitTime', 'value' => '20']);     
+        $this->insert('{{%setting}}', ['key' => 'submitTime', 'value' => '0']);     
         $this->insert('{{%setting}}', ['key' => 'isHideVIP', 'value' => '1']); 
         $this->insert('{{%setting}}', ['key' => 'isNotice', 'value' => '1']); 
         $this->insert('{{%setting}}', ['key' => 'notice', 'value' => '请注意，本OJ系统正在试运行中。']);           
