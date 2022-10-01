@@ -184,6 +184,7 @@ install_dependencies(){
             mysql-server
             php7.4-fpm php7.4-mysql php7.4-common php7.4-gd php7.4-zip php7.4-mbstring php7.4-xml php7.4-opcache 
             libmysqlclient-dev libmysql++-dev git make gcc g++
+            net-tools
         )
         ver=`echo "$(getversion)" | awk -F '.' '{print $1}'`
         if [ $ver -le 16 ]; then
