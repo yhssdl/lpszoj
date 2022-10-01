@@ -14,7 +14,7 @@
 
 > 适合在新装的系统或未运行 Web (nginx、mysql)有关服务的系统中。
 
-**注意！！！此方法目前仅在 Ubuntu 20.04/18.04/16.04、Debian 11 中测试通过。其它 Linux 系统还未测试。**
+**注意！！！此方法目前仅在 Ubuntu 22.04/20.04/18.04、Debian 11 中测试通过。其它 Linux 系统还未测试。**
 
 执行以下命令，进行安装(如果安装过程中出现错误，可以再次尝试运行安装命令)：
 ```
@@ -28,7 +28,7 @@ CentOS运行：
 yum install wget -y && wget https://gitee.com/yhssdl/lpszoj/raw/master/docs/install.sh && sudo bash install.sh
 ```
 
-该脚本将 OJ 安装在 `/home/judge/lpszoj` 目录下。
+该脚本将 OJ 安装在 `/var/www/lpszoj` 目录下。
 
 安装后管理员账号： `admin`，密码：`123456`。
 
@@ -74,7 +74,7 @@ Debian 11 + 宝塔面板 + OJ系统安装WORD教程：[点击下载教程](bt_in
                 listen [::]:80 default_server;
 
                 # 修改 root 后的路径为 lpszoj/web 目录所对应的路径。看你具体把 lpszoj 目录放到哪里。
-                root /home/judge/lpszoj/web;
+                root /var/www/lpszoj/web;
 
                 index index.php;
 
