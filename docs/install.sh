@@ -203,7 +203,7 @@ install_dependencies(){
 install_check(){
     if (! check_sys packageManager yum && ! check_sys packageManager apt) || centosversion 5; then
         echo -e "[${red}Error${plain}] Your OS is not supported to run it!"
-        echo "Please change to CentOS 6+/Debian 11+/Ubuntu 20+ and try again."
+        echo "Please change to CentOS 6+/Debian 10+/Ubuntu 20+ and try again."
         exit 1
     fi
 }
