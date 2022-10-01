@@ -168,6 +168,7 @@ install_dependencies(){
             mariadb-server
             libmysql++-dev git make gcc g++
             openjdk-11-jdk
+            net-tools
         )
 
         apt -y update
