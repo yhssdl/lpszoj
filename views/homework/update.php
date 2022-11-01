@@ -148,6 +148,24 @@ $contest_id = $model->id;
 
         <?= $form->field($model, 'editorial')->widget(Yii::$app->setting->get('ojEditor')); ?>
 
+
+        <?= $form->field($model, 'status')->radioList([
+            Contest::STATUS_VISIBLE => Yii::t('app', 'Public'),
+            Contest::STATUS_HIDDEN => Yii::t('app', 'Hidden')
+        ])->hint('公开：小组成员可以看到该比赛，隐藏：小组成员无法看到该比赛') ?>
+
+
+        <?= $form->field($model, 'enable_clarify')->radioList([
+            0 => '关闭',
+            1 => '开启',
+        ])->hint('答疑界面在作业中可以根据需要开启或关闭。') ?>
+
+        <?= $form->field($model, 'enable_board')->radioList([
+        '1' => '开启榜单',
+        '0' => '关闭榜单',
+        ])->hint('是否开启榜单功能。关闭榜单后，只能在榜单中看到自己的信息。') ?>
+
+
         <?= $form->field($model, 'type')->radioList([
             Contest::TYPE_RANK_SINGLE => Yii::t('app', 'Single Ranked'),
             Contest::TYPE_RANK_GROUP => Yii::t('app', 'ACM/ICPC'),
@@ -156,15 +174,6 @@ $contest_id = $model->id;
             Contest::TYPE_IOI => Yii::t('app', 'IOI'),
         ])->hint('不同类型的区别只在于榜单的排名方式。如需使用OI比赛，请在后台设置页面启用OI模式。') ?>
 
-        <?= $form->field($model, 'enable_clarify')->radioList([
-            0 => '关闭',
-            1 => '开启',
-        ])->hint('答疑界面在作业中可以根据需要开启或关闭。') ?>
-
-    <?= $form->field($model, 'enable_board')->radioList([
-        '1' => '开启榜单',
-        '0' => '关闭榜单',
-        ])->hint('是否开启榜单功能。关闭榜单后，只能在榜单中看到自己的信息。') ?>
 
         <?= $form->field($model, 'language')->radioList([
             -1 => 'All',

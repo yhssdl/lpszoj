@@ -205,7 +205,10 @@ class Contest extends \yii\db\ActiveRecord
         $current_time = time();
         if ($mode) {
 
-            if($start_time=="") {
+            if($this->status==Contest::STATUS_HIDDEN){
+                return $mode==1 ? Yii::t('app', 'Hide') : "status-hide";
+            }
+            else if($start_time=="") {
                 return $mode==1 ? Yii::t('app', 'Unkonw') : "status-ended";
             }
             else if ($start_time > $current_time) {

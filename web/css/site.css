@@ -1028,6 +1028,11 @@ a.status-runing:hover ,a.status-runing:focus {
     color: #fff;    
 }
 
+.status-hide{
+    background: #222;
+    color: #bbb;    
+}
+
 a.status-ended:hover ,a.status-ended:focus {
     background: #767676;
     color:#fff;

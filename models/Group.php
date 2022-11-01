@@ -183,7 +183,7 @@ class Group extends ActiveRecord
 
     public function getContestCount(){
         $count = Yii::$app->db->createCommand('
-            SELECT COUNT(*) FROM {{%contest}} WHERE group_id=:id',
+            SELECT COUNT(*) FROM {{%contest}} WHERE group_id=:id and status<>0',
             [':id' => $this->id]
         )->queryScalar();
         return $count;

@@ -182,14 +182,26 @@ class GroupController extends BaseController
         $newContest->type = Contest::TYPE_HOMEWORK;
         $newContest->language = -1;
         $newContest->enable_clarify = 1;
+
+        $query = Contest::find();
+
         $contestDataProvider = new ActiveDataProvider([
-            'query' => Contest::find()->where([
-                'group_id' => $model->id
-            ])->orderBy(['id' => SORT_DESC]),
+            'query' => $query,
             'pagination' => [
                 'pageSize' => 20,
              ]
         ]);
+        if(!$model->hasPermission())
+        {
+           $query->andwhere([
+            '<>', 'status', Contest::STATUS_HIDDEN
+            ]);         
+        }
+
+
+        $query->andWhere([
+            'group_id' => $model->id
+        ])->orderBy(['start_time' => SORT_DESC, 'end_time' => SORT_ASC, 'id' => SORT_DESC]);
 
 
         if ($newContest->load(Yii::$app->request->post())) {
@@ -198,7 +210,7 @@ class GroupController extends BaseController
             }
             $newContest->group_id = $model->id;
             $newContest->scenario = Contest::SCENARIO_ONLINE;
-            $newContest->status = Contest::STATUS_PRIVATE;
+            $newContest->status = Contest::STATUS_VISIBLE;
             $newContest->save();
             return $this->refresh();
         }
