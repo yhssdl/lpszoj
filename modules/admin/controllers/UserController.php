@@ -87,7 +87,24 @@ class UserController extends Controller
                     $model->delete();
                     Yii::$app->session->setFlash('success', Yii::t('app', 'Delete successfully'));
                 }
-            } else{
+            }else if($action == 'enable') {
+                foreach ($keys as $key) {
+                    if(Yii::$app->user->id != $key){
+                        Yii::$app->db->createCommand()->update('{{%user}}', [
+                            'status' => User::STATUS_ACTIVE
+                        ], ['id' => $key])->execute();                   
+                    }
+                }
+            }else if($action == 'disable') {
+                foreach ($keys as $key) {
+                    if(Yii::$app->user->id != $key){
+                        Yii::$app->db->createCommand()->update('{{%user}}', [
+                            'status' => User::STATUS_DISABLE
+                        ], ['id' => $key])->execute();                   
+                    }
+                }
+            }
+            else{
                 foreach ($keys as $key) {
                     if(Yii::$app->user->id != $key){
                         Yii::$app->db->createCommand()->update('{{%user}}', [

@@ -61,7 +61,12 @@ $this->title = Yii::t('app', 'Users');
         <div class="btn-group">
             <a id="admin-user" class="btn btn-success" href="javascript:void(0);" data-toggle="tooltip" data-placement="top" title="将选中的用户设置为管理员"><span class="fa fa-globe"></span> 设为管理员</a>
         </div>
-
+        <div class="btn-group">
+            <a id="enable-user" class="btn btn-primary" href="javascript:void(0);" data-toggle="tooltip" data-placement="top" title="启用选中的用户"><span class="fa fa-user"></span> 启用账户</a>
+        </div>
+        <div class="btn-group">
+            <a id="disable-user" class="btn btn-primary" href="javascript:void(0);" data-toggle="tooltip" data-placement="top" title="禁用选中的用户"><span class="fa fa-user-times"></span> 禁用账户</a>
+        </div>        
         <div class="btn-group">
             <a id="delete" class="btn btn-danger" href="javascript:void(0);" data-toggle="tooltip" data-placement="top" title="删除选中用户，不可恢复"><span class="fa fa-trash"></span> 删除</a>
         </div>
@@ -121,7 +126,10 @@ $this->title = Yii::t('app', 'Users');
             [
                 'attribute' => 'role',
                 'value' => function ($model, $key, $index, $column) {
-                    if ($model->role == \app\models\User::ROLE_PLAYER) {
+
+                    if($model->status == \app\models\User::STATUS_DISABLE) {
+                        return '禁用用户';
+                    } else if ($model->role == \app\models\User::ROLE_PLAYER) {
                         return '参赛用户';
                     } else if ($model->role == \app\models\User::ROLE_USER) {
                         return '普通用户';
@@ -171,6 +179,26 @@ $this->title = Yii::t('app', 'Users');
            data: {keylist: keys}
         });
     });
+
+    $("#enable-user").on("click", function () {
+        var keys = $("#grid").yiiGridView("getSelectedRows");
+        $.post({
+           url: "' . \yii\helpers\Url::to(['/admin/user/index', 'action' => 'enable']) . '", 
+           dataType: \'json\',
+           data: {keylist: keys}
+        });
+    });
+
+    $("#disable-user").on("click", function () {
+        var keys = $("#grid").yiiGridView("getSelectedRows");
+        $.post({
+           url: "' . \yii\helpers\Url::to(['/admin/user/index', 'action' => 'disable']) . '", 
+           dataType: \'json\',
+           data: {keylist: keys}
+        });
+    });    
+
+
     $("#delete").on("click", function () {
         if (confirm("确定要删除？此操作不可恢复！")) {
             var keys = $("#grid").yiiGridView("getSelectedRows");

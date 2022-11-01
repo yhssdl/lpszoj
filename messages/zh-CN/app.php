@@ -298,6 +298,7 @@ return [
     'Warning information' => '警示信息',
     'This problem has in the contest.' => '该题目已经在比赛中了。',
     'Join time' => '加入时间',
-    'Hide' => '已隐藏'
+    'Hide' => '已隐藏',
+    'The user has been disabled.' => '该用户已被禁用。'
 
 ];

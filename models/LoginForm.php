@@ -62,9 +62,7 @@ class LoginForm extends Model
     {
         if (!$this->hasErrors()) {
             $user = $this->getUser();
-            if (!$user) {
-                $this->addError('username', Yii::t('app', 'Username does not exist.'));
-            } elseif (!$user->validatePassword($this->password)) {
+            if ($user && !$user->validatePassword($this->password)) {
                 $this->addError('password', Yii::t('app', 'Incorrect password.'));
             }
         }
@@ -91,8 +89,13 @@ class LoginForm extends Model
     {
         if ($this->_user === false) {
             $this->_user = User::findByLoginID($this->username);
+            if (!$this->_user) {
+                $this->addError('username', Yii::t('app', 'Username does not exist.'));
+            }else if($this->_user->status==User::STATUS_DISABLE){
+                $this->addError('username', Yii::t('app', 'The user has been disabled.'));
+                $this->_user = false;
+            }
         }
-
         return $this->_user;
     }
 }
