@@ -33,9 +33,9 @@ $contest_id = $model->id;
             <tbody>
                 <?php foreach ($problems as $key => $p) : ?>
                     <tr>
-                        <th><?= Html::a('P' . ($key + 1), ['view', 'id' => $model->id, 'action' => 'problem', 'problem_id' => $key]) ?></th>
-                        <th><?= Html::a($p['problem_id'], '') ?></th>
-                        <td><?= Html::a(Html::encode($p['title']), ['view', 'id' => $model->id, 'action' => 'problem', 'problem_id' => $key]) ?></td>
+                        <th><?= Html::a('P' . ($key + 1),  ['/contest/problem', 'id' => $model->id, 'pid' => $key, '#' => 'problem-anchor']) ?></th>
+                        <th><?= Html::a($p['problem_id'], ['/contest/problem', 'id' => $model->id, 'pid' => $key, '#' => 'problem-anchor']) ?></th>
+                        <td><?= Html::a(Html::encode($p['title']),  ['/contest/problem', 'id' => $model->id, 'pid' => $key, '#' => 'problem-anchor']) ?></td>
                         <th>
 
                             <?php Modal::begin([
