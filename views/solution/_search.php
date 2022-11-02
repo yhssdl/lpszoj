@@ -29,16 +29,26 @@ use yii\bootstrap\ActiveForm;
             'template' => "{label}\n<div class=\"input-group btn-group-justified\"><span style='width:30%' class=\"input-group-addon\"><span class='fa fa-user'></span></span>{input}</div>",
         ])->textInput(['maxlength' => 128, 'autocomplete'=>'off', 'placeholder' => Yii::t('app', 'Who')])->label(false) ?>
         </div>
-        <div class="col-lg-3" >
+        <div class="col-lg-2" >
         <?= $form->field($model, 'result', [
             'template' => "{label}\n<div class=\"input-group btn-group-justified\"><span style='width:30%' class=\"input-group-addon\">" . Yii::t('app', 'Result') . "</span>{input}</div>",
         ])->dropDownList($model::getResultList())->label(false) ?>
         </div>
-        <div class="col-lg-3">
+        <div class="col-lg-2">
         <?= $form->field($model, 'language', [
             'template' => "{label}\n<div class=\"input-group btn-group-justified\"><span style='width:30%' class=\"input-group-addon\">" . Yii::t('app', 'Lang') . "</span>{input}</div>",
         ])->dropDownList($model::getLanguageList())->label(false) ?>
         </div>
+        <div class="col-md-2">
+            <?= $form->field($model, 'pagesize', [
+                'template' => "{label}\n<div class=\"input-group\"><span class=\"input-group-addon\"><span class='fa fa-book'></span></span>{input}</div>",
+            ])->dropDownList([
+                50 => '每页50项',
+                100 => '每页100项',
+                200 => '每页200项',
+                500 => '每页500项',
+            ])->label(false) ?>
+        </div>          
         <div class="col-lg-2">
         <div class="form-group">
             <div class="btn-group btn-group-justified">

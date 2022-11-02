@@ -14,13 +14,14 @@ use yii\db\Query;
 class SolutionSearch extends Solution
 {
     public $username;
+    public $pagesize;
     /**
      * @inheritdoc
      */
     public function rules()
     {
         return [
-            [['id', 'problem_id', 'time', 'memory', 'result', 'language', 'contest_id', 'status', 'code_length'], 'integer'],
+            [['id', 'problem_id', 'time', 'memory', 'result', 'language', 'contest_id', 'status', 'code_length','pagesize'], 'integer'],
             [['created_by', 'created_at', 'ip', 'judgetime', 'judge'], 'safe'],
             [['username', 'pass_info'], 'string'],
         ];
@@ -78,15 +79,19 @@ class SolutionSearch extends Solution
                 $query = $query->where(['status' => Solution::STATUS_VISIBLE]);
              }
         }
+        
+        $this->load($params);    
+        if($this->pagesize<50) $this->pagesize =50;
+        if($this->pagesize>500) $this->pagesize =500;    
 
         $dataProvider = new ActiveDataProvider([
             'query' => $query->orderBy(['id' => SORT_DESC]),
             'pagination' => [
-                'pageSize' => 30,
+                'pageSize' => $this->pagesize,
             ],
         ]);
 
-        $this->load($params);
+
 
         if (!$this->validate()) {
             // uncomment the following line if you do not want to return any records when validation fails
