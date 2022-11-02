@@ -261,7 +261,7 @@ class GroupController extends BaseController
             'params' => [':id' => $model->id],
             'totalCount' => $count,
             'pagination' => [
-                'pageSize' => 30,
+                'pageSize' => 60,
             ],
         ]);
 
