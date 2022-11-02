@@ -21,8 +21,7 @@ class UserSearch extends User
         return [
             [['id'], 'integer'],
             [['username', 'email', 'nickname'], 'string'],
-            ['status', 'in', 'range' => [self::STATUS_ACTIVE, self::STATUS_DELETED]],
-            ['role', 'in', 'range' => [self::ROLE_PLAYER, self::ROLE_USER, self::ROLE_VIP, self::ROLE_ADMIN]]
+            ['role', 'in', 'range' => [self::STATUS_DISABLE,self::ROLE_PLAYER, self::ROLE_USER, self::ROLE_VIP, self::ROLE_ADMIN]]
         ];
     }
 
@@ -43,6 +42,7 @@ class UserSearch extends User
      */
     public function search($params)
     {
+
         $query = User::find();
 
         $dataProvider = new ActiveDataProvider([
@@ -60,9 +60,17 @@ class UserSearch extends User
             return $dataProvider;
         }
 
+        if($this->role == self::STATUS_DISABLE) {
+            $status = self::STATUS_DISABLE;
+            $this ->role = null;
+        }else {
+            $status = null;
+        }
+
         // grid filtering conditions
         $query->andFilterWhere([
             'id' => $this->id,
+            'status' => $status,
             'role' => $this->role,
         ]);
 

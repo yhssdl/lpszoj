@@ -126,19 +126,39 @@ $this->title = Yii::t('app', 'Users');
             [
                 'attribute' => 'role',
                 'value' => function ($model, $key, $index, $column) {
+                    
+                    $s_str="";
+                    $user_str = 'not set';
+                    $e_str = "<span>";
+
+                   if ($model->role == \app\models\User::ROLE_PLAYER) {
+                        $s_str = "<span class='text-primary'>";
+                        $icon = '<span class="fa fa-vcard"></span> ';
+                        $user_str =  '参赛用户';
+                    } else if ($model->role == \app\models\User::ROLE_USER) {
+                        $icon = '<span class="fa fa-user"></span> ';
+                        $user_str =  '普通用户';
+                    } else if ($model->role == \app\models\User::ROLE_VIP) {
+                        $s_str = "<span class='text-success'>";
+                        $icon = '<span class="fa fa-user-plus"></span> ';
+                        $user_str =  'VIP 用户';
+                    } else if ($model->role == \app\models\User::ROLE_ADMIN) {
+                        $s_str = "<span class='text-info'>";
+                        $icon = '<span class="fa fa-user-secret"></span> ';
+                        $user_str =  '管理员';
+                    }
 
                     if($model->status == \app\models\User::STATUS_DISABLE) {
-                        return '禁用用户';
-                    } else if ($model->role == \app\models\User::ROLE_PLAYER) {
-                        return '参赛用户';
-                    } else if ($model->role == \app\models\User::ROLE_USER) {
-                        return '普通用户';
-                    } else if ($model->role == \app\models\User::ROLE_VIP) {
-                        return 'VIP 用户';
-                    } else if ($model->role == \app\models\User::ROLE_ADMIN) {
-                        return '管理员';
-                    }
-                    return 'not set';
+                        $s_str = "<span title='已经被禁用的用户' class='text-danger'>";
+                        $icon = '<span><span class="fa fa-lock"></span> ';
+                        
+                    } 
+                    
+                    
+                    
+ 
+
+                    return $s_str.$icon.$user_str.$e_str;
                 },
                 'enableSorting' => false,
                 'format' => 'raw'

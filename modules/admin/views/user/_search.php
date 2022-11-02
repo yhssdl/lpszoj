@@ -49,6 +49,7 @@ use yii\bootstrap\ActiveForm;
             'template' => "{label}\n<div class=\"input-group\"><span class=\"input-group-addon\">" . Yii::t('app', 'Role') . "</span>{input}</div>",
         ])->dropDownList([
             '' => '所有用户',
+            User::STATUS_DISABLE => '禁用用户',
             User::ROLE_PLAYER => '参赛用户',
             User::ROLE_USER => '普通用户',
             User::ROLE_VIP => 'VIP 用户',
