@@ -13,13 +13,14 @@ use yii\db\Query;
 class UserSearch extends User
 {
     public $username;
+    public $pagesize;
     /**
      * @inheritdoc
      */
     public function rules()
     {
         return [
-            [['id'], 'integer'],
+            [['id','pagesize'], 'integer'],
             [['username', 'email', 'nickname'], 'string'],
             ['role', 'in', 'range' => [self::STATUS_DISABLE,self::ROLE_PLAYER, self::ROLE_USER, self::ROLE_VIP, self::ROLE_ADMIN]]
         ];
@@ -45,14 +46,20 @@ class UserSearch extends User
 
         $query = User::find();
 
+        $this->load($params);
+
+        if($this->pagesize<50) $this->pagesize =50;
+        if($this->pagesize>500) $this->pagesize =500;
+ 
+    
         $dataProvider = new ActiveDataProvider([
             'query' => $query->orderBy(['id' => SORT_DESC]),
             'pagination' => [
-                'pageSize' => 30,
+                'pageSize' => $this->pagesize,
             ],
         ]);
 
-        $this->load($params);
+
 
         if (!$this->validate()) {
             // uncomment the following line if you do not want to return any records when validation fails

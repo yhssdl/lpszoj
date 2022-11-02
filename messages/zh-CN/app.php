@@ -268,7 +268,7 @@ return [
     'Last' => '末页',
     'Show tags' => '显示标签',
     'Question' => '出题',
-    'ID' => '题号',
+    'ID' => '序号',
     'Please select' => '请选择',
     'Answer' => '解题',
     'All' => '所有' ,

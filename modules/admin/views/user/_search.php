@@ -21,12 +21,6 @@ use yii\bootstrap\ActiveForm;
     ]); ?>
 
     <div class="col-md-2">
-        <?= $form->field($model, 'id', [
-            'template' => "{label}\n<div class=\"input-group\"><span class=\"input-group-addon\"><span class='fa fa-filter'></span></span>{input}</div>",
-        ])->textInput(['maxlength' => 128, 'autocomplete' => 'off', 'placeholder' => Yii::t('app', 'User ID')])->label(false) ?>
-    </div>
-
-    <div class="col-md-2">
         <?= $form->field($model, 'username', [
             'template' => "{label}\n<div class=\"input-group\"><span class=\"input-group-addon\"><span class='fa fa-user'></span></span>{input}</div>",
         ])->textInput(['maxlength' => 128, 'autocomplete' => 'off', 'placeholder' => Yii::t('app', 'Username')])->label(false) ?>
@@ -45,6 +39,17 @@ use yii\bootstrap\ActiveForm;
     </div>
 
     <div class="col-md-2">
+        <?= $form->field($model, 'pagesize', [
+            'template' => "{label}\n<div class=\"input-group\"><span class=\"input-group-addon\">" . Yii::t('app', 'Role') . "</span>{input}</div>",
+        ])->dropDownList([
+            50 => '每页50项',
+            100 => '每页100项',
+            200 => '每页200项',
+            500 => '每页500项',
+        ])->label(false) ?>
+    </div>   
+
+    <div class="col-md-2">
         <?= $form->field($model, 'role', [
             'template' => "{label}\n<div class=\"input-group\"><span class=\"input-group-addon\">" . Yii::t('app', 'Role') . "</span>{input}</div>",
         ])->dropDownList([
@@ -56,7 +61,7 @@ use yii\bootstrap\ActiveForm;
             User::ROLE_ADMIN => '管理员',
 
         ])->label(false) ?>
-    </div>
+    </div>    
 
     <div class="col-md-2">
         <div class="form-group">
