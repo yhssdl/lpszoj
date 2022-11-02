@@ -40,7 +40,7 @@ use yii\bootstrap\ActiveForm;
 
     <div class="col-md-2">
         <?= $form->field($model, 'pagesize', [
-            'template' => "{label}\n<div class=\"input-group\"><span class=\"input-group-addon\">" . Yii::t('app', 'Role') . "</span>{input}</div>",
+            'template' => "{label}\n<div class=\"input-group\"><span class=\"input-group-addon\"><span class='fa fa-book'></span></span>{input}</div>",
         ])->dropDownList([
             50 => '每页50项',
             100 => '每页100项',
