@@ -10,13 +10,14 @@ use yii\data\ActiveDataProvider;
  */
 class ProblemSearch extends Problem
 {
+    public $pagesize;
     /**
      * @inheritdoc
      */
     public function rules()
     {
         return [
-            [['id', 'time_limit', 'memory_limit', 'accepted', 'submit', 'solved'], 'integer'],
+            [['id', 'time_limit', 'memory_limit', 'accepted', 'submit', 'solved','pagesize'], 'integer'],
             [['title', 'description', 'input', 'output', 'sample_input', 'sample_output', 'spj', 'hint', 'source', 'tags','created_at', 'status'], 'safe'],
         ];
     }
@@ -42,15 +43,18 @@ class ProblemSearch extends Problem
         $query = Problem::find()->orderBy(['id' => SORT_DESC])->with('user');
 
         // add conditions that should always apply here
+        $this->load($params);
+        if($this->pagesize<50) $this->pagesize =50;
+        if($this->pagesize>500) $this->pagesize =500;
 
         $dataProvider = new ActiveDataProvider([
             'query' => $query,
             'pagination' => [
-                'pageSize' => 50
+                'pageSize' => $this->pagesize
             ]
         ]);
 
-        $this->load($params);
+
 
         if (!$this->validate()) {
             // uncomment the following line if you do not want to return any records when validation fails

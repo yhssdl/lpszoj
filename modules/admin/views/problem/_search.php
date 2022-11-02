@@ -26,7 +26,7 @@ use yii\widgets\ActiveForm;
         ])->textInput(['maxlength' => 128, 'autocomplete' => 'off', 'placeholder' => Yii::t('app', 'Problem ID')])->label(false) ?>
     </div>
 
-    <div class="col-md-3">
+    <div class="col-md-2">
         <?= $form->field($model, 'title', [
             'template' => "{label}\n<div class=\"input-group btn-group-justified\"><span style='width:30%' class=\"input-group-addon\">标题</span>{input}</div>",
         ])->textInput(['maxlength' => 128, 'autocomplete' => 'off', 'placeholder' => Yii::t('app', 'Title')])->label(false) ?>
@@ -44,7 +44,18 @@ use yii\widgets\ActiveForm;
         ])->textInput(['maxlength' => 128, 'autocomplete' => 'off', 'placeholder' => Yii::t('app', 'Tags')])->label(false) ?>
     </div>
 
-    <div class="col-md-3">
+    <div class="col-md-2">
+        <?= $form->field($model, 'pagesize', [
+            'template' => "{label}\n<div class=\"input-group\"><span class=\"input-group-addon\"><span class='fa fa-book'></span></span>{input}</div>",
+        ])->dropDownList([
+            50 => '每页50项',
+            100 => '每页100项',
+            200 => '每页200项',
+            500 => '每页500项',
+        ])->label(false) ?>
+    </div>  
+
+    <div class="col-md-2">
         <div class="form-group">
             <div class="btn-group btn-group-justified">
                 <div class="btn-group">
