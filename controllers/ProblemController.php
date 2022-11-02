@@ -117,7 +117,7 @@ class ProblemController extends BaseController
                 ->where(['problem_id' => $model->id, 'result' => Solution::OJ_AC])
                 ->orderBy(['time' => SORT_ASC, 'memory' => SORT_ASC, 'code_length' => SORT_ASC]),
             'pagination' => [
-                'pageSize' => 10,
+                'pageSize' => 30,
             ],
         ]);
 

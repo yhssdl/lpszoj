@@ -197,7 +197,7 @@ class ProblemController extends Controller
         $dataProvider = new ActiveDataProvider([
             'query' => PolygonStatus::find()->where('problem_id=:pid AND source IS NOT NULL', [':pid' => $id]),
             'pagination' => [
-                'pageSize' => 10
+                'pageSize' => 30
             ]
         ]);
 
