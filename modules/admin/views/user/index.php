@@ -157,6 +157,13 @@ $this->title = Yii::t('app', 'Users');
                 'enableSorting' => false,
                 'format' => 'raw'
             ],
+
+            // 'status',
+            // 'created_at',
+            // 'updated_at',
+            ['class' => 'yii\grid\ActionColumn',
+            'contentOptions' => ['class'=>'a_just']
+            ],
             [
                 'attribute' => 'memo',
                 'value' => function ($model, $key, $index, $column) {
@@ -165,12 +172,6 @@ $this->title = Yii::t('app', 'Users');
                 },
                 'format' => 'raw',
                 'enableSorting' => false
-            ],
-            // 'status',
-            // 'created_at',
-            // 'updated_at',
-            ['class' => 'yii\grid\ActionColumn',
-            'contentOptions' => ['class'=>'a_just']
             ],
         ],
     ]);

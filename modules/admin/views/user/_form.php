@@ -14,6 +14,12 @@ use yii\widgets\ActiveForm;
 
     <?= $form->field($model, 'newPassword')->textInput() ?>
 
+    <?= $form->field($model, 'nickname')->textInput() ?>
+
+    <?= $form->field($model, 'email')->textInput() ?>
+
+    <?= $form->field($model, 'memo')->textInput() ?>
+
     <?= $form->field($model, 'role')->radioList([
         $model::ROLE_PLAYER => '参赛用户',
         $model::ROLE_USER => '普通用户',

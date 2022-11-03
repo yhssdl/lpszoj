@@ -169,14 +169,28 @@ class UserController extends Controller
 
         if (Yii::$app->request->isPost) {
             $newPassword = Yii::$app->request->post('User')['newPassword'];
+            $newNickname = Yii::$app->request->post('User')['nickname'];
+            $newEmail = Yii::$app->request->post('User')['email'];
+            $model->memo = Yii::$app->request->post('User')['memo'];
             $role = Yii::$app->request->post('User')['role'];
+
+            if (!empty($role)) {
+                $model->role = intval($role);
+            }
+            if(empty($newNickname)){
+                $model->nickname = $model->username;
+            }else{
+                $model->nickname = $newNickname;
+            }
+            if(!empty($newEmail)){
+                $model->email = $newEmail;
+            }
+            $model->save();
+     
             if (!empty($newPassword)) {
                 Yii::$app->db->createCommand()->update('{{%user}}', [
                     'password_hash' => Yii::$app->security->generatePasswordHash($newPassword,5)
                 ], ['id' => $model->id])->execute();
-            } else if (!empty($role)) {
-                $model->role = intval($role);
-                $model->save();
             }
             Yii::$app->session->setFlash('success', Yii::t('app', 'Saved successfully'));
             return $this->refresh();
