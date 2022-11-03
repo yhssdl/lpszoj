@@ -79,7 +79,7 @@ class GenerateUserForm extends Model
             $user->username = $this->prefix . $i;
             $user->nickname = $nick;
             $user->language = Yii::$app->setting->get('defaultLanguage');
-            $user->email = $this->prefix . $i . '@jnoj.org';
+            $user->email = $this->prefix . $i . '@lpsz.oj';
             $user->role = User::ROLE_PLAYER;
             $user->is_verify_email = User::VERIFY_EMAIL_YES;
             $user->status = User::STATUS_ACTIVE;
@@ -117,7 +117,13 @@ class GenerateUserForm extends Model
                 continue;
             $u = explode(' ', trim($pieces[$i - 1]));
             $user = new User();
-            $username = $u[0];       
+            $username = $u[0]; 
+            
+            if(count($u)==4) {//4列含昵称与备注的模式
+                $user->nickname = $u[1];
+                $password = $u[2];
+                $user->memo = $u[3];
+            }
             if(count($u)==3) {//3列含昵称的模式
                 $user->nickname = $u[1];
                 $password = $u[2];
@@ -126,7 +132,7 @@ class GenerateUserForm extends Model
                 $password = $u[1];
             }
             $user->username = $username;
-            $user->email = $username . '@jnoj.org';
+            $user->email = $username . '@lpsz.oj';
             $user->role = User::ROLE_USER;
             $user->language = $this->language;
             if($savePassword==$password){

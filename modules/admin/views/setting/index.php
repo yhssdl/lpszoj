@@ -258,7 +258,7 @@ if($editorName=='app\\widgets\\kindeditor\\KindEditor'){
     <h4>配置 SMTP 发送邮箱</h4>
     <p class="hint-block">
         在用户忘记密码时，需要通过此处配置的邮箱来发送"重置密码"的邮箱给用户。
-        若使用默认的 "no-reply@jnoj.org"，不能保证此默认邮箱长期可用，建议自行配置自己的邮箱。
+        若使用默认的 "no-reply@lpsz.oj"，不能保证此默认邮箱长期可用，建议自行配置自己的邮箱。
     </p>
 
     <div class="col-md-10 col-md-offset-1">
@@ -285,7 +285,7 @@ if($editorName=='app\\widgets\\kindeditor\\KindEditor'){
         </div>
         <div class="form-group">
             <div class="input-group"><span class="input-group-addon">用户名</span>
-                <?= Html::textInput('emailUsername', $settings['emailUsername'], ['class' => 'form-control', 'placeholder' => 'no-reply@jnoj.org']) ?>
+                <?= Html::textInput('emailUsername', $settings['emailUsername'], ['class' => 'form-control', 'placeholder' => 'no-reply@lpsz.oj']) ?>
             </div>
         </div>
         <div class="form-group">

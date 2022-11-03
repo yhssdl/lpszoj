@@ -30,8 +30,9 @@ $this->title = Yii::t('app', 'Users');
 
         <p class="hint-block">1.格式一:每个用户一行，格式为<code>用户名 密码</code>，中间用空格或Tab键分开。</p>
         <p class="hint-block">2.格式二:每个用户一行，格式为<code>用户名 昵称 密码</code>，中间用空格或Tab键分开。</p>
-        <p class="hint-block">3.用户名只能以数字、字母、下划线，且非纯数字，长度在 4 - 32 位之间</p>
-        <p class="hint-block">4.密码至少六位</p>
+        <p class="hint-block">3.格式三:每个用户一行，格式为<code>用户名 昵称 密码 备注</code>，中间用空格或Tab键分开。</p>
+        <p class="hint-block">4.用户名只能以数字、字母、下划线，且非纯数字，长度在 4 - 32 位之间，密码至少六位</p>
+
 
         <?= $form->field($generatorForm, 'names')->textarea(['rows' => 10])  ?>
 

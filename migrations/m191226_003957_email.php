@@ -18,7 +18,7 @@ class m191226_003957_email extends Migration
         $this->insert('{{%setting}}', ['key' => 'passwordResetTokenExpire', 'value' => '7200']);
         $this->insert('{{%setting}}', ['key' => 'mustVerifyEmail', 'value' => '0']);
         $this->insert('{{%setting}}', ['key' => 'emailHost', 'value' => 'smtp.exmail.qq.com']);
-        $this->insert('{{%setting}}', ['key' => 'emailUsername', 'value' => 'no-reply@jnoj.org']);
+        $this->insert('{{%setting}}', ['key' => 'emailUsername', 'value' => 'no-reply@lpsz.oj']);
         $this->insert('{{%setting}}', ['key' => 'emailPassword', 'value' => '8hVeA6LN4LPqwHei']);
         $this->insert('{{%setting}}', ['key' => 'emailPort', 'value' => '465']);
         $this->insert('{{%setting}}', ['key' => 'emailEncryption', 'value' => 'ssl']);

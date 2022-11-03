@@ -113,11 +113,6 @@ class UserController extends Controller
                     }
                 }
             }
-
-
-
-
-
             return $this->refresh();
         }
         return $this->render('index', [
