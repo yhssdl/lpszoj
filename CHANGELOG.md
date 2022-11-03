@@ -12,6 +12,7 @@ LPSZOJ Change Log
 请阅读 [update.md](https://gitee.com/yhssdl/lpszoj/raw/master/docs/update.md) 来获取更新方法。
 
 ---------------------------------------
+- 2022.11.3 Enh: [web、db] 后台用户管理添加了备注字段，方便对部分用户备注信息。
 - 2022.11.2 Enh: [web] 前后状态界面添加每页数量的选项。
 - 2022.11.2 Enh: [web] 台后题目管理界面添加每页数量的选项。
 - 2022.11.2 Enh: [web] 台后用户管理界面优化，添加了每页数量的选项。
