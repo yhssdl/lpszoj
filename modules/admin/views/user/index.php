@@ -150,18 +150,21 @@ $this->title = Yii::t('app', 'Users');
 
                     if($model->status == \app\models\User::STATUS_DISABLE) {
                         $s_str = "<span title='已经被禁用的用户' class='text-danger'>";
-                        $icon = '<span><span class="fa fa-lock"></span> ';
-                        
+                        $icon = '<span><span class="fa fa-lock"></span> ';  
                     } 
-                    
-                    
-                    
- 
-
                     return $s_str.$icon.$user_str.$e_str;
                 },
                 'enableSorting' => false,
                 'format' => 'raw'
+            ],
+            [
+                'attribute' => 'memo',
+                'value' => function ($model, $key, $index, $column) {
+                    if($model->memo==null) return "";
+                    return $model->memo;
+                },
+                'format' => 'raw',
+                'enableSorting' => false
             ],
             // 'status',
             // 'created_at',

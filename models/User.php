@@ -27,6 +27,7 @@ use yii\web\IdentityInterface;
  * @property integer $rating
  * @property integer $is_verify_email
  * @property string $verification_token
+ * @property string $memo
  */
 class User extends ActiveRecord implements IdentityInterface
 {
@@ -81,7 +82,7 @@ class User extends ActiveRecord implements IdentityInterface
     {
         return [
             [['language', 'rating', 'role', 'is_verify_email'], 'integer'],
-            ['verification_token', 'string'],
+            [['verification_token','memo'], 'string'],
             [['username', 'nickname'], 'required'],
             [['nickname'], 'string', 'max' => 16],
             ['password', 'string', 'min' => 6, 'max' => 16],
@@ -130,7 +131,8 @@ class User extends ActiveRecord implements IdentityInterface
             'updated_at' => Yii::t('app', 'Updated At'),
             'avatar' => Yii::t('app', 'User Icon'),
             'rating' => Yii::t('app', 'Rating'),
-            'role' => Yii::t('app', 'Role')
+            'role' => Yii::t('app', 'Role'),
+            'memo' => Yii::t('app', 'Memo')
         ];
     }
 
