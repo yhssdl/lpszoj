@@ -16,6 +16,7 @@ $this->title = $model->id . ' - ' . $model->title;
 
 if (!Yii::$app->user->isGuest) {
     $solution->language = Yii::$app->user->identity->language;
+    $solution->created_by = Yii::$app->user->id;
 }
 if (isset($_COOKIE['theme']))
     $theme = $_COOKIE['theme'];
@@ -292,6 +293,7 @@ $nextProblemID = $model->getNextProblemID();
                                     } else {
                                         $span = '<span class="text-danger" ' . $innerHtml . '>' . Solution::getResultList($sub['result']) . $loadingImg . '</span>';
                                     }
+                                    
                                     if ($solution->canViewResult()) {
                                         echo Html::a(
                                             $span,

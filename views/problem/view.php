@@ -138,6 +138,7 @@ $this->registerCss("
 ");
 if (!Yii::$app->user->isGuest) {
     $solution->language = Yii::$app->user->identity->language;
+    $solution->created_by = Yii::$app->user->id;
 }
 
 if (isset($_COOKIE['theme']))
