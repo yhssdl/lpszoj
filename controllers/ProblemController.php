@@ -199,12 +199,13 @@ class ProblemController extends BaseController
                 $solution->save();
                 Yii::$app->session->setFlash('success', Yii::t('app', 'Submitted successfully'));
                 Yii::$app->session['Submit_time']= time();
+                return $this->refresh();
             } else {
                 $st = $jt - $st;
                 $tip = sprintf(Yii::t('app', 'The submission interval is %d seconds, and you can submit again after %d seconds.'),$jt,$st);
                 Yii::$app->session->setFlash('error', $tip);
             }
-            return $this->refresh();
+           
         }
 
 
