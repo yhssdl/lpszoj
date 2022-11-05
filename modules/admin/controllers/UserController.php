@@ -11,6 +11,7 @@ use app\components\AccessRule;
 use app\modules\admin\models\GenerateUserForm;
 use app\models\User;
 use app\models\UserSearch;
+use app\models\Group;
 
 /**
  * UserController implements the CRUD actions for User model.
@@ -63,55 +64,101 @@ class UserController extends Controller
             $generatorForm->generateUsers();
             return $this->refresh();
         }
+ 
 
         $generatorForm->language = Yii::$app->setting->get('defaultLanguage');
 
         if (Yii::$app->request->get('action') && Yii::$app->request->isPost) {
             $action = Yii::$app->request->get('action');
+            
+                
             $keys = Yii::$app->request->post('keylist');
-            if ($action == 'delete') {
-                foreach ($keys as $key) {
-                    $model = $this->findModel($key);
-                    try {
-                        Yii::$app->db->createCommand()->delete('{{%user_profile}}',['user_id' => $model->id])->execute();
-                        Yii::$app->db->createCommand()->delete('{{%contest_user}}',['user_id' => $model->id])->execute();
-                        Yii::$app->db->createCommand()->delete('{{%group_user}}',['user_id' => $model->id])->execute();
-                        Yii::$app->db->createCommand()->delete('{{%discuss}}',['created_by' => $model->id])->execute(); 
-                        Yii::$app->db->createCommand('DELETE solution_info, solution FROM solution_info, solution  WHERE solution_info.solution_id=solution.id AND solution.created_by=:uid',[':uid' => $model->id])->execute(); 
-                        $this->findModel($model->id)->delete();
-                        
-                    } catch (\ErrorException $e) {
-                        Yii::$app->session->setFlash('error', '删除失败:' . $e->getMessage());
-                        return $this->redirect(['index']);
+            if($keys){
+                if($action=='setuser') {
+                    $newPassword = Yii::$app->request->post('newPassword');
+                    $newNickname = Yii::$app->request->post('nickname');
+                    $newMemo =  Yii::$app->request->post('memo');
+                    $newRole =  Yii::$app->request->post('role');
+                    if(!empty($newPassword) || !empty($newNickname) || !empty($newMemo)|| $newRole!=null){
+                        if (!empty($newPassword)) {
+                            $newPassword = Yii::$app->security->generatePasswordHash($newPassword,5);
+                        }
+                        $sum = 0;
+                        foreach ($keys as $key) {
+                            if(Yii::$app->user->id != $key){
+                                $sum++;
+                                $user_model = User::findOne($key);
+                                if(!empty($newNickname)){
+                                    $nickname = str_replace("{u}",$user_model->username,$newNickname);
+                                    $nickname = str_replace("{n}",$user_model->nickname,$nickname);
+                                    $user_model->nickname = $nickname;
+                                }
+                                if(!empty($newMemo)) {
+                                    $user_model->memo = $newMemo;
+                                }
+                                if($newRole!=null){
+                                    $user_model->role = $newRole;
+                                }
+
+                                if (!empty($newPassword)) {
+                                    $user_model->password_hash = $newPassword;
+                                }
+                                $user_model->save();                
+                            }
+                        }
+                        Yii::$app->session->setFlash('success', '批量设置属性成功：'.$sum.'人。' );
+                    }else{
+                        Yii::$app->session->setFlash('error', '当前未设置新的属性，修改失败！' );
                     }
-                    $model->delete();
-                    Yii::$app->session->setFlash('success', Yii::t('app', 'Delete successfully'));
-                }
-            }else if($action == 'enable') {
-                foreach ($keys as $key) {
-                    if(Yii::$app->user->id != $key){
-                        Yii::$app->db->createCommand()->update('{{%user}}', [
-                            'status' => User::STATUS_ACTIVE
-                        ], ['id' => $key])->execute();                   
+                } else if ($action == 'delete') {
+                    $sum = 0;
+                    foreach ($keys as $key) {
+                        if(Yii::$app->user->id != $key){
+                            $sum++;
+                            $model = $this->findModel($key);
+                            try {
+                                Yii::$app->db->createCommand()->delete('{{%user_profile}}',['user_id' => $model->id])->execute();
+                                Yii::$app->db->createCommand()->delete('{{%contest_user}}',['user_id' => $model->id])->execute();
+                                Yii::$app->db->createCommand()->delete('{{%group_user}}',['user_id' => $model->id])->execute();
+                                Yii::$app->db->createCommand()->delete('{{%discuss}}',['created_by' => $model->id])->execute(); 
+                                Yii::$app->db->createCommand('DELETE solution_info, solution FROM solution_info, solution  WHERE solution_info.solution_id=solution.id AND solution.created_by=:uid',[':uid' => $model->id])->execute(); 
+                                $this->deleteGroup($model->id);
+                                $this->findModel($model->id)->delete();
+                            } catch (\ErrorException $e) {
+                                Yii::$app->session->setFlash('error', '删除失败:' . $e->getMessage());
+                                return $this->redirect(['index']);
+                            }
+                            $model->delete();
+                            
+                        }
+                       
                     }
-                }
-            }else if($action == 'disable') {
-                foreach ($keys as $key) {
-                    if(Yii::$app->user->id != $key){
-                        Yii::$app->db->createCommand()->update('{{%user}}', [
-                            'status' => User::STATUS_DISABLE
-                        ], ['id' => $key])->execute();                   
+                    Yii::$app->session->setFlash('success', Yii::t('app', 'Delete successfully'.':'.$sum.'人'));
+                }else if($action == 'enable') {
+                    $sum = 0;
+                    foreach ($keys as $key) {
+                        if(Yii::$app->user->id != $key){
+                            $sum++;
+                            Yii::$app->db->createCommand()->update('{{%user}}', [
+                                'status' => User::STATUS_ACTIVE
+                            ], ['id' => $key])->execute();                   
+                        }
                     }
-                }
-            }
-            else{
-                foreach ($keys as $key) {
-                    if(Yii::$app->user->id != $key){
-                        Yii::$app->db->createCommand()->update('{{%user}}', [
-                            'role' => $action
-                        ], ['id' => $key])->execute();                   
+                    Yii::$app->session->setFlash('success', Yii::t('app', '启用账户成功'.':'.$sum.'人'));
+                }else if($action == 'disable') {
+                    $sum = 0;
+                    foreach ($keys as $key) {
+                        if(Yii::$app->user->id != $key){
+                            $sum++;
+                            Yii::$app->db->createCommand()->update('{{%user}}', [
+                                'status' => User::STATUS_DISABLE
+                            ], ['id' => $key])->execute();                   
+                        }
                     }
+                    Yii::$app->session->setFlash('success', Yii::t('app', '禁用账户成功'.':'.$sum.'人'));
                 }
+            }else{
+                Yii::$app->session->setFlash('error', '当前未选中用户，操作无效！' );
             }
             return $this->refresh();
         }
@@ -209,6 +256,7 @@ class UserController extends Controller
         Yii::$app->db->createCommand()->delete('{{%group_user}}',['user_id' => $id])->execute();
         Yii::$app->db->createCommand()->delete('{{%discuss}}',['created_by' => $id])->execute(); 
         Yii::$app->db->createCommand('DELETE solution_info, solution FROM solution_info, solution  WHERE solution_info.solution_id=solution.id AND solution.created_by=:uid',[':uid' => $id])->execute(); 
+        $this->deleteGroup($id);
         $this->findModel($id)->delete();
         Yii::$app->session->setFlash('success', Yii::t('app', 'Delete successfully'));
 
@@ -229,5 +277,19 @@ class UserController extends Controller
         }
 
         throw new NotFoundHttpException('The requested page does not exist.');
+    }
+
+
+    protected function deleteGroup($user_id)
+    {
+        $ids = Yii::$app->db->createCommand('SELECT id FROM {{%group}} WHERE created_by=:uid',[
+            ':uid' => $user_id
+        ])->queryColumn();
+        foreach($ids as $id){
+            $model = Group::findOne($id);
+            if($model!=null) {
+                $model->delete();
+            }
+        }
     }
 }

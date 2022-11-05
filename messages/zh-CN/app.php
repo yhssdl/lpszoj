@@ -300,5 +300,6 @@ return [
     'Join time' => '加入时间',
     'Hide' => '已隐藏',
     'The user has been disabled.' => '该用户已被禁用。',
-    'Memo' => '备注'
+    'Memo' => '备注',
+    'Ok' => '确定'
 ];
