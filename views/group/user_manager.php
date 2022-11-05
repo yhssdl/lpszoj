@@ -2,7 +2,7 @@
 
 use yii\helpers\Html;
 use app\models\GroupUser;
-
+use app\models\User;
 /* @var $this yii\web\View */
 /* @var $model app\models\Group */
 /* @var $groupUser app\models\GroupUser */
@@ -27,7 +27,7 @@ use app\models\GroupUser;
         </div>
     <?php elseif ($groupUser->role == GroupUser::ROLE_MEMBER && $model->getRole() == GroupUser::ROLE_LEADER) : ?>
         <div class="btn-group">
-            <?= Html::a('设为管理员', ['/group/user-update', 'id' => $groupUser->id, 'role' => 4], ['class' => 'btn btn-default']); ?>
+            <?= Html::a('设为助理', ['/group/user-update', 'id' => $groupUser->id, 'role' => 4], ['class' => 'btn btn-default']); ?>
         </div>
     <?php elseif ($groupUser->role == GroupUser::ROLE_MANAGER && $model->getRole() == GroupUser::ROLE_LEADER) : ?>
         <div class="btn-group">
@@ -35,7 +35,7 @@ use app\models\GroupUser;
         </div>
     <?php endif; ?>
 
-    <?php if (($groupUser->role == GroupUser::ROLE_MEMBER && $model->getRole() == GroupUser::ROLE_LEADER && Yii::$app->setting->get('isGroupReset') != 0)
+    <?php if ($groupUser->user->role==User::ROLE_USER && ($groupUser->role == GroupUser::ROLE_MEMBER && $model->getRole() == GroupUser::ROLE_LEADER && Yii::$app->setting->get('isGroupReset') != 0)
         || ($groupUser->role == GroupUser::ROLE_MEMBER && $model->getRole() == GroupUser::ROLE_MANAGER && Yii::$app->setting->get('isGroupReset') == 2)
     ) : ?>
 

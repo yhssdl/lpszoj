@@ -16,6 +16,7 @@ use yii\web\NotFoundHttpException;
 use yii\filters\VerbFilter;
 use yii\db\Expression;
 use yii\data\ActiveDataProvider;
+use app\models\User;
 
 
 /**
@@ -398,6 +399,7 @@ class GroupController extends BaseController
     public function actionUserUpdate($id, $role = 0)
     {
         $groupUser = GroupUser::findOne($id);
+        $user = User::findOne($groupUser->user_id);
         $group = $this->findModel($groupUser->group_id);
         if (!$group->hasPermission()) {
             throw new ForbiddenHttpException('You are not allowed to perform this action.');
@@ -413,15 +415,25 @@ class GroupController extends BaseController
         } else if ($role == 5 && $group->getRole() == GroupUser::ROLE_LEADER) { // 设为普通成员
             $groupUser->role = GroupUser::ROLE_MEMBER;
         } else if ($role == 6 && $group->getRole() >= GroupUser::ROLE_MANAGER && $groupUser->role==GroupUser::ROLE_MEMBER) { // 重置密码
-            Yii::$app->db->createCommand()->update('{{%user}}', [
+            if($user->role==User::ROLE_USER){
+                Yii::$app->db->createCommand()->update('{{%user}}', [
                     'password_hash' => Yii::$app->security->generatePasswordHash('123456',5)
                 ], ['id' => $groupUser->user_id])->execute();
-            Yii::$app->session->setFlash('success', $groupUser->user->username.'的密码已经重置为：123456');
+                Yii::$app->session->setFlash('success', $groupUser->user->username.'的密码已经重置为：123456');
+            }else{
+                Yii::$app->session->setFlash('error', $groupUser->user->username.'不是普通用户，不能对其进行密码重置。');
+            }
+            
+
         } else if ($role == 7 && $group->getRole() >= GroupUser::ROLE_MANAGER && $groupUser->role==GroupUser::ROLE_MEMBER) { // 重置昵称
-            Yii::$app->db->createCommand()->update('{{%user}}', [
-                    'nickname' =>  $groupUser->user->username
-                ], ['id' => $groupUser->user_id])->execute();
-            Yii::$app->session->setFlash('success', $groupUser->user->username.'的昵称已经重置！');
+            if($user->role==User::ROLE_USER){
+                Yii::$app->db->createCommand()->update('{{%user}}', [
+                        'nickname' =>  $groupUser->user->username
+                    ], ['id' => $groupUser->user_id])->execute();
+                Yii::$app->session->setFlash('success', $groupUser->user->username.'的昵称已经重置！');
+            }else{
+                Yii::$app->session->setFlash('error', $groupUser->user->username.'不是普通用户，不能对其进行昵称重置。'); 
+            }
         }
         
         if ($role != 0) {

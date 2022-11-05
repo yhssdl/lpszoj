@@ -11,7 +11,7 @@ return [
     'Group' => '小组',
     'Groups' => '小组',
     'Leader' => '组长',
-    'Manager' => '管理员',
+    'Manager' => '助理',
     'Member' => '成员',
     'Inviting' => '邀请中',
     'Invite Member' => '邀请成员',
