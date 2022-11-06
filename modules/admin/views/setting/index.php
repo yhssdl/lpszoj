@@ -205,7 +205,7 @@ if($editorName=='app\\widgets\\kindeditor\\KindEditor'){
     <?= Html::label(Yii::t('app', '小组管理权限'), 'isGroupReset') ?>
     <?= Html::radioList('isGroupReset', $settings['isGroupReset'], [
         1 => '仅组长可重置密码与昵称',
-        2 => '组长与管理员可重置密码与昵称',
+        2 => '组长与助理可重置密码与昵称',
         0 => '关闭密码与昵称重置功能'
     ]) ?>
 </div>
