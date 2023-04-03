@@ -6,7 +6,7 @@
     <br>
 </p>
 
-演示网址： [LPSZOJ](http://oj.msns.cn:2080/)
+演示网址： [LPSZOJ](http://oj.ssdlsoft.com:2080/)
 
 LPSZOJ 派生自 [JNOJ](https://github.com/shi-yang/jnoj)，是一个在线评测系统。
 
