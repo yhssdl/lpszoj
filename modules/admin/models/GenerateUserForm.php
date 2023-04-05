@@ -124,7 +124,7 @@ class GenerateUserForm extends Model
                 $password = $u[2];
                 $user->memo = $u[3];
             }
-            if(count($u)==3) {//3列含昵称的模式
+            else if(count($u)==3) {//3列含昵称的模式
                 $user->nickname = $u[1];
                 $password = $u[2];
             }else{
