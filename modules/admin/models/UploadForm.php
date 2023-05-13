@@ -95,12 +95,15 @@ class UploadForm extends Model
                 foreach($testInputs as $testNode){
                     self::importTestData($pid, $testCnt++ . ".in", $testNode);
                 }
+                
                 //创建输出文件
                 $testOutputs = $searchNode->children()->test_output;
                 $testCnt = 0;
                 foreach($testOutputs as $testNode){
                     self::importTestData($pid, $testCnt++ . ".out", $testNode);
                 }
+
+                if($testCnt == 0) $msg = $msg ."$title <font color=red>没有测试数据!</font><br>";
 
                 //SPJ 特判程序
                 if ($spj) {

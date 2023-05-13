@@ -82,7 +82,7 @@ class ProblemController extends Controller
                         $this->makeDirEmpty(Yii::$app->params['judgeProblemDataPath'] . $model->id);
                         rmdir(Yii::$app->params['judgeProblemDataPath'] . $model->id);
                     } catch (\ErrorException $e) {
-                        $msg = $msg . '删除错误:' . $e->getMessage() . "<br>";
+                        $msg = $msg . $model->id. ' 测试数据删除错误:<br>';
                         //Yii::$app->session->setFlash('error', '删除失败:' . $e->getMessage());
                         //return $this->redirect(['index']);
                     }
