@@ -21,7 +21,7 @@ class m190309_123832_setting extends Migration
         $this->insert('{{%setting}}', ['key' => 'isUserReg', 'value' => '1']);
         $this->insert('{{%setting}}', ['key' => 'isDiscuss', 'value' => '1']);
         $this->insert('{{%setting}}', ['key' => 'isDefGroup', 'value' => '3']);
-        $this->insert('{{%setting}}', ['key' => 'ojEditor', 'value' => 'app\widgets\ueditor\UEditor']);        
+        $this->insert('{{%setting}}', ['key' => 'ojEditor', 'value' => 'app\widgets\ckeditor\CKeditor']);        
         $this->insert('{{%setting}}', ['key' => 'isChangeNickName', 'value' => '2']);
         $this->insert('{{%setting}}', ['key' => 'isGroupJoin', 'value' => '0']);
         $this->insert('{{%setting}}', ['key' => 'isGroupReset', 'value' => '0']);        
