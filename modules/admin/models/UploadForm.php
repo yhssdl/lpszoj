@@ -59,6 +59,7 @@ class UploadForm extends Model
         $searchNodes = $xmlDoc->xpath("/fps/item");
         set_time_limit(0);
         ob_end_clean();
+        $msg = "";
         foreach ($searchNodes as $searchNode) {
             $title = (string)$searchNode->title;
             if (!self::hasProblem($title)) {
@@ -107,26 +108,30 @@ class UploadForm extends Model
                     $fp = fopen("$basedir/spj.cc","w");
                     fputs($fp, $spjCode);
                     fclose($fp);
-                    ////system( " g++ -o $basedir/spj $basedir/spj.cc  ");
+                    system( " g++ -o $basedir/spj $basedir/spj.cc  ");
                     if(!file_exists("$basedir/spj") ){
                         $fp = fopen("$basedir/spj.c","w");
                         fputs($fp, $spjCode);
                         fclose($fp);
-                        ////system( " gcc -o $basedir/spj $basedir/spj.c  ");
+                        system( " gcc -o $basedir/spj $basedir/spj.c  ");
                         if(!file_exists("$basedir/spj")){
-                            echo "you need to compile $basedir/spj.cc for spj[  g++ -o $basedir/spj $basedir/spj.cc   ]<br> and rejudge $pid";
+                            $msg = $msg ."$title 导入成功<br>";
+                            $msg = $msg . "你需要手动编译SPJ特殊判决 $basedir/spj.cc[  g++ -o $basedir/spj $basedir/spj.cc   ]<br>";
+                            continue;
                         } else {
                             unlink("$basedir/spj.cc");
                         }
                     }
                 }
-
-                return "$title 导入成功<br>";
+                $msg = $msg ."$title 导入成功<br>";
+                //return "$title 导入成功<br>";
             } else {
-                return "$title 已经存在<br>";
+                $msg = $msg . "$title 已经存在<br>";
+                //return "$title 已经存在<br>";
             }
             flush();
         }
+        return $msg;
         //exit;
     }
 
