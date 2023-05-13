@@ -84,6 +84,7 @@ class UploadForm extends Model
                 $newProblem->source = self::getValue($searchNode, 'source');
                 $newProblem->sample_input = serialize([self::getValue($searchNode, 'sample_input'), '', '']);
                 $newProblem->sample_output = serialize([self::getValue($searchNode, 'sample_output'), '', '']);
+                $newProblem->solution = str_replace("\n","<br>",htmlentities(self::getValue($searchNode, 'solution')));
                 $newProblem->spj = $spj;
                 $newProblem->created_by = Yii::$app->user->id;
                 $newProblem->save();
