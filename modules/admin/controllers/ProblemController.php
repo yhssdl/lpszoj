@@ -89,11 +89,9 @@ class ProblemController extends Controller
                     }
                     $model->delete();
                 } else {
-                    foreach ($keys as $key) {
-                        Yii::$app->db->createCommand()->update('{{%problem}}', [
-                            'status' => $action
-                        ], ['id' => $key])->execute();
-                    }
+                    Yii::$app->db->createCommand()->update('{{%problem}}', [
+                        'status' => $action
+                    ], ['id' => $key])->execute();
                 }
             }
             if($msg!="") Yii::$app->session->setFlash('info', $msg);
