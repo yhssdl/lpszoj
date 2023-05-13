@@ -73,6 +73,7 @@ class ProblemController extends Controller
         if (Yii::$app->request->isPost) {
             $keys = Yii::$app->request->post('keylist');
             $action = Yii::$app->request->get('action');
+            $msg = "";
             foreach ($keys as $key) {
                 if ($action == 'delete') {
                     $model = $this->findModel($key);
@@ -81,8 +82,9 @@ class ProblemController extends Controller
                         $this->makeDirEmpty(Yii::$app->params['judgeProblemDataPath'] . $model->id);
                         rmdir(Yii::$app->params['judgeProblemDataPath'] . $model->id);
                     } catch (\ErrorException $e) {
-                        Yii::$app->session->setFlash('error', '删除失败:' . $e->getMessage());
-                        return $this->redirect(['index']);
+                        $msg = $msg . '删除错误:' . $e->getMessage() . "<br>";
+                        //Yii::$app->session->setFlash('error', '删除失败:' . $e->getMessage());
+                        //return $this->redirect(['index']);
                     }
                     $model->delete();
                 } else {
@@ -93,7 +95,7 @@ class ProblemController extends Controller
                     }
                 }
             }
-
+            if($msg!="") Yii::$app->session->setFlash('info', $msg);
             return $this->refresh();
         }
 
