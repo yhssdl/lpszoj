@@ -58,7 +58,7 @@ Debian 11 + 宝塔面板 + OJ系统安装WORD教程：[点击下载教程](bt_in
             'dsn' => 'mysql:host=localhost;dbname=ojdate',
             'username' => 'root',
             'password' => '123456',
-            'charset' => 'utf8',
+            'charset' => 'utf8mb4',
         ];
         ``` 
         **注意：** Web 程序不会为你创建数据库，需要你自己手动创建该数据库（创建方法：运行 `mysql -u root -p` 登录MySQL，然后 `create database ojdate;`，执行 `quit;` 可退出MySQL，注意此处命令有分号）。

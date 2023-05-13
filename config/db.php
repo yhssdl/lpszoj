@@ -5,7 +5,7 @@ return [
     'dsn' => 'mysql:host=127.0.0.1;dbname=ojdate',
     'username' => 'ojdate',
     'password' => '123456',
-    'charset' => 'utf8',
+    'charset' => 'utf8mb4',
 
     // Schema cache options (for production environment)
     'enableSchemaCache' => !YII_DEBUG,

@@ -14,7 +14,7 @@ class m180929_073954_update_polygon_status extends Migration
     {
         $this->addColumn('{{polygon_status}}', 'created_by', 'INT NOT NULL');
         $this->addColumn('{{polygon_status}}', 'language', 'SMALLINT NULL DEFAULT NULL');
-        $this->addColumn('{{polygon_status}}', 'source', 'TEXT CHARACTER SET utf8 COLLATE utf8_unicode_ci NULL DEFAULT NULL');
+        $this->addColumn('{{polygon_status}}', 'source', 'TEXT CHARACTER SET utf8mb4 COLLATE utf8mb4_unicode_ci NULL DEFAULT NULL');
     }
 
     /**
