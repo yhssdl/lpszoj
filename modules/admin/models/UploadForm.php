@@ -102,15 +102,15 @@ class UploadForm extends Model
             if (!self::hasProblem($title)) {
                 $spjCode = self::getValue($searchNode, 'spj');
                 $spj = trim($spjCode) ? 1 : 0;
-                $time_limit = $searchNode->time_limit;
-                if(gettype($time_limit)!="int"){
+                $time_limit = intval(self::getValue($searchNode, 'time_limit'));
+                if($time_limit==0){
                     $time_limit = 1;
                 }else{
                     $unit = self::getAttribute($searchNode,'time_limit','unit');
                     if ($unit == 'ms')
                         $time_limit /= 1000;                   
                 }
-                $memory_limit = self::getValue($searchNode, 'memory_limit');
+                $memory_limit =  intval(self::getValue($searchNode, 'memory_limit'));
                 $unit = self::getAttribute($searchNode,'memory_limit','unit');
                 if ($unit == 'kb')
                     $memory_limit  /= 1024;
