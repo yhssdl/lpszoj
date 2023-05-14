@@ -202,38 +202,26 @@ class UploadForm extends Model
         return str_replace("]]>","]]]]><![CDATA[>",$content);
       }
 
-    function printTestCases($fp,$pid,$OJ_DATA) {
-        $ret = "";
-        //$pdir = opendir("$OJ_DATA/$pid/");
-        $files = scandir("$OJ_DATA$pid/"); //sorting file names by ascending order with default scandir function
-    
-        //while ($file=readdir($pdir)) {
+    function printTestCases($fp,$OJ_DATA_PID) {
+   
+        if(!file_exists($OJ_DATA_PID)) return;
+        $files = scandir($OJ_DATA_PID); //sorting file names by ascending order with default scandir function
         foreach ($files as $file) {
-        $pinfo = pathinfo($file);
-        
-        if (isset($pinfo['extension']) && $pinfo['extension']=="in" && $pinfo['basename']!="sample.in") {
-            $ret = basename($pinfo['basename'], ".".$pinfo['extension']);
-    
-            $outfile = "$OJ_DATA$pid/".$ret.".out";
-            $infile = "$OJ_DATA$pid/".$ret.".in";
-    
-            if (file_exists($infile)) {
-                fputs($fp,"<test_input name=\"".$ret."\"><![CDATA[".self::fixcdata(file_get_contents($infile))."]]></test_input>\n");
+            $pinfo = pathinfo($file);
+            
+            if (isset($pinfo['extension']) && $pinfo['extension']=="in" && $pinfo['basename']!="sample.in") {
+                $ret = basename($pinfo['basename'], ".".$pinfo['extension']);
+                $outfile = $OJ_DATA_PID.$ret.".out";
+                $infile = $OJ_DATA_PID.$ret.".in";
+                if (file_exists($infile)) {
+                    fputs($fp,"<test_input name=\"".$ret."\"><![CDATA[".self::fixcdata(file_get_contents($infile))."]]></test_input>\n");
+                }
+                if (file_exists($outfile)) {
+                    fputs($fp,"<test_output name=\"".$ret."\"><![CDATA[".self::fixcdata(file_get_contents($outfile))."]]></test_output>\n");
+                }
             }
-    
-            if (file_exists($outfile)) {
-                fputs($fp,"<test_output name=\"".$ret."\"><![CDATA[".self::fixcdata(file_get_contents($outfile))."]]></test_output>\n");
-            }
-            //break;
         }
-        }
-        
-        //closedir($pdir);
-        return $ret;
-    
-      }
-
-        
+    } 
     function getImages($content) {
         preg_match_all("<[iI][mM][gG][^<>]+[sS][rR][cC]=\"?([^ \"\>]+)/?>",$content,$images);
         return $images;
@@ -314,7 +302,7 @@ class UploadForm extends Model
                 fputs($fp,"<description><![CDATA[$problem->description]]></description>\n");
                 fputs($fp,"<input><![CDATA[$problem->input]]></input>\n");
                 fputs($fp,"<output><![CDATA[$problem->output]]></output>\n");
-                self::printTestCases($fp,$problem->id,Yii::$app->params['judgeProblemDataPath']);
+                self::printTestCases($fp,Yii::$app->params['judgeProblemDataPath'].$problem->id."/");
                 fputs($fp,"<hint><![CDATA[$problem->hint]]></hint>\n");
                 fputs($fp,"<source><![CDATA[$problem->source]]></source>\n");
                 $solution = str_replace("<br>","\n",html_entity_decode($problem->solution));
