@@ -231,6 +231,7 @@ class TrainingController extends Controller
             $problem_ids = str_replace("，"," ",$problem_ids);
             $problem_ids = explode(" ", trim($problem_ids));
             $cnt = count($problem_ids);
+            $pids = [];
             for ($i = 0; $i < $cnt; ++$i) {
                 if (empty($problem_ids[$i]))
                 continue;
