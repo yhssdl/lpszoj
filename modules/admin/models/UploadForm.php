@@ -288,6 +288,8 @@ class UploadForm extends Model
         $export_file = $export_base . ".xml";
         $fp = @fopen($export_file, "w");
         if ($fp) {
+            set_time_limit(0);
+            ob_end_clean();
             fputs($fp,"<?xml version=\"1.0\" encoding=\"UTF-8\"?>
             <fps version=\"1.5\" url=\"https://github.com/zhblue/freeproblemset/\">
             <generator name=\"HUSTOJ\" url=\"https://github.com/zhblue/hustoj/\" />\n");
