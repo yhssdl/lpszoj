@@ -34,7 +34,7 @@ Please commit your changes or stash them before you merge.
 Aborting
 ```
 可以使用命令 `git reset --hard HEAD^ ` 来回滚到上一个版本，再执行`git pull` 即可。
-回滚并更新到最新版本后，需要重新修改数据库中的配置，涉及3个文件，分别是 `config/db.php`、`judge/config.ini`、`polygon\config.ini`。
+回滚并更新到最新版本后，需要重新修改数据库中的配置，涉及3个文件，分别是 `config/db.php`、`judge/config.ini`、`polygon/config.ini`。
 
 如对 git 不熟悉，你可用搜索引擎搜索`git pull 冲突` 的解决办法。
 或者对发生冲突的文件，通过执行 `git checkout -- file_path`，把其中的 `file_path` 改成具体的冲突文件路径，该命令会撤销你对该文件的全部修改。在如上所示的错误信息中，可以通过执行 `git checkout -- judge/dispatcher`，`git checkout -- judge/judge` 来撤销修改，再执行 `git pull` 即可。
