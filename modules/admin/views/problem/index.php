@@ -33,6 +33,10 @@ $label_i = 0;
         </div>
 
         <div class="btn-group">
+            <a id="export" class="btn btn-default" href="javascript:void(0);" data-toggle="tooltip" data-placement="top" title="将选中的题目导入为xml文件"><span class="fa fa-arrow-circle-o-up"></span><?= Yii::t('app', 'Export Problem') ?></a>
+        </div>     
+
+        <div class="btn-group">
             <a id="available" class="btn btn-success" href="javascript:void(0);" data-toggle="tooltip" data-placement="top" title="选中项设为可见，任何用户均能在前台看见题目"><span class="fa fa-eye"></span> 设为可见</a>
         </div>
 
@@ -193,6 +197,17 @@ $label_i = 0;
             });
         }
     });
+    $("#export").on("click", function () {
+        if (confirm("确定要将选中的题目导出到xml格式的文件吗？")) {
+            var keys = $("#grid").yiiGridView("getSelectedRows");
+            if(keys=="") {
+                alert("请选中题目后再进行导出。");
+                return;
+            }
+            var url = "/admin/problem/downxml?keylist=" + keys;
+            window.open(url);
+        }
+    });    
     ');
     ?>
 </div>

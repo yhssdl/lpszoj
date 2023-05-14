@@ -82,8 +82,12 @@ class UploadForm extends Model
                 $newProblem->output = self::getValue($searchNode, 'output');
                 $newProblem->hint = self::getValue($searchNode, 'hint');
                 $newProblem->source = self::getValue($searchNode, 'source');
-                $newProblem->sample_input = serialize([self::getValue($searchNode, 'sample_input'), '', '']);
-                $newProblem->sample_output = serialize([self::getValue($searchNode, 'sample_output'), '', '']);
+                $newProblem->tags = self::getValue($searchNode, 'tags');
+
+                $newProblem->sample_input = serialize([self::getValue($searchNode, 'sample_input'), self::getValue($searchNode, 'sample_input1'), self::getValue($searchNode, 'sample_input2')]);
+                $newProblem->sample_output = serialize([self::getValue($searchNode, 'sample_output'), self::getValue($searchNode, 'sample_output1'), self::getValue($searchNode, 'sample_output2')]);
+
+
                 $newProblem->solution = str_replace("\n","<br>",htmlentities(self::getValue($searchNode, 'solution')));
                 $newProblem->spj = $spj;
                 $newProblem->created_by = Yii::$app->user->id;
@@ -169,4 +173,170 @@ class UploadForm extends Model
             echo "Error while opening ".$basedir . "/$filename.";
         }
     }
+
+    
+    function fixurl($img_url) {
+        if(substr($img_url,0,4)=="data") return $img_url;
+        $img_url = html_entity_decode($img_url,ENT_QUOTES,"UTF-8");
+    
+        if (substr($img_url,0,4)!="http") {
+        if (substr($img_url,0,1)=="/") {
+            $ret = 'http://'.$_SERVER['HTTP_HOST'].':'.$_SERVER["SERVER_PORT"].$img_url;
+        }
+        else {
+            $path = dirname($_SERVER['PHP_SELF']);
+            $ret = 'http://'.$_SERVER['HTTP_HOST'].':'.$_SERVER["SERVER_PORT"].$path."/../".$img_url;
+        }
+    
+        }
+        else {
+        $ret = $img_url;
+        }
+    
+        return  $ret;
+    }
+
+
+    function fixcdata($content) {
+        $content = str_replace("\x1a","",$content);   // remove some strange \x1a [SUB] char from datafile
+        return str_replace("]]>","]]]]><![CDATA[>",$content);
+      }
+
+    function printTestCases($fp,$pid,$OJ_DATA) {
+        $ret = "";
+        //$pdir = opendir("$OJ_DATA/$pid/");
+        $files = scandir("$OJ_DATA$pid/"); //sorting file names by ascending order with default scandir function
+    
+        //while ($file=readdir($pdir)) {
+        foreach ($files as $file) {
+        $pinfo = pathinfo($file);
+        
+        if (isset($pinfo['extension']) && $pinfo['extension']=="in" && $pinfo['basename']!="sample.in") {
+            $ret = basename($pinfo['basename'], ".".$pinfo['extension']);
+    
+            $outfile = "$OJ_DATA$pid/".$ret.".out";
+            $infile = "$OJ_DATA$pid/".$ret.".in";
+    
+            if (file_exists($infile)) {
+                fputs($fp,"<test_input name=\"".$ret."\"><![CDATA[".self::fixcdata(file_get_contents($infile))."]]></test_input>\n");
+            }
+    
+            if (file_exists($outfile)) {
+                fputs($fp,"<test_output name=\"".$ret."\"><![CDATA[".self::fixcdata(file_get_contents($outfile))."]]></test_output>\n");
+            }
+            //break;
+        }
+        }
+        
+        //closedir($pdir);
+        return $ret;
+    
+      }
+
+        
+    function getImages($content) {
+        preg_match_all("<[iI][mM][gG][^<>]+[sS][rR][cC]=\"?([^ \"\>]+)/?>",$content,$images);
+        return $images;
+    }
+    
+
+    function image_base64_encode($img_url) {
+        $img_url = self::fixurl($img_url);
+      
+        if (substr($img_url,0,4)!="http")
+          return false;
+      
+        $handle = @fopen($img_url, "rb");
+      
+        if ($handle) {
+          $contents = stream_get_contents($handle);
+          $encoded_img = base64_encode($contents);
+          fclose($handle);
+          return $encoded_img;
+        }
+        else
+          return false;
+      }
+      
+
+
+    function fixImageURL($fp,&$html,&$did) {
+        $images = self::getImages($html);
+        $imgs = array_unique($images[1]);
+    
+        foreach ($imgs as $img) {
+        if(substr($img,0,4)=="data") continue;                      // skip image from paste clips
+        $html = str_replace($img,self::fixurl($img),$html); 
+        //print_r($did);
+    
+        if (!in_array($img,$did)) {
+            $base64 = self::image_base64_encode($img);
+            if ($base64) {
+                fputs($fp,"<img><src><![CDATA[");
+                fputs($fp,self::fixurl($img));
+                fputs($fp,"]]></src><base64><![CDATA[");
+                fputs($fp,$base64);
+                fputs($fp,"]]></base64></img>");   
+            }
+            array_push($did,$img);
+        }
+        }     
+    }
+        
+    public function exportxml($keys,$export_file)
+    {
+        $fp = @fopen($export_file, "w");
+        if ($fp) {
+            fputs($fp,"<?xml version=\"1.0\" encoding=\"UTF-8\"?>
+            <fps version=\"1.5\" url=\"https://github.com/zhblue/freeproblemset/\">
+            <generator name=\"HUSTOJ\" url=\"https://github.com/zhblue/hustoj/\" />\n");
+
+            foreach ($keys as $key) {
+                fputs($fp,"<item>");
+                $problem = Problem::findOne($key);
+                $problemTestDataPath = Yii::$app->params['judgeProblemDataPath'] . $problem->id;
+
+                $did = array();
+                self::fixImageURL($fp,$problem->description,$did);
+                self::fixImageURL($fp,$problem->input,$did);
+                self::fixImageURL($fp,$problem->output,$did);
+                self::fixImageURL($fp,$problem->hint,$did);
+
+                $sample_input = unserialize($problem->sample_input);
+                $sample_output = unserialize($problem->sample_output);
+
+
+                fputs($fp,"<title><![CDATA[$problem->title]]></title>\n");
+                fputs($fp,"<time_limit unit=\"s\"><![CDATA[$problem->time_limit]]></time_limit>\n");
+                fputs($fp,"<memory_limit unit=\"mb\"><![CDATA[$problem->memory_limit]]></memory_limit>\n");
+
+                fputs($fp,"<description><![CDATA[$problem->description]]></description>\n");
+                fputs($fp,"<input><![CDATA[$problem->input]]></input>\n");
+                fputs($fp,"<output><![CDATA[$problem->output]]></output>\n");
+                self::printTestCases($fp,$problem->id,Yii::$app->params['judgeProblemDataPath']);
+                fputs($fp,"<hint><![CDATA[$problem->hint]]></hint>\n");
+                fputs($fp,"<source><![CDATA[$problem->source]]></source>\n");
+                $solution = str_replace("<br>","\n",html_entity_decode($problem->solution));
+                fputs($fp,"<solution><![CDATA[$solution]]></solution>\n");
+                fputs($fp,"<tags><![CDATA[$problem->tags]]></tags>\n");
+
+                fputs($fp,"<sample_input><![CDATA[$sample_input[0]]]></sample_input>\n");
+                fputs($fp,"<sample_output><![CDATA[$sample_output[0]]]></sample_output>\n");
+                fputs($fp,"<sample_input1><![CDATA[$sample_input[1]]]></sample_input1>\n");
+                fputs($fp,"<sample_output1><![CDATA[$sample_output[1]]]></sample_output1>\n");
+                fputs($fp,"<sample_input2><![CDATA[$sample_input[2]]]></sample_input2>\n");
+                fputs($fp,"<sample_output2><![CDATA[$sample_output[2]]]></sample_output2>\n");
+                fputs($fp,"</item>");
+            }
+            fputs($fp,"</fps>");
+            fclose($fp);
+        } else {
+            echo "Error while opening ".$export_file;
+            return false;
+        };
+        
+
+        return true;
+    }
+
 }

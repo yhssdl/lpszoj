@@ -69,13 +69,12 @@ class ProblemController extends Controller
     {
         $searchModel = new ProblemSearch();
         $dataProvider = $searchModel->search(Yii::$app->request->queryParams);
-
+        $action = Yii::$app->request->get('action');
         if (Yii::$app->request->isPost) {
             $keys = Yii::$app->request->post('keylist');
-            $action = Yii::$app->request->get('action');
             $msg = "";
-            foreach ($keys as $key) {
-                if ($action == 'delete') {
+            if ($action == 'delete') {
+                foreach ($keys as $key) {
                     $model = $this->findModel($key);
                     $problemTestDataPath = Yii::$app->params['judgeProblemDataPath'] . $model->id;
                     if(file_exists($problemTestDataPath)){
@@ -88,15 +87,32 @@ class ProblemController extends Controller
                         }
                     }
                     $model->delete();
-                } else {
+                }
+            } 
+            else {
+                foreach ($keys as $key) {
                     Yii::$app->db->createCommand()->update('{{%problem}}', [
                         'status' => $action
                     ], ['id' => $key])->execute();
                 }
             }
+            
             if($msg!="") Yii::$app->session->setFlash('info', $msg);
             return $this->refresh();
+        }else {
+            $keys = Yii::$app->request->get('keylist');
+            if ($action == 'export') {
+                $model = new UploadForm();
+                $exprot_file = '/tmp/' . time() . '.zip';
+                $ret = $model->exportxml($keys,$exprot_file);
+                if($ret) {
+                    Yii::$app->response->on(\yii\web\Response::EVENT_AFTER_SEND, function($event) { unlink($event->data); }, $exprot_file);
+                    return Yii::$app->response->sendFile($exprot_file, $exprot_file);
+                }
+                return $this->refresh();
+            }
         }
+
 
         return $this->render('index', [
             'dataProvider' => $dataProvider,
@@ -506,6 +522,32 @@ class ProblemController extends Controller
         $model->delete();
         Yii::$app->session->setFlash('success', Yii::t('app', '删除成功'));
         return $this->redirect(['index']);
+    }
+
+
+    public function actionDownxml()
+    {
+        $keys =explode(",",Yii::$app->request->get('keylist'));
+        $keys = array_reverse($keys);
+        $cnt = count($keys);
+        switch($cnt){
+            case 0:
+                return "请选中题目后再进行导出。";
+            case 1:
+                $out_name = "oj_fps_".$keys[0].".xml";
+                break;
+            default:
+                $out_name = "oj_fps_".$keys[0]."_".$keys[$cnt-1].".xml";
+        }
+
+        $model = new UploadForm();
+        $exprot_file = '/tmp/' .time()."_". $out_name;
+        $ret = $model->exportxml($keys,$exprot_file);
+        if($ret) {
+            Yii::$app->response->on(\yii\web\Response::EVENT_AFTER_SEND, function($event) { unlink($event->data); }, $exprot_file);
+            return Yii::$app->response->sendFile($exprot_file, $out_name);
+        }
+        return "下载错误";
     }
 
     /**
