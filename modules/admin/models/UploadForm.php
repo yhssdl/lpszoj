@@ -53,6 +53,43 @@ class UploadForm extends Model
         }
     }
 
+    public static function getImageValue($Node, $TagName) {
+        $value=mb_ereg_replace("<div[a-z -=\"]*>","",$Node->$TagName);
+        $value=mb_ereg_replace("</div>","",$value);
+        return $value;
+      }  
+      
+    public static function image_save_file($filepath ,$base64_encoded_img) {
+        $dirpath=dirname($filepath);
+        if (!file_exists($dirpath)) {
+             mkdir($dirpath,0755,true);
+        }
+          $fp = fopen($filepath ,"wb");
+          fwrite($fp,base64_decode($base64_encoded_img));
+          fclose($fp);
+    }   
+
+    public static function importImages($images){
+        $did = array();
+        foreach ($images as $img) {
+            $src = self::getImageValue($img,"src");
+            if (!in_array($src,$did)) {
+            $base64 = self::getImageValue($img,"base64");
+            $ext = pathinfo($src);
+            $ext = strtolower($ext['extension']);
+            if (!stristr(",jpeg,jpg,svg,png,gif,bmp",$ext)) {
+                continue ;
+            }
+            $paths = parse_url($src);
+            if(!$paths) continue;
+            $path = strtolower($paths['path']);
+            self::image_save_file("../web".$path,$base64);
+            array_push($did,$src);
+            }
+        }
+    }
+
+
     public static function importFPS($tempFile)
     {
         $xmlDoc = simplexml_load_file($tempFile, 'SimpleXMLElement', LIBXML_PARSEHUGE);
@@ -75,6 +112,7 @@ class UploadForm extends Model
                     $memory_limit  /= 1024;
                 $newProblem = new Problem();
                 $newProblem->title = $title;
+                self::importImages($searchNode->children()->img);
                 $newProblem->description = self::getValue($searchNode, 'description');
                 $newProblem->time_limit = $time_limit;
                 $newProblem->memory_limit = $memory_limit;
