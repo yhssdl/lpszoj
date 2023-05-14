@@ -534,10 +534,10 @@ class ProblemController extends Controller
             case 0:
                 return "请选中题目后再进行导出。";
             case 1:
-                $out_name = "oj_fps_".$keys[0]."xml";
+                $out_name = "oj_fps_".$keys[0].".xml";
                 break;
             default:
-                $out_name = "oj_fps_".$keys[0]."_".$keys[$cnt-1]."xml";
+                $out_name = "oj_fps_".$keys[0]."_".$keys[$cnt-1].".xml";
         }
 
         $model = new UploadForm();
