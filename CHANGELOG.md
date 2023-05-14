@@ -12,7 +12,7 @@ LPSZOJ Change Log
 请阅读 [update.md](https://gitee.com/yhssdl/lpszoj/raw/master/docs/update.md) 来获取更新方法。
 
 ---------------------------------------
-- 2022.5.14 Enh: [web] 新增题目导出功能，可导出XML格式的文件，支持内容内嵌图片。
+- 2023.5.14 Enh: [web] 新增题目导出功能，可导出XML格式的文件，支持内容内嵌图片。
 - 2023.5.13 Bug: [web] 修正导入xml题目时，含多个题目时只能导入第1个的情况。
 - 2023.5.13 Bug: [web、db] 将默认字符集修改为utf8mb4，可解决个别表情图或4字节特殊字符无法使用的情况。
 
