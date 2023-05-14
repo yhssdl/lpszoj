@@ -283,8 +283,9 @@ class UploadForm extends Model
         }     
     }
         
-    public function exportxml($keys,$export_file)
+    public function exportxml($keys,$export_base)
     {
+        $export_file = $export_base . ".xml";
         $fp = @fopen($export_file, "w");
         if ($fp) {
             fputs($fp,"<?xml version=\"1.0\" encoding=\"UTF-8\"?>
@@ -330,13 +331,26 @@ class UploadForm extends Model
             }
             fputs($fp,"</fps>");
             fclose($fp);
+
+            $zipName = $export_base . '.zip';
+            $zipArc = new \ZipArchive();
+            if (!$zipArc->open($zipName, \ZipArchive::CREATE)) {
+                return ".xml";
+            }
+            $res = $zipArc->addGlob($export_file, GLOB_BRACE, ['remove_all_path' => true]);
+            $zipArc->close();
+            if (!$res) {
+                return ".xml";
+            }
+            if (!file_exists($zipName)) {
+                return ".xml";
+            }
+            unlink($export_file);
+            return ".zip";
         } else {
             echo "Error while opening ".$export_file;
-            return false;
+            return "";
         };
-        
-
-        return true;
     }
 
 }
