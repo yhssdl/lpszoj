@@ -283,9 +283,8 @@ class UploadForm extends Model
         }     
     }
         
-    public function exportxml($keys,$export_base)
+    public function exportxml($keys,$export_file)
     {
-        $export_file = $export_base . ".xml";
         $fp = @fopen($export_file, "w");
         if ($fp) {
             set_time_limit(0);
@@ -297,7 +296,6 @@ class UploadForm extends Model
             foreach ($keys as $key) {
                 fputs($fp,"<item>");
                 $problem = Problem::findOne($key);
-                $problemTestDataPath = Yii::$app->params['judgeProblemDataPath'] . $problem->id;
 
                 $did = array();
                 self::fixImageURL($fp,$problem->description,$did);
@@ -333,25 +331,11 @@ class UploadForm extends Model
             }
             fputs($fp,"</fps>");
             fclose($fp);
+            return true;
 
-            $zipName = $export_base . '.zip';
-            $zipArc = new \ZipArchive();
-            if (!$zipArc->open($zipName, \ZipArchive::CREATE)) {
-                return ".xml";
-            }
-            $res = $zipArc->addGlob($export_file, GLOB_BRACE, ['remove_all_path' => true]);
-            $zipArc->close();
-            if (!$res) {
-                return ".xml";
-            }
-            if (!file_exists($zipName)) {
-                return ".xml";
-            }
-            unlink($export_file);
-            return ".zip";
         } else {
             echo "Error while opening ".$export_file;
-            return "";
+            return false;
         };
     }
 
