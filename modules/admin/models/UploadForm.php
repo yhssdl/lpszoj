@@ -271,7 +271,7 @@ class UploadForm extends Model
         }     
     }
         
-    public function exportxml($keys,$export_file)
+    public function exportFpsXml($keys,$export_file)
     {
         $fp = @fopen($export_file, "w");
         if ($fp) {

@@ -542,7 +542,7 @@ class ProblemController extends Controller
 
         $model = new UploadForm();
         $exprot_file = '/tmp/' . $out_name;
-        $ret = $model->exportxml($keys,$exprot_file);
+        $ret = $model->exportFpsXml($keys,$exprot_file);
         if($ret) {
             Yii::$app->response->on(\yii\web\Response::EVENT_AFTER_SEND, function($event) { unlink($event->data); }, $exprot_file);
             return Yii::$app->response->sendFile($exprot_file, $out_name);
