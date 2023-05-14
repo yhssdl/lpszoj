@@ -198,12 +198,12 @@ $label_i = 0;
         }
     });
     $("#export").on("click", function () {
+        var keys = $("#grid").yiiGridView("getSelectedRows");
+        if(keys=="") {
+            alert("请选中题目后再进行导出。");
+            return;
+        }
         if (confirm("确定要将选中的题目导出到xml格式的文件吗？")) {
-            var keys = $("#grid").yiiGridView("getSelectedRows");
-            if(keys=="") {
-                alert("请选中题目后再进行导出。");
-                return;
-            }
             var url = "/admin/problem/downxml?keylist=" + keys;
             window.open(url);
         }
