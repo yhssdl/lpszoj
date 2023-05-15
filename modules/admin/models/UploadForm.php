@@ -37,6 +37,7 @@ class UploadForm extends Model
                     $fileName = zip_entry_name($dirResource);
                     if (!is_dir($fileName)) {
                         $fileSize = zip_entry_filesize($dirResource);
+                        if($fileSize==0) continue;
                         $fp = fopen($tempFile,"w");
                         while($fileSize>0){
                             $fileContent = zip_entry_read($dirResource,$fileSize>1024?1024:$fileSize);
@@ -44,13 +45,18 @@ class UploadForm extends Model
                             $fileSize -= 1024;
                         }
                         fclose($fp);
-                        $ret = self::importFPS($tempFile);
+                        $r = self::importFPS($tempFile);
+                        if(!$r) 
+                            $ret = $ret. $fileName."<font color=red>解析错误。</font><br>";
+                        else
+                            $ret = $ret.$r;
                     }
                     zip_entry_close($dirResource);
                 }
                 zip_close($resource);
             } else {
                 $ret = self::importFPS($tempFile);
+                if(!$ret) $ret = "<font color=red>上传的题库文件解析错误。</font><br>";
             }
             return $ret;
         } else {
@@ -97,7 +103,8 @@ class UploadForm extends Model
 
     public static function importFPS($tempFile)
     {
-        $xmlDoc = simplexml_load_file($tempFile, 'SimpleXMLElement', LIBXML_PARSEHUGE);
+        $xmlDoc = @simplexml_load_file($tempFile, 'SimpleXMLElement', LIBXML_PARSEHUGE);
+        if(!$xmlDoc) return false; 
         $searchNodes = $xmlDoc->xpath("/fps/item");
         set_time_limit(0);
         ob_end_clean();

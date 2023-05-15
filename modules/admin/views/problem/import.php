@@ -16,7 +16,7 @@ $maxFileSize = min(ini_get("upload_max_filesize"), ini_get("post_max_size"));
     <?php if (extension_loaded('xml')) : ?>
 
         <div class="alert alert-light">
-        <i class="fa fa-info-circle"></i> 提交文件为 ZIP 或者 XML 格式，根据您的 PHP 设置，上传的文件无法大于 <?= $maxFileSize ?>。
+        <i class="fa fa-info-circle"></i> 提交文件为 ZIP 或者 XML 格式，根据您的 PHP 设置，上传的文件无法大于 <?= $maxFileSize ?>。<br>&nbsp;&nbsp;&nbsp;&nbsp;<font color=red>温馨提示：</font>如果有多个XML题库文件，可以打包成zip文件一次性导入。
         </div>
         <?php $form = ActiveForm::begin(['options' => ['enctype' => 'multipart/form-data']]) ?>
 
