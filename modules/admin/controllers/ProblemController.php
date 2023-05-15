@@ -534,20 +534,15 @@ class ProblemController extends Controller
             case 0:
                 return "请选中题目后再进行导出。";
             case 1:
-                $out_name = "oj_fps_".$keys[0].".xml";
+                $base_name = "oj_fps_".$keys[0];
                 break;
             default:
-                $out_name = "oj_fps_".$keys[0]."_".$keys[$cnt-1].".xml";
+                $base_name = "oj_fps_".$keys[0]."_".$keys[$cnt-1];
         }
 
         $model = new UploadForm();
-        $exprot_file = '/tmp/' . $out_name;
-        $ret = $model->exportFpsXml($keys,$exprot_file);
-        if($ret) {
-            Yii::$app->response->on(\yii\web\Response::EVENT_AFTER_SEND, function($event) { unlink($event->data); }, $exprot_file);
-            return Yii::$app->response->sendFile($exprot_file, $out_name);
-        }
-        return "下载错误";
+        $model->exportFpsXml($keys,$base_name,"xml");
+        exit();
     }
 
     /**

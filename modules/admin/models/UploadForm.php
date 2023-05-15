@@ -242,7 +242,7 @@ class UploadForm extends Model
         return str_replace("]]>","]]]]><![CDATA[>",$content);
       }
 
-    function printTestCases($fp,$OJ_DATA_PID) {
+    function printTestCases($OJ_DATA_PID) {
    
         if(!file_exists($OJ_DATA_PID)) return;
         $files = scandir($OJ_DATA_PID); //sorting file names by ascending order with default scandir function
@@ -254,10 +254,10 @@ class UploadForm extends Model
                 $outfile = $OJ_DATA_PID.$ret.".out";
                 $infile = $OJ_DATA_PID.$ret.".in";
                 if (file_exists($infile)) {
-                    fputs($fp,"<test_input name=\"".$ret."\"><![CDATA[".self::fixcdata(file_get_contents($infile))."]]></test_input>\n");
+                    echo "<test_input name=\"".$ret."\"><![CDATA[".self::fixcdata(file_get_contents($infile))."]]></test_input>\n";
                 }
                 if (file_exists($outfile)) {
-                    fputs($fp,"<test_output name=\"".$ret."\"><![CDATA[".self::fixcdata(file_get_contents($outfile))."]]></test_output>\n");
+                    echo "<test_output name=\"".$ret."\"><![CDATA[".self::fixcdata(file_get_contents($outfile))."]]></test_output>\n";
                 }
             }
         }
@@ -288,7 +288,7 @@ class UploadForm extends Model
       
 
 
-    function fixImageURL($fp,&$html,&$did) {
+    function fixImageURL(&$html,&$did) {
         $images = self::getImages($html);
         $imgs = array_unique($images[1]);
     
@@ -300,71 +300,62 @@ class UploadForm extends Model
         if (!in_array($img,$did)) {
             $base64 = self::image_base64_encode($img);
             if ($base64) {
-                fputs($fp,"<img><src><![CDATA[");
-                fputs($fp,self::fixurl($img));
-                fputs($fp,"]]></src><base64><![CDATA[");
-                fputs($fp,$base64);
-                fputs($fp,"]]></base64></img>");   
+                echo "<img><src><![CDATA[";
+                echo self::fixurl($img);
+                echo "]]></src><base64><![CDATA[";
+                echo $base64;
+                echo "]]></base64></img>";   
             }
             array_push($did,$img);
         }
         }     
     }
         
-    public function exportFpsXml($keys,$export_file)
+    public function exportFpsXml($keys,$basename,$ext)
     {
-        $fp = @fopen($export_file, "w");
-        if ($fp) {
-            set_time_limit(0);
-            ob_end_clean();
-            fputs($fp,"<?xml version=\"1.0\" encoding=\"UTF-8\"?>
-            <fps version=\"1.5\" url=\"https://github.com/zhblue/freeproblemset/\">
-            <generator name=\"HUSTOJ\" url=\"https://github.com/zhblue/hustoj/\" />\n");
-
-            foreach ($keys as $key) {
-                fputs($fp,"<item>");
-                $problem = Problem::findOne($key);
-
-                $did = array();
-                self::fixImageURL($fp,$problem->description,$did);
-                self::fixImageURL($fp,$problem->input,$did);
-                self::fixImageURL($fp,$problem->output,$did);
-                self::fixImageURL($fp,$problem->hint,$did);
-
-                $sample_input = unserialize($problem->sample_input);
-                $sample_output = unserialize($problem->sample_output);
-
-
-                fputs($fp,"<title><![CDATA[$problem->title]]></title>\n");
-                fputs($fp,"<time_limit unit=\"s\"><![CDATA[$problem->time_limit]]></time_limit>\n");
-                fputs($fp,"<memory_limit unit=\"mb\"><![CDATA[$problem->memory_limit]]></memory_limit>\n");
-
-                fputs($fp,"<description><![CDATA[$problem->description]]></description>\n");
-                fputs($fp,"<input><![CDATA[$problem->input]]></input>\n");
-                fputs($fp,"<output><![CDATA[$problem->output]]></output>\n");
-                self::printTestCases($fp,Yii::$app->params['judgeProblemDataPath'].$problem->id."/");
-                fputs($fp,"<hint><![CDATA[$problem->hint]]></hint>\n");
-                fputs($fp,"<source><![CDATA[$problem->source]]></source>\n");
-                $solution = str_replace("<br>","\n",html_entity_decode($problem->solution));
-                fputs($fp,"<solution><![CDATA[$solution]]></solution>\n");
-                fputs($fp,"<tags><![CDATA[$problem->tags]]></tags>\n");
-
-                fputs($fp,"<sample_input><![CDATA[$sample_input[0]]]></sample_input>\n");
-                fputs($fp,"<sample_output><![CDATA[$sample_output[0]]]></sample_output>\n");
-                fputs($fp,"<sample_input1><![CDATA[$sample_input[1]]]></sample_input1>\n");
-                fputs($fp,"<sample_output1><![CDATA[$sample_output[1]]]></sample_output1>\n");
-                fputs($fp,"<sample_input2><![CDATA[$sample_input[2]]]></sample_input2>\n");
-                fputs($fp,"<sample_output2><![CDATA[$sample_output[2]]]></sample_output2>\n");
-                fputs($fp,"</item>");
-            }
-            fputs($fp,"</fps>");
-            fclose($fp);
-            return true;
-
-        } else {
-            echo "Error while opening ".$export_file;
-            return false;
-        };
+        header("Content-Type: application/octet-stream");
+        if (preg_match("/MSIE/",$_SERVER['HTTP_USER_AGENT'])){
+            header('Content-Disposition:attachment;filename="'.$basename.'."'.$ext.'');
+        }elseif(preg_match("/Firefox/",$_SERVER['HTTP_USER_AGENT'])){
+                header('Content-Disposition:attachment;filename*="'.$basename.'.'.$ext.'"');
+        }else{
+                header('Content-Disposition:attachment;filename="'.$basename.'.'.$ext.'"');
+        }
+        set_time_limit(0);
+        ob_end_clean();
+        echo "<?xml version=\"1.0\" encoding=\"UTF-8\"?>
+        <fps version=\"1.5\" url=\"https://github.com/zhblue/freeproblemset/\">
+        <generator name=\"HUSTOJ\" url=\"https://github.com/zhblue/hustoj/\" />\n";
+        foreach ($keys as $key) {
+            echo "<item>";
+            $problem = Problem::findOne($key);
+            $did = array();
+            self::fixImageURL($problem->description,$did);
+            self::fixImageURL($problem->input,$did);
+            self::fixImageURL($problem->output,$did);
+            self::fixImageURL($problem->hint,$did);
+            $sample_input = unserialize($problem->sample_input);
+            $sample_output = unserialize($problem->sample_output);
+            echo "<title><![CDATA[$problem->title]]></title>\n";
+            echo "<time_limit unit=\"s\"><![CDATA[$problem->time_limit]]></time_limit>\n";
+            echo "<memory_limit unit=\"mb\"><![CDATA[$problem->memory_limit]]></memory_limit>\n";
+            echo "<description><![CDATA[$problem->description]]></description>\n";
+            echo "<input><![CDATA[$problem->input]]></input>\n";
+            echo "<output><![CDATA[$problem->output]]></output>\n";
+            self::printTestCases(Yii::$app->params['judgeProblemDataPath'].$problem->id."/");
+            echo "<hint><![CDATA[$problem->hint]]></hint>\n";
+            echo "<source><![CDATA[$problem->source]]></source>\n";
+            $solution = str_replace("<br>","\n",html_entity_decode($problem->solution));
+            echo "<solution><![CDATA[$solution]]></solution>\n";
+            echo "<tags><![CDATA[$problem->tags]]></tags>\n";
+            echo "<sample_input><![CDATA[$sample_input[0]]]></sample_input>\n";
+            echo "<sample_output><![CDATA[$sample_output[0]]]></sample_output>\n";
+            echo "<sample_input1><![CDATA[$sample_input[1]]]></sample_input1>\n";
+            echo "<sample_output1><![CDATA[$sample_output[1]]]></sample_output1>\n";
+            echo "<sample_input2><![CDATA[$sample_input[2]]]></sample_input2>\n";
+            echo "<sample_output2><![CDATA[$sample_output[2]]]></sample_output2>\n";
+            echo "</item>";
+        }
+        echo "</fps>";
     }
-
 }
