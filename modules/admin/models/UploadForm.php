@@ -37,8 +37,13 @@ class UploadForm extends Model
                     $fileName = zip_entry_name($dirResource);
                     if (!is_dir($fileName)) {
                         $fileSize = zip_entry_filesize($dirResource);
-                        $fileContent = zip_entry_read($dirResource, $fileSize);
-                        file_put_contents($tempFile, $fileContent);
+                        $fp = fopen($tempFile,"w");
+                        while($fileSize>0){
+                            $fileContent = zip_entry_read($dirResource,$fileSize>1024?1024:$fileSize);
+                            fwrite($fp,$fileContent);
+                            $fileSize -= 1024;
+                        }
+                        fclose($fp);
                         $ret = self::importFPS($tempFile);
                     }
                     zip_entry_close($dirResource);
