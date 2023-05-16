@@ -7,6 +7,7 @@ use app\models\Problem;
 use yii\base\Model;
 use yii\db\Query;
 use yii\web\UploadedFile;
+use yii\base\ErrorException;
 
 /**
  * UploadForm 用来导入题目
@@ -45,18 +46,13 @@ class UploadForm extends Model
                             $fileSize -= 1024;
                         }
                         fclose($fp);
-                        $r = self::importFPS($tempFile);
-                        if(!$r) 
-                            $ret = $ret. $fileName."<font color=red>解析错误。</font><br>";
-                        else
-                            $ret = $ret.$r;
+                        $ret = $ret . self::importFPS($fileName,$tempFile);
                     }
                     zip_entry_close($dirResource);
                 }
                 zip_close($resource);
             } else {
-                $ret = self::importFPS($tempFile);
-                if(!$ret) $ret = "<font color=red>上传的题库文件解析错误。</font><br>";
+                $ret = $ret . self::importFPS("XML题库文件",$tempFile);
             }
             return $ret;
         } else {
@@ -101,14 +97,19 @@ class UploadForm extends Model
     }
 
 
-    public static function importFPS($tempFile)
+    public static function importFPS($realName,$tempFile)
     {
-        $xmlDoc = @simplexml_load_file($tempFile, 'SimpleXMLElement', LIBXML_PARSEHUGE);
-        if(!$xmlDoc) return false; 
+        try{
+            $xmlDoc = simplexml_load_file($tempFile, 'SimpleXMLElement', LIBXML_PARSEHUGE);
+        }catch(ErrorException  $e){
+            $msg = "<font color=blue>解析错误：</font><font color=red>".$realName."<br>".$e->getMessage()."</font><br>";
+            return $msg;
+        }
+        if(!$xmlDoc) return "<font color=blue>解析错误：</font><font color=red>".$realName."</font><br>"; 
         $searchNodes = $xmlDoc->xpath("/fps/item");
         set_time_limit(0);
         ob_end_clean();
-        $msg = "";
+        $msg = "<font color=blue>正在解析：".$realName."</font><br>";
         foreach ($searchNodes as $searchNode) {
             $title = (string)$searchNode->title;
             if (!self::hasProblem($title)) {
