@@ -20,6 +20,60 @@ if(isset($_GET["per-page"]))
     $perpage = $_GET["per-page"];
 else
     $perpage = 50;
+
+$js = <<<EOT
+    function set_cookie(cookie_name,val) {
+        var expires = new Date();
+        expires.setTime(expires.getTime() + 3650 * 30 * 24 * 60 * 60 * 1000);
+        document.cookie = cookie_name + "=" + val + ";expires=" + expires.toGMTString();
+    }
+
+    $("#showNickName").click(function () {
+        set_cookie('showNickName',0);
+        window.location.reload();
+    });
+    $("#showEmail").click(function () {
+        set_cookie('showEmail',0);
+        window.location.reload();
+    });
+    $("#showMemo").click(function () {
+        set_cookie('showMemo',0);
+        window.location.reload();
+    });
+    $("#showCreated_at").click(function () {
+        set_cookie('showCreated_at',0);
+        window.location.reload();
+    });    
+    $("#showAll").click(function () {
+        set_cookie('showNickName',1);
+        set_cookie('showEmail',1);
+        set_cookie('showMemo',1);
+        set_cookie('showCreated_at',1);
+        window.location.reload();
+    });
+EOT;
+$this->registerJs($js);   
+
+
+if(isset($_COOKIE['showNickName']))
+    $showNickName = $_COOKIE['showNickName'];
+else 
+    $showNickName = 1;
+
+if(isset($_COOKIE['showEmail']))
+    $showEmail = $_COOKIE['showEmail'];
+else 
+    $showEmail = 0;    
+
+if(isset($_COOKIE['showMemo']))
+    $showMemo = $_COOKIE['showMemo'];
+else 
+    $showMemo = 1;    
+
+if(isset($_COOKIE['showCreated_at']))
+    $showCreated_at = $_COOKIE['showCreated_at'];
+else 
+    $showCreated_at = 0;        
 ?>
 <div class="user-index">
 
@@ -166,16 +220,20 @@ else
             ],
             [
                 'attribute' => 'nickname',
+                'header' => Html::checkbox('showNickName', $showNickName, ['id' => 'showNickName','style' => 'vertical-align:text-bottom;'])." ".Yii::t('app', 'Nickname'),
                 'value' => function ($model, $key, $index, $column) {
                     return Html::a($model->nickname, ['/user/view', 'id' => $key], ['target' => '_blank']);
                 },                  
                 'format' => 'raw',
                 'enableSorting' => false,
+                'visible' =>  $showNickName==1,
             ],
             [
                 'attribute' => 'email',
+                'header' => Html::checkbox('showEmail', $showEmail, ['id' => 'showEmail','style' => 'vertical-align:text-bottom;'])." ".Yii::t('app', 'Email'),
                 'format' => 'raw',
                 'enableSorting' => false,
+                'visible' =>  $showEmail==1,
             ],
             [
                 'attribute' => 'role',
@@ -211,22 +269,30 @@ else
                 'enableSorting' => false,
                 'format' => 'raw'
             ],
-
             // 'status',
-            // 'created_at',
+            [
+                'attribute' => 'created_at',
+                'header' => Html::checkbox('showCreated_at', $showCreated_at, ['id' => 'showCreated_at','style' => 'vertical-align:text-bottom;'])." ".Yii::t('app', 'Created At'),
+                'format' => 'raw',
+                'enableSorting' => false,
+                'visible' =>  $showCreated_at==1,
+            ],
             // 'updated_at',
             ['class' => 'yii\grid\ActionColumn',
+            'header' => Html::checkbox('showAll', 0, ['id' => 'showAll','style' => 'vertical-align:text-bottom;'])." ".Yii::t('app', 'Show all'),
             'contentOptions' => ['class'=>'a_just']
             ],
             [
                 'attribute' => 'memo',
+                'header' => Html::checkbox('showMemo', $showMemo, ['id' => 'showMemo','style' => 'vertical-align:text-bottom;'])." ".Yii::t('app', 'Memo'),
                 'value' => function ($model, $key, $index, $column) {
                     if($model->memo==null) return "";
                     return $model->memo;
                 },
                 'format' => 'raw',
-                'enableSorting' => false
-            ],
+                'enableSorting' => false,
+                'visible' =>  $showMemo==1,
+            ],    
         ],
     ]);
     $this->registerJs('
