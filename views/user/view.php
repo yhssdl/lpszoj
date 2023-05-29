@@ -139,6 +139,7 @@ $this->registerJs($plotJS);
 
                         [
                             'attribute' => Yii::t('app', 'QQ'),
+                            'label' =>  Yii::t('app', 'QQ'),
                             'value' => function ($model,  $widget) {
                                 $resetQQ = '';
                                 if (Yii::$app->user->identity->role == User::ROLE_ADMIN) {

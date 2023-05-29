@@ -36,7 +36,7 @@ return [
     'Clarification' => '答疑',
     'Operation' => '操作',
     'Reply' => '回复',
-    'QQ' => 'ＱＱ号',
+    'QQ' => 'QQ号',
     'Standing' => '榜单',
     'Verify Code' => '验证码',
     'Rating' => '排行',
