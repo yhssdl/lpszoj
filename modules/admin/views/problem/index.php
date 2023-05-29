@@ -10,6 +10,60 @@ use app\models\Problem;
 
 $this->title = Yii::t('app', 'Problems');
 $label_i = 0;
+
+$js = <<<EOT
+    function set_cookie(cookie_name,val) {
+        var expires = new Date();
+        expires.setTime(expires.getTime() + 3650 * 30 * 24 * 60 * 60 * 1000);
+        document.cookie = cookie_name + "=" + val + ";expires=" + expires.toGMTString();
+    }
+
+    $("#showTags").click(function () {
+        set_cookie('showTags',0);
+        window.location.reload();
+    });
+    $("#showSource").click(function () {
+        set_cookie('showSource',0);
+        window.location.reload();
+    });
+    $("#showPolygon_id").click(function () {
+        set_cookie('showPolygon_id',0);
+        window.location.reload();
+    });
+    $("#showCreated_by").click(function () {
+        set_cookie('showCreated_by',0);
+        window.location.reload();
+    });    
+    $("#showAll").click(function () {
+        set_cookie('showTags',1);
+        set_cookie('showSource',1);
+        set_cookie('showPolygon_id',1);
+        set_cookie('showCreated_by',1);
+        window.location.reload();
+    });
+EOT;
+$this->registerJs($js);   
+
+
+if(isset($_COOKIE['showTags']))
+    $showTags = $_COOKIE['showTags'];
+else 
+    $showTags = 1;
+
+if(isset($_COOKIE['showSource']))
+    $showSource = $_COOKIE['showSource'];
+else 
+    $showSource = 1;    
+
+if(isset($_COOKIE['showPolygon_id']))
+    $showPolygon_id = $_COOKIE['showPolygon_id'];
+else 
+    $showPolygon_id = 1;    
+
+if(isset($_COOKIE['showCreated_by']))
+    $showCreated_by = $_COOKIE['showCreated_by'];
+else 
+    $showCreated_by = 1;     
 ?>
 <div class="problem-index">
 
@@ -95,6 +149,7 @@ $label_i = 0;
             ],
             [
                 'attribute' => 'tags',
+                'header' => Html::checkbox('showTags', $showTags, ['id' => 'showTags','style' => 'vertical-align:text-bottom;'])." ".Yii::t('app', 'Tags'),
                 'value' => function ($model, $key, $index, $column) {
                     global $label_i;
                     $tags = !empty($model->tags) ? explode(',', $model->tags) : [];
@@ -114,10 +169,13 @@ $label_i = 0;
                     }
                     return '';  
                 },
-                'format' => 'raw'
+                'format' => 'raw',
+                'visible' =>  $showTags==1,
             ],
             [
                 'attribute' => 'source',
+                'header' => Html::checkbox('showSource', $showSource, ['id' => 'showSource','style' => 'vertical-align:text-bottom;'])." ".Yii::t('app', 'Source'),
+                'visible' =>  $showSource==1,
             ],
 
             [
@@ -136,6 +194,7 @@ $label_i = 0;
             ],
             [
                 'attribute' => 'created_by',
+                'header' => Html::checkbox('showCreated_by', $showCreated_by, ['id' => 'showCreated_by','style' => 'vertical-align:text-bottom;'])." ".Yii::t('app', 'Created By'),
                 'value' => function ($model, $key, $index, $column) {
                     if ($model->user) {
                         return Html::a(Html::encode($model->user->nickname), ['/user/view', 'id' => $model->user->id]);
@@ -144,17 +203,20 @@ $label_i = 0;
                 },
                 'enableSorting' => false,
                 'format' => 'raw',
+                'visible' =>  $showCreated_by==1,
             ],
             [
                 'attribute' => 'polygon_id',
+                'header' => Html::checkbox('showPolygon_id', $showPolygon_id, ['id' => 'showPolygon_id','style' => 'vertical-align:text-bottom;'])." ".Yii::t('app', 'Polygon Id'),
                 'value' => function ($model, $key, $index, $column) {
                     return Html::a($model->polygon_problem_id, ['/polygon/problem/view', 'id' => $model->polygon_problem_id]);
                 },
                 'enableSorting' => false,
                 'format' => 'raw',
-                'visible' => Yii::$app->setting->get('isEnablePolygon'),
+                'visible' => Yii::$app->setting->get('isEnablePolygon') &&  $showPolygon_id==1,
             ],
             ['class' => 'yii\grid\ActionColumn',
+            'header' => Html::checkbox('showAll', 0, ['id' => 'showAll','style' => 'vertical-align:text-bottom;'])." ".Yii::t('app', 'Show all'),
             'contentOptions' => ['class'=>'a_just']
             ],
         ],
