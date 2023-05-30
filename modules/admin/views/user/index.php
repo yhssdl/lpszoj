@@ -111,13 +111,12 @@ else
             <?= $form->field($generatorForm, 'language')->radioList( [
                     0 => 'C',
                     1 => 'C++',
-                    2 => 'Java',	            
-                    3 => 'Python3'	            
+                    2 => 'Java',
+                    3 => 'Python3'
                 ])->label(false)  ?>
             <div class="form-group">
             <div class="row"><div class="col-md-4 col-md-offset-4"><?= Html::submitButton(Yii::t('app', 'Generate'), ['class' => 'btn btn-success  btn-block']) ?></div></div>
             </div>
-
             <?php ActiveForm::end(); ?>
             <?php Modal::end(); ?>
         </div>
@@ -145,7 +144,14 @@ else
             </div>
 
             <div class="form-group">
-                <div class="input-group"><span class="input-group-addon">新备注</span>
+                <div class="input-group"><span class="input-group-addon">学校</span>
+                    <?= Html::textInput('school', '', ['class' => 'form-control']) ?>
+                </div>
+                <p class="hint-block">留空不进行学校名称修改。</p>
+            </div>
+
+            <div class="form-group">
+                <div class="input-group"><span class="input-group-addon">备注</span>
                     <?= Html::textInput('memo', '', ['class' => 'form-control']) ?>
                 </div>
                 <p class="hint-block">留空不进行备注修改。</p>
@@ -345,11 +351,12 @@ else
         var nickVal = $("input[name=\'nickname\']").val();
         var memoVal = $("input[name=\'memo\']").val();
         var roleVal = $("input[name=\'role\']:checked").val();
+        var schoolVal = $("input[name=\'school\']").val();
         var keys = $("#grid").yiiGridView("getSelectedRows");
         $.post({
             url: "' . \yii\helpers\Url::to(['/admin/user/index', 'action' => 'setuser','page' => $page,'per-page' => $perpage]) . '", 
             dataType: \'json\',
-            data: {keylist: keys,newPassword:passVal,nickname:nickVal,memo:memoVal,role:roleVal}
+            data: {keylist: keys,newPassword:passVal,nickname:nickVal,memo:memoVal,school:schoolVal,role:roleVal}
          });
     });
 

@@ -70,8 +70,6 @@ class UserController extends Controller
 
         if (Yii::$app->request->get('action') && Yii::$app->request->isPost) {
             $action = Yii::$app->request->get('action');
-            
-                
             $keys = Yii::$app->request->post('keylist');
             if($keys){
                 if($action=='setuser') {
@@ -79,7 +77,8 @@ class UserController extends Controller
                     $newNickname = Yii::$app->request->post('nickname');
                     $newMemo =  Yii::$app->request->post('memo');
                     $newRole =  Yii::$app->request->post('role');
-                    if(!empty($newPassword) || !empty($newNickname) || !empty($newMemo)|| $newRole!=null){
+                    $school =  Yii::$app->request->post('school');
+                    if(!empty($newPassword) || !empty($newNickname) || !empty($newMemo)|| $newRole!=null || !empty($school)){
                         if (!empty($newPassword)) {
                             $newPassword = Yii::$app->security->generatePasswordHash($newPassword,5);
                         }
@@ -103,12 +102,18 @@ class UserController extends Controller
                                 if (!empty($newPassword)) {
                                     $user_model->password_hash = $newPassword;
                                 }
+
+                                if (!empty($school)) {
+                                    Yii::$app->db->createCommand()->update('{{%user_profile}}', [
+                                        'school'=> $school,], ['user_id' => $user_model->id])->execute();
+                                }
+
                                 $user_model->save();                
                             }
                         }
                         Yii::$app->session->setFlash('success', '批量设置属性成功：'.$sum.'人。' );
                     }else{
-                        Yii::$app->session->setFlash('error', '当前未设置新的属性，修改失败！' );
+                        Yii::$app->session->setFlash('error', '当前未设置新的属性，修改失败！'.$school );
                     }
                 } else if ($action == 'delete') {
                     $sum = 0;
