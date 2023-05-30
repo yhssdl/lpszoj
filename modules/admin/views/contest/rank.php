@@ -94,7 +94,13 @@ $this->registerAssetBundle('yii\bootstrap\BootstrapPluginAsset');
                         <?= $rank['solved'] ?>
                     </th>
                     <th class="score-time">
-                        <?= intval($rank['time'] / 60) ?>
+                        <?php  
+                            if ($model->type == $model::TYPE_RANK_SINGLE){
+                                echo intval($rank['time']);
+                            }else {
+                                echo intval($rank['time']/60);
+                            }
+                        ?>
                     </th>
                     <?php
                     foreach($problems as $key => $p) {

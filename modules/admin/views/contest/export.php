@@ -5,19 +5,31 @@ $rank_result = $model->getRankData(false);
 $first_blood = $rank_result['first_blood'];
 $result = $rank_result['rank_result'];
 $submit_count = $rank_result['submit_count'];
+if ($model->type == $model::TYPE_RANK_SINGLE){
+    $stitle = "得分";
+}else{
+    $stitle = "罚时(分钟)";
+}
+
 header("Content-Type: text/csv; charset=GB2312");
 header('Content-Disposition: attachment; filename="'.$model->title.'.csv"');
 ?>
 <?= $model->title?>
 
 
-序号,<?= Yii::t('app', 'School') ?>,<?= Yii::t('app', 'Username') ?>,<?= Yii::t('app', 'Nickname') ?>,解题数量,罚时(分钟),<?= Yii::t('app', 'Rank') ?><?php foreach($problems as $key => $p):?>,P<?=1+$key?>用时<?php endforeach; ?>,备注
+序号,<?= Yii::t('app', 'School') ?>,<?= Yii::t('app', 'Username') ?>,<?= Yii::t('app', 'Nickname') ?>,解题数量,<?=$stitle?>,<?= Yii::t('app', 'Rank') ?><?php foreach($problems as $key => $p):?>,P<?=1+$key?><?php endforeach; ?>,备注
 <?php for ($i = 0, $ranking = 1; $i < count($result); $i++): ?><?php $rank = $result[$i]; ?><?php echo $ranking;$ranking++;?>
 ,<?= $rank['school']?>
 ,<?= $rank['username']?>
 ,<?= $rank['nickname']?>
 ,<?= $rank['solved']?>
-,<?= intval($rank['time'] / 60) ?>
+,<?php
+if ($model->type == $model::TYPE_RANK_SINGLE){
+echo intval($rank['time']);
+ }else{
+echo intval($rank['time']/60);
+}
+?>
 ,<?= $rank['finalrank']?>
 <?php foreach($problems as $key => $p) {
 $num = 0;
