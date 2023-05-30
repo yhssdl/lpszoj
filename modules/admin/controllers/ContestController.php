@@ -435,6 +435,25 @@ class ContestController extends Controller
         }
     }
 
+    /**
+     * 导出成绩
+     * @param integer $id 比赛 ID
+     * @return string
+     */
+    public function actionExport($id)
+    {
+        $model = $this->findModel($id);
+        if ($model->type == Contest::TYPE_OI || $model->type == Contest::TYPE_IOI) {
+            return $this->renderPartial('oi_export', [
+                'model' => $model,
+            ]);
+        } else {
+            return $this->renderPartial('export', [
+                'model' => $model,
+            ]);
+        }
+    }    
+
     public function actionPrint($id)
     {
         $model = $this->findModel($id);

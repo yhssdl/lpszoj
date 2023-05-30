@@ -28,6 +28,7 @@ $contest_id = $model->id;
         <div class="btn-group"><?= Html::a(Yii::t('app', 'Print'), ['/print', 'id' => $model->id], ['class' => 'btn btn-info', 'target' => '_blank']) ?></div>
         <div class="btn-group"><?= Html::a(Yii::t('app', 'Clarification'), ['clarify', 'id' => $model->id], ['class' => 'btn btn-info', 'target' => '_blank']) ?></div>
         <div class="btn-group"><?= Html::a(Yii::t('app', 'Submit'), ['status', 'id' => $model->id], ['class' => 'btn btn-info', 'target' => '_blank']) ?></div>
+        <div class="btn-group"><?= Html::a('导出成绩', ['export', 'id' => $model->id], ['class' => 'btn btn-success', 'target' => '_blank']) ?></div>
         <div class="btn-group"><?= Html::a('外榜', ['/contest/standing2', 'id' => $model->id], ['class' => 'btn btn-success', 'target' => '_blank']) ?></div>
         <div class="btn-group"><?= Html::a('终榜', ['rank', 'id' => $model->id], ['class' => 'btn btn-success', 'target' => '_blank']) ?></div>
 

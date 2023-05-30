@@ -364,7 +364,7 @@ class Contest extends \yii\db\ActiveRecord
         ]);
         return Yii::$app->db->cache(function ($db) {
             return $db->createCommand('
-                SELECT `u`.`username`, `u`.`nickname`, `p`.`student_number`, `u`.`id` as `user_id`, `u`.`role`, `u`.`rating`
+                SELECT `u`.`username`, `u`.`nickname`, `p`.`school`,`p`.`student_number`, `u`.`id` as `user_id`, `u`.`role`, `u`.`rating`, `u`.`memo`
                 FROM `user` `u`
                 LEFT JOIN `contest_user` `c` ON `c`.`contest_id`=:cid
                 LEFT JOIN `user_profile` `p` ON `p`.`user_id`=`c`.`user_id`
@@ -485,6 +485,8 @@ class Contest extends \yii\db\ActiveRecord
             $problem_ids[$problem['problem_id']] = 1;
         }
         foreach ($users as $user) {
+            $result[$user['user_id']]['school'] = $user['school'];
+            $result[$user['user_id']]['memo'] = $user['memo'];
             $result[$user['user_id']]['username'] = $user['username'];
             $result[$user['user_id']]['role'] = $user['role'];
             $result[$user['user_id']]['rating'] = $user['rating'];
@@ -665,6 +667,8 @@ class Contest extends \yii\db\ActiveRecord
         }
 
         foreach ($users as $user) {
+            $result[$user['user_id']]['school'] = $user['school'];
+            $result[$user['user_id']]['memo'] = $user['memo'];
             $result[$user['user_id']]['username'] = $user['username'];
             $result[$user['user_id']]['user_id'] = $user['user_id'];
             $result[$user['user_id']]['nickname'] = $user['nickname'];

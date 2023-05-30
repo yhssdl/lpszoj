@@ -41,9 +41,9 @@ $this->registerAssetBundle('yii\bootstrap\BootstrapPluginAsset');
         <table class="table table-bordered table-rank">
             <thead>
             <tr>
-                <th width="60px">Rank</th>
-                <th width="120px">Username</th>
-                <th width="120px">Nickname</th>
+                <th width="60px"><?= Yii::t('app', 'Rank') ?></th>
+                <th width="120px"><?= Yii::t('app', 'Username') ?></th>
+                <th width="120px"><?= Yii::t('app', 'Nickname') ?></th>
                 <th width="80px">测评总分</th>
                 <th width="80px">订正总分</th>
                 <th>
