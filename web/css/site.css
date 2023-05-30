@@ -998,6 +998,9 @@ a.contest-tag-darkvoilet:hover ,a.contest-tag-darkvoilet:focus {
     color: #555 !important;
 }
   
+.text-gray {
+    color: #999 !important;
+}
 
 a.text-none-decoration {
     text-decoration:none;

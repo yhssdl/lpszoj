@@ -204,7 +204,10 @@ else
             [
                 'attribute' => 'id',
                 'value' => function ($model, $key, $index, $column) {
-                    return Html::a($model->id, ['/user/view', 'id' => $key], ['target' => '_blank']);
+                    if($model->status == \app\models\User::STATUS_DISABLE)
+                        return Html::a($model->id, ['/user/view', 'id' => $key],['class'=>'text-gray'], ['target' => '_blank']);
+                    else
+                        return Html::a($model->id, ['/user/view', 'id' => $key], ['target' => '_blank']);
                 },            
                 'format' => 'raw',
                 'enableSorting' => false,
@@ -213,7 +216,10 @@ else
             [
                 'attribute' => 'username',
                 'value' => function ($model, $key, $index, $column) {
-                    return Html::a($model->username, ['/user/view', 'id' => $key], ['target' => '_blank']);
+                    if($model->status == \app\models\User::STATUS_DISABLE)
+                        return Html::a($model->username, ['/user/view', 'id' => $key],['class'=>'text-gray'], ['target' => '_blank']);
+                    else
+                        return Html::a($model->username, ['/user/view', 'id' => $key], ['target' => '_blank']);
                 },            
                 'format' => 'raw',
                 'enableSorting' => false,
@@ -222,7 +228,10 @@ else
                 'attribute' => 'nickname',
                 'header' => Html::checkbox('showNickName', $showNickName, ['id' => 'showNickName','style' => 'vertical-align:text-bottom;'])." ".Yii::t('app', 'Nickname'),
                 'value' => function ($model, $key, $index, $column) {
-                    return Html::a($model->nickname, ['/user/view', 'id' => $key], ['target' => '_blank']);
+                    if($model->status == \app\models\User::STATUS_DISABLE)
+                        return Html::a($model->nickname, ['/user/view', 'id' => $key],['class'=>'text-gray'], ['target' => '_blank']);
+                    else
+                        return Html::a($model->nickname, ['/user/view', 'id' => $key], ['target' => '_blank']);
                 },                  
                 'format' => 'raw',
                 'enableSorting' => false,
@@ -261,7 +270,7 @@ else
                     }
 
                     if($model->status == \app\models\User::STATUS_DISABLE) {
-                        $s_str = "<span title='已经被禁用的用户' class='text-danger'>";
+                        $s_str = "<span title='该用户已经被禁用' class='text-danger'>";
                         $icon = '<span><span class="fa fa-lock"></span> ';  
                     } 
                     return $s_str.$icon.$user_str.$e_str;
