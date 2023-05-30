@@ -33,12 +33,17 @@ $js = <<<EOT
     $("#showCreated_by").click(function () {
         set_cookie('showCreated_by',0);
         window.location.reload();
-    });    
+    }); 
+    $("#showStatus").click(function () {
+        set_cookie('showStatus',0);
+        window.location.reload();
+    });       
     $("#showAll").click(function () {
         set_cookie('showTags',1);
         set_cookie('showSource',1);
         set_cookie('showPolygon_id',1);
         set_cookie('showCreated_by',1);
+        set_cookie('showStatus',1);        
         window.location.reload();
     });
 EOT;
@@ -63,7 +68,13 @@ else
 if(isset($_COOKIE['showCreated_by']))
     $showCreated_by = $_COOKIE['showCreated_by'];
 else 
-    $showCreated_by = 1;     
+    $showCreated_by = 1;
+
+if(isset($_COOKIE['showStatus']))
+    $showStatus = $_COOKIE['showStatus'];
+else 
+    $showStatus = 1;
+
 ?>
 <div class="problem-index">
 
@@ -132,15 +143,25 @@ else
             ],
             [
                 'attribute' => 'id',
-                'value' => function ($model, $key, $index, $column) {
-                    return Html::a($model->id, ['problem/view', 'id' => $key]);
+                'value' => function ($model, $key, $index, $column) {              
+                    if ($model->status == \app\models\Problem::STATUS_HIDDEN)
+                        return Html::a($model->id, ['problem/view', 'id' => $key],['class'=>'text-gray']);
+                    else if ($model->status == \app\models\Problem::STATUS_PRIVATE)
+                        return Html::a($model->id, ['problem/view', 'id' => $key],['class'=>'text-vip']);
+                    else
+                        return Html::a($model->id, ['problem/view', 'id' => $key]);
                 },
                 'format' => 'raw'
             ],
             [
                 'attribute' => 'title',
                 'value' => function ($model, $key, $index, $column) {
-                    return Html::a(Html::encode($model->title), ['problem/view', 'id' => $key]);
+                    if ($model->status == \app\models\Problem::STATUS_HIDDEN)
+                        return Html::a($model->title, ['problem/view', 'id' => $key],['class'=>'text-gray']);
+                    else if ($model->status == \app\models\Problem::STATUS_PRIVATE)
+                        return Html::a($model->title, ['problem/view', 'id' => $key],['class'=>'text-vip']);
+                    else
+                        return Html::a($model->title, ['problem/view', 'id' => $key]);
                 },
                 'enableSorting' => false,
                 'contentOptions' => ['style' => 'text-align:left;'],
@@ -180,6 +201,7 @@ else
 
             [
                 'attribute' => 'status',
+                'header' => Html::checkbox('showStatus', $showStatus, ['id' => 'showStatus','style' => 'vertical-align:text-bottom;'])." ".Yii::t('app', 'Status'),
                 'value' => function ($model, $key, $index, $column) {
                     if ($model->status == \app\models\Problem::STATUS_VISIBLE) {
                         return Yii::t('app', 'Visible');
@@ -191,6 +213,7 @@ else
                 },
                 'enableSorting' => false,
                 'format' => 'raw',
+                'visible' =>  $showStatus==1,
             ],
             [
                 'attribute' => 'created_by',
