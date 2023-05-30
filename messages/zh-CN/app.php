@@ -302,5 +302,6 @@ return [
     'The user has been disabled.' => '该用户已被禁用。',
     'Memo' => '备注',
     'Ok' => '确定' ,
-    'Show all' => '显示所有'
+    'Show all' => '显示所有',
+    'School' => '学校'
 ];

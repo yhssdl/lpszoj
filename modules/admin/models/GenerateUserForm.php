@@ -118,11 +118,18 @@ class GenerateUserForm extends Model
             $u = explode(' ', trim($pieces[$i - 1]));
             $user = new User();
             $username = $u[0]; 
-            
-            if(count($u)==4) {//4列含昵称与备注的模式
+            $school = "";
+            $user->memo = "";
+            if(count($u)==5) {//5列含昵称与备注的模式  
                 $user->nickname = $u[1];
                 $password = $u[2];
-                $user->memo = $u[3];
+                $school = $u[3];
+                $user->memo = $u[4];
+            }
+            else if(count($u)==4) {//4列含昵称与学校的模式
+                $user->nickname = $u[1];
+                $password = $u[2];
+                $school = $u[3];
             }
             else if(count($u)==3) {//3列含昵称的模式
                 $user->nickname = $u[1];
@@ -148,7 +155,7 @@ class GenerateUserForm extends Model
             if ($user->save()) {
                 echo "帐号数{$i}/{$count}：帐号 {$username} 创建成功";
                 Yii::$app->db->createCommand()->insert('{{%user_profile}}', [
-                'user_id' => $user->id,
+                'user_id' => $user->id,'school'=> $school,
                 ])->execute();
             } else {
                 $err = $user->getErrors();

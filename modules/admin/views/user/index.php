@@ -43,17 +43,21 @@ $js = <<<EOT
     $("#showCreated_at").click(function () {
         set_cookie('showCreated_at',0);
         window.location.reload();
-    });    
+    });  
+    $("#showSchool").click(function () {
+        set_cookie('showSchool',0);
+        window.location.reload();
+    });        
     $("#showAll").click(function () {
         set_cookie('showNickName',1);
         set_cookie('showEmail',1);
         set_cookie('showMemo',1);
         set_cookie('showCreated_at',1);
+        set_cookie('showSchool',1);
         window.location.reload();
     });
 EOT;
 $this->registerJs($js);   
-
 
 if(isset($_COOKIE['showNickName']))
     $showNickName = $_COOKIE['showNickName'];
@@ -73,7 +77,12 @@ else
 if(isset($_COOKIE['showCreated_at']))
     $showCreated_at = $_COOKIE['showCreated_at'];
 else 
-    $showCreated_at = 0;        
+    $showCreated_at = 0;  
+
+if(isset($_COOKIE['showSchool']))
+    $showSchool = $_COOKIE['showSchool'];
+else 
+    $showSchool = 0;      
 ?>
 <div class="user-index">
 
@@ -92,14 +101,12 @@ else
 
             <?php $form = ActiveForm::begin(['options' => ['target' => '_blank']]); ?>
 
-            <p class="hint-block">1.格式一:每个用户一行，格式为<code>用户名 密码</code>，中间用空格或Tab键分开。</p>
-            <p class="hint-block">2.格式二:每个用户一行，格式为<code>用户名 昵称 密码</code>，中间用空格或Tab键分开。</p>
-            <p class="hint-block">3.格式三:每个用户一行，格式为<code>用户名 昵称 密码 备注</code>，中间用空格或Tab键分开。</p>
-            <p class="hint-block">4.用户名只能以数字、字母、下划线，且非纯数字，长度在 4-32 位之间，密码至少六位。</p>
-
-
-            <?= $form->field($generatorForm, 'names')->textarea(['rows' => 10])  ?>
-
+            <p class="hint-block">1.格式一:每个用户一行，格式为<code>用户名 密码</code></p>
+            <p class="hint-block">2.格式二:每个用户一行，格式为<code>用户名 昵称 密码</code></p>
+            <p class="hint-block">3.格式三:每个用户一行，格式为<code>用户名 昵称 密码 学校名</code></p>
+            <p class="hint-block">3.格式四:每个用户一行，格式为<code>用户名 昵称 密码 学校名 备注</code></p>         
+            <p class="hint-block">4.用户名长度在 4-32 位之间，密码至少六位，中间用空格或Tab键分开。</p>
+            <?= $form->field($generatorForm, 'names')->textarea(['rows' => 10]) ?>
             <p class="hint-block">请选择默认语言类型</p>
             <?= $form->field($generatorForm, 'language')->radioList( [
                     0 => 'C',
@@ -107,9 +114,6 @@ else
                     2 => 'Java',	            
                     3 => 'Python3'	            
                 ])->label(false)  ?>
-
-
-
             <div class="form-group">
             <div class="row"><div class="col-md-4 col-md-offset-4"><?= Html::submitButton(Yii::t('app', 'Generate'), ['class' => 'btn btn-success  btn-block']) ?></div></div>
             </div>
@@ -237,6 +241,16 @@ else
                 'enableSorting' => false,
                 'visible' =>  $showNickName==1,
             ],
+            [
+                'attribute' => 'school',
+                'header' => Html::checkbox('showSchool', $showSchool, ['id' => 'showSchool','style' => 'vertical-align:text-bottom;'])." ".Yii::t('app', 'School'),
+                'value' => function ($model, $key, $index, $column) {
+                    return $model->profile->school;
+                },                  
+                'format' => 'raw',
+                'enableSorting' => false,
+                'visible' =>  $showSchool==1,
+            ],            
             [
                 'attribute' => 'email',
                 'header' => Html::checkbox('showEmail', $showEmail, ['id' => 'showEmail','style' => 'vertical-align:text-bottom;'])." ".Yii::t('app', 'Email'),
