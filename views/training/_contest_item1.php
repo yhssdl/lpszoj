@@ -1,8 +1,6 @@
 <?php
 
 use yii\helpers\Html;
-
-$problems = $model->problems;
 ?>
 
 <div>

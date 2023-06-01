@@ -49,17 +49,14 @@ if(!Yii::$app->user->isGuest && Yii::$app->user->identity->role == User::ROLE_AD
                     $pass_title = "";
                     
                     $pos = count($trainings);
-                   foreach ($trainings as $training){
-                       
+                    foreach ($trainings as $training){
                         if($bShow){
-
-                            $t_model = Training::findOne($training->id);
+                            $t_model = Training::findOne($training->id); 
+                            $pass_title = $t_model->title;
                             $problems = $t_model->problems;
                             $loginUserProblemSolvingStatus = $t_model->getLoginUserProblemSolvingStatus();
                             $submissionStatistics = $t_model->getSubmissionStatistics();
-
-                            $pass_title = $t_model->title;
-
+                        
                             $sum = count($problems);
                             $pass_sum = 0;
                             foreach ($problems as $key => $p){
@@ -95,21 +92,17 @@ if(!Yii::$app->user->isGuest && Yii::$app->user->identity->role == User::ROLE_AD
                             }
 
                         }else{
-                            
-                            if($training->enable_clarify==0 && $pos>1){
-                                echo '<br><div class="alert alert-light"><i class=" fa fa-info-circle"></i> 后续小节已经被隐藏，需要完成前一小节才能显示。</div>';
-                                break;
-                            }
-
                             echo $this->render('_contest_item1',
                             ['t_model' => $training,
-                            'model'=>$t_model,
                             'pos' => $pos,
                             'pass_title' => $pass_title
                             ]);
-                            
+
+                            if($training->enable_clarify==0 && $pos>1){
+                                echo '<br><div class="alert alert-light"><i class=" fa fa-info-circle"></i> 后续小节已经被隐藏，需要完成前一小节才能显示。</div>';
+                                break;
+                            }                            
                         }
-                       
                         $pos--;
 
                    }
