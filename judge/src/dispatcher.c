@@ -529,17 +529,24 @@ int main(int argc, char *argv[])
     signal(SIGTERM, call_for_exit);
 
     // start to run
+    ct = 0;
+    st = 0;
     for (;;) {
         int j = 1;
         while (j && !init_mysql()) {
+            ct = 0;
             j = work();
+            st += j;
         }
-        time(&t); 
-        a=localtime(&t); 
-        if(day!=a->tm_mday){
-            day = a->tm_mday;
+        ct++;
+        if(ct>300 || st>1000){
+            if (DEBUG)
+                write_log("update stat:%d/%d", ct,st);
             update_problem_stat();
+            ct = 0;
+            st = 0;
         }
+ 
         turbo_mode2();
         sleep(sleep_time);
     }
