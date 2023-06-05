@@ -541,12 +541,8 @@ int main(int argc, char *argv[])
             }
         }
         ct++;
-
-        
-        //以过判题，并1分钟没新任务时更新状态，或者判题1000以上就更新状态。
+        //以过判题，并1分钟没新任务时更新状态，或者判题1000轮以上就更新状态。
         if((st>0 && ct>60) || st>1000 ){
-            if (DEBUG)
-                write_log("update stat:%d/%d", ct,st);
             update_problem_stat();
             ct = 0;
             st = 0;
