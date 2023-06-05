@@ -536,10 +536,11 @@ int main(int argc, char *argv[])
         while (j && !init_mysql()) {
             ct = 0;
             j = work();
-            st += j;
+            st ++;
         }
         ct++;
-        if(ct>300 || st>1000){
+        //以过判题，并5分钟没新任务时更新状态，或者判题1000以上就更新状态。
+        if((st>0 && ct>300) || st>1000 ){
             if (DEBUG)
                 write_log("update stat:%d/%d", ct,st);
             update_problem_stat();
