@@ -529,8 +529,8 @@ int main(int argc, char *argv[])
     signal(SIGTERM, call_for_exit);
 
     // start to run
-    ct = 0;
-    st = 0;
+    int ct = 0;
+    int st = 0;
     for (;;) {
         int j = 1;
         while (j && !init_mysql()) {
