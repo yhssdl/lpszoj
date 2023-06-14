@@ -131,7 +131,9 @@ class TaggingQuery extends \yii\db\Query
         $rows = $this->createCommand($db)->queryAll();
         foreach ($rows as $row) {
             foreach ($this->select as $selectField) {
-                $items = array_merge($items, explode($this->delimiter, $row[$selectField]));
+                if($row[$selectField]){
+                    $items = array_merge($items, explode($this->delimiter, $row[$selectField]));
+                }
             }
         }
         $items = array_count_values(array_filter($items));
