@@ -164,10 +164,10 @@ install_dependencies(){
     elif check_sys sysRelease debian; then
         apt_depends=(
             nginx 
-            php-mysql php-common php-gd php-zip php-xml php-mbstring php-opcache php-fpm
+            php-mysql php-common php-gd php-zip php-xml php-mbstring php-fileinfo php-opcache php-fpm
             mariadb-server libmariadb-dev-compat libmariadb-dev
             git make gcc g++
-            openjdk-11-jdk
+            default-jdk
             net-tools
         )
 
@@ -258,6 +258,11 @@ EOF
         chmod 755 /var/www
         chown nginx -R /var/www/lpszoj
     elif check_sys sysRelease debian; then
+        local version="$(getversion)"
+        local main_ver=${version%%.*}
+        if [ "$main_ver" == "12" ]; then
+            PHP_VERSION=8.`php -v>&1|awk '{print $2}'|awk -F '.' '{print $2}'`
+        fi
         mv /etc/nginx/conf.d/default.conf /etc/nginx/conf.d/default.back
         cat>/etc/nginx/conf.d/lpszoj.conf<<EOF
 server {
@@ -379,9 +384,18 @@ enable_server(){
         systemctl enable php74-php-fpm
         systemctl enable mariadb
     elif check_sys sysRelease debian; then
+        local version="$(getversion)"
+        local main_ver=${version%%.*}
+
+        if [ "$main_ver" == "12" ]; then
+            systemctl start php8.2-fpm
+            systemctl enable php8.2-fpm
+        else        
+            systemctl start php74-php-fpm
+            systemctl enable php74-php-fpm
+        fi
         systemctl start mariadb
-        systemctl start php74-php-fpm
-        systemctl enable php74-php-fpm
+
         systemctl enable mariadb
         service mysql restart
     else
