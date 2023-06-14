@@ -56,9 +56,9 @@ class InstallController extends Controller
         passthru("./yii migrate");
 
         echo "\n================================================";
-        echo "\nRun: php socket.php start -d";
-        echo "\n================================================\n";
-        passthru("php socket.php start -d");
+        //echo "\nRun: php socket.php start -d";
+        //echo "\n================================================\n";
+        //passthru("php socket.php start -d");
         echo "\nInitialization completed.\n\n";
     }
 

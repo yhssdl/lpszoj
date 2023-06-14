@@ -45,7 +45,7 @@ $model = $this->params['model'];
 </div>
 <?php $this->endContent(); ?>
 <script type="text/javascript">
-    $(document).ready(function () {
+    /*$(document).ready(function () {
         // 连接服务端
         var socket = io(document.location.protocol + '//' + document.domain + ':2120');
         var uid = <?= Yii::$app->user->isGuest ? session_id() : Yii::$app->user->id ?>;
@@ -57,5 +57,5 @@ $model = $this->params['model'];
         socket.on('msg', function (msg) {
             alert(msg);
         });
-    })
+    })*/
 </script>
