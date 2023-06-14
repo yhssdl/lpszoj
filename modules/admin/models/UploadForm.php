@@ -361,12 +361,16 @@ class UploadForm extends Model
             $solution = str_replace("<br>","\n",html_entity_decode($problem->solution));
             echo "<solution><![CDATA[$solution]]></solution>\n";
             echo "<tags><![CDATA[$problem->tags]]></tags>\n";
-            echo "<sample_input><![CDATA[$sample_input[0]]]></sample_input>\n";
-            echo "<sample_output><![CDATA[$sample_output[0]]]></sample_output>\n";
-            echo "<sample_input1><![CDATA[$sample_input[1]]]></sample_input1>\n";
-            echo "<sample_output1><![CDATA[$sample_output[1]]]></sample_output1>\n";
-            echo "<sample_input2><![CDATA[$sample_input[2]]]></sample_input2>\n";
-            echo "<sample_output2><![CDATA[$sample_output[2]]]></sample_output2>\n";
+            if($sample_input){
+                echo "<sample_input><![CDATA[$sample_input[0]]]></sample_input>\n";
+                echo "<sample_input1><![CDATA[$sample_input[1]]]></sample_input1>\n";
+                echo "<sample_input2><![CDATA[$sample_input[2]]]></sample_input2>\n";
+            }
+            if($sample_output){
+                echo "<sample_output><![CDATA[$sample_output[0]]]></sample_output>\n";
+                echo "<sample_output1><![CDATA[$sample_output[1]]]></sample_output1>\n";
+                echo "<sample_output2><![CDATA[$sample_output[2]]]></sample_output2>\n";
+            }
             echo "</item>";
         }
         echo "</fps>";
