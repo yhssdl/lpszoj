@@ -358,8 +358,10 @@ class UploadForm extends Model
             self::printTestCases(Yii::$app->params['judgeProblemDataPath'].$problem->id."/");
             echo "<hint><![CDATA[$problem->hint]]></hint>\n";
             echo "<source><![CDATA[$problem->source]]></source>\n";
-            $solution = str_replace("<br>","\n",html_entity_decode($problem->solution));
-            echo "<solution><![CDATA[$solution]]></solution>\n";
+            if($problem->solution) {
+                $solution = str_replace("<br>","\n",html_entity_decode($problem->solution));
+                echo "<solution><![CDATA[$solution]]></solution>\n";
+            }
             echo "<tags><![CDATA[$problem->tags]]></tags>\n";
             if($sample_input){
                 echo "<sample_input><![CDATA[$sample_input[0]]]></sample_input>\n";
