@@ -301,27 +301,28 @@ class UploadForm extends Model
       
 
 
-    function fixImageURL(&$html,&$did) {
+    function fixImageURL($html,&$did) {
         $images = self::getImages($html);
         $imgs = array_unique($images[1]);
     
         foreach ($imgs as $img) {
-        if(substr($img,0,4)=="data") continue;                      // skip image from paste clips
-        $html = str_replace($img,self::fixurl($img),$html); 
-        //print_r($did);
-    
-        if (!in_array($img,$did)) {
-            $base64 = self::image_base64_encode($img);
-            if ($base64) {
-                echo "<img><src><![CDATA[";
-                echo self::fixurl($img);
-                echo "]]></src><base64><![CDATA[";
-                echo $base64;
-                echo "]]></base64></img>";   
+            if(substr($img,0,4)=="data") continue;                      // skip image from paste clips
+            $html = str_replace($img,self::fixurl($img),$html); 
+            //print_r($did);
+        
+            if (!in_array($img,$did)) {
+                $base64 = self::image_base64_encode($img);
+                if ($base64) {
+                    echo "<img><src><![CDATA[";
+                    echo self::fixurl($img);
+                    echo "]]></src><base64><![CDATA[";
+                    echo $base64;
+                    echo "]]></base64></img>";   
+                }
+                array_push($did,$img);
             }
-            array_push($did,$img);
-        }
-        }     
+        } 
+        return $html;   
     }
         
     public function exportFpsXml($keys,$basename,$ext)
@@ -343,10 +344,10 @@ class UploadForm extends Model
             echo "<item>";
             $problem = Problem::findOne($key);
             $did = array();
-            self::fixImageURL($problem->description,$did);
-            self::fixImageURL($problem->input,$did);
-            self::fixImageURL($problem->output,$did);
-            self::fixImageURL($problem->hint,$did);
+            $problem->description = self::fixImageURL($problem->description,$did);
+            $problem->input =  self::fixImageURL($problem->input,$did);
+            $problem->output = self::fixImageURL($problem->output,$did);
+            $problem->hint = self::fixImageURL($problem->hint,$did);
             $sample_input = unserialize($problem->sample_input);
             $sample_output = unserialize($problem->sample_output);
             echo "<title><![CDATA[$problem->title]]></title>\n";
