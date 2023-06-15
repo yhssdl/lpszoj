@@ -12,8 +12,9 @@ LPSZOJ Change Log
 请阅读 [update.md](https://gitee.com/yhssdl/lpszoj/raw/master/docs/update.md) 来获取更新方法。
 
 ---------------------------------------
-- 2023.6.15 Enh: [web] 更新一键安装脚本，添加对Ubunut 23系统的支持，默认安装PHP 8.1。
-- 2023.6.13 Enh: [web] 更新一键安装脚本，添加对Debian12系统的支持。
+- 2023.6.15 Bug: [judge] 修正Ubuntu 23与Debian 12上判题机的系统函数调用权限问题。
+- 2023.6.15 Enh: [web] 更新一键安装脚本，添加对Ubuntu 23系统的支持，默认安装PHP 8.1。
+- 2023.6.13 Enh: [web] 更新一键安装脚本，添加对Debian 12系统的支持，默认安装PHP 8.2。
 - 2023.6.13 Enh: [web] Yii框架升级到2.0.48，新框架可以支持PHP 8.X版本。
 - 2023.6.6 Chg: [web] 训练与永久比赛中的提交，记入排行榜中。
 - 2023.6.5 Enh: [judge] 优化题目状态的更新，由原来的每天0点更新改为空闲1分钟后就自动更新。
