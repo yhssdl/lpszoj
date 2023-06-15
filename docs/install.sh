@@ -183,17 +183,11 @@ install_dependencies(){
         apt_depends=(
             nginx
             mysql-server
-            php7.4-fpm php7.4-mysql php7.4-common php7.4-gd php7.4-zip php7.4-mbstring php7.4-xml php7.4-opcache 
+            php8.1-fpm php8.1-mysql php8.1-common php8.1-gd php8.1-zip php8.1-mbstring php8.1-xml php8.1-fileinfo php8.1-opcache 
             libmysqlclient-dev libmysql++-dev git make gcc g++
+            default-jdk
             net-tools
         )
-        ver=`echo "$(getversion)" | awk -F '.' '{print $1}'`
-        if [ $ver -le 16 ]; then
-           apt_depends[${#apt_depends[@]}]="openjdk-8-jdk"
-        else
-           apt_depends[${#apt_depends[@]}]="openjdk-11-jdk"
-        fi
-
         for depend in ${apt_depends[@]}; do
             error_detect_depends "apt -y install ${depend}"
         done
@@ -203,7 +197,7 @@ install_dependencies(){
 install_check(){
     if (! check_sys packageManager yum && ! check_sys packageManager apt) || centosversion 5; then
         echo -e "[${red}Error${plain}] Your OS is not supported to run it!"
-        echo "Please change to CentOS 6+/Debian 10+/Ubuntu 20+ and try again."
+        echo "Please change to Debian 10+/Ubuntu 20+ and try again."
         exit 1
     fi
 }
@@ -290,6 +284,7 @@ EOF
         systemctl restart nginx
         systemctl restart php${PHP_VERSION}-fpm
     else
+        PHP_VERSION=8.`php -v>&1|awk '{print $2}'|awk -F '.' '{print $2}'`
         cat>/etc/nginx/conf.d/lpszoj.conf<<EOF
 server {
         listen 80 default_server;
@@ -376,18 +371,16 @@ config_firewall(){
 
 enable_server(){
     PHP_VERSION=7.`php -v>&1|awk '{print $2}'|awk -F '.' '{print $2}'`
-
-
+    local version="$(getversion)"
+    local main_ver=${version%%.*}
     if check_sys sysRelease centos; then
         systemctl start mariadb
         systemctl start php74-php-fpm
         systemctl enable php74-php-fpm
         systemctl enable mariadb
     elif check_sys sysRelease debian; then
-        local version="$(getversion)"
-        local main_ver=${version%%.*}
 
-        if [ "$main_ver" == "12" ]; then
+        if [ "$main_ver" -ge "12" ]; then
             systemctl start php8.2-fpm
             systemctl enable php8.2-fpm
         else        
@@ -395,10 +388,12 @@ enable_server(){
             systemctl enable php74-php-fpm
         fi
         systemctl start mariadb
-
         systemctl enable mariadb
         service mysql restart
     else
+        if [ "$main_ver" -ge 23 ]; then
+            PHP_VERSION=8.`php -v>&1|awk '{print $2}'|awk -F '.' '{print $2}'`
+        fi
         systemctl enable php${PHP_VERSION}-fpm
         systemctl enable mysql
     fi

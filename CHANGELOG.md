@@ -12,6 +12,7 @@ LPSZOJ Change Log
 请阅读 [update.md](https://gitee.com/yhssdl/lpszoj/raw/master/docs/update.md) 来获取更新方法。
 
 ---------------------------------------
+- 2023.6.15 Enh: [web] 更新一键安装脚本，添加对Ubunut 23系统的支持，默认安装PHP 8.1。
 - 2023.6.13 Enh: [web] 更新一键安装脚本，添加对Debian12系统的支持。
 - 2023.6.13 Enh: [web] Yii框架升级到2.0.48，新框架可以支持PHP 8.X版本。
 - 2023.6.6 Chg: [web] 训练与永久比赛中的提交，记入排行榜中。
