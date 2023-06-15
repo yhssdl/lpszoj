@@ -196,6 +196,7 @@ class ProblemController extends BaseController
             if($st > $jt) {
                 $solution->problem_id = $model->id;
                 $solution->status = Solution::STATUS_VISIBLE;
+                $solution->ip = $solution->getClientIp();
                 $solution->save();
                 Yii::$app->session->setFlash('success', Yii::t('app', 'Submitted successfully'));
                 Yii::$app->session['Submit_time']= time();

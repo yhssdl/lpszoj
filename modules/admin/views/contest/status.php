@@ -170,6 +170,11 @@ foreach ($problems as $key => $p) {
                     'headerOptions' => ['style' => 'min-width:90px;']
                 ],
                 [
+                    'attribute' => 'ip',
+                    'enableSorting' => false,
+                    'visible' => !Yii::$app->user->isGuest && Yii::$app->user->identity->isAdmin()
+                ],                
+                [
                     'attribute' => 'created_at',
                     'value' => function ($model, $key, $index, $column) {
                         return Html::tag('span', Yii::$app->formatter->asRelativeTime($model->created_at), ['title' => $model->created_at]);

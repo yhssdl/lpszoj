@@ -12,6 +12,7 @@ use Yii;
  * @property int $created_by
  * @property int $time
  * @property int $memory
+ * @property string $ip
  * @property string $created_at
  * @property string $source
  * @property int $result
@@ -88,7 +89,7 @@ class Solution extends ActiveRecord
             [['created_at', 'judgetime'], 'safe'],
             [['language', 'source'], 'required'],
             [['language'], 'in', 'range' => [0, 1, 2, 3], 'message' => 'Please select a language'],
-            [['source', 'pass_info'], 'string'],
+            [['source', 'pass_info', 'ip'], 'string'],
             [['judge'], 'string', 'max' => 16],
         ];
     }
@@ -115,7 +116,8 @@ class Solution extends ActiveRecord
             'pass_info' => Yii::t('app', 'Pass Info'),
             'judge' => Yii::t('app', 'Judge'),
             'score' => Yii::t('app', 'Score'),
-            'who' => Yii::t('app', 'Who')
+            'who' => Yii::t('app', 'Who'),
+            'ip' => Yii::t('app', 'IP')
         ];
     }
 
@@ -462,6 +464,23 @@ class Solution extends ActiveRecord
         return false;
     }
 
+
+    /**获取客户端ip 
+     * @return string 
+     */  
+    public function getClientIp ()  
+    {  
+        if (getenv('HTTP_CLIENT_IP')) {  
+            $ip = getenv('HTTP_CLIENT_IP');  
+        } else if (getenv('HTTP_X_FORWARDED_FOR')) {  
+            $ip = getenv('HTTP_X_FORWARDED_FOR');  
+        } else if (getenv('REMOTE_ADDR')) {  
+            $ip = getenv('REMOTE_ADDR');  
+        } else {  
+            $ip = $_SERVER['REMOTE_ADDR'];  
+        }  
+        return $ip;  
+    }
 
 
     public static function testHtml($model,$id, $caseJsonObject)

@@ -578,6 +578,7 @@ class ContestController extends BaseController
                     $solution->language = $model->language;
                 }
                 $solution->status = Solution::STATUS_HIDDEN;
+                $solution->ip = $solution->getClientIp();
                 $solution->save();
                 Yii::$app->session->setFlash('success', Yii::t('app', 'Submitted successfully'));
                 Yii::$app->session['Submit_time']= time();

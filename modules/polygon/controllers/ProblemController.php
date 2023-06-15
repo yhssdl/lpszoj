@@ -205,6 +205,7 @@ class ProblemController extends Controller
             $solution->problem_id = $id;
             $solution->created_by = Yii::$app->user->id;
             $solution->created_at = new Expression('NOW()');
+            $solution->ip = $solution->getClientIp();
             $solution->save();
             return $this->refresh();
         }
