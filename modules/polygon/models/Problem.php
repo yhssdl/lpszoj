@@ -197,7 +197,7 @@ class Problem extends \yii\db\ActiveRecord
                 closedir($handler);
             }
             usort($files, function($a, $b) {
-                return (int) $a['name'] >  (int) $b['name'];
+                return $a['name'] >  (int) $b['name'] ? 1 : -1 ;
             });
         } catch(\Exception $e) {
             echo 'Message: ' .$e->getMessage();

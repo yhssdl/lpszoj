@@ -185,7 +185,7 @@ class Problem extends ActiveRecord
                 closedir($handler);
             }
             usort($files, function($a, $b) {
-                return (int) $a['name'] >  (int) $b['name'];
+                return $a['name'] >  (int) $b['name'] ? 1 : -1 ;
             });
         } catch(\Exception $e) {
             echo '<div class="alert alert-danger"><i class="fa fa-info-circle"></i> ' .$e->getMessage().'</div>';
