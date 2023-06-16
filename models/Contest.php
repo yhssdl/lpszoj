@@ -595,19 +595,19 @@ class Contest extends \yii\db\ActiveRecord
 
         usort($result, function ($a, $b) use ($contest_end_time) {
             if ($a['solved'] != $b['solved']) { //优先解题数
-                return $a['solved'] < $b['solved'];
+                return $a['solved'] < $b['solved'] ? 1 : -1 ;
             } else if ($a['time'] != $b['time']) { //按时间（分数）
                 if ($this->type == self::TYPE_RANK_SINGLE) {
-                    return $a['time'] < $b['time'];		
+                    return $a['time'] < $b['time'] ? 1 : -1 ;		
                 } else {
-                    return $a['time'] > $b['time'];
+                    return $a['time'] > $b['time'] ? 1 : -1 ;
                 }
             } else if ($contest_end_time >= Contest::TIME_INFINIFY && $a['totalwa'] != $b['totalwa']) { // 永久题目集按 wa 次数
-                return $a['totalwa'] > $b['totalwa'];
+                return $a['totalwa'] > $b['totalwa'] ? 1 : -1 ;
             } else if ($contest_end_time < Contest::TIME_INFINIFY && $a['time'] != $b['time']) { //按时间（分数）
-                return $a['time'] > $b['time'];
+                return $a['time'] > $b['time'] ? 1 : -1 ;
             } else {
-                return $a['user_id'] < $b['user_id'];
+                return $a['user_id'] < $b['user_id'] ? 1 : -1 ;
             }
         });
 
@@ -783,21 +783,21 @@ class Contest extends \yii\db\ActiveRecord
         usort($result, function ($a, $b) use ($type, $endtime, $contest_end_time) {
             if ($type == self::TYPE_OI && $endtime == $contest_end_time) {
                 if ($a['total_score'] != $b['total_score']) { // 优先测评总分
-                    return $a['total_score'] < $b['total_score'];
+                    return $a['total_score'] < $b['total_score'] ? 1 : -1 ;
                 } else if ($a['correction_score'] != $b['correction_score']) { //订正总分
-                    return $a['correction_score'] < $b['correction_score'];
+                    return $a['correction_score'] < $b['correction_score'] ? 1 : -1 ;
                 } else {
-                    return $a['total_time'] > $b['total_time'];
+                    return $a['total_time'] > $b['total_time'] ? 1 : -1 ;
                 }
             } else { // IOI 只需要最大值的总分排序。
                 if ($a['correction_score'] != $b['correction_score']) {
-                    return $a['correction_score'] < $b['correction_score'];
+                    return $a['correction_score'] < $b['correction_score'] ? 1 : -1 ;
                 } else if ($a['total_time'] != $b['total_time']) {
-                    return $a['total_time'] > $b['total_time'];
+                    return $a['total_time'] > $b['total_time'] ? 1 : -1 ;
                 } else if ($a['solved'] != $b['solved']) {
-                    return $a['solved'] < $b['solved'];
+                    return $a['solved'] < $b['solved'] ? 1 : -1 ;
                 } else {
-                    return $a['user_id'] < $b['user_id'];
+                    return $a['user_id'] < $b['user_id'] ? 1 : -1 ;
                 }
             }
         });
