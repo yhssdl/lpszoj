@@ -12,6 +12,7 @@ LPSZOJ Change Log
 请阅读 [update.md](https://gitee.com/yhssdl/lpszoj/raw/master/docs/update.md) 来获取更新方法。
 
 ---------------------------------------
+- 2023.6.16 Bug: [web] 修正usort函数可能异常的情况。
 - 2023.6.15 Enh: [web、db] 状态界面增加了IP地址，管理员可查看提交时的IP地址。
 - 2023.6.15 Bug: [judge] 修正Ubuntu 23与Debian 12上判题机的系统函数调用权限问题。
 - 2023.6.15 Enh: [web] 更新一键安装脚本，添加对Ubuntu 23系统的支持，默认安装PHP 8.1。
