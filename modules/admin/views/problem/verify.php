@@ -95,6 +95,7 @@ $loadingImgUrl = Yii::getAlias('@web/images/loading.gif');
 
 <?php
 $url = \yii\helpers\Url::toRoute(['/solution/verdict']);
+$loadingImgUrl = Yii::getAlias('@web/images/loading.gif');
 $js = <<<EOF
 $('[data-click=solution_info]').click(function() {
     $.ajax({

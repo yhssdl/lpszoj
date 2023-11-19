@@ -133,3 +133,72 @@ $solution->language = Yii::$app->user->identity->language;
         </div>
     <?php endif; ?>
 </div>
+
+
+<?php
+$url = \yii\helpers\Url::toRoute(['/polygon/problem/verdict']);
+$loadingImgUrl = Yii::getAlias('@web/images/loading.gif');
+$js = <<<EOF
+$('[data-click=solution_info]').click(function() {
+    $.ajax({
+        url: $(this).attr('href'),
+        type:'post',
+        error: function(){alert('error');},
+        success:function(html){
+            $('#solution-content').html(html);
+            $('#solution-info').modal('show');
+        }   
+    });
+});
+
+function updateVerdictByKey(submission) {
+    $.get({
+        url: "{$url}?id=" + submission.attr('data-submissionid'),
+        success: function(data) {
+            var obj = JSON.parse(data);
+            submission.attr("waiting", obj.waiting);
+            submission.text(obj.result);
+            if (obj.verdict === "4") {
+                submission.attr("class", "text-success")
+            }
+            if (obj.waiting === "true") {
+                submission.append('<img src="{$loadingImgUrl}" alt="loading">');
+            }
+        }
+    });
+}
+var waitingCount = $("strong[waiting=true]").length;
+if (waitingCount > 0) {
+    console.log("There is waitingCount=" + waitingCount + ", starting submissionsEventCatcher...");
+    var interval = null;
+    var waitingQueue = [];
+    $("strong[waiting=true]").each(function(){
+        waitingQueue.push($(this));
+    });
+    waitingQueue.reverse();
+    var testWaitingsDone = function () {
+        updateVerdictByKey(waitingQueue[0]);
+        var waitingCount = $("strong[waiting=true]").length;
+        while (waitingCount < waitingQueue.length) {
+            if (waitingCount < waitingQueue.length) {
+                waitingQueue.shift();
+            }
+            if (waitingQueue.length === 0) {
+                break;
+            }
+            updateVerdictByKey(waitingQueue[0]);
+            waitingCount = $("strong[waiting=true]").length;
+        }
+        console.log("There is waitingCount=" + waitingCount + ", starting submissionsEventCatcher...");
+        
+        if (interval && waitingCount === 0) {
+            console.log("Stopping submissionsEventCatcher.");
+            clearInterval(interval);
+            interval = null;
+        }
+    }
+    interval = setInterval(testWaitingsDone, 1000);
+}
+EOF;
+$this->registerJs($js);
+?>

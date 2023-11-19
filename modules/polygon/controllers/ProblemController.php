@@ -215,6 +215,27 @@ class ProblemController extends Controller
         ]);
     }
 
+    /**
+     * 返回提交状态供 AJAX 查询
+     * @param $id
+     * @return false|string
+     * @throws NotFoundHttpException
+     */
+    public function actionVerdict($id)
+    {
+        $query = Yii::$app->db->createCommand('SELECT id,result FROM {{%polygon_status}} WHERE id=:id', [
+            ':id' => $id
+        ])->queryOne();
+
+        $res = [
+            'id' => $query['id'],
+            'verdict' => $query['result'],
+            'waiting' => $query['result'] <= Solution::OJ_WAITING_STATUS ? 'true' : 'false',
+            'result' => Solution::getResultList($query['result'])
+        ];
+        return json_encode($res);
+    }    
+
     public function actionTests($id)
     {
         $model = $this->findModel($id);
