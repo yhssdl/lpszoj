@@ -195,7 +195,7 @@ class ProblemController extends Controller
         $model = $this->findModel($id);
         $solution = new PolygonStatus();
         $dataProvider = new ActiveDataProvider([
-            'query' => PolygonStatus::find()->where('problem_id=:pid AND source IS NOT NULL', [':pid' => $id])->limit(10)->orderBy(['id' => SORT_DESC]),
+            'query' => PolygonStatus::find()->where('problem_id=:pid AND source IS NOT NULL', [':pid' => $id])->orderBy(['id' => SORT_DESC]),
             'pagination' => [
                 'pageSize' => 30
             ]
