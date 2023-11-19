@@ -106,11 +106,6 @@ $solution->language = Yii::$app->user->identity->language;
                 'format' => 'raw'
             ],
             [
-                'attribute' => 'ip',
-                'enableSorting' => false,
-                'visible' => !Yii::$app->user->isGuest && Yii::$app->user->identity->isAdmin()
-            ],
-            [
                 'attribute' => 'created_at',
                 'value' => function ($model, $key, $index, $column) {
                     return Html::tag('span', Yii::$app->formatter->asRelativeTime($model->created_at), ['title' => $model->created_at]);
