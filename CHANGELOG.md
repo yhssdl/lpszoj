@@ -12,7 +12,7 @@ LPSZOJ Change Log
 请阅读 [update.md](https://gitee.com/yhssdl/lpszoj/raw/master/docs/update.md) 来获取更新方法。
 
 ---------------------------------------
-- 2023.11.19 Bug: [web] 修正polygon难题时异常的BUG，并使用ajax更新测评结果。
+- 2023.11.19 Bug: [web] 修正polygon验题时异常的BUG，并使用ajax更新测评结果。
 
 - 2023.6.16 Bug: [web] 修正usort函数可能异常的情况。
 - 2023.6.15 Enh: [web、db] 状态界面增加了IP地址，管理员可查看提交时的IP地址。
