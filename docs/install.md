@@ -33,6 +33,7 @@ apt install -y wget && wget https://gitee.com/yhssdl/lpszoj/raw/master/docs/inst
 - 1.将软件源更换为国内的源。
 ```
 sed -i 's/dl-cdn.alpinelinux.org/mirrors.ustc.edu.cn/g' /etc/apk/repositories
+sed -i 's/#http/http/g' /etc/apk/repositories
 ```
 
 - 2.运行安装脚本
