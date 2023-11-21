@@ -247,7 +247,7 @@ class Solution extends ActiveRecord
             "text-danger",  // SE
             "text-danger", // No Test Data
         ];
-        return "<strong class=" . $cssClass[$this->result] . " $innerHtml>{$res}{$loadingImg}</strong>";
+        return "<span class=" . $cssClass[$this->result] . " $innerHtml>{$res}{$loadingImg}</span>";
     }
 
     public static function getResultList($res = '')

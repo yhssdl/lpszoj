@@ -225,14 +225,14 @@ function updateVerdictByKey(submission) {
         }
     });
 }
-var waitingCount = $("strong[waiting=true]").length;
+var waitingCount = $("span[waiting=true]").length;
 if (waitingCount > 0) {
     console.log("There is waitingCount=" + waitingCount + ", starting submissionsEventCatcher...");
     var interval = null;
     var testWaitingsDone = function () {
-        var waitingCount = $("strong[waiting=true]").length;
+        var waitingCount = $("span[waiting=true]").length;
         console.log("There is waitingCount=" + waitingCount + ", starting submissionsEventCatcher...");
-        $("strong[waiting=true]").each(function(){
+        $("span[waiting=true]").each(function(){
             updateVerdictByKey($(this));
         });
         if (interval && waitingCount === 0) {
