@@ -14,7 +14,7 @@
 
 > 适合在新装的系统或未运行 Web (nginx、mysql)有关服务的系统中。
 
-**注意！！！此方法目前仅在 Ubuntu 20/22/23、Debian 10/11/12 中测试通过。其它 Linux 系统还未测试。**
+**注意！！！此方法目前仅在 Ubuntu 20/22/23、Debian 10/11/12、Alpine 3.18/3.19 中测试通过。其它 Linux 系统还未测试。**
 
 执行以下命令，进行安装(如果安装过程中出现错误，可以再次尝试运行安装命令)：
 ```
@@ -23,6 +23,13 @@ wget https://gitee.com/yhssdl/lpszoj/raw/master/docs/install.sh && sudo bash ins
 
 Debian(Armbian) 11运行(root账号)：
 apt install -y wget && wget https://gitee.com/yhssdl/lpszoj/raw/master/docs/install.sh && bash install.sh
+
+Alpine运行(root账号)：
+1.将软件源更换为国内的源。
+sed -i 's/dl-cdn.alpinelinux.org/mirrors.ustc.edu.cn/g' /etc/apk/repositories
+
+2.运行安装脚本
+apk add bash wget && wget https://gitee.com/yhssdl/lpszoj/raw/master/docs/install.sh && bash install.sh
 
 CentOS运行：
 yum install wget -y && wget https://gitee.com/yhssdl/lpszoj/raw/master/docs/install.sh && sudo bash install.sh

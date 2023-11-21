@@ -12,6 +12,8 @@ LPSZOJ Change Log
 请阅读 [update.md](https://gitee.com/yhssdl/lpszoj/raw/master/docs/update.md) 来获取更新方法。
 
 ---------------------------------------
+- 2023.11.21 Bug: [Enh] 一键安装脚本，新增对Alpine Linux系统的支持。
+- 2023.11.21 Bug: [web] 修正ajax更新测评结果中的BUG。
 - 2023.11.19 Bug: [web] 修正polygon验题时异常的BUG，并使用ajax更新测评结果。
 
 - 2023.6.16 Bug: [web] 修正usort函数可能异常的情况。

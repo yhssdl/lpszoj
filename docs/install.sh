@@ -45,6 +45,9 @@ check_sys(){
     elif grep -Eqi "centos|red hat|redhat" /etc/issue; then
         release="centos"
         systemPackage="yum"
+    elif grep -Eqi "Alpine" /etc/issue; then
+        release="alpine"
+        systemPackage="apk"
     elif grep -Eqi "ubuntu" /proc/version; then
         release="ubuntu"
         systemPackage="apt"            
@@ -175,6 +178,19 @@ install_dependencies(){
         for depend in ${apt_depends[@]}; do
             error_detect_depends "apt -y install ${depend}"
         done
+    elif check_sys sysRelease alpine; then
+        apt_depends=(
+            nginx 
+            php82 php82-common php82-gd php82-zip php82-xml php82-mbstring php82-fileinfo php82-opcache php82-fpm php82-pdo php82-pdo_mysql php82-ctype php82-session php82-zip
+            mariadb mariadb-client mariadb-dev 
+            git make gcc g++ python3 openjdk8
+            net-tools
+        )
+
+        apk update
+        for depend in ${apt_depends[@]}; do
+            error_detect_depends "apk add ${depend}"
+        done
     elif check_sys packageManager apt; then   
         apt-get install software-properties-common
         echo -e "\n" | add-apt-repository ppa:ondrej/php
@@ -195,7 +211,7 @@ install_dependencies(){
 }
 
 install_check(){
-    if (! check_sys packageManager yum && ! check_sys packageManager apt) || centosversion 5; then
+    if (! check_sys packageManager yum && ! check_sys packageManager apt && ! check_sys packageManager apk) || centosversion 5; then
         echo -e "[${red}Error${plain}] Your OS is not supported to run it!"
         echo "Please change to Debian 10+/Ubuntu 20+ and try again."
         exit 1
@@ -283,6 +299,45 @@ EOF
         sed -i "s/upload_max_filesize = 2M/upload_max_filesize = 128M/g" /etc/php/${PHP_VERSION}/fpm/php.ini
         systemctl restart nginx
         systemctl restart php${PHP_VERSION}-fpm
+    elif check_sys sysRelease alpine; then
+        local version="$(getversion)"
+        local main_ver=${version%%.*}
+        PHP_VERSION=82
+        mv /etc/nginx/http.d/default.conf /etc/nginx/http.d/default.back
+        cat>/etc/nginx/http.d/lpszoj.conf<<EOF
+server {
+        listen 80 default_server;
+        listen [::]:80 default_server;
+        root /var/www/lpszoj/web;
+        index index.php;
+        server_name _;
+        client_max_body_size    128M;
+        location / {
+                try_files \$uri \$uri/ /index.php?\$args;
+        }
+        location ~ \.php$ {
+                include fastcgi.conf;
+                fastcgi_index     index.php;
+                fastcgi_pass 127.0.0.1:9000;
+        }
+}
+EOF
+        cat>/etc/my.cnf<<EOF
+[client-server]
+port		= 3306
+
+[mysqld]
+port		= 3306
+default_storage_engine = InnoDB
+EOF
+        DBUSER="root"
+        /etc/init.d/mariadb setup
+        rc-service mariadb start
+        ln -s /usr/bin/php82 /usr/bin/php
+        mysqladmin -u root password $DBPASS
+        sed -i "s/post_max_size = 8M/post_max_size = 128M/g" /etc/php${PHP_VERSION}/php.ini
+        sed -i "s/upload_max_filesize = 2M/upload_max_filesize = 128M/g" /etc/php${PHP_VERSION}/php.ini
+        rc-service nginx start
     else
         PHP_VERSION=8.`php -v>&1|awk '{print $2}'|awk -F '.' '{print $2}'`
         cat>/etc/nginx/conf.d/lpszoj.conf<<EOF
@@ -311,6 +366,33 @@ EOF
         systemctl restart php${PHP_VERSION}-fpm
     fi
 
+    if check_sys sysRelease alpine; then
+        cat>/etc/init.d/judge<<EOF
+#!/sbin/openrc-run
+
+name="judge"
+command="/var/www/lpszoj/judge/dispatcher"
+command_args="-o"
+#command_background="yes"
+ 
+depend() {
+	after networking mariadb
+}
+EOF
+        cat>/etc/init.d/polygon<<EOF
+#!/sbin/openrc-run
+
+name="polygon"
+command="/var/www/lpszoj/polygon/polygon"
+#command_background="yes"
+ 
+depend() {
+	after networking mariadb
+}
+EOF
+        chmod +x /etc/init.d/judge
+        chmod +x /etc/init.d/polygon
+    else
         cat>/etc/systemd/system/judge.service<<EOF
 [Unit]
 Description=Judge
@@ -343,6 +425,7 @@ RestartSec=5
 [Install]
 WantedBy=multi-user.target
 EOF
+    fi
 
 
     mysql -h localhost -u$DBUSER -p$DBPASS -e "create database ojdate;"
@@ -379,7 +462,6 @@ enable_server(){
         systemctl enable php74-php-fpm
         systemctl enable mariadb
     elif check_sys sysRelease debian; then
-
         if [ "$main_ver" -ge "12" ]; then
             systemctl start php8.2-fpm
             systemctl enable php8.2-fpm
@@ -390,6 +472,10 @@ enable_server(){
         systemctl start mariadb
         systemctl enable mariadb
         service mysql restart
+    elif check_sys sysRelease alpine; then
+        rc-service nginx restart
+        rc-service mariadb restart
+        rc-service php-fpm82 restart
     else
         if [ "$main_ver" -ge 23 ]; then
             PHP_VERSION=8.`php -v>&1|awk '{print $2}'|awk -F '.' '{print $2}'`
@@ -398,24 +484,35 @@ enable_server(){
         systemctl enable mysql
     fi
 
-    systemctl daemon-reload
+    if check_sys sysRelease alpine; then
+        rc-update add nginx
+        rc-update add mariadb
+        rc-update add php-fpm82
+         rc-update add judge
+          rc-update add polygon
+    else
+        systemctl daemon-reload
 
-    # startup service
-    systemctl start nginx
-    
-    # startup service when booting.
-    systemctl enable nginx    
+        # startup service
+        systemctl start nginx
 
-    systemctl enable judge
-    systemctl enable polygon
+        # startup service when booting.
+        systemctl enable nginx    
+
+        systemctl enable judge
+        systemctl enable polygon
+    fi
 }
 
 install_lpszoj(){
     disable_selinux
     install_check
     install_dependencies
-
-    /usr/sbin/useradd -m -u 1536 judge
+    if check_sys packageManager apk; then
+        adduser -D -u 1536 judge
+    else
+        /usr/sbin/useradd -m -u 1536 judge
+    fi
     cd /var/www/
     git clone https://gitee.com/yhssdl/lpszoj.git
 
