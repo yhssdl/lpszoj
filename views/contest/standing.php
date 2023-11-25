@@ -34,10 +34,10 @@ EOT;
 $this->registerJs($js);
 if ($autoRefresh) {
     $js = <<<EOT
-    function refreshPage() {
-        window.location.reload();
-    }
-    setInterval(refreshPage, 3000);
+    setInterval(function () {
+        $("#main_body").load(location.href + "&ajax=1","");
+    }, 3000);  
+
     EOT;
     $this->registerJs($js);
 }
@@ -59,14 +59,10 @@ if ($autoRefresh) {
                         <?php endif; ?>
                         <?= Html::checkbox('showStandingBeforeEnd', $showStandingBeforeEnd) ?>
                         显示比赛期间榜单
-                    </label>&nbsp;&nbsp;&nbsp;&nbsp;
-                    <label>
-                        <?= Html::checkbox('autoRefresh', $autoRefresh, ['id' => 'autoRefresh']) ?>
-                        自动刷新
-                    </label>    
+                    </label>&nbsp;&nbsp;&nbsp;&nbsp; 
                 </div>
                 <?= Html::endForm(); ?>
-            <?php else: ?>
+            <?php endif; ?>   
                 <div class="pull-left" style="margin-top: 6px;">
                     <div class="checkbox">
                         <label>
@@ -75,7 +71,7 @@ if ($autoRefresh) {
                         </label>    
                     </div>
                 </div>
-            <?php endif; ?>   
+
        
             <div class="pull-right table-legend">
                 <?php if ($model->type != Contest::TYPE_OI && $model->type != Contest::TYPE_IOI) : ?>
@@ -109,7 +105,7 @@ if ($autoRefresh) {
         </div>
     <?php endif; ?>
     <div class="clearfix"></div>
-    <div class="table-responsive">
+    <div id="main_body" class="table-responsive">
         <?php
         if ($model->type == $model::TYPE_RANK_SINGLE) {
             echo $this->render('_standing_single', [

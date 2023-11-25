@@ -445,7 +445,7 @@ class ContestController extends BaseController
      * @throws NotFoundHttpException
      * @throws \yii\db\Exception
      */
-    public function actionStanding($id, $showStandingBeforeEnd = 1)
+    public function actionStanding($id, $showStandingBeforeEnd = 1 , $ajax = 0)
     {
 
         if (Yii::$app->setting->get('isContestMode') && (Yii::$app->user->isGuest || (!Yii::$app->user->identity->isAdmin())) && Yii::$app->setting->get('examContestId') && $id != Yii::$app->setting->get('examContestId')) {
@@ -478,7 +478,16 @@ class ContestController extends BaseController
         }
 
         $rankResult['rank_result'] = array_slice($rankResult['rank_result'], $pages->offset, $pages->limit);
-        return $this->render('/contest/standing', [
+
+        if($ajax) {
+            $this->layout = false;
+            $url = '/contest/ajax_standing';
+        }
+        else{
+            $url = '/contest/standing';
+        }
+
+        return $this->render($url, [
             'model' => $model,
             'pages' => $pages,
             'rankResult' => $rankResult,
