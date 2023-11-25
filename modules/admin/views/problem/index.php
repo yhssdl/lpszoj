@@ -170,7 +170,7 @@ else
             ],
             [
                 'attribute' => 'tags',
-                'header' => Html::checkbox('showTags', $showTags, ['id' => 'showTags','style' => 'vertical-align:text-bottom;'])." ".Yii::t('app', 'Tags'),
+                'header' => "<label  style='cursor: pointer;'>".Html::checkbox('showTags', $showTags, ['id' => 'showTags','style' => 'vertical-align:text-bottom;'])." ".Yii::t('app', 'Tags')."</label>",
                 'value' => function ($model, $key, $index, $column) {
                     global $label_i;
                     $tags = !empty($model->tags) ? explode(',', $model->tags) : [];
@@ -195,13 +195,13 @@ else
             ],
             [
                 'attribute' => 'source',
-                'header' => Html::checkbox('showSource', $showSource, ['id' => 'showSource','style' => 'vertical-align:text-bottom;'])." ".Yii::t('app', 'Source'),
+                'header' => "<label  style='cursor: pointer;'>".Html::checkbox('showSource', $showSource, ['id' => 'showSource','style' => 'vertical-align:text-bottom;'])." ".Yii::t('app', 'Source')."</label>",
                 'visible' =>  $showSource==1,
             ],
 
             [
                 'attribute' => 'status',
-                'header' => Html::checkbox('showStatus', $showStatus, ['id' => 'showStatus','style' => 'vertical-align:text-bottom;'])." ".Yii::t('app', 'Status'),
+                'header' => "<label  style='cursor: pointer;'>".Html::checkbox('showStatus', $showStatus, ['id' => 'showStatus','style' => 'vertical-align:text-bottom;'])." ".Yii::t('app', 'Status')."</label>",
                 'value' => function ($model, $key, $index, $column) {
                     if ($model->status == \app\models\Problem::STATUS_VISIBLE) {
                         return Yii::t('app', 'Visible');
@@ -217,7 +217,7 @@ else
             ],
             [
                 'attribute' => 'created_by',
-                'header' => Html::checkbox('showCreated_by', $showCreated_by, ['id' => 'showCreated_by','style' => 'vertical-align:text-bottom;'])." ".Yii::t('app', 'Created By'),
+                'header' => "<label  style='cursor: pointer;'>".Html::checkbox('showCreated_by', $showCreated_by, ['id' => 'showCreated_by','style' => 'vertical-align:text-bottom;'])." ".Yii::t('app', 'Created By')."</label>",
                 'value' => function ($model, $key, $index, $column) {
                     if ($model->user) {
                         return Html::a(Html::encode($model->user->nickname), ['/user/view', 'id' => $model->user->id]);
@@ -230,7 +230,7 @@ else
             ],
             [
                 'attribute' => 'polygon_id',
-                'header' => Html::checkbox('showPolygon_id', $showPolygon_id, ['id' => 'showPolygon_id','style' => 'vertical-align:text-bottom;'])." ".Yii::t('app', 'Polygon Id'),
+                'header' => "<label  style='cursor: pointer;'>".Html::checkbox('showPolygon_id', $showPolygon_id, ['id' => 'showPolygon_id','style' => 'vertical-align:text-bottom;'])." ".Yii::t('app', 'Polygon Id')."</label>",
                 'value' => function ($model, $key, $index, $column) {
                     return Html::a($model->polygon_problem_id, ['/polygon/problem/view', 'id' => $model->polygon_problem_id]);
                 },
@@ -239,7 +239,7 @@ else
                 'visible' => Yii::$app->setting->get('isEnablePolygon') &&  $showPolygon_id==1,
             ],
             ['class' => 'yii\grid\ActionColumn',
-            'header' => Html::checkbox('showAll', 0, ['id' => 'showAll','style' => 'vertical-align:text-bottom;'])." ".Yii::t('app', 'Show all'),
+            'header' => "<label  style='cursor: pointer;'>".Html::checkbox('showAll', 0, ['id' => 'showAll','style' => 'vertical-align:text-bottom;'])." ".Yii::t('app', 'Show all')."</label>",
             'contentOptions' => ['class'=>'a_just']
             ],
         ],

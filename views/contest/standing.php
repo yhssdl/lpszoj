@@ -11,13 +11,37 @@ use yii\helpers\Html;
 
 $this->title = $model->title;
 $this->params['model'] = $model;
+if(isset($_COOKIE['autoRefresh']))
+    $autoRefresh = $_COOKIE['autoRefresh'];
+else 
+    $autoRefresh = 1;
 
 $js = <<<EOT
 $(".toggle-show-contest-standing input[name='showStandingBeforeEnd']").change(function () {
     $(".toggle-show-contest-standing").submit();
 });
+$("#autoRefresh").click(function () {
+    var expires = new Date();
+    expires.setTime(expires.getTime() + 3650 * 30 * 24 * 60 * 60 * 1000);
+    if ($(this).prop("checked")) {
+        document.cookie = "autoRefresh=1;expires=" + expires.toGMTString();
+    } else {
+        document.cookie = "autoRefresh=0;expires=" + expires.toGMTString();
+    }
+    window.location.reload();
+});
 EOT;
 $this->registerJs($js);
+if ($autoRefresh) {
+    $js = <<<EOT
+    function refreshPage() {
+        window.location.reload();
+    }
+    setInterval(refreshPage, 3000);
+    EOT;
+    $this->registerJs($js);
+}
+
 ?>
 <div class="contest-overview">
     <?php if ($model->type != Contest::TYPE_OI || $model->isContestEnd()) : ?>
@@ -35,10 +59,24 @@ $this->registerJs($js);
                         <?php endif; ?>
                         <?= Html::checkbox('showStandingBeforeEnd', $showStandingBeforeEnd) ?>
                         显示比赛期间榜单
-                    </label>
+                    </label>&nbsp;&nbsp;&nbsp;&nbsp;
+                    <label>
+                        <?= Html::checkbox('autoRefresh', $autoRefresh, ['id' => 'autoRefresh']) ?>
+                        自动刷新
+                    </label>    
                 </div>
                 <?= Html::endForm(); ?>
-            <?php endif; ?>
+            <?php else: ?>
+                <div class="pull-left" style="margin-top: 6px;">
+                    <div class="checkbox">
+                        <label>
+                            <?= Html::checkbox('autoRefresh', $autoRefresh, ['id' => 'autoRefresh']) ?>
+                            自动刷新
+                        </label>    
+                    </div>
+                </div>
+            <?php endif; ?>   
+       
             <div class="pull-right table-legend">
                 <?php if ($model->type != Contest::TYPE_OI && $model->type != Contest::TYPE_IOI) : ?>
                     <div>
@@ -78,6 +116,7 @@ $this->registerJs($js);
                 'model' => $model,
                 'pages' => $pages,
                 'showStandingBeforeEnd' => $showStandingBeforeEnd,
+                'autoRefresh' => $autoRefresh,
                 'rankResult' => $rankResult
             ]);
         } else if ($model->type == $model::TYPE_OI || $model->type == $model::TYPE_IOI) {
@@ -85,6 +124,7 @@ $this->registerJs($js);
                 'model' => $model,
                 'pages' => $pages,
                 'showStandingBeforeEnd' => $showStandingBeforeEnd,
+                'autoRefresh' => $autoRefresh,
                 'rankResult' => $rankResult
             ]);
         } else {
@@ -92,6 +132,7 @@ $this->registerJs($js);
                 'model' => $model,
                 'pages' => $pages,
                 'showStandingBeforeEnd' => $showStandingBeforeEnd,
+                'autoRefresh' => $autoRefresh,
                 'rankResult' => $rankResult
             ]);
         }

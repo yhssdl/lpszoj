@@ -81,7 +81,7 @@ if (Yii::$app->user->isGuest || !Yii::$app->user->identity->isAdmin()) {
             }
             ?>
 
-            <tr class="animate__animated animate__fadeInUp <?= $front_color ?>">
+            <tr <?php if (!$autoRefresh) : ?>class="animate__animated animate__fadeInUp <?= $front_color ?>" <?php endif; ?> >
                 <th>
                     <?= $rank['finalrank'] ?>
                 </th>

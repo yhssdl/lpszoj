@@ -70,7 +70,7 @@ $submit_count = $rankResult['submit_count'];
                 $front_color = "";
             }
             ?>
-            <tr class="animate__animated animate__fadeInUp <?= $front_color ?>">
+            <tr <?php if (!$autoRefresh) : ?>class="animate__animated animate__fadeInUp <?= $front_color ?>" <?php endif; ?> >
                 <th>
                     <?= $rank['finalrank'] ?>
                 </th>

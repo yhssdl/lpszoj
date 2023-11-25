@@ -6,15 +6,12 @@ use yii\helpers\Html;
 
 $this->title = $model->title;
 ?>
-
-
-        <?php echo $this->render('standing', [
-            'model' => $model,
-            'rankResult' => $rankResult,
-            'pages' => $pages,
-            'showStandingBeforeEnd' => $showStandingBeforeEnd
-        ]); ?>
-
+<?php echo $this->render('standing', [
+    'model' => $model,
+    'rankResult' => $rankResult,
+    'pages' => $pages,
+    'showStandingBeforeEnd' => $showStandingBeforeEnd
+]); ?>
 
 <footer class="footer">
     <div class="container">

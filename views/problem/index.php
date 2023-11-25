@@ -93,7 +93,7 @@ else
 
 <?php
 
-$title_str = '标题 <span class="float-right">'. Html::checkbox('showTags', $showTags, ['id' => 'showTags','style' => 'vertical-align:text-bottom;']).' 显示标签</span>';
+$title_str = '标题 <span class="float-right"><label style="cursor: pointer;">'. Html::checkbox('showTags', $showTags, ['id' => 'showTags','style' => 'vertical-align:text-bottom;']).' 显示标签</label></span>';
 $label_i = 0;
 ?>
 

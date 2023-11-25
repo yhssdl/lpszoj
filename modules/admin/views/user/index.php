@@ -236,7 +236,7 @@ else
             ],
             [
                 'attribute' => 'nickname',
-                'header' => Html::checkbox('showNickName', $showNickName, ['id' => 'showNickName','style' => 'vertical-align:text-bottom;'])." ".Yii::t('app', 'Nickname'),
+                'header' => "<label  style='cursor: pointer;'>".Html::checkbox('showNickName', $showNickName, ['id' => 'showNickName','style' => 'vertical-align:text-bottom;'])." ".Yii::t('app', 'Nickname')."</label>",
                 'value' => function ($model, $key, $index, $column) {
                     if($model->status == \app\models\User::STATUS_DISABLE)
                         return Html::a($model->nickname, ['/user/view', 'id' => $key],['class'=>'text-gray'], ['target' => '_blank']);
@@ -249,7 +249,7 @@ else
             ],
             [
                 'attribute' => 'school',
-                'header' => Html::checkbox('showSchool', $showSchool, ['id' => 'showSchool','style' => 'vertical-align:text-bottom;'])." ".Yii::t('app', 'School'),
+                'header' => "<label  style='cursor: pointer;'>".Html::checkbox('showSchool', $showSchool, ['id' => 'showSchool','style' => 'vertical-align:text-bottom;'])." ".Yii::t('app', 'School')."</label>",
                 'value' => function ($model, $key, $index, $column) {
                     return $model->profile->school;
                 },                  
@@ -259,7 +259,7 @@ else
             ],            
             [
                 'attribute' => 'email',
-                'header' => Html::checkbox('showEmail', $showEmail, ['id' => 'showEmail','style' => 'vertical-align:text-bottom;'])." ".Yii::t('app', 'Email'),
+                'header' => "<label  style='cursor: pointer;'>".Html::checkbox('showEmail', $showEmail, ['id' => 'showEmail','style' => 'vertical-align:text-bottom;'])." ".Yii::t('app', 'Email')."</label>",
                 'format' => 'raw',
                 'enableSorting' => false,
                 'visible' =>  $showEmail==1,
@@ -301,19 +301,19 @@ else
             // 'status',
             [
                 'attribute' => 'created_at',
-                'header' => Html::checkbox('showCreated_at', $showCreated_at, ['id' => 'showCreated_at','style' => 'vertical-align:text-bottom;'])." ".Yii::t('app', 'Created At'),
+                'header' => "<label  style='cursor: pointer;'>".Html::checkbox('showCreated_at', $showCreated_at, ['id' => 'showCreated_at','style' => 'vertical-align:text-bottom;'])." ".Yii::t('app', 'Created At')."</label>",
                 'format' => 'raw',
                 'enableSorting' => false,
                 'visible' =>  $showCreated_at==1,
             ],
             // 'updated_at',
             ['class' => 'yii\grid\ActionColumn',
-            'header' => Html::checkbox('showAll', 0, ['id' => 'showAll','style' => 'vertical-align:text-bottom;'])." ".Yii::t('app', 'Show all'),
+            'header' => "<label  style='cursor: pointer;'>".Html::checkbox('showAll', 0, ['id' => 'showAll','style' => 'vertical-align:text-bottom;'])." ".Yii::t('app', 'Show all')."</label>",
             'contentOptions' => ['class'=>'a_just']
             ],
             [
                 'attribute' => 'memo',
-                'header' => Html::checkbox('showMemo', $showMemo, ['id' => 'showMemo','style' => 'vertical-align:text-bottom;'])." ".Yii::t('app', 'Memo'),
+                'header' => "<label  style='cursor: pointer;'>".Html::checkbox('showMemo', $showMemo, ['id' => 'showMemo','style' => 'vertical-align:text-bottom;'])." ".Yii::t('app', 'Memo')."</label>",
                 'value' => function ($model, $key, $index, $column) {
                     if($model->memo==null) return "";
                     return $model->memo;
