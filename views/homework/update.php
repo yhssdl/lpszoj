@@ -18,11 +18,8 @@ $this->params['model'] = $model;
 $problems = $model->problems;
 $scoreboardFrozenTime = Yii::$app->setting->get('scoreboardFrozenTime') / 3600;
 $contest_id = $model->id;
-$requestUrl = Url::toRoute('problem/select');
-
-$addUrl = Url::to(['homework/addproblem', 'id' => $contest_id]);
-
-
+$requestUrl = Url::toRoute('/problem/select');
+$addUrl = Url::to(['/homework/addproblem', 'id' => $contest_id]);
 $js = <<<EOT
 $("#select_submit").click(function () {
     $("#select_modal").modal('hide');
@@ -37,8 +34,6 @@ $("#select_submit").click(function () {
        data: {problem_ids: keys}
     });
 });
-
-
 EOT;
 $this->registerJs($js);
 ?>

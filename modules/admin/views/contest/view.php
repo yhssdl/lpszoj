@@ -15,6 +15,24 @@ use yii\helpers\Url;
 $this->title = $model->title;
 $problems = $model->problems;
 $contest_id = $model->id;
+$requestUrl = Url::toRoute('/problem/select');
+$addUrl = Url::to(['contest/addproblem', 'id' => $contest_id]);
+$js = <<<EOT
+$("#select_submit").click(function () {
+    $("#select_modal").modal('hide');
+    var keys = [];
+    $("#frmchild1").contents().find("#select_grid").find('input[type=checkbox]:checked').each(function(){ 
+        keys.push($(this).val()); 
+    }); 
+
+    $.post({
+       url: "$addUrl", 
+       dataType: 'json',
+       data: {problem_ids: keys}
+    });
+});
+EOT;
+$this->registerJs($js);
 ?>
 <p class="lead"><?= Html::encode($this->title) ?></p>
 
@@ -264,23 +282,15 @@ $contest_id = $model->id;
                     <td></td>
                     <td>
                         <?php Modal::begin([
+                            'id' => 'select_modal',
                             'header' => Yii::t('app', 'Add a problem'),
                             'toggleButton' => ['label' => Yii::t('app', 'Add a problem'), 'class' => 'btn btn-success'],
                         ]); ?>
 
-                        <?= Html::beginForm(['contest/addproblem', 'id' => $model->id]) ?>
-                        <div class="alert alert-light"><i class="fa fa-info-circle"></i> 多个题目可以用空格或逗号键分开；连续题目，可以用 1001-1005 这样的格式。</div>
-                        <div class="form-group">
-                            <div class="input-group">
-                                <span class="input-group-addon"><?= Html::label(Yii::t('app', 'Problem ID'), 'problem_id') ?></span>
-                                <?= Html::textInput('problem_id', '', ['class' => 'form-control']) ?>
-                            </div>
-                        </div>
-
-                        <div class="form-group">
-                            <?= Html::submitButton(Yii::t('app', 'Submit'), ['class' => 'btn btn-success btn-block']) ?>
-                        </div>
-                        <?= Html::endForm(); ?>
+                            <IFRAME  scrolling="auto" frameBorder=0 id=frmchild1 name=frmchild1 height="600px"
+                            src="<?= $requestUrl ?>" width="100%" allowTransparency="true" style="overflow-x: hidden;"></IFRAME>
+                            
+                            <?= Html::button(Yii::t('app', 'Submit'), ['id'=> 'select_submit','class' => 'btn btn-success btn-block']) ?>
 
                         <?php Modal::end(); ?>
                     </td>
