@@ -146,7 +146,7 @@ class ProblemController extends BaseController
         $dataProvider = new ActiveDataProvider([
             'query' => $query,
             'pagination' => [
-                'pageSize' => 50
+                'pageSize' => 30
             ]
         ]);
 
