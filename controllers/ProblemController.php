@@ -108,6 +108,69 @@ class ProblemController extends BaseController
         ]);
     }
 
+/**
+     * select all Problem models.
+     * @return mixed
+     */
+    public function actionSelect($page = 1, $tag = '')
+    {
+        $this->layout = "basic";
+
+        if (Yii::$app->setting->get('isContestMode') && (Yii::$app->user->isGuest || (!Yii::$app->user->identity->isAdmin()))) {
+            throw new ForbiddenHttpException('You are not allowed to perform this action.');
+        }
+
+        $query = Problem::find();
+
+        if (Yii::$app->request->get('tag') != '') {
+            $query->andWhere('tags LIKE :tag', [':tag' => '%' . Yii::$app->request->get('tag') . '%']);
+        }
+        if (($post = Yii::$app->request->post())) {
+            if(isset($post['q'])) {
+                $query->orWhere(['like', 'title', $post['q']])
+                    ->orWhere(['like', 'id', $post['q']])
+                    ->orWhere(['like', 'source', $post['q']]);
+            }
+            if(isset($post['tag'])) {
+                $query->orWhere(['like', 'tags', $post['tag']]);
+            }
+        }
+        if (!Yii::$app->user->identity->isAdmin()){
+            $query->andWhere('status<>' . Problem::STATUS_HIDDEN);
+        }
+        
+        if (Yii::$app->setting->get('isHideVIP') && (Yii::$app->user->isGuest || Yii::$app->user->identity->role === User::ROLE_USER)){
+            $query->andWhere('status<>' . Problem::STATUS_PRIVATE);
+        }
+
+        $dataProvider = new ActiveDataProvider([
+            'query' => $query,
+            'pagination' => [
+                'pageSize' => 50
+            ]
+        ]);
+
+        $cache = Yii::$app->cache;
+        $tags = $cache->get('problem-tags');
+        if ($tags === false) {
+            $tags = (new TaggingQuery())->select('tags')
+                ->from('{{%problem}}')
+                ->where('status<>' . Problem::STATUS_HIDDEN)
+                ->limit(30)
+                ->displaySort(['freq' => SORT_DESC])
+                ->getTags();
+            $cache->set('problem-tags', $tags, 3600);
+        }
+
+        return $this->render('select', [
+            'dataProvider' => $dataProvider,
+            'tags' => $tags,
+            'page' => $page,
+            'tag' => $tag            
+        ]);
+    }
+
+
     public function actionStatistics($id)
     {
         $model = $this->findModel($id);

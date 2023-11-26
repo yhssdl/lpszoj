@@ -2,6 +2,7 @@
 
 use yii\helpers\Html;
 use yii\widgets\ActiveForm;
+use yii\grid\GridView;
 use yii\bootstrap\Modal;
 use app\models\Contest;
 use yii\helpers\Url;
@@ -17,6 +18,29 @@ $this->params['model'] = $model;
 $problems = $model->problems;
 $scoreboardFrozenTime = Yii::$app->setting->get('scoreboardFrozenTime') / 3600;
 $contest_id = $model->id;
+$requestUrl = Url::toRoute('problem/select');
+
+$addUrl = Url::to(['homework/addproblem', 'id' => $contest_id]);
+
+
+$js = <<<EOT
+$("#select_submit").click(function () {
+    $("#select_modal").modal('hide');
+    var keys = [];
+    $("#frmchild1").contents().find("#select_grid").find('input[type=checkbox]:checked').each(function(){ 
+        keys.push($(this).val()); 
+    }); 
+
+    $.post({
+       url: "$addUrl", 
+       dataType: 'json',
+       data: {problem_ids: keys}
+    });
+});
+
+
+EOT;
+$this->registerJs($js);
 ?>
 <div class="homework-update">
     <p class="lead"><?= Yii::t('app', 'Problems') ?></p>
@@ -86,24 +110,15 @@ $contest_id = $model->id;
                     <th></th>
                     <th>
                         <?php Modal::begin([
+                            'id' => 'select_modal',
                             'header' => Yii::t('app', 'Add a problem'),
                             'toggleButton' => ['label' => Yii::t('app', 'Add a problem'), 'class' => 'btn btn-success'],
-                        ]); ?>
-
-                        <?= Html::beginForm(['/homework/addproblem', 'id' => $model->id]) ?>
-                        <div class="alert alert-light"><i class="fa fa-info-circle"></i> 多个题目可以用空格或逗号键分开；连续题目，可以用 1001-1005 这样的格式。</div>
-                        <div class="form-group">
-                            <div class="input-group">
-                                <span class="input-group-addon"><?= Html::label(Yii::t('app', 'Problem ID'), 'problem_id') ?></span>
-                                <?= Html::textInput('problem_id', '', ['class' => 'form-control']) ?>
-                            </div>
-                        </div>
-
-                        <div class="form-group">
-                            <?= Html::submitButton(Yii::t('app', 'Submit'), ['class' => 'btn btn-success btn-block']) ?>
-                        </div>
-                        <?= Html::endForm(); ?>
-
+                            ]); 
+                        ?>
+                        <IFRAME  scrolling="auto" frameBorder=0 id=frmchild1 name=frmchild1 height="600px"
+                            src="<?= $requestUrl ?>" width="100%" allowTransparency="true" style="overflow-x: hidden;"></IFRAME>
+                            
+                        <?= Html::button(Yii::t('app', 'Submit'), ['id'=> 'select_submit','class' => 'btn btn-success btn-block']) ?>
                         <?php Modal::end(); ?>
                     </th>
                     <th></th>
