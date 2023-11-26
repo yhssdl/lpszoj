@@ -12,6 +12,7 @@ LPSZOJ Change Log
 请阅读 [update.md](https://gitee.com/yhssdl/lpszoj/raw/master/docs/update.md) 来获取更新方法。
 
 ---------------------------------------
+- 2023.11.25 Bug: [web] 改进小组作业与后台比赛添加题目的界面，直接从题库中选择。
 - 2023.11.25 Bug: [web] 比赛与小组作业的榜单中，添加了ajax自动刷新选项。
 - 2023.11.21 Bug: [Enh] 一键安装脚本，新增对Alpine Linux系统的支持。
 - 2023.11.21 Bug: [web] 修正ajax更新测评结果中的BUG。
