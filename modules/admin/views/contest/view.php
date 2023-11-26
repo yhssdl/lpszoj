@@ -31,8 +31,25 @@ $("#select_submit").click(function () {
        data: {problem_ids: keys}
     });
 });
+function resize_iframe(){
+    var iframe = document.getElementById("frmchild1");
+    try {
+        iframe.height =  document.body.offsetHeight*0.8;
+    } catch (ex) { }
+}
+
+resize_iframe();
+$(window).resize(function(){
+    resize_iframe();
+ });
 EOT;
 $this->registerJs($js);
+$css = <<< EOT
+ .modal-dialog {
+    width:90%!important;
+ }
+EOT;
+$this->registerCss($css);
 ?>
 <p class="lead"><?= Html::encode($this->title) ?></p>
 
@@ -290,7 +307,7 @@ $this->registerJs($js);
                             <IFRAME  scrolling="auto" frameBorder=0 id=frmchild1 name=frmchild1 height="600px"
                             src="<?= $requestUrl ?>" width="100%" allowTransparency="true" style="overflow-x: hidden;"></IFRAME>
                             
-                            <?= Html::button(Yii::t('app', 'Submit'), ['id'=> 'select_submit','class' => 'btn btn-success btn-block']) ?>
+                            <div class="row" style="padding-top:10px"><?= Html::button(Yii::t('app', 'Submit'), ['id'=> 'select_submit','class' => 'col-md-2 col-md-offset-5 btn btn-success']) ?></div>
 
                         <?php Modal::end(); ?>
                     </td>

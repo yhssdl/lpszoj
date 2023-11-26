@@ -34,9 +34,32 @@ $("#select_submit").click(function () {
        data: {problem_ids: keys}
     });
 });
+
+function resize_iframe(){
+    var iframe = document.getElementById("frmchild1");
+    try {
+        iframe.height =  document.body.offsetHeight*0.8;
+    } catch (ex) { }
+}
+
+resize_iframe();
+$(window).resize(function(){
+    resize_iframe();
+ });
 EOT;
 $this->registerJs($js);
+$css = <<< EOT
+ .modal-dialog {
+    width:90%!important;
+ }
+EOT;
+$this->registerCss($css);
 ?>
+
+
+
+
+
 <div class="homework-update">
     <p class="lead"><?= Yii::t('app', 'Problems') ?></p>
     <div class="table-responsive table-problem-list1">
@@ -106,14 +129,14 @@ $this->registerJs($js);
                     <th>
                         <?php Modal::begin([
                             'id' => 'select_modal',
+                            'class' =>'modal-wide',
                             'header' => Yii::t('app', 'Add a problem'),
                             'toggleButton' => ['label' => Yii::t('app', 'Add a problem'), 'class' => 'btn btn-success'],
                             ]); 
                         ?>
-                        <IFRAME  scrolling="auto" frameBorder=0 id=frmchild1 name=frmchild1 height="600px"
-                            src="<?= $requestUrl ?>" width="100%" allowTransparency="true" style="overflow-x: hidden;"></IFRAME>
-                            
-                        <?= Html::button(Yii::t('app', 'Submit'), ['id'=> 'select_submit','class' => 'btn btn-success btn-block']) ?>
+                        <IFRAME  scrolling="auto" frameBorder=0 id="frmchild1" name="frmchild1"
+                            src="<?= $requestUrl ?>" width="100%" allowTransparency="true"></IFRAME>
+                            <div class="row" style="padding-top:10px"><?= Html::button(Yii::t('app', 'Submit'), ['id'=> 'select_submit','class' => 'col-md-2 col-md-offset-5 btn btn-success']) ?></div>
                         <?php Modal::end(); ?>
                     </th>
                     <th></th>
