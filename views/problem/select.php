@@ -10,7 +10,7 @@ use justinvoelker\tagging\TaggingWidget;
 /* @var $searchModel app\models\ProblemSearch */
 /* @var $dataProvider yii\data\ActiveDataProvider */
 /* @var $solvedProblem array */
-
+\yii\bootstrap\BootstrapPluginAsset::register($this);
 $this->title = Yii::t('app', 'Problems');
 $title_str = '标题 <span class="float-right">'.Html::a(Html::encode("显示所有"), ['/problem/select'], ['class' => 'label label-normal']).'</span>';
 $label_i = 1;
