@@ -56,7 +56,9 @@ class SolutionSearch extends Solution
                 }
             ]);
             if (Yii::$app->user->isGuest || Yii::$app->user->identity->role != User::ROLE_ADMIN) {
-                $lockTime = strtotime($contest->lock_board_time);
+                if(!empty($contest->lock_board_time)){
+                    $lockTime = strtotime($contest->lock_board_time);
+                }
                 $endTime = strtotime($contest->end_time);
                 $currentTime = time();
                 $type = $contest->type;
