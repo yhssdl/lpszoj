@@ -228,12 +228,12 @@ class TrainingController extends Controller
 
             $problem_ids  = $post['problem_ids'];
             $cnt = count($problem_ids);
+            $info_msg = "";
             for ($i = 0; $i < $cnt; ++$i) {
-                if (empty($problem_ids[$i]))
+                if (empty($problem_ids[$i]) || $problem_ids[$i]=='1')
                     continue;
                 $pid =  $problem_ids[$i];
-                if($pid=='1')
-                    continue;
+
                 $problemStatus = (new Query())->select('status')
                     ->from('{{%problem}}')
                     ->where('id=:id', [':id' => $pid])
@@ -242,14 +242,14 @@ class TrainingController extends Controller
                     Yii::$app->session->setFlash('error', $pid);
                 } else if ($problemStatus == Problem::STATUS_PRIVATE && (Yii::$app->user->identity->role == User::ROLE_USER ||
                                                                             Yii::$app->user->identity->role == User::ROLE_PLAYER)) {
-                    Yii::$app->session->setFlash('error', $pid.":".Yii::t('app', '私有题目，仅 VIP 用户可选用'));
+                    $info_msg = $info_msg.$pid.":".Yii::t('app', '私有题目，仅 VIP 用户可选用')."<br>";
                 } else {
                     $problemInContest = (new Query())->select('problem_id')
                         ->from('{{%contest_problem}}')
                         ->where(['problem_id' => $pid, 'contest_id' => $model->id])
                         ->exists();
                     if ($problemInContest) {
-                        Yii::$app->session->setFlash('info', $pid.":".Yii::t('app', 'This problem has in the contest.'));
+                        $info_msg = $info_msg.$pid.":".Yii::t('app', 'This problem has in the contest.')."<br>";
                         continue;
                     }
                     $count = (new Query())->select('contest_id')
@@ -262,11 +262,15 @@ class TrainingController extends Controller
                         'contest_id' => $model->id,
                         'num' => $count
                     ])->execute();
-                    Yii::$app->session->setFlash('success', Yii::t('app', 'Submitted successfully'));
                 }
             }
-            return $this->redirect(['section', 'id' => $id]);
+            if($info_msg==""){
+                Yii::$app->session->setFlash('success', Yii::t('app', 'Submitted successfully')); 
+            }else{
+                 Yii::$app->session->setFlash('info', $info_msg);
+            } 
         }
+        return $this->redirect(['section', 'id' => $id]);
     }
 
     /**

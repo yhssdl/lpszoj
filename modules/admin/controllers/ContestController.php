@@ -310,11 +310,11 @@ class ContestController extends Controller
         $model = $this->findModel($id);
 
         if (($post = Yii::$app->request->post())) {
-
             $problem_ids  = $post['problem_ids'];
             $cnt = count($problem_ids);
+            $info_msg = "";
             for ($i = 0; $i < $cnt; ++$i) {
-                if (empty($problem_ids[$i]))
+                if (empty($problem_ids[$i]) || $problem_ids[$i]=='1')
                 continue;
 
                 $pid =  $problem_ids[$i];
@@ -328,8 +328,8 @@ class ContestController extends Controller
                         ->where(['problem_id' => $pid, 'contest_id' => $model->id])
                         ->exists();
                     if ($problem_in_contest) {
-                        Yii::$app->session->setFlash('info', Yii::t('app', 'This problem has in the contest.'));
-                        return $this->redirect(['contest/view', 'id' => $id]);
+                        $info_msg = $info_msg.$pid.":".Yii::t('app', 'This problem has in the contest.')."<br>";
+                        continue;
                     }
                     $count = (new Query())->select('contest_id')
                         ->from('{{%contest_problem}}')
@@ -341,11 +341,14 @@ class ContestController extends Controller
                         'contest_id' => $model->id,
                         'num' => $count
                     ])->execute();
-                    Yii::$app->session->setFlash('success', Yii::t('app', 'Submitted successfully'));
                 } else {
-                    Yii::$app->session->setFlash('error', Yii::t('app', 'No such problem.'));
+                    $info_msg = $info_msg.$pid.":".Yii::t('app', 'No such problem.')."<br>";
                 }
-                
+            }
+            if($info_msg==""){
+                Yii::$app->session->setFlash('success', Yii::t('app', 'Submitted successfully')); 
+            }else{
+                 Yii::$app->session->setFlash('info', $info_msg);
             }
         }
         return $this->redirect(['contest/view', 'id' => $id]);

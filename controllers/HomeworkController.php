@@ -88,8 +88,9 @@ class HomeworkController extends BaseController
 
             $problem_ids  = $post['problem_ids'];
             $cnt = count($problem_ids);
+            $info_msg = "";
             for ($i = 0; $i < $cnt; ++$i) {
-                if (empty($problem_ids[$i]))
+                if (empty($problem_ids[$i]) || $problem_ids[$i]=='1')
                 continue;
                 $pid = $problem_ids[$i];
 
@@ -101,15 +102,15 @@ class HomeworkController extends BaseController
                     Yii::$app->session->setFlash('error', Yii::t('app', 'No such problem.'));
                 } else if ($problemStatus == Problem::STATUS_PRIVATE && (Yii::$app->user->identity->role == User::ROLE_USER ||
                                                                             Yii::$app->user->identity->role == User::ROLE_PLAYER)) {
-                    Yii::$app->session->setFlash('error', Yii::t('app', '私有题目，仅 VIP 用户可选用'));
+                        $info_msg = $info_msg.$pid.":".Yii::t('app', '私有题目，仅 VIP 用户可选用')."<br>";
                 } else {
                     $problemInContest = (new Query())->select('problem_id')
                         ->from('{{%contest_problem}}')
                         ->where(['problem_id' => $pid, 'contest_id' => $model->id])
                         ->exists();
                     if ($problemInContest) {
-                        Yii::$app->session->setFlash('info', Yii::t('app', 'This problem has in the contest.'));
-                        return $this->redirect(['/homework/update', 'id' => $id]);
+                        $info_msg = $info_msg.$pid.":".Yii::t('app', 'This problem has in the contest.')."<br>";
+                        continue;
                     }
                     $count = (new Query())->select('contest_id')
                         ->from('{{%contest_problem}}')
@@ -121,12 +122,15 @@ class HomeworkController extends BaseController
                         'contest_id' => $model->id,
                         'num' => $count
                     ])->execute();
-                    Yii::$app->session->setFlash('success', Yii::t('app', 'Submitted successfully'));
                 }
-                
             }
-            return $this->redirect(['/homework/update', 'id' => $id]);
-        }
+            if($info_msg==""){
+                Yii::$app->session->setFlash('success', Yii::t('app', 'Submitted successfully')); 
+            }else{
+                 Yii::$app->session->setFlash('info', $info_msg);
+            } 
+        } 
+        return $this->redirect(['/homework/update', 'id' => $id]);
     }
 
     /**
