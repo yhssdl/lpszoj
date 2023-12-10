@@ -2,6 +2,7 @@
 
 use app\models\Contest;
 use yii\helpers\Html;
+use yii\web\view;
 
 /* @var $this yii\web\View */
 /* @var $model app\models\Contest */
@@ -15,6 +16,21 @@ if(isset($_COOKIE['autoRefresh']))
     $autoRefresh = $_COOKIE['autoRefresh'];
 else 
     $autoRefresh = 1;
+
+$js = <<<EOT
+function submission_click(obj) {
+    $.ajax({
+        url: $(obj).attr('data-href'),
+        type:'post',
+        error: function(){alert('error');},
+        success:function(html){
+            $('#submission-content').html(html);
+            $('#submission-info').modal('show');
+        }
+    });   
+}
+EOT;
+$this->registerJs($js,View::POS_HEAD);
 
 $js = <<<EOT
 $(".toggle-show-contest-standing input[name='showStandingBeforeEnd']").change(function () {
@@ -35,13 +51,13 @@ $this->registerJs($js);
 if ($autoRefresh) {
     $js = <<<EOT
     setInterval(function () {
-        $("#main_body").load(location.href + "&ajax=1","");
-    }, 3000);  
-
+        if($('#submission-info').css('display')!="block"){
+            $("#main_body").load(location.href + "&ajax=1","");
+        }
+    }, 5000);
     EOT;
     $this->registerJs($js);
 }
-
 ?>
 <div class="contest-overview">
     <?php if ($model->type != Contest::TYPE_OI || $model->isContestEnd()) : ?>
@@ -112,7 +128,7 @@ if ($autoRefresh) {
                 'model' => $model,
                 'pages' => $pages,
                 'showStandingBeforeEnd' => $showStandingBeforeEnd,
-                'autoRefresh' => $autoRefresh,
+                'autoRefresh' => false,
                 'rankResult' => $rankResult
             ]);
         } else if ($model->type == $model::TYPE_OI || $model->type == $model::TYPE_IOI) {
@@ -120,7 +136,7 @@ if ($autoRefresh) {
                 'model' => $model,
                 'pages' => $pages,
                 'showStandingBeforeEnd' => $showStandingBeforeEnd,
-                'autoRefresh' => $autoRefresh,
+                'autoRefresh' => false,
                 'rankResult' => $rankResult
             ]);
         } else {
@@ -128,7 +144,7 @@ if ($autoRefresh) {
                 'model' => $model,
                 'pages' => $pages,
                 'showStandingBeforeEnd' => $showStandingBeforeEnd,
-                'autoRefresh' => $autoRefresh,
+                'autoRefresh' => false,
                 'rankResult' => $rankResult
             ]);
         }

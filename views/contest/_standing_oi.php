@@ -141,7 +141,7 @@ if (Yii::$app->user->isGuest || !Yii::$app->user->identity->isAdmin()) {
                             'cid' => $model->id,
                             'uid' => $rank['user_id']
                         ]);
-                        echo "<th class=\"table-problem-cell {$css_class}\" style=\"cursor:pointer\" data-click='submission' data-href='{$url}'>"
+                        echo "<th class=\"table-problem-cell {$css_class}\" style=\"cursor:pointer\" onclick='submission_click(this)' data-href='{$url}'>"
                             . "{$first}<br><small>{$second}</small></th>";
                     } else {
                         echo "<th class=\"table-problem-cell {$css_class}\">{$first}<br><small>{$second}</small></th>";
@@ -161,17 +161,6 @@ $js = "
 $(function () {
     $('[data-toggle=\"tooltip\"]').tooltip()
 })
-$('[data-click=submission]').click(function() {
-    $.ajax({
-        url: $(this).attr('data-href'),
-        type:'post',
-        error: function(){alert('error');},
-        success:function(html){
-            $('#submission-content').html(html);
-            $('#submission-info').modal('show');
-        }
-    });
-});
 ";
 $this->registerJs($js);
 ?>

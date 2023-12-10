@@ -125,7 +125,7 @@ $submit_count = $rankResult['submit_count'];
                             'cid' => $model->id,
                             'uid' => $rank['user_id']
                         ]);
-                        echo "<th class=\"table-problem-cell {$css_class}\" style=\"cursor:pointer\" data-click='submission' data-href='{$url}'>{$time}<br><small>{$num} {$span}</small></th>";
+                        echo "<th class=\"table-problem-cell {$css_class}\" style=\"cursor:pointer\" onclick='submission_click(this)' data-href='{$url}'>{$time}<br><small>{$num} {$span}</small></th>";
                     } else {
                         echo "<th class=\"table-problem-cell {$css_class}\">{$time}<br><small>{$num} {$span}</small></th>";
                     }
@@ -140,22 +140,6 @@ $submit_count = $rankResult['submit_count'];
     'linkOptions' => ['class' => 'page-link'],
     'maxButtonCount' => 5,
 ]); ?>
-<?php
-$js = "
-$('[data-click=submission]').click(function() {
-    $.ajax({
-        url: $(this).attr('data-href'),
-        type:'post',
-        error: function(){alert('error');},
-        success:function(html){
-            $('#submission-content').html(html);
-            $('#submission-info').modal('show');
-        }
-    });
-});
-";
-$this->registerJs($js);
-?>
 <?php Modal::begin([
     'options' => ['id' => 'submission-info']
 ]); ?>
