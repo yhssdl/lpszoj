@@ -118,79 +118,7 @@ $this->registerCss($css);
     </div>
     <br>
 
-    <p class="lead">
-        <?= Yii::t('app', 'Information') ?>
-        <?= Html::a(Yii::t('app', 'Edit'), ['update', 'id' => $model->id], ['class' => 'btn btn-xs btn-success']) ?>
-    </p>
 
-    <div class="animate__animated animate__fadeInUp">
-        <?= DetailView::widget([
-            'model' => $model,
-            'template' => '<tr><th class="bg-tablehead" style="width:150px;text-align:center;">{label}</th><td style="min-width:300px;">{value}</td></tr>',
-            'options' => ['id' => 'grid', 'class' => 'table table-bordered'],
-            'attributes' => [
-                'id',
-                'title',
-                'start_time',
-                'end_time',
-                'lock_board_time',
-                'description:html',
-                [
-                    'label' => Yii::t('app', 'Scenario'),
-                    'value' => $model->scenario == Contest::SCENARIO_ONLINE ? Yii::t('app', 'Online') : Yii::t('app', 'Offline')
-                ]
-            ],
-        ]) ?>
-    </div>
-
-    <hr>
-    <p class="lead">
-        <?= Yii::t('app', 'Announcements') ?>
-        <?php Modal::begin([
-            'header' => Yii::t('app', 'Make an announcement'),
-            'toggleButton' => ['label' => Yii::t('app', 'Create'), 'class' => 'btn btn-xs btn-success'],
-        ]); ?>
-
-        <?php $form = ActiveForm::begin(); ?>
-    <div class="alert alert-light"><i class="fa fa-info-circle"></i> 公告发布后将显示在比赛界面中。也可以使用 <?= Html::a('全局公告', ['/admin/setting']) ?>。</div>
-    <?= $form->field($newAnnouncement, 'content')->textarea(['rows' => 6]) ?>
-
-    <div class="form-group">
-        <?= Html::submitButton(Yii::t('app', 'Submit'), ['class' => 'btn btn-success btn-block']) ?>
-    </div>
-    <?php ActiveForm::end(); ?>
-
-    <?php Modal::end(); ?>
-    </p>
-    <div class="animate__animated animate__fadeInUp">
-        <?= \yii\grid\GridView::widget([
-            'dataProvider' => $announcements,
-            'tableOptions' => ['class' => 'table table-striped table-bordered table-text-center'],
-            'columns' => [
-                'content:ntext',
-                'created_at:datetime',
-                [
-                    'class' => 'yii\grid\ActionColumn',
-                    'contentOptions' => ['class'=>'a_just'],
-                    'template' => '{delete}',
-                    'buttons' => [
-                        'delete' => function ($url, $model, $key) use ($contest_id) {
-                            $options = [
-                                'title' => Yii::t('yii', 'Delete'),
-                                'aria-label' => Yii::t('yii', 'Delete'),
-                                'data-confirm' => '删除该项公告，确定删除？',
-                                'data-method' => 'post',
-                                'data-pjax' => '0',
-                            ];
-                            return Html::a('<span class="fa fa-trash"></span>', Url::toRoute(['contest/delete_announcement', 'contest_id' => $contest_id, 'id' => $model->id]), $options);
-                        },
-                    ]
-                ],
-            ],
-        ]) ?>
-    </div>
-
-    <hr>
     <span class="lead">
         <?= Yii::t('app', 'Problems') ?>
     </span>
@@ -317,6 +245,78 @@ $this->registerCss($css);
         </table>
     </div>
 
+
+    <p class="lead">
+        <?= Yii::t('app', 'Information') ?>
+        <?= Html::a(Yii::t('app', 'Edit'), ['update', 'id' => $model->id], ['class' => 'btn btn-xs btn-success']) ?>
+    </p>
+
+    <div class="animate__animated animate__fadeInUp">
+        <?= DetailView::widget([
+            'model' => $model,
+            'template' => '<tr><th class="bg-tablehead" style="width:150px;text-align:center;">{label}</th><td style="min-width:300px;">{value}</td></tr>',
+            'options' => ['id' => 'grid', 'class' => 'table table-bordered'],
+            'attributes' => [
+                'id',
+                'title',
+                'start_time',
+                'end_time',
+                'lock_board_time',
+                'description:html',
+                [
+                    'label' => Yii::t('app', 'Scenario'),
+                    'value' => $model->scenario == Contest::SCENARIO_ONLINE ? Yii::t('app', 'Online') : Yii::t('app', 'Offline')
+                ]
+            ],
+        ]) ?>
+    </div>
+
+    <hr>
+    <p class="lead">
+        <?= Yii::t('app', 'Announcements') ?>
+        <?php Modal::begin([
+            'header' => Yii::t('app', 'Make an announcement'),
+            'toggleButton' => ['label' => Yii::t('app', 'Create'), 'class' => 'btn btn-xs btn-success'],
+        ]); ?>
+
+        <?php $form = ActiveForm::begin(); ?>
+    <div class="alert alert-light"><i class="fa fa-info-circle"></i> 公告发布后将显示在比赛界面中。也可以使用 <?= Html::a('全局公告', ['/admin/setting']) ?>。</div>
+    <?= $form->field($newAnnouncement, 'content')->textarea(['rows' => 6]) ?>
+
+    <div class="form-group">
+        <?= Html::submitButton(Yii::t('app', 'Submit'), ['class' => 'btn btn-success btn-block']) ?>
+    </div>
+    <?php ActiveForm::end(); ?>
+
+    <?php Modal::end(); ?>
+    </p>
+    <div class="animate__animated animate__fadeInUp">
+        <?= \yii\grid\GridView::widget([
+            'dataProvider' => $announcements,
+            'tableOptions' => ['class' => 'table table-striped table-bordered table-text-center'],
+            'columns' => [
+                'content:ntext',
+                'created_at:datetime',
+                [
+                    'class' => 'yii\grid\ActionColumn',
+                    'contentOptions' => ['class'=>'a_just'],
+                    'template' => '{delete}',
+                    'buttons' => [
+                        'delete' => function ($url, $model, $key) use ($contest_id) {
+                            $options = [
+                                'title' => Yii::t('yii', 'Delete'),
+                                'aria-label' => Yii::t('yii', 'Delete'),
+                                'data-confirm' => '删除该项公告，确定删除？',
+                                'data-method' => 'post',
+                                'data-pjax' => '0',
+                            ];
+                            return Html::a('<span class="fa fa-trash"></span>', Url::toRoute(['contest/delete_announcement', 'contest_id' => $contest_id, 'id' => $model->id]), $options);
+                        },
+                    ]
+                ],
+            ],
+        ]) ?>
+    </div>
 </div>
 <?php Modal::begin([
     'header' => Yii::t('app', 'Information'),

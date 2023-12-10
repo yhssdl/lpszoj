@@ -226,61 +226,51 @@ class TrainingController extends Controller
 
         if (($post = Yii::$app->request->post())) {
 
-            $problem_ids  = $post['problem_id'];
-            $problem_ids = str_replace(","," ",$problem_ids);
-            $problem_ids = str_replace("，"," ",$problem_ids);
-            $problem_ids = explode(" ", trim($problem_ids));
+            $problem_ids  = $post['problem_ids'];
             $cnt = count($problem_ids);
-            $pids = [];
+            $info_msg = "";
             for ($i = 0; $i < $cnt; ++$i) {
-                if (empty($problem_ids[$i]))
-                continue;
-                $ids = explode("-", $problem_ids[$i]);
-                if(count($ids)==2){
-                    $id1 = intval($ids[0]);
-                    $id2 = intval($ids[1]);
-                    for($k=0;$id1<=$id2;++$id1,++$k){
-                        $pids[$k] = $id1;
+                if (empty($problem_ids[$i]) || $problem_ids[$i]=='1')
+                    continue;
+                $pid =  $problem_ids[$i];
+
+                $problemStatus = (new Query())->select('status')
+                    ->from('{{%problem}}')
+                    ->where('id=:id', [':id' => $pid])
+                    ->scalar();
+                if ($problemStatus == null || ($problemStatus == Problem::STATUS_HIDDEN && Yii::$app->user->identity->role != User::ROLE_ADMIN)) {
+                    Yii::$app->session->setFlash('error', $pid);
+                } else if ($problemStatus == Problem::STATUS_PRIVATE && (Yii::$app->user->identity->role == User::ROLE_USER ||
+                                                                            Yii::$app->user->identity->role == User::ROLE_PLAYER)) {
+                    $info_msg = $info_msg.$pid.":".Yii::t('app', '私有题目，仅 VIP 用户可选用')."<br>";
+                } else {
+                    $problemInContest = (new Query())->select('problem_id')
+                        ->from('{{%contest_problem}}')
+                        ->where(['problem_id' => $pid, 'contest_id' => $model->id])
+                        ->exists();
+                    if ($problemInContest) {
+                        $info_msg = $info_msg.$pid.":".Yii::t('app', 'This problem has in the contest.')."<br>";
+                        continue;
                     }
-                }else{
-                    $pids[0] = intval($problem_ids[$i]);
-                }
-                for($j=0;$j<count($pids);++$j){
-                    $pid = $pids[$j];
-                    $problemStatus = (new Query())->select('status')
-                        ->from('{{%problem}}')
-                        ->where('id=:id', [':id' => $pid])
-                        ->scalar();
-                    if ($problemStatus == null || ($problemStatus == Problem::STATUS_HIDDEN && Yii::$app->user->identity->role != User::ROLE_ADMIN)) {
-                        Yii::$app->session->setFlash('error', Yii::t('app', 'No such problem.'));
-                    } else if ($problemStatus == Problem::STATUS_PRIVATE && (Yii::$app->user->identity->role == User::ROLE_USER ||
-                                                                             Yii::$app->user->identity->role == User::ROLE_PLAYER)) {
-                        Yii::$app->session->setFlash('error', Yii::t('app', '私有题目，仅 VIP 用户可选用'));
-                    } else {
-                        $problemInContest = (new Query())->select('problem_id')
-                            ->from('{{%contest_problem}}')
-                            ->where(['problem_id' => $pid, 'contest_id' => $model->id])
-                            ->exists();
-                        if ($problemInContest) {
-                            Yii::$app->session->setFlash('info', Yii::t('app', 'This problem has in the contest.'));
-                            return $this->redirect(['/homework/update', 'id' => $id]);
-                        }
-                        $count = (new Query())->select('contest_id')
-                            ->from('{{%contest_problem}}')
-                            ->where(['contest_id' => $model->id])
-                            ->count();
-        
-                        Yii::$app->db->createCommand()->insert('{{%contest_problem}}', [
-                            'problem_id' => $pid,
-                            'contest_id' => $model->id,
-                            'num' => $count
-                        ])->execute();
-                        Yii::$app->session->setFlash('success', Yii::t('app', 'Submitted successfully'));
-                    }
+                    $count = (new Query())->select('contest_id')
+                        ->from('{{%contest_problem}}')
+                        ->where(['contest_id' => $model->id])
+                        ->count();
+    
+                    Yii::$app->db->createCommand()->insert('{{%contest_problem}}', [
+                        'problem_id' => $pid,
+                        'contest_id' => $model->id,
+                        'num' => $count
+                    ])->execute();
                 }
             }
-            return $this->redirect(['section', 'id' => $id]);
+            if($info_msg==""){
+                Yii::$app->session->setFlash('success', Yii::t('app', 'Submitted successfully')); 
+            }else{
+                 Yii::$app->session->setFlash('info', $info_msg);
+            } 
         }
+        return $this->redirect(['section', 'id' => $id]);
     }
 
     /**
