@@ -415,6 +415,7 @@ class ProblemController extends Controller
 
         if ($newSolution->load(Yii::$app->request->post())) {
             $newSolution->problem_id = $id;
+            $newSolution->ip = $newSolution->getClientIp();
             $newSolution->status = Solution::STATUS_TEST;
             if ($newSolution->save()) {
                 Yii::$app->session->setFlash('success', Yii::t('app', 'Submitted successfully'));
