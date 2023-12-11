@@ -92,7 +92,12 @@ $loadingImgUrl = Yii::getAlias('@web/images/loading.gif');
     </div>
     <?php ActiveForm::end(); ?>
 </div>
-
+<?php Modal::begin([
+    'options' => ['id' => 'solution-info']
+]); ?>
+<div id="solution-content">
+</div>
+<?php Modal::end(); ?>
 <?php
 $url = \yii\helpers\Url::toRoute(['/solution/verdict']);
 $loadingImgUrl = Yii::getAlias('@web/images/loading.gif');
