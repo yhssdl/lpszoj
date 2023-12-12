@@ -17,7 +17,7 @@ $this->params['model'] = $model;
 $problems = $model->problems;
 
 $nav = [];
-$nav[''] = 'All';
+$nav[''] = Yii::t('app', 'Please select');
 foreach ($problems as $key => $p) {
     $nav[$p['problem_id']] = 'P' . ($key + 1) . '-' . $p['title'];
 }
