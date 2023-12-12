@@ -445,7 +445,7 @@ class ContestController extends BaseController
      * @throws NotFoundHttpException
      * @throws \yii\db\Exception
      */
-    public function actionStanding($id, $showStandingBeforeEnd = 1 , $ajax = 0)
+    public function actionStanding($id, $showStandingBeforeEnd = 1 , $ajax = 0,$time = 0)
     {
 
         if (Yii::$app->setting->get('isContestMode') && (Yii::$app->user->isGuest || (!Yii::$app->user->identity->isAdmin())) && Yii::$app->setting->get('examContestId') && $id != Yii::$app->setting->get('examContestId')) {
@@ -456,10 +456,23 @@ class ContestController extends BaseController
         if ($model->ext_link) {
             $this->redirect($model->ext_link);
         }
+
         // 访问权限检查
         if (!$model->canView()) {
             return $this->render('/contest/forbidden', ['model' => $model]);
         }
+        if( $ajax && $time){
+            $lt = date("Y-m-d H:i:s",round($time/1000));
+            $count = Yii::$app->db->createCommand('
+            SELECT COUNT(*) FROM {{%solution}} WHERE contest_id=:cid AND created_at>:cat AND result>3', [
+                ':cid' => $id,
+                ':cat' => $lt
+            ])->queryScalar();
+            if($count<=0) return "";
+        }
+
+
+
         if ($showStandingBeforeEnd) {
             $rankResult = $model->getRankData(true);
         } else {

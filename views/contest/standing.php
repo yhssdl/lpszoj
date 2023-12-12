@@ -50,11 +50,22 @@ EOT;
 $this->registerJs($js);
 if ($autoRefresh) {
     $js = <<<EOT
+    var load_time = Date.now();
     setInterval(function () {
         if($('#submission-info').css('display')!="block"){
-            $("#main_body").load(location.href + "&ajax=1","");
+            $.ajax({
+                url:location.href + "&ajax=1&time="+load_time,
+                type:"GET",
+                dataType:"html",
+                success:function(result){
+                    if(result!=""){
+                        load_time =  Date.now();
+                        $("#main_body").html(result);
+                    }
+                }
+            });
         }
-    }, 5000);
+    }, 3000);
     EOT;
     $this->registerJs($js);
 }
