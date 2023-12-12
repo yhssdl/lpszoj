@@ -149,7 +149,7 @@ $loadingImgUrl = Yii::getAlias('@web/images/loading.gif');
                             </div>
 
                             <div style="float:right;">
-                                <select id="solution-theme" class="form-control" name="solution-theme" style="width: auto" aria-required="true" onchange="themeChange()">
+                                <select id="solution-theme" class="form-control" name="solution-theme" style="width: auto" aria-required="true">
                                     <option value="solarized" <?php if ($theme == "solarized") echo "selected=''"; ?>>solarized</option>
                                     <option value="material" <?php if ($theme == "material") echo "selected=''"; ?>>material</option>
                                     <option value="monokai" <?php if ($theme == "monokai") echo "selected=''"; ?>>monokai</option>
@@ -272,6 +272,10 @@ $loadingImgUrl = Yii::getAlias('@web/images/loading.gif');
 <?php Modal::end(); ?>
 
 <?php
+$code_lang = "";
+if($solution->language == 3){
+    $code_lang = "editor.setOption(\"mode\", \"python\");";
+}
 $url = \yii\helpers\Url::toRoute(['/solution/verdict']);
 $js = <<<EOF
 $('[data-click=solution_info]').click(function() {
@@ -333,13 +337,22 @@ if (waitingCount > 0) {
     }
     interval = setInterval(testWaitingsDone, 1000);
 }
+$("#solution-theme").on("change", function () {
+    var sel_theme = document.getElementById("solution-theme").value;
+    editor.setOption("theme", sel_theme);
+    editor.setOption("mode", "python");
+    document.cookie = "theme=" + sel_theme;
+});
+$("#solution-language").on("change", function () {
+    var sel_lang = document.getElementById("solution-language").value;
+    if(sel_lang=='3'){
+        editor.setOption("mode", "python");
+    }
+    else{
+        editor.setOption("mode", "text/x-c++src");
+    }
+});
+$code_lang
 EOF;
 $this->registerJs($js);
 ?>
-<script>
-    function themeChange() {
-        var sel_theme = document.getElementById("solution-theme").value;
-        editor.setOption("theme", sel_theme);
-        document.cookie = "theme=" + sel_theme;
-    }
-</script>
