@@ -64,18 +64,18 @@ $submit_count = $rankResult['submit_count'];
                     $rank['finalrank'] = "?";
                 }
             }
-            if ((!Yii::$app->user->isGuest) && Yii::$app->user->id == $rank['user_id']) {
-                $front_color = "bg-isyou";
-            } else {
-                $front_color = "";
-            }
             ?>
             <tr <?php if (!$autoRefresh) : ?>class="animate__animated animate__fadeInUp <?= $front_color ?>" <?php endif; ?> >
                 <th>
                     <?= $rank['finalrank'] ?>
                 </th>
                 <th>
-                    <?= Html::a(User::getColorNameByRating($rank['nickname'], $rank['rating']), ['/user/view', 'id' => $rank['user_id']]) ?>
+                    <?php //高亮用户自己所在的行 
+                    if ((!Yii::$app->user->isGuest) && Yii::$app->user->id == $rank['user_id']) {
+                        echo Html::a(Html::encode($rank['nickname']), ['/user/view', 'id' => $rank['user_id']],['class' => 'text-vip']);
+                    }else{
+                        echo Html::a(User::getColorNameByRating($rank['nickname'], $rank['rating']), ['/user/view', 'id' => $rank['user_id']]);
+                    } ?>
                 </th>
                 <th class="score-solved">
                     <?= $rank['solved'] ?>
