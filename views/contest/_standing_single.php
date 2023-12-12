@@ -106,19 +106,19 @@ $submit_count = $rankResult['submit_count'];
                         $num = $rank['ce_count'][$p['problem_id']] + $rank['wa_count'][$p['problem_id']];
                         $time = '';
                     }
-                    if ($num == 0) {
-                        $num = '';
-                        $span = '';
-                    } else if ($num == 1) {
-                        $span = 'try';
-                    } else {
-                        $span = 'tries';
-                    }
+
                     // 处理封榜的显示
                     if ($model->isScoreboardFrozen() && isset($rank['pending'][$p['problem_id']]) && $rank['pending'][$p['problem_id']]) {
                         $num = $rank['ce_count'][$p['problem_id']] + $rank['wa_count'][$p['problem_id']] . "+" .  $rank['pending'][$p['problem_id']];
                     }
-                    if ((!Yii::$app->user->isGuest && $model->created_by == Yii::$app->user->id) || $model->isContestEnd()) {
+
+                    if ($num == 0) {
+                        $num = '';
+                        $span = '';
+                    }else{
+                        $span = '次';
+                    }
+                    if ($num != '' && ((!Yii::$app->user->isGuest && $model->created_by == Yii::$app->user->id) || $model->isContestEnd())) {
                         $url = Url::toRoute([
                             '/contest/submission',
                             'pid' => $p['problem_id'],

@@ -141,8 +141,13 @@ if (Yii::$app->user->isGuest || !Yii::$app->user->identity->isAdmin()) {
                             'cid' => $model->id,
                             'uid' => $rank['user_id']
                         ]);
-                        echo "<th class=\"table-problem-cell {$css_class}\" style=\"cursor:pointer\" onclick='submission_click(this)' data-href='{$url}'>"
+                        if($css_class==''){
+                            echo "<th class=\"table-problem-cell\">". "{$first}<br><small>{$second}</small></th>";                            
+                        }else{
+                            echo "<th class=\"table-problem-cell {$css_class}\" style=\"cursor:pointer\" onclick='submission_click(this)' data-href='{$url}'>"
                             . "{$first}<br><small>{$second}</small></th>";
+                        }
+
                     } else {
                         echo "<th class=\"table-problem-cell {$css_class}\">{$first}<br><small>{$second}</small></th>";
                     }
