@@ -2,6 +2,7 @@
 
 use yii\helpers\Html;
 use yii\grid\GridView;
+use yii\web\View;
 use yii\widgets\Pjax;
 use yii\bootstrap\Modal;
 use app\models\Contest;
@@ -93,8 +94,8 @@ $isContestEnd = $model->isContestEnd();
                     if ($solution->canViewResult()) {
                         return Html::a(
                             $solution->getResult(),
-                            ['/solution/result', 'id' => $solution->id],
-                            ['onclick' => 'return false', 'data-click' => "solution_info", 'data-pjax' => 0]
+                            'javaScript:void(0);',
+                            ['onclick' => 'solution_info_click(this)', 'data-url' => '/solution/result?id='.$solution->id]
                         );
                     } else {
                         return $solution->getResult();
@@ -139,8 +140,8 @@ $isContestEnd = $model->isContestEnd();
                     if ($solution->canViewSource()) {
                         return Html::a(
                             $solution->getLang(),
-                            ['/solution/source', 'id' => $solution->id],
-                            ['onclick' => 'return false', 'data-click' => "solution_info", 'data-pjax' => 0]
+                            'javaScript:void(0);',
+                            ['onclick' => 'solution_info_click(this)', 'data-url' => '/solution/source?id='.$solution->id]
                         );
                     } else {
                         return $solution->getLang();
@@ -173,9 +174,9 @@ $isContestEnd = $model->isContestEnd();
     $url = \yii\helpers\Url::toRoute(['/solution/verdict']);
     $loadingImgUrl = Yii::getAlias('@web/images/loading.gif');
     $js = <<<EOF
-$('[data-click=solution_info]').click(function() {
+function solution_info_click(obj) {
     $.ajax({
-        url: $(this).attr('href'),
+        url: $(obj).attr('data-url'),
         type:'post',
         error: function(){alert('error');},
         success:function(html){
@@ -183,7 +184,11 @@ $('[data-click=solution_info]').click(function() {
             $('#solution-info').modal('show');
         }
     });
-});
+    return false;
+}
+EOF;
+    $this->registerJs($js,View::POS_HEAD);
+    $js = <<<EOF
 function updateVerdictByKey(submission) {
     $.get({
         url: "{$url}?id=" + submission.attr('data-submissionid'),
