@@ -220,10 +220,12 @@ $loadingImgUrl = Yii::getAlias('@web/images/loading.gif');
                                             $loadingImg = "";
                                         }
                                         // OI 比赛过程中结果不可见
+                                        $bIOContesting = false;
                                         if ($model->type == \app\models\Contest::TYPE_OI && !$model->isContestEnd()) {
                                             $waitingHtmlDom = 'waiting="false"';
                                             $loadingImg = "";
                                             $sub['result'] = 0;
+                                            $bIOContesting = true;
                                         }
                                         $innerHtml =  'data-verdict="' . $sub['result'] . '" data-submissionid="' . $sub['id'] . '" ' . $waitingHtmlDom;
                                         if ($sub['result'] == Solution::OJ_AC) {
@@ -239,7 +241,7 @@ $loadingImgUrl = Yii::getAlias('@web/images/loading.gif');
                                             }
                                         } else {
                                             $span = '<span class="text-danger" ' . $innerHtml . '>' . Solution::getResultList($sub['result']) . $loadingImg . '</span>';
-                                            if ($solution->canViewResult()) {
+                                            if ($solution->canViewResult() && !$bIOContesting) {
                                                 echo Html::a(
                                                     $span,
                                                     ['/solution/result', 'id' => $sub['id']],
