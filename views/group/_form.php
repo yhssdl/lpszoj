@@ -50,16 +50,16 @@ $url = \yii\helpers\Url::toRoute(['/image/mdupload']);
 
     <div class="form-group">
         <div class="row">
-            <? if ($model->id == 0): ?>
+            <?php if ($model->id == 0): ?>
                 <div class="col-md-2 col-md-offset-5"><?= Html::submitButton(Yii::t('app', 'Save'), ['class' => 'btn btn-success btn-block']) ?></div>
-            <? else:?>
+            <?php else:?>
                 <div class="col-md-2 col-md-offset-4">
                     <?= Html::submitButton(Yii::t('app', 'Save'), ['class' => 'btn btn-success btn-block']) ?>
                 </div>
                 <div class="col-md-2">
                     <?= Html::a('删除该小组', ['/group/delete', 'id' => $model->id], ['class' => 'btn btn-danger btn-block','data-confirm' => '此操作会把该小组的比赛信息及提交记录全部删除，且不可恢复，你确定要删除吗？','data-method' => 'post']) ?>
                 </div>          
-            <? endif;?>
+            <?php endif;?>
         </div>
     </div>
 
