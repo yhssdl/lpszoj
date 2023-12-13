@@ -65,7 +65,7 @@ $submit_count = $rankResult['submit_count'];
                 }
             }
             ?>
-            <tr <?php if (!$autoRefresh) : ?>class="animate__animated animate__fadeInUp <?= $front_color ?>" <?php endif; ?> >
+            <tr <?php if (!$autoRefresh) : ?>class="animate__animated animate__fadeInUp" <?php endif; ?> >
                 <th>
                     <?= $rank['finalrank'] ?>
                 </th>
