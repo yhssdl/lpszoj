@@ -12,6 +12,7 @@ LPSZOJ Change Log
 请阅读 [update.md](https://gitee.com/yhssdl/lpszoj/raw/master/docs/update.md) 来获取更新方法。
 
 ---------------------------------------
+- 2023.12.13 Bug: [web] 修正小组状态界面，点击搜索按钮后，无法查看测评结果的BUG。
 - 2023.12.13 Bug: [web] 修正小组作业与比赛中，提交记录查看过题信息的BUG。
 - 2023.12.13 Bug: [web] 修正代码提交框中python语言的缩进问题。
 - 2023.12.12 Chg: [web] 优化榜单中ajax的调用逻辑。。
