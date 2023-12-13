@@ -327,6 +327,7 @@ class GroupController extends BaseController
     {
         $model = new Group();
         $model->is_train = 0;
+        $model->id = 0;
         $model->status = Group::STATUS_VISIBLE;
         $model->join_policy = Group::JOIN_POLICY_FREE;
 

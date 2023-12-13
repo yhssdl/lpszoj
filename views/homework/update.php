@@ -145,6 +145,63 @@ $this->registerCss($css);
         </table>
     </div>
 
+
+    <p class="lead">
+        <?= Yii::t('app', 'Announcements') ?>
+        <?php Modal::begin([
+            'header' => Yii::t('app', 'Make an announcement'),
+            'toggleButton' => ['label' => Yii::t('app', 'Create'), 'class' => 'btn btn-xs btn-success'],
+        ]); ?>
+
+        <?php $form = ActiveForm::begin(); ?>
+    <div class="alert alert-light"><i class="fa fa-info-circle"></i> 公告发布后将显示在比赛界面中。也可以使用 <?= Html::a('全局公告', ['/admin/setting']) ?>。</div>
+    <?= $form->field($newAnnouncement, 'content')->textarea(['rows' => 6]) ?>
+
+    <div class="form-group">
+        <?= Html::submitButton(Yii::t('app', 'Submit'), ['class' => 'btn btn-success btn-block']) ?>
+    </div>
+    <?php ActiveForm::end(); ?>
+
+    <?php Modal::end(); ?>
+    </p>
+
+    <?= \yii\grid\GridView::widget([
+        'layout' => '{items}{pager}',
+        'pager' => [
+            'firstPageLabel' => Yii::t('app', 'First'),
+            'prevPageLabel' => '« ',
+            'nextPageLabel' => '» ',
+            'lastPageLabel' => Yii::t('app', 'Last'),
+            'maxButtonCount' => 10
+        ],
+        'rowOptions' => function ($model, $key, $index, $grid) {
+            return ['class' => 'animate__animated animate__fadeInUp'];
+        },
+        'dataProvider' => $announcements,
+        'columns' => [
+            'content:ntext',
+            'created_at:datetime',
+            [
+                'class' => 'yii\grid\ActionColumn',
+                'contentOptions' => ['class' => 'a_just'],
+                'template' => '{delete}',
+                'buttons' => [
+                    'delete' => function ($url, $model, $key) use ($contest_id) {
+                        $options = [
+                            'title' => Yii::t('yii', 'Delete'),
+                            'aria-label' => Yii::t('yii', 'Delete'),
+                            'data-confirm' => '删除该项公告，确定删除？',
+                            'data-method' => 'post',
+                            'data-pjax' => '0',
+                        ];
+                        return Html::a('<span class="fa fa-trash"></span>', Url::toRoute(['homework/delete_announcement', 'contest_id' => $contest_id, 'id' => $model->id]), $options);
+                    },
+                ]
+            ],
+        ],
+
+    ]) ?>    
+
     <div class="homework-form">
 
         <?php $form = ActiveForm::begin(); ?>
@@ -218,78 +275,20 @@ $this->registerCss($css);
 
         <div class="form-group">
             <div class="row">
-                <div class="col-md-2 col-md-offset-5">
+                <div class="col-md-2 col-md-offset-4">
                     <?= Html::submitButton(Yii::t('app', 'Save'), ['class' => 'btn btn-success btn-block']) ?>
+                </div>
+                <div class="col-md-2">
+                    <?= Html::a('删除', ['/homework/delete', 'id' => $model->id], ['class' => 'btn btn-danger btn-block','data-confirm' => '此操作不可恢复，你确定要删除吗？','data-method' => 'post']) ?>
                 </div>
             </div>
         </div>
         <?php ActiveForm::end(); ?>
     </div>
-    <hr>
-    <p class="lead">
-        <?= Yii::t('app', 'Announcements') ?>
-        <?php Modal::begin([
-            'header' => Yii::t('app', 'Make an announcement'),
-            'toggleButton' => ['label' => Yii::t('app', 'Create'), 'class' => 'btn btn-xs btn-success'],
-        ]); ?>
 
-        <?php $form = ActiveForm::begin(); ?>
-    <div class="alert alert-light"><i class="fa fa-info-circle"></i> 公告发布后将显示在比赛界面中。也可以使用 <?= Html::a('全局公告', ['/admin/setting']) ?>。</div>
-    <?= $form->field($newAnnouncement, 'content')->textarea(['rows' => 6]) ?>
-
-    <div class="form-group">
-        <?= Html::submitButton(Yii::t('app', 'Submit'), ['class' => 'btn btn-success btn-block']) ?>
-    </div>
-    <?php ActiveForm::end(); ?>
-
-    <?php Modal::end(); ?>
-    </p>
-
-    <?= \yii\grid\GridView::widget([
-        'layout' => '{items}{pager}',
-        'pager' => [
-            'firstPageLabel' => Yii::t('app', 'First'),
-            'prevPageLabel' => '« ',
-            'nextPageLabel' => '» ',
-            'lastPageLabel' => Yii::t('app', 'Last'),
-            'maxButtonCount' => 10
-        ],
-        'rowOptions' => function ($model, $key, $index, $grid) {
-            return ['class' => 'animate__animated animate__fadeInUp'];
-        },
-        'dataProvider' => $announcements,
-        'columns' => [
-            'content:ntext',
-            'created_at:datetime',
-            [
-                'class' => 'yii\grid\ActionColumn',
-                'contentOptions' => ['class' => 'a_just'],
-                'template' => '{delete}',
-                'buttons' => [
-                    'delete' => function ($url, $model, $key) use ($contest_id) {
-                        $options = [
-                            'title' => Yii::t('yii', 'Delete'),
-                            'aria-label' => Yii::t('yii', 'Delete'),
-                            'data-confirm' => '删除该项公告，确定删除？',
-                            'data-method' => 'post',
-                            'data-pjax' => '0',
-                        ];
-                        return Html::a('<span class="fa fa-trash"></span>', Url::toRoute(['homework/delete_announcement', 'contest_id' => $contest_id, 'id' => $model->id]), $options);
-                    },
-                ]
-            ],
-        ],
-
-    ]) ?>
-
-    <hr>
     <div class="row">
         <div class="col-md-2 col-md-offset-5">
-            <?= Html::a('删除该比赛', ['/homework/delete', 'id' => $model->id], [
-                'class' => 'btn btn-danger btn-block',
-                'data-confirm' => '此操作不可恢复，你确定要删除吗？',
-                'data-method' => 'post',
-            ]) ?></div>
+            </div>
     </div>
 </div>
 
