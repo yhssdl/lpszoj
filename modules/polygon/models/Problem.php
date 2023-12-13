@@ -170,14 +170,14 @@ class Problem extends \yii\db\ActiveRecord
      */
     public function setSamples()
     {
-        $input = unserialize($this->sample_input);
-        $output = unserialize($this->sample_output);
-        $this->sample_input = $input[0];
-        $this->sample_output = $output[0];
-        $this->sample_input_2 = $input[1];
-        $this->sample_output_2 = $output[1];
-        $this->sample_input_3 = $input[2];
-        $this->sample_output_3 = $output[2];
+        $input = unserialize($this->sample_input ?? '');
+        $output = unserialize($this->sample_output ?? '');
+        $this->sample_input = $input[0] ?? '';
+        $this->sample_output = $output[0] ?? '';
+        $this->sample_input_2 = $input[1] ?? '';
+        $this->sample_output_2 = $output[1] ?? '';
+        $this->sample_input_3 = $input[2] ?? '';
+        $this->sample_output_3 = $output[2] ?? '';
     }
 
     public function getDataFiles()
