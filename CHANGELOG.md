@@ -12,7 +12,8 @@ LPSZOJ Change Log
 请阅读 [update.md](https://gitee.com/yhssdl/lpszoj/raw/master/docs/update.md) 来获取更新方法。
 
 ---------------------------------------
-- 2023.12.12 Enh: [web] 优化榜单中ajax的调用逻辑。。
+- 2023.12.13 Bug: [web] 修正代码提交框中python语言的缩进问题。
+- 2023.12.12 Chg: [web] 优化榜单中ajax的调用逻辑。。
 - 2023.12.11 Chg: [web] 调整KaTeX默认字体大小为1.1em，大小更协调。
 - 2023.12.10 Bug: [web] 修正比赛与小组作业的榜单中，点击做题方面的BUG。
 - 2023.12.8 Chg: [web] 后台比赛管理中，题目的位置从下方移到上方。
