@@ -401,7 +401,6 @@ if (waitingCount > 0) {
 $("#solution-theme").on("change", function () {
     var sel_theme = document.getElementById("solution-theme").value;
     editor.setOption("theme", sel_theme);
-    editor.setOption("mode", "python");
     document.cookie = "theme=" + sel_theme;
 });
 $("#solution-language").on("change", function () {
