@@ -25,6 +25,7 @@ if (!Yii::$app->user->isGuest) {
         $solution->language = Yii::$app->user->identity->language;
     else
         $solution->language = $model->language;
+    $solution->created_by = Yii::$app->user->id;
 }
 $problems = $model->problems;
 if (empty($problems)) {
@@ -230,10 +231,10 @@ $loadingImgUrl = Yii::getAlias('@web/images/loading.gif');
                                             if ($solution->canViewResult()) {
                                                 echo Html::a(
                                                     $span,
-                                                    ['/solution/source', 'id' => $sub['id']],
+                                                    ['/solution/result', 'id' => $sub['id']],
                                                     ['onclick' => 'return false', 'data-click' => "solution_info", 'data-pjax' => 0]
                                                 );
-                                            }{
+                                            }else{
                                                 echo $span;
                                             }
                                         } else {
