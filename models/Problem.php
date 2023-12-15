@@ -162,9 +162,10 @@ class Problem extends ActiveRecord
     public function setSamples()
     {
         try{
+            $this->sample_output = "skdf";
             $input = unserialize($this->sample_input ?? '');
             $output = unserialize($this->sample_output ?? '');
-        }catch(Exception $e){
+        }catch(\Throwable $e){
             $input =  array("","","");
             $output =  array("","","");
         }
