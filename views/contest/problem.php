@@ -45,9 +45,8 @@ foreach ($problems as $key => $p) {
     ];
 }
 
-$sample_input = unserialize(str_replace("\n","",$problem['sample_input']));
-$sample_output = unserialize(str_replace("\n","",$problem['sample_output']));
-
+$sample_input = unserialize($problem['sample_input']);
+$sample_output = unserialize($problem['sample_output']);
 if($sample_input==false) $sample_input =  array("无","","");
 if($sample_output==false) $sample_output =  array("无","","");
 
