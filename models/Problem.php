@@ -161,8 +161,13 @@ class Problem extends ActiveRecord
      */
     public function setSamples()
     {
-        $input = unserialize($this->sample_input ?? '');
-        $output = unserialize($this->sample_output ?? '');
+        try{
+            $input = unserialize($this->sample_input ?? '');
+            $output = unserialize($this->sample_output ?? '');
+        }catch(Exception $e){
+            $input =  array("","","");
+            $output =  array("","","");
+        }
         $this->sample_input = $input[0] ?? null;
         $this->sample_output = $output[0] ?? null;
         $this->sample_input_2 = $input[1] ?? null;
