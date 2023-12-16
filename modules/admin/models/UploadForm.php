@@ -348,8 +348,13 @@ class UploadForm extends Model
             $problem->input =  self::fixImageURL($problem->input,$did);
             $problem->output = self::fixImageURL($problem->output,$did);
             $problem->hint = self::fixImageURL($problem->hint,$did);
-            $sample_input = unserialize($problem->sample_input);
-            $sample_output = unserialize($problem->sample_output);
+            try{
+                $sample_input = unserialize($problem->sample_input);
+                $sample_output = unserialize($problem->sample_output);
+            }catch(\Throwable $e){
+                $sample_input =  array("无","","");
+                $sample_input =  array("无","","");
+            }
             echo "<title><![CDATA[$problem->title]]></title>\n";
             echo "<time_limit unit=\"s\"><![CDATA[$problem->time_limit]]></time_limit>\n";
             echo "<memory_limit unit=\"mb\"><![CDATA[$problem->memory_limit]]></memory_limit>\n";

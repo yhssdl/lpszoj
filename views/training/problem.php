@@ -43,8 +43,13 @@ foreach ($problems as $key => $p) {
         ]
     ];
 }
-$sample_input = unserialize($problem['sample_input']);
-$sample_output = unserialize($problem['sample_output']);
+try{
+    $sample_input = unserialize($problem['sample_input']);
+    $sample_output = unserialize($problem['sample_output']);
+}catch(\Throwable $e){
+    $sample_input =  array("无","","");
+    $sample_output =  array("无","","");
+}
 if($sample_input==false) $sample_input =  array("无","","");
 if($sample_output==false) $sample_output =  array("无","","");
 

@@ -165,8 +165,8 @@ class Problem extends ActiveRecord
             $input = unserialize($this->sample_input ?? '');
             $output = unserialize($this->sample_output ?? '');
         }catch(\Throwable $e){
-            $input =  array("","","");
-            $output =  array("","","");
+            $input =  array("无","","");
+            $output =  array("无","","");
         }
         $this->sample_input = $input[0] ?? null;
         $this->sample_output = $output[0] ?? null;

@@ -117,8 +117,13 @@ $this->registerAssetBundle('yii\bootstrap\BootstrapPluginAsset');
                 </div>
 
                 <?php
-                $sample_input = unserialize($problem['sample_input']);
-                $sample_output = unserialize($problem['sample_output']);
+                try{
+                    $sample_input = unserialize($problem['sample_input']);
+                    $sample_output = unserialize($problem['sample_output']);
+                }catch(\Throwable $e){
+                    $sample_input =  array("无","","");
+                    $sample_output =  array("无","","");
+                }
                 ?>
 
                 <?php if ($sample_output[0] != '') : ?>

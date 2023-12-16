@@ -170,8 +170,13 @@ class Problem extends \yii\db\ActiveRecord
      */
     public function setSamples()
     {
-        $input = unserialize($this->sample_input ?? '');
-        $output = unserialize($this->sample_output ?? '');
+        try{
+            $input = unserialize($this->sample_input ?? '');
+            $output = unserialize($this->sample_output ?? '');
+        }catch(\Throwable $e){
+            $input =  array("无","","");
+            $output =  array("无","","");
+        }
         $this->sample_input = $input[0] ?? '';
         $this->sample_output = $output[0] ?? '';
         $this->sample_input_2 = $input[1] ?? '';
