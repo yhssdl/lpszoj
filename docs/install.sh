@@ -181,7 +181,7 @@ install_dependencies(){
     elif check_sys sysRelease alpine; then
         apt_depends=(
             nginx 
-            php82 php82-common php82-gd php82-zip php82-xml php82-mbstring php82-fileinfo php82-opcache php82-fpm php82-pdo php82-pdo_mysql php82-ctype php82-session php82-zip
+            php82 php82-common php82-gd php82-zip php82-xml php82-simplexml php82-mbstring php82-fileinfo php82-opcache php82-fpm php82-pdo php82-pdo_mysql php82-ctype php82-session php82-zip
             mariadb mariadb-client mariadb-dev 
             git make gcc g++ python3 openjdk8
             net-tools
