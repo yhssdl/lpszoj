@@ -167,7 +167,7 @@ class PrintController extends BaseController
             if ($model->user_id == Yii::$app->user->id || Yii::$app->user->identity->role == User::ROLE_ADMIN) {
                 return $model;
             }
-            throw new ForbiddenHttpException('You are not allowed to perform this action.');
+            throw new ForbiddenHttpException('不允许执行此操作。');
         }
 
         throw new NotFoundHttpException('The requested page does not exist.');

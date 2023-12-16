@@ -253,7 +253,7 @@ class HomeworkController extends BaseController
             if ($model->hasPermission()) {
                 return $model;
             } else {
-                throw new ForbiddenHttpException('You are not allowed to perform this action.');
+                throw new ForbiddenHttpException('不允许执行此操作。');
             }
         }
         throw new NotFoundHttpException('The requested page does not exist.');

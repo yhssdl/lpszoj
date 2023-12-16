@@ -107,7 +107,7 @@ class UserController extends BaseController
     {
         $model = User::findOne(Yii::$app->user->id);
         if ($model->role === User::ROLE_PLAYER) {
-            throw new ForbiddenHttpException('You are not allowed to perform this action.');
+            throw new ForbiddenHttpException('不允许执行此操作。');
         }
         switch ($action) {
             case 'account':

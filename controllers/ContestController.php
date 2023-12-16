@@ -75,7 +75,7 @@ class ContestController extends BaseController
     {
 
         if (Yii::$app->setting->get('isContestMode') && (Yii::$app->user->isGuest || (!Yii::$app->user->identity->isAdmin())) && Yii::$app->setting->get('examContestId') && $id != Yii::$app->setting->get('examContestId')) {
-            throw new ForbiddenHttpException('You are not allowed to perform this action.');
+            throw new ForbiddenHttpException('不允许执行此操作。');
         }
 
         $model = $this->findModel($id);
@@ -119,10 +119,10 @@ class ContestController extends BaseController
 
         // 访问权限检查，比赛结束前提交列表仅作者可见，比赛结束后所有人可见
         if (!$model->isContestEnd() && $model->type == Contest::TYPE_OI && (Yii::$app->user->isGuest || Yii::$app->user->id != $model->created_by)) {
-            throw new ForbiddenHttpException('You are not allowed to perform this action.');
+            throw new ForbiddenHttpException('不允许执行此操作。');
         }
         if ((!$model->isContestEnd() || $model->isScoreboardFrozen()) && (Yii::$app->user->isGuest || Yii::$app->user->id != $model->created_by)) {
-            throw new ForbiddenHttpException('You are not allowed to perform this action.');
+            throw new ForbiddenHttpException('不允许执行此操作。');
         }
         $submissions = Yii::$app->db->createCommand(
             'SELECT id, result, created_at FROM {{%solution}} WHERE problem_id=:pid AND contest_id=:cid AND created_by=:uid ORDER BY id DESC',
@@ -143,7 +143,7 @@ class ContestController extends BaseController
     {
 
         if (Yii::$app->setting->get('isContestMode') && (Yii::$app->user->isGuest || (!Yii::$app->user->identity->isAdmin())) && Yii::$app->setting->get('examContestId') && $id != Yii::$app->setting->get('examContestId')) {
-            throw new ForbiddenHttpException('You are not allowed to perform this action.');
+            throw new ForbiddenHttpException('不允许执行此操作。');
         }
 
         $this->layout = 'main';
@@ -176,7 +176,7 @@ class ContestController extends BaseController
     {
 
         if (Yii::$app->setting->get('isContestMode') && (Yii::$app->user->isGuest || (!Yii::$app->user->identity->isAdmin())) && Yii::$app->setting->get('examContestId') && $id != Yii::$app->setting->get('examContestId')) {
-            throw new ForbiddenHttpException('You are not allowed to perform this action.');
+            throw new ForbiddenHttpException('不允许执行此操作。');
         }
 
         $this->layout = 'main';
@@ -189,12 +189,12 @@ class ContestController extends BaseController
         }
         // 线下赛只能在后台加入，在此处不给注册
         if ($model->scenario == Contest::SCENARIO_OFFLINE) {
-            throw new ForbiddenHttpException('You are not allowed to perform this action.');
+            throw new ForbiddenHttpException('不允许执行此操作。');
         }
 
         // 设为私有的比赛只能在后台加入，在此处不给注册
         if ($model->status == Contest::STATUS_PRIVATE) {
-            throw new ForbiddenHttpException('You are not allowed to perform this action.');
+            throw new ForbiddenHttpException('不允许执行此操作。');
         }
 
         if (
@@ -229,7 +229,7 @@ class ContestController extends BaseController
     {
 
         if (Yii::$app->setting->get('isContestMode') && (Yii::$app->user->isGuest || (!Yii::$app->user->identity->isAdmin())) && Yii::$app->setting->get('examContestId') && $id != Yii::$app->setting->get('examContestId')) {
-            throw new ForbiddenHttpException('You are not allowed to perform this action.');
+            throw new ForbiddenHttpException('不允许执行此操作。');
         }
 
         $model = $this->findModel($id);
@@ -277,7 +277,7 @@ class ContestController extends BaseController
     {
 
         if (Yii::$app->setting->get('isContestMode') && (Yii::$app->user->isGuest || (!Yii::$app->user->identity->isAdmin())) && Yii::$app->setting->get('examContestId') && $id != Yii::$app->setting->get('examContestId')) {
-            throw new ForbiddenHttpException('You are not allowed to perform this action.');
+            throw new ForbiddenHttpException('不允许执行此操作。');
         }
 
         $model = $this->findModel($id);
@@ -309,7 +309,7 @@ class ContestController extends BaseController
     {
 
         if (Yii::$app->setting->get('isContestMode') && (Yii::$app->user->isGuest || (!Yii::$app->user->identity->isAdmin())) && Yii::$app->setting->get('examContestId') && $id != Yii::$app->setting->get('examContestId')) {
-            throw new ForbiddenHttpException('You are not allowed to perform this action.');
+            throw new ForbiddenHttpException('不允许执行此操作。');
         }
 
         $model = $this->findModel($id);
@@ -323,7 +323,7 @@ class ContestController extends BaseController
             ]);
         }
 
-        throw new ForbiddenHttpException('You are not allowed to perform this action.');
+        throw new ForbiddenHttpException('不允许执行此操作。');
     }
 
     /**
@@ -337,7 +337,7 @@ class ContestController extends BaseController
     {
 
         if (Yii::$app->setting->get('isContestMode') && (Yii::$app->user->isGuest || (!Yii::$app->user->identity->isAdmin())) && Yii::$app->setting->get('examContestId') && $id != Yii::$app->setting->get('examContestId')) {
-            throw new ForbiddenHttpException('You are not allowed to perform this action.');
+            throw new ForbiddenHttpException('不允许执行此操作。');
         }
 
         $model = $this->findModel($id);
@@ -350,7 +350,7 @@ class ContestController extends BaseController
         }
 
         if(!($model->enable_clarify==1 || ($model->enable_clarify==2 && $model->isContestEnd()))){
-            throw new ForbiddenHttpException('You are not allowed to perform this action.');
+            throw new ForbiddenHttpException('不允许执行此操作。');
         }
         $newClarify = new Discuss();
         $discuss = null;
@@ -449,7 +449,7 @@ class ContestController extends BaseController
     {
 
         if (Yii::$app->setting->get('isContestMode') && (Yii::$app->user->isGuest || (!Yii::$app->user->identity->isAdmin())) && Yii::$app->setting->get('examContestId') && $id != Yii::$app->setting->get('examContestId')) {
-            throw new ForbiddenHttpException('You are not allowed to perform this action.');
+            throw new ForbiddenHttpException('不允许执行此操作。');
         }
 
         $model = $this->findModel($id);
@@ -515,7 +515,7 @@ class ContestController extends BaseController
     {
 
         if (Yii::$app->setting->get('isContestMode') && (Yii::$app->user->isGuest || (!Yii::$app->user->identity->isAdmin())) && Yii::$app->setting->get('examContestId') && $id != Yii::$app->setting->get('examContestId')) {
-            throw new ForbiddenHttpException('You are not allowed to perform this action.');
+            throw new ForbiddenHttpException('不允许执行此操作。');
         }
 
         $this->layout = 'contest';
@@ -560,7 +560,7 @@ class ContestController extends BaseController
     {
 
         if (Yii::$app->setting->get('isContestMode') && (Yii::$app->user->isGuest || (!Yii::$app->user->identity->isAdmin())) && Yii::$app->setting->get('examContestId') && $id != Yii::$app->setting->get('examContestId')) {
-            throw new ForbiddenHttpException('You are not allowed to perform this action.');
+            throw new ForbiddenHttpException('不允许执行此操作。');
         }
 
         $model = $this->findModel($id);
@@ -656,7 +656,7 @@ class ContestController extends BaseController
             if ($model->status != Contest::STATUS_HIDDEN || !Yii::$app->user->isGuest && Yii::$app->user->id === $model->created_by) {
                 return $model;
             } else {
-                throw new ForbiddenHttpException('You are not allowed to perform this action.');
+                throw new ForbiddenHttpException('不允许执行此操作。');
             }
         }
         throw new NotFoundHttpException('The requested page does not exist.');

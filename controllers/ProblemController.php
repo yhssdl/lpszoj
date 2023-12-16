@@ -45,7 +45,7 @@ class ProblemController extends BaseController
     {
 
         if (Yii::$app->setting->get('isContestMode') && (Yii::$app->user->isGuest || (!Yii::$app->user->identity->isAdmin()))) {
-            throw new ForbiddenHttpException('You are not allowed to perform this action.');
+            throw new ForbiddenHttpException('不允许执行此操作。');
         }
 
         $query = Problem::find();
@@ -117,7 +117,7 @@ class ProblemController extends BaseController
         $this->layout = "basic";
 
         if (Yii::$app->setting->get('isContestMode') && (Yii::$app->user->isGuest || (!Yii::$app->user->identity->isAdmin()))) {
-            throw new ForbiddenHttpException('You are not allowed to perform this action.');
+            throw new ForbiddenHttpException('不允许执行此操作。');
         }
 
         $query = Problem::find();
@@ -316,7 +316,7 @@ class ProblemController extends BaseController
                                (Yii::$app->user->identity->role === User::ROLE_VIP || Yii::$app->user->identity->role === User::ROLE_ADMIN))) {
                 return $model;
             } else {
-                throw new ForbiddenHttpException($isPrivate?'当前题目为VIP题目，普通用户没有权限访问。':'You are not allowed to perform this action.');
+                throw new ForbiddenHttpException($isPrivate?'当前题目为VIP题目，普通用户没有权限访问。':'不允许执行此操作。');
             }
         }
 
