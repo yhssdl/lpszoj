@@ -12,6 +12,9 @@ LPSZOJ Change Log
 请阅读 [update.md](https://gitee.com/yhssdl/lpszoj/raw/master/docs/update.md) 来获取更新方法。
 
 ---------------------------------------
+- 2023.12.17 Chg: [web] 小组比赛创建后，直接跳转到添加题目的界面。
+- 2023.12.17 Bug: [web] 处理了VIP题目的上一题与下一题的问题。
+- 2023.12.17 Bug: [web] 处理了个现因反序列函数异常导致的错误。
 - 2023.12.13 Bug: [web] 修正小组状态界面，点击搜索按钮后，无法查看测评结果的BUG。
 - 2023.12.13 Bug: [web] 修正小组作业与比赛中，提交记录查看过题信息的BUG。
 - 2023.12.13 Bug: [web] 修正代码提交框中python语言的缩进问题。
@@ -26,7 +29,6 @@ LPSZOJ Change Log
 - 2023.11.21 Enh: [web] 一键安装脚本，新增对Alpine Linux系统的支持。
 - 2023.11.21 Bug: [web] 修正ajax更新测评结果中的BUG。
 - 2023.11.19 Bug: [web] 修正polygon验题时异常的BUG，并使用ajax更新测评结果。
-
 - 2023.6.16 Bug: [web] 修正usort函数可能异常的情况。
 - 2023.6.15 Enh: [web、db] 状态界面增加了IP地址，管理员可查看提交时的IP地址。
 - 2023.6.15 Bug: [judge] 修正Ubuntu 23与Debian 12上判题机的系统函数调用权限问题。

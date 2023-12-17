@@ -213,7 +213,7 @@ class GroupController extends BaseController
             $newContest->scenario = Contest::SCENARIO_ONLINE;
             $newContest->status = Contest::STATUS_VISIBLE;
             $newContest->save();
-            return $this->refresh();
+            return $this->redirect(['/homework/update', 'id' => $newContest->id]);;
         }
 
         return $this->render('view', [
