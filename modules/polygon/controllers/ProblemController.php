@@ -274,6 +274,9 @@ class ProblemController extends Controller
         if (!$zipArc->open($zipName, \ZipArchive::CREATE)) {
             return false;
         }
+        if(!defined('GLOB_BRACE')) {
+            define('GLOB_BRACE', 0x10);
+        }
         $res = $zipArc->addGlob("{$filename}/*", GLOB_BRACE, ['remove_all_path' => true]);
         $zipArc->close();
         if (!$res) {
