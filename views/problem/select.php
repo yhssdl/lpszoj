@@ -22,7 +22,7 @@ $this->registerAssetBundle('yii\bootstrap\BootstrapPluginAsset');
 <div sytle="padding: 25px 15px 20px; background-color: #FFF;">
     <div class="row">
             <div class="col-md-9">
-                <?= Html::textInput('q', '', ['class' => 'form-control', 'placeholder' => '题号 / 标题 / 来源']) ?>
+                <?= Html::textInput('q', '', ['id'=>'q' ,'class' => 'form-control', 'placeholder' => '添加时填写题号，多个题目逗号或空格分开；搜索时可填写题号 / 标题 / 来源']) ?>
             </div>
 
             <div class="col-md-3">

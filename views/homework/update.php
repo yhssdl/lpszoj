@@ -25,9 +25,20 @@ $("#select_submit").click(function () {
     $("#select_modal").modal('hide');
     var keys = [];
     $("#frmchild1").contents().find("#select_grid").find('input[type=checkbox]:checked').each(function(){ 
-        keys.push($(this).val()); 
-    }); 
-
+        keys.push(parseInt($(this).val())); 
+    });
+    qstr = $("#frmchild1").contents().find("#q").val();
+    if(qstr!=""){
+        ss = qstr.replace("，",",").replace(" ",",").split(",");
+        count = ss.length;
+        for (i=0;i<count;i++){
+            id = parseInt(ss[i]);
+            if(Object.is(id, NaN)) continue;
+            if(keys.indexOf(id)==-1){
+                keys.push(id);
+            }
+        }
+    }
     $.post({
        url: "$addUrl", 
        dataType: 'json',
@@ -55,11 +66,6 @@ $css = <<< EOT
 EOT;
 $this->registerCss($css);
 ?>
-
-
-
-
-
 <div class="homework-update">
     <p class="lead"><?= Yii::t('app', 'Problems') ?></p>
     <div class="table-responsive table-problem-list1">
