@@ -245,33 +245,6 @@ $this->registerCss($css);
         </table>
     </div>
 
-
-    <p class="lead">
-        <?= Yii::t('app', 'Information') ?>
-        <?= Html::a(Yii::t('app', 'Edit'), ['update', 'id' => $model->id], ['class' => 'btn btn-xs btn-success']) ?>
-    </p>
-
-    <div class="animate__animated animate__fadeInUp">
-        <?= DetailView::widget([
-            'model' => $model,
-            'template' => '<tr><th class="bg-tablehead" style="width:150px;text-align:center;">{label}</th><td style="min-width:300px;">{value}</td></tr>',
-            'options' => ['id' => 'grid', 'class' => 'table table-bordered'],
-            'attributes' => [
-                'id',
-                'title',
-                'start_time',
-                'end_time',
-                'lock_board_time',
-                'description:html',
-                [
-                    'label' => Yii::t('app', 'Scenario'),
-                    'value' => $model->scenario == Contest::SCENARIO_ONLINE ? Yii::t('app', 'Online') : Yii::t('app', 'Offline')
-                ]
-            ],
-        ]) ?>
-    </div>
-
-    <hr>
     <p class="lead">
         <?= Yii::t('app', 'Announcements') ?>
         <?php Modal::begin([
@@ -314,6 +287,30 @@ $this->registerCss($css);
                         },
                     ]
                 ],
+            ],
+        ]) ?>
+    </div>
+    <p class="lead">
+        <?= Yii::t('app', 'Information') ?>
+        <?= Html::a(Yii::t('app', 'Edit'), ['update', 'id' => $model->id], ['class' => 'btn btn-xs btn-success']) ?>
+    </p>
+
+    <div class="animate__animated animate__fadeInUp">
+        <?= DetailView::widget([
+            'model' => $model,
+            'template' => '<tr><th class="bg-tablehead" style="width:150px;text-align:center;">{label}</th><td style="min-width:300px;">{value}</td></tr>',
+            'options' => ['id' => 'grid', 'class' => 'table table-bordered'],
+            'attributes' => [
+                'id',
+                'title',
+                'start_time',
+                'end_time',
+                'lock_board_time',
+                'description:html',
+                [
+                    'label' => Yii::t('app', 'Scenario'),
+                    'value' => $model->scenario == Contest::SCENARIO_ONLINE ? Yii::t('app', 'Online') : Yii::t('app', 'Offline')
+                ]
             ],
         ]) ?>
     </div>
