@@ -275,11 +275,18 @@ $this->registerCss($css);
 
         <div class="form-group">
             <div class="row">
-                <div class="col-md-2 col-md-offset-4">
-                    <?= Html::submitButton(Yii::t('app', 'Save'), ['class' => 'btn btn-success btn-block']) ?>
-                </div>
-                <div class="col-md-2">
-                    <?= Html::a('删除', ['/homework/delete', 'id' => $model->id], ['class' => 'btn btn-danger btn-block','data-confirm' => '此操作不可恢复，你确定要删除吗？','data-method' => 'post']) ?>
+            <div class="text-center">
+                <div class="btn-group">
+                    <div class="btn-group" ><?= Html::submitButton(Yii::t('app', 'Save'), ['class' => 'btn btn-success','style'=> "min-width:150px"]) ?></div>
+                    <div class="btn-group">
+                        <button type="button" class="btn btn-default dropdown-toggle" 
+                            data-toggle="dropdown">
+                            <span class="caret"></span>
+                        </button>
+                        <ul class="dropdown-menu" role="menu">
+                            <li><?= Html::a('删除该比赛', ['/homework/delete', 'id' => $model->id], ['data-confirm' => '此操作不可恢复，你确定要删除吗？','data-method' => 'post']) ?></li>
+                        </ul>
+                    </div>
                 </div>
             </div>
         </div>

@@ -51,14 +51,23 @@ $url = \yii\helpers\Url::toRoute(['/image/mdupload']);
     <div class="form-group">
         <div class="row">
             <?php if ($model->id == 0): ?>
-                <div class="col-md-2 col-md-offset-5"><?= Html::submitButton(Yii::t('app', 'Save'), ['class' => 'btn btn-success btn-block']) ?></div>
+                <div class="text-center"><?= Html::submitButton(Yii::t('app', 'Save'), ['class' => 'btn btn-success','style'=> "min-width:150px"]) ?></div>
             <?php else:?>
-                <div class="col-md-2 col-md-offset-4">
-                    <?= Html::submitButton(Yii::t('app', 'Save'), ['class' => 'btn btn-success btn-block']) ?>
+
+            <div class="text-center">
+                <div class="btn-group">
+                    <div class="btn-group" ><?= Html::submitButton(Yii::t('app', 'Save'), ['class' => 'btn btn-success','style'=> "min-width:150px"]) ?></div>
+                    <div class="btn-group">
+                        <button type="button" class="btn btn-default dropdown-toggle" 
+                            data-toggle="dropdown">
+                            <span class="caret"></span>
+                        </button>
+                        <ul class="dropdown-menu" role="menu">
+                            <li><?= Html::a('删除该小组', ['/group/delete', 'id' => $model->id], ['data-confirm' => '此操作会把该小组的比赛信息及提交记录全部删除，且不可恢复，你确定要删除吗？','data-method' => 'post']) ?></li>
+                        </ul>
+                    </div>
                 </div>
-                <div class="col-md-2">
-                    <?= Html::a('删除该小组', ['/group/delete', 'id' => $model->id], ['class' => 'btn btn-danger btn-block','data-confirm' => '此操作会把该小组的比赛信息及提交记录全部删除，且不可恢复，你确定要删除吗？','data-method' => 'post']) ?>
-                </div>          
+            </div>          
             <?php endif;?>
         </div>
     </div>
