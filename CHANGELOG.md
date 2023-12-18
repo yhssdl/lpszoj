@@ -12,6 +12,7 @@ LPSZOJ Change Log
 请阅读 [update.md](https://gitee.com/yhssdl/lpszoj/raw/master/docs/update.md) 来获取更新方法。
 
 ---------------------------------------
+- 2023.12.17 Chg: [web] 查看代码的界面中，添加了代码复制功能。
 - 2023.12.17 Chg: [web] 小组比赛创建后，直接跳转到添加题目的界面。
 - 2023.12.17 Bug: [web] 处理了VIP题目的上一题与下一题的问题。
 - 2023.12.17 Bug: [web] 处理了个现因反序列函数异常导致的错误。

@@ -92,14 +92,13 @@ $this->params['breadcrumbs'][] = $this->title;
 <?php endif; ?>
 
 <?php if ($model->canViewSource()) : ?>
-    <hr>
-    <div class="pre">
-        <p><?= Html::encode($model->source) ?></p>
+    <div class="row text-right">
+           <div><a type="button" class="btn btn-link" href='javaScript:void(0);' id='code_cpy' data-clipboard-target="#pre_code"><span class="fa fa-copy"></span></a>&nbsp;&nbsp;&nbsp;&nbsp;</div>
     </div>
+    <div class="pre"><p id="pre_code"><?= Html::encode($model->source) ?></p></div>
 <?php endif; ?>
 
 <?php if ($model->solutionInfo != null && $model->canViewResult()) : ?>
-    <hr>
     <h3><?= Yii::t('app', 'Judgement Protocol') ?>:</h3>
     <div id="run-info">
         <?php
@@ -148,3 +147,27 @@ $this->params['breadcrumbs'][] = $this->title;
         ?>
     </div>
 <?php endif; ?>
+<?php 
+$js = <<<EOF
+    (function ($) {
+        $(document).ready(function () {
+        var clipboard = new ClipboardJS('#code_cpy');
+        clipboard.on('success', function(e) {
+            $('#code_cpy').text("已复制");
+            setTimeout(function() {
+                $('#code_cpy').html("<span class=\"fa fa-copy\"></span>");
+            }, 500);
+            e.clearSelection();
+        });
+        clipboard.on('error', function(e) {
+            $('#code_cpy').text("复制失败");
+            setTimeout(function() {
+                $('#code_cpy').html("<span class=\"fa fa-copy\"></span>");
+            }, 500);
+            e.clearSelection();
+        });
+        })
+    })(jQuery);
+    EOF;
+$this->registerJs($js);
+?>
