@@ -210,11 +210,13 @@ $('[data-click=solution_info]').click(function() {
     });
 });
 function updateVerdictByKey(submission) {
+    $.ajaxSettings.async = false;
     $.get({
         url: "{$url}?id=" + submission.attr('data-submissionid'),
         success: function(data) {
             var obj = JSON.parse(data);
             submission.attr("waiting", obj.waiting);
+            //console.log(obj.result+":"+obj.css);
             submission.text(obj.result);
             submission.attr("class", obj.css);
             if (obj.waiting === "true") {
@@ -225,16 +227,13 @@ function updateVerdictByKey(submission) {
 }
 var waitingCount = $("span[waiting=true]").length;
 if (waitingCount > 0) {
-    console.log("There is waitingCount=" + waitingCount + ", starting submissionsEventCatcher...");
     var interval = null;
     var testWaitingsDone = function () {
         var waitingCount = $("span[waiting=true]").length;
-        console.log("There is waitingCount=" + waitingCount + ", starting submissionsEventCatcher...");
         $("span[waiting=true]").each(function(){
             updateVerdictByKey($(this));
         });
         if (interval && waitingCount === 0) {
-            console.log("Stopping submissionsEventCatcher.");
             clearInterval(interval);
             interval = null;
         }

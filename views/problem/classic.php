@@ -351,12 +351,13 @@ $('[data-click=solution_info]').click(function() {
 });
 
 function updateVerdictByKey(submission) {
+    $.ajaxSettings.async = false;
     $.get({
         url: "{$url}?id=" + submission.attr('data-submissionid'),
         success: function(data) {
             var obj = JSON.parse(data);
             submission.attr("waiting", obj.waiting);
-            console.log(obj.result+":"+obj.css);
+            //console.log(obj.result+":"+obj.css);
             submission.text(obj.result);
             submission.attr("class", obj.css);
             if (obj.waiting === "true") {
@@ -386,10 +387,7 @@ if (waitingCount > 0) {
             updateVerdictByKey(waitingQueue[0]);
             waitingCount = $("span[waiting=true]").length;
         }
-
-        
         if (interval && waitingCount === 0) {
-            console.log("Stopping submissionsEventCatcher.");
             clearInterval(interval);
             interval = null;
         }
