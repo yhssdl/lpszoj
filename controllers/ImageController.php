@@ -42,7 +42,7 @@ class ImageController extends BaseController
             }
             echo json_encode($info);
         } else {
-            throw new ForbiddenHttpException('不允许执行此操作。');
+            throw new ForbiddenHttpException(Yii::t('app', 'You are not allowed to perform this action.'));
         }
     }
 
@@ -61,7 +61,7 @@ class ImageController extends BaseController
             }
             echo json_encode($info);
         } else {
-            throw new ForbiddenHttpException('不允许执行此操作。');
+            throw new ForbiddenHttpException(Yii::t('app', 'You are not allowed to perform this action.'));
         }
     }
 }

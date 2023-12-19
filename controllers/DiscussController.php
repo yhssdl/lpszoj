@@ -89,7 +89,7 @@ class DiscussController extends BaseController
             ]);
         }
 
-        throw new ForbiddenHttpException('不允许执行此操作。');
+        throw new ForbiddenHttpException(Yii::t('app', 'You are not allowed to perform this action.'));
 
     }
 
@@ -118,7 +118,7 @@ class DiscussController extends BaseController
             }
             return $this->redirect(['/site/index']);
         }
-        throw new ForbiddenHttpException('不允许执行此操作。');
+        throw new ForbiddenHttpException(Yii::t('app', 'You are not allowed to perform this action.'));
     }
 
     /**

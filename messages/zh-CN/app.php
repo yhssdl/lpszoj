@@ -304,5 +304,6 @@ return [
     'Ok' => '确定' ,
     'Show all' => '显示所有',
     'School' => '学校',
-    'The requested page does not exist.' => '请求的页面不存在。'
+    'The requested page does not exist.' => '请求的页面不存在。',
+    'You are not allowed to perform this action.' => '不允许执行此操作。'
 ];

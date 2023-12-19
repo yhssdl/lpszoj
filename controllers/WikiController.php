@@ -30,7 +30,7 @@ class WikiController extends BaseController
         if (!Yii::$app->user->isGuest && Yii::$app->user->identity->isAdmin()) {
             return $this->render('contest');
         }
-        throw new ForbiddenHttpException('不允许执行此操作。');
+        throw new ForbiddenHttpException(Yii::t('app', 'You are not allowed to perform this action.'));
     }
 
     public function actionProblem()
@@ -38,7 +38,7 @@ class WikiController extends BaseController
         if (!Yii::$app->user->isGuest && Yii::$app->user->identity->isAdmin()) {
             return $this->render('problem');
         }
-        throw new ForbiddenHttpException('不允许执行此操作。');
+        throw new ForbiddenHttpException(Yii::t('app', 'You are not allowed to perform this action.'));
     }
 
     public function actionSpj()
@@ -46,7 +46,7 @@ class WikiController extends BaseController
         if (!Yii::$app->user->isGuest && Yii::$app->user->identity->isAdmin()) {
             return $this->render('spj');
         }
-        throw new ForbiddenHttpException('不允许执行此操作。');
+        throw new ForbiddenHttpException(Yii::t('app', 'You are not allowed to perform this action.'));
     }
 
     public function actionOi()
@@ -54,6 +54,6 @@ class WikiController extends BaseController
         if (!Yii::$app->user->isGuest && Yii::$app->user->identity->isAdmin()) {
             return $this->render('oi');
         }
-        throw new ForbiddenHttpException('不允许执行此操作。');
+        throw new ForbiddenHttpException(Yii::t('app', 'You are not allowed to perform this action.'));
     }
 }

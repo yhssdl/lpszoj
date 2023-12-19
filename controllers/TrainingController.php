@@ -153,7 +153,7 @@ class TrainingController extends BaseController
                                     $model->join_policy == Group::JOIN_POLICY_APPLICATION)) {
             return $this->redirect(['/group/accept', 'id' => $model->id]);
         } else if (!$model->isMember() && $model->join_policy == Group::JOIN_POLICY_INVITE) {
-            throw new ForbiddenHttpException('不允许执行此操作。');
+            throw new ForbiddenHttpException(Yii::t('app', 'You are not allowed to perform this action.'));
         }
         $newGroupUser = new GroupUser();
 
@@ -180,7 +180,7 @@ class TrainingController extends BaseController
 
         if ($newGroupUser->load(Yii::$app->request->post())) {
             if (!$model->hasPermission()) {
-                throw new ForbiddenHttpException('不允许执行此操作。');
+                throw new ForbiddenHttpException(Yii::t('app', 'You are not allowed to perform this action.'));
             }
             $usernames = str_replace("\r","",$newGroupUser->username);
             $usernames = explode("\n", trim($usernames));
@@ -276,7 +276,7 @@ class TrainingController extends BaseController
             ]);
         }
 
-        throw new ForbiddenHttpException('不允许执行此操作。');
+        throw new ForbiddenHttpException(Yii::t('app', 'You are not allowed to perform this action.'));
     }
 
     /**
@@ -297,7 +297,7 @@ class TrainingController extends BaseController
             return $this->redirect(['/group/user', 'id' => $group->id]);
         }
 
-        throw new ForbiddenHttpException('不允许执行此操作。');
+        throw new ForbiddenHttpException(Yii::t('app', 'You are not allowed to perform this action.'));
     }
 
     /**
@@ -311,7 +311,7 @@ class TrainingController extends BaseController
         $groupUser = GroupUser::findOne($id);
         $group = $this->findModel($groupUser->group_id);
         if (!$group->hasPermission()) {
-            throw new ForbiddenHttpException('不允许执行此操作。');
+            throw new ForbiddenHttpException(Yii::t('app', 'You are not allowed to perform this action.'));
         }
         if ($role == 1) { // 同意加入
             $groupUser->role = GroupUser::ROLE_MEMBER;
@@ -364,7 +364,7 @@ class TrainingController extends BaseController
             return $this->redirect(['index']);
         }
 
-        throw new ForbiddenHttpException('不允许执行此操作。');
+        throw new ForbiddenHttpException(Yii::t('app', 'You are not allowed to perform this action.'));
     }
 
 
@@ -379,7 +379,7 @@ class TrainingController extends BaseController
     {
 
         if (Yii::$app->setting->get('isContestMode') && (Yii::$app->user->isGuest || (!Yii::$app->user->identity->isAdmin())) && Yii::$app->setting->get('examContestId') && $id != Yii::$app->setting->get('examContestId')) {
-            throw new ForbiddenHttpException('不允许执行此操作。');
+            throw new ForbiddenHttpException(Yii::t('app', 'You are not allowed to perform this action.'));
         }
 
         $model = $this->findContestModel($id);
@@ -465,7 +465,7 @@ class TrainingController extends BaseController
             if ($model->status != Training::STATUS_HIDDEN || !Yii::$app->user->isGuest && Yii::$app->user->id === $model->created_by) {
                 return $model;
             } else {
-                throw new ForbiddenHttpException('不允许执行此操作。');
+                throw new ForbiddenHttpException(Yii::t('app', 'You are not allowed to perform this action.'));
             }
         }
         throw new NotFoundHttpException(Yii::t('app', 'The requested page does not exist.'));
