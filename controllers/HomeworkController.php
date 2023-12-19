@@ -9,11 +9,13 @@ use app\models\Problem;
 use app\models\Solution;
 use app\models\User;
 use Yii;
+use app\models\Group;
 use yii\data\ActiveDataProvider;
 use yii\web\ForbiddenHttpException;
 use yii\filters\VerbFilter;
 use yii\db\Query;
 use yii\filters\AccessControl;
+use app\models\Contest;
 use app\models\Homework;
 use app\models\ContestAnnouncement;
 use yii\web\NotFoundHttpException;
@@ -222,11 +224,69 @@ class HomeworkController extends BaseController
             return $this->refresh();
         }
 
+        if (!Yii::$app->user->isGuest && Yii::$app->user->identity->isAdmin()) {
+            $group_datas = Yii::$app->db->createCommand('SELECT g.id,g.name FROM {{%group}}  AS g LEFT JOIN {{%group_user}} AS u ON u.group_id=g.id WHERE g.id<>:gid AND u.user_id=:id AND is_train=:is_train',
+            [':gid' => $model->group->id,':id' => Yii::$app->user->id,':is_train' => Group::MODE_GROUP] )->queryAll();       
+        }else{
+            $group_datas = Yii::$app->db->createCommand('SELECT id,name FROM {{%group}}  WHERE id<>:gid AND created_by=:id AND is_train=:is_train',
+            [':gid' => $model->group->id,':id' => Yii::$app->user->id,':is_train' => Group::MODE_GROUP] )->queryAll();         
+        }
+
         return $this->render('update', [
             'model' => $model,
+            'group_datas' => $group_datas,
             'announcements' => $announcements,
             'newAnnouncement' => $newAnnouncement
         ]);
+    }
+
+    public function actionClone()
+    {
+        if (($post = Yii::$app->request->post())) {
+            $contest_id = $post['contest_id'];
+            $group_id = $post['group_id'];
+            $model = $this->findModel($contest_id);
+
+            $count = (new Query())->select('id')
+            ->from('{{%contest}}')
+            ->where(['title' => $model->title,'group_id' => $group_id])
+            ->count();
+            if($count>0) {
+                return "小组中已经存在标题为 [$model->title] 的比赛。";
+            }
+            
+            $newContest = new Contest();
+            $newContest->group_id = $group_id;
+            $newContest->title = $model->title;
+            $newContest->start_time = $model->start_time;
+            $newContest->end_time = $model->end_time;
+            $newContest->lock_board_time = $model->lock_board_time;
+            $newContest->status = $model->status;
+            $newContest->editorial = $model->editorial;
+            $newContest->description = $model->description;
+            $newContest->type = $model->type;
+            $newContest->scenario = $model->scenario;
+            $newContest->created_by = $model->created_by;
+            $newContest->language = $model->language;
+            $newContest->clarification = $model->clarification;
+            $newContest->invite_code = $model->invite_code;
+            $newContest->ext_link = $model->ext_link;
+            $newContest->enable_print = $model->enable_print;
+            $newContest->enable_clarify = $model->enable_clarify;
+            $newContest->punish_time = $model->punish_time;
+            $newContest->enable_board = $model->enable_board;
+            $newContest->save();
+            $problems = $model->problems;
+            foreach ($problems as $key => $p) {
+                Yii::$app->db->createCommand()->insert('{{%contest_problem}}', [
+                    'problem_id' => $p['problem_id'],
+                    'contest_id' => $newContest->id,
+                    'num' => $p['num']
+                ])->execute();
+            }
+            return "克隆成功。";
+        }
+        
     }
 
     public function actionDelete($id)

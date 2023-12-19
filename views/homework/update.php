@@ -6,6 +6,7 @@ use yii\grid\GridView;
 use yii\bootstrap\Modal;
 use app\models\Contest;
 use yii\helpers\Url;
+use yii\helpers\ArrayHelper;
 /* @var $this yii\web\View */
 /* @var $model app\models\Homework */
 
@@ -20,9 +21,10 @@ $scoreboardFrozenTime = Yii::$app->setting->get('scoreboardFrozenTime') / 3600;
 $contest_id = $model->id;
 $requestUrl = Url::toRoute('/problem/select');
 $addUrl = Url::to(['/homework/addproblem', 'id' => $contest_id]);
+$cloneUrl = Url::to(['/homework/clone']);
+
 $js = <<<EOT
 $("#select_submit").click(function () {
-    $("#select_modal").modal('hide');
     var keys = [];
     $("#frmchild1").contents().find("#select_grid").find('input[type=checkbox]:checked').each(function(){ 
         keys.push(parseInt($(this).val())); 
@@ -57,10 +59,24 @@ resize_iframe();
 $(window).resize(function(){
     resize_iframe();
  });
+
+ $("#clone_submit").click(function () {
+    var id = $("#clone_select").val();
+    
+    $.ajax({
+        url: "$cloneUrl",
+        type:'post',
+        data: {contest_id:$contest_id ,group_id: id},
+        error: function(){alert('error');},
+        success:function(html){
+            alert(html);
+        }   
+    });
+});
 EOT;
 $this->registerJs($js);
 $css = <<< EOT
- .modal-dialog {
+ #select_modal .modal-dialog {
     width:90%!important;
  }
 EOT;
@@ -142,7 +158,7 @@ $this->registerCss($css);
                         ?>
                         <IFRAME  scrolling="auto" frameBorder=0 id="frmchild1" name="frmchild1"
                             src="<?= $requestUrl ?>" width="100%" allowTransparency="true"></IFRAME>
-                            <div class="row" style="padding-top:10px"><?= Html::button(Yii::t('app', 'Submit'), ['id'=> 'select_submit','class' => 'col-md-2 col-md-offset-5 btn btn-success']) ?></div>
+                            <div class="row" style="padding-top:10px"><?= Html::button(Yii::t('app', 'Submit'), ['id'=> 'select_submit','class' => 'col-md-2 col-md-offset-5 btn btn-success','data-dismiss'=>'modal']) ?></div>
                         <?php Modal::end(); ?>
                     </th>
                     <th></th>
@@ -290,7 +306,13 @@ $this->registerCss($css);
                             <span class="caret"></span>
                         </button>
                         <ul class="dropdown-menu" role="menu">
-                            <li><?= Html::a('删除该比赛', ['/homework/delete', 'id' => $model->id], ['data-confirm' => '此操作不可恢复，你确定要删除吗？','data-method' => 'post']) ?></li>
+                            <li><?= Html::a('删除该比赛', ['/homework/delete', 'id' => $model->id], ['class' => 'btn btn-link','data-confirm' => '此操作不可恢复，你确定要删除吗？','data-method' => 'post']) ?></li>
+                            <?php if (count($group_datas)>0): ?>
+                            <li role="separator" class="divider"></li>
+                            <li>
+                                <?= Html::a('克隆该比赛', '#', ['id' => 'clone','data-toggle' => 'modal','data-target' => '#clone-modal','class' => 'btn btn-link']); ?>
+                            </li>
+                            <?php endif; ?>
                         </ul>
                     </div>
                 </div>
@@ -301,7 +323,15 @@ $this->registerCss($css);
 
     <div class="row">
         <div class="col-md-2 col-md-offset-5">
-            </div>
+            <?php Modal::begin([
+                'id' => 'clone-modal',
+                'header' => '克隆到指定小组',
+                ]); 
+            ?>
+            <?= Html::dropDownList('clone_select','name[]', ArrayHelper::map($group_datas, 'id', 'name'), ['id'=>'clone_select','class' => 'form-control']);?>
+            <div class="row" style="padding-top:10px"><?= Html::button(Yii::t('app', 'Submit'), ['id'=> 'clone_submit','class' => 'col-md-2 col-md-offset-5 btn btn-success','data-dismiss'=>'modal']) ?></div>
+            <?php Modal::end(); ?>
+        </div>
     </div>
 </div>
 

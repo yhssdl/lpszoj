@@ -16,7 +16,6 @@ $requestUrl = Url::toRoute('/problem/select');
 $addUrl = Url::to(['addproblem', 'id' => $contest_id]);
 $js = <<<EOT
 $("#select_submit").click(function () {
-    $("#select_modal").modal('hide');
     var keys = [];
     $("#frmchild1").contents().find("#select_grid").find('input[type=checkbox]:checked').each(function(){ 
         keys.push($(this).val()); 
@@ -123,7 +122,7 @@ $this->registerCss($css);
 
                             <IFRAME  scrolling="auto" frameBorder=0 id="frmchild1" name="frmchild1"
                             src="<?= $requestUrl ?>" width="100%" allowTransparency="true"></IFRAME>
-                            <div class="row" style="padding-top:10px"><?= Html::button(Yii::t('app', 'Submit'), ['id'=> 'select_submit','class' => 'col-md-2 col-md-offset-5 btn btn-success']) ?></div>
+                            <div class="row" style="padding-top:10px"><?= Html::button(Yii::t('app', 'Submit'), ['id'=> 'select_submit','class' => 'col-md-2 col-md-offset-5 btn btn-success','data-dismiss'=>'modal']) ?></div>
                         <?php Modal::end(); ?>
                     </th>
                     <th></th>
