@@ -315,6 +315,6 @@ class HomeworkController extends BaseController
                 throw new ForbiddenHttpException('不允许执行此操作。');
             }
         }
-        throw new NotFoundHttpException('The requested page does not exist.');
+        throw new NotFoundHttpException(Yii::t('app', 'The requested page does not exist.'));
     }
 }

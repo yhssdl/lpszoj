@@ -360,7 +360,7 @@ class ContestController extends BaseController
 
         if ($cid != -1) {
             if (($discuss = Discuss::findOne(['id' => $cid, 'entity_id' => $model->id, 'entity' => Discuss::ENTITY_CONTEST])) === null) {
-                throw new NotFoundHttpException('The requested page does not exist.');
+                throw new NotFoundHttpException(Yii::t('app', 'The requested page does not exist.'));
             }
         }
         if (!Yii::$app->user->isGuest && $newClarify->load(Yii::$app->request->post())) {

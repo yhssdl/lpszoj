@@ -50,7 +50,7 @@ class SiteController extends BaseController
         $model = Discuss::find()->where(['id' => $id, 'status' => [Discuss::STATUS_PUBLIC,Discuss::STATUS_FULLTEXT], 'entity' => Discuss::ENTITY_NEWS])->one();
 
         if ($model === null) {
-            throw new NotFoundHttpException('The requested page does not exist.');
+            throw new NotFoundHttpException(Yii::t('app', 'The requested page does not exist.'));
         }
 
         return $this->render('news', [

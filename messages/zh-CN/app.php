@@ -303,5 +303,6 @@ return [
     'Memo' => '备注',
     'Ok' => '确定' ,
     'Show all' => '显示所有',
-    'School' => '学校'
+    'School' => '学校',
+    'The requested page does not exist.' => '请求的页面不存在。'
 ];

@@ -659,7 +659,7 @@ class ContestController extends Controller
 
         if ($cid != -1) {
             if (($discuss = Discuss::findOne(['id' => $cid, 'entity_id' => $model->id, 'entity' => Discuss::ENTITY_CONTEST])) === null) {
-                throw new NotFoundHttpException('The requested page does not exist.');
+                throw new NotFoundHttpException(Yii::t('app', 'The requested page does not exist.'));
             }
         }
         if ($new_clarify->load(Yii::$app->request->post())) {
@@ -749,7 +749,7 @@ class ContestController extends Controller
             return $model;
         }
 
-        throw new NotFoundHttpException('The requested page does not exist.');
+        throw new NotFoundHttpException(Yii::t('app', 'The requested page does not exist.'));
     }
      
 }
