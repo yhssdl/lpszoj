@@ -332,7 +332,9 @@ $this->registerCss($css);
                 'header' => '克隆到指定小组',
                 ]); 
             ?>
+            <div style="padding:10px 20px">
             <?= Html::dropDownList('clone_select','name[]', ArrayHelper::map($group_datas, 'id', 'name'), ['id'=>'clone_select','class' => 'form-control']);?>
+            </div>
             <div class="row" style="padding-top:10px"><?= Html::button(Yii::t('app', 'Submit'), ['id'=> 'clone_submit','class' => 'col-md-2 col-md-offset-5 btn btn-success','data-dismiss'=>'modal']) ?></div>
             <?php Modal::end(); ?>
 
@@ -341,7 +343,7 @@ $this->registerCss($css);
                 'header' => '信息',
                 ]); 
             ?>
-            <div id="msg-content">
+            <div id="msg-content" style="padding:20px 30px">
             </div>
             <div class="row" style="padding-top:10px"><?= Html::button(Yii::t('app', 'Ok'), ['id'=> 'msg_submit','class' => 'col-md-2 col-md-offset-5 btn btn-success','data-dismiss'=>'modal']) ?></div>
             <?php Modal::end(); ?>
