@@ -653,13 +653,13 @@ class ContestController extends BaseController
     protected function findModel($id)
     {
         if (($model = Contest::findOne($id)) !== null) {
-            if ($model->status != Contest::STATUS_HIDDEN || !Yii::$app->user->isGuest && Yii::$app->user->id === $model->created_by) {
+            if ($model->status != Contest::STATUS_HIDDEN || (!Yii::$app->user->isGuest && (Yii::$app->user->id === $model->created_by || Yii::$app->user->identity->isAdmin()) )) {
                 return $model;
             } else {
                 throw new ForbiddenHttpException('不允许执行此操作。');
             }
         }
-        throw new NotFoundHttpException('The requested page does not exist.');
+        throw new NotFoundHttpException('请求的页面不存在。');
     }
 
 }
