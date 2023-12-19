@@ -67,9 +67,13 @@ $(window).resize(function(){
         url: "$cloneUrl",
         type:'post',
         data: {contest_id:$contest_id ,group_id: id},
-        error: function(){alert('error');},
+        error: function(){
+            $("#msg-content").html("克隆时发生未知错误。")
+            $('#msg-modal').modal("show");
+        },
         success:function(html){
-            alert(html);
+            $("#msg-content").html(html)
+            $('#msg-modal').modal("show");
         }   
     });
 });
@@ -330,6 +334,16 @@ $this->registerCss($css);
             ?>
             <?= Html::dropDownList('clone_select','name[]', ArrayHelper::map($group_datas, 'id', 'name'), ['id'=>'clone_select','class' => 'form-control']);?>
             <div class="row" style="padding-top:10px"><?= Html::button(Yii::t('app', 'Submit'), ['id'=> 'clone_submit','class' => 'col-md-2 col-md-offset-5 btn btn-success','data-dismiss'=>'modal']) ?></div>
+            <?php Modal::end(); ?>
+
+            <?php Modal::begin([
+                'id' => 'msg-modal',
+                'header' => '信息',
+                ]); 
+            ?>
+            <div id="msg-content">
+            </div>
+            <div class="row" style="padding-top:10px"><?= Html::button(Yii::t('app', 'Ok'), ['id'=> 'msg_submit','class' => 'col-md-2 col-md-offset-5 btn btn-success','data-dismiss'=>'modal']) ?></div>
             <?php Modal::end(); ?>
         </div>
     </div>

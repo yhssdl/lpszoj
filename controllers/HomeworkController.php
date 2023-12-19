@@ -252,7 +252,7 @@ class HomeworkController extends BaseController
             ->where(['title' => $model->title,'group_id' => $group_id])
             ->count();
             if($count>0) {
-                return "小组中已经存在标题为 [$model->title] 的比赛。";
+                return "小组中已经存在标题为 [<font color=red>$model->title</font>] 的比赛。";
             }
             
             $newContest = new Contest();
