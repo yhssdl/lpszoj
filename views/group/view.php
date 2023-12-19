@@ -150,6 +150,7 @@ $scoreboardFrozenTime = Yii::$app->setting->get('scoreboardFrozenTime') / 3600;
             <?php endif; ?>
         </div>
     </div>
+    <?php if($group_datas!=null && count($$group_datas)>0): ?>
     <div class="row">
         <div class="col-md-2 col-md-offset-5">
             <?php Modal::begin([
@@ -175,8 +176,10 @@ $scoreboardFrozenTime = Yii::$app->setting->get('scoreboardFrozenTime') / 3600;
             <?php Modal::end(); ?>
         </div>
     </div>
+    <?php endif; ?>
 </div>
 <?php
+if($group_datas!=null && count($$group_datas)>0){
     $js = <<<EOF
     function clone_click(obj) {
         $("#clone_cid").html($(obj).attr('data-cid'));
@@ -205,4 +208,5 @@ $scoreboardFrozenTime = Yii::$app->setting->get('scoreboardFrozenTime') / 3600;
     });
     EOT;
     $this->registerJs($js);    
+}
 ?>

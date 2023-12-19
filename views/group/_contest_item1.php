@@ -16,7 +16,7 @@ $start_time = strtotime($model->start_time);
         <div class="contest__title"><?= Html::a(Html::encode($model->title), ['/contest/view', 'id' => $model->id], ['class' => 'text-dark']); ?></div>
         <ul class="supplementary list">
             <li><?= Html::a('<span class="fa fa-pencil-square-o"></span> 编辑', ['/homework/update', 'id' => $model->id], ['class' => 'contest-tag  status-edit text-none-decoration']) ?></li>
-            <?php if($group_datas!=null and count($group_datas)>0): ?>
+            <?php if($group_datas!=null && count($group_datas)>0): ?>
             <li>
                 <?= Html::a('<span class="fa fa-clone"></span> 克隆','javaScript:void(0);',['onclick' => 'clone_click(this)', 'data-cid' => $model->id,'class' => 'contest-tag  status-clone text-none-decoration']); ?>
             </li>
