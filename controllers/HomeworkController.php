@@ -266,7 +266,7 @@ class HomeworkController extends BaseController
             $newContest->description = $model->description;
             $newContest->type = $model->type;
             $newContest->scenario = $model->scenario;
-            $newContest->created_by = $model->created_by;
+            $newContest->created_by = Yii::$app->user->id;
             $newContest->language = $model->language;
             $newContest->invite_code = $model->invite_code;
             $newContest->ext_link = $model->ext_link;
