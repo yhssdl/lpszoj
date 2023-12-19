@@ -252,7 +252,7 @@ class HomeworkController extends BaseController
             ->where(['title' => $model->title,'group_id' => $group_id])
             ->count();
             if($count>0) {
-                return "小组中已经存在标题为 [<font color=red>$model->title</font>] 的比赛。";
+                return "目标小组中已经存在标题为 [<font color=red>$model->title</font>] 的比赛。";
             }
             
             $newContest = new Contest();
@@ -268,7 +268,6 @@ class HomeworkController extends BaseController
             $newContest->scenario = $model->scenario;
             $newContest->created_by = $model->created_by;
             $newContest->language = $model->language;
-            $newContest->clarification = $model->clarification;
             $newContest->invite_code = $model->invite_code;
             $newContest->ext_link = $model->ext_link;
             $newContest->enable_print = $model->enable_print;
@@ -284,7 +283,7 @@ class HomeworkController extends BaseController
                     'num' => $p['num']
                 ])->execute();
             }
-            return "克隆成功。";
+            return "[<font color=red>$model->title</font>] 已经成功克隆到指定小组中。";
         }
         
     }
