@@ -18,7 +18,6 @@ use yii\db\Expression;
 use yii\data\ActiveDataProvider;
 use app\models\User;
 
-
 /**
  * GroupController implements the CRUD actions for Group model.
  */
@@ -216,8 +215,20 @@ class GroupController extends BaseController
             return $this->redirect(['/homework/update', 'id' => $newContest->id]);;
         }
 
+
+        if (!Yii::$app->user->isGuest && Yii::$app->user->identity->isAdmin()) {
+            $group_datas = Yii::$app->db->createCommand('SELECT g.id,g.name FROM {{%group}}  AS g LEFT JOIN {{%group_user}} AS u ON u.group_id=g.id WHERE g.id<>:gid AND u.user_id=:id AND is_train=:is_train',
+            [':gid' => $model->id,':id' => Yii::$app->user->id,':is_train' => Group::MODE_GROUP] )->queryAll();       
+        }else if($model->hasPermission()){
+            $group_datas = Yii::$app->db->createCommand('SELECT id,name FROM {{%group}}  WHERE id<>:gid AND created_by=:id AND is_train=:is_train',
+            [':gid' => $model->id,':id' => Yii::$app->user->id,':is_train' => Group::MODE_GROUP] )->queryAll();         
+        } else{
+            $group_datas = null;
+        }
+
         return $this->render('view', [
             'model' => $model,
+            'group_datas' => $group_datas,
             'contestDataProvider' => $contestDataProvider,
             'newContest' => $newContest
         ]);

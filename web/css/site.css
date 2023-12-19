@@ -1002,6 +1002,27 @@ a.text-none-decoration {
     text-decoration:none;
 }
 
+.status-clone {
+    background: #1b9cff;
+    color: #fff; 
+}
+
+a.status-clone:hover ,a.status-not-start:focus {
+    background: #0e63a4;
+    color:#fff;
+}
+
+
+.status-edit {
+    background: #7b43ff;
+    color: #fff; 
+}
+
+a.status-edit:hover ,a.status-not-start:focus {
+    background: #6f21b4;
+    color:#fff;
+}
+
 .status-not-start {
     background: #ff851b;
     color: #fff; 
@@ -1011,6 +1032,7 @@ a.status-not-start:hover ,a.status-not-start:focus {
     background: #df7416;
     color:#fff;
 }
+
 
 .status-runing{
     background: #990033;

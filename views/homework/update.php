@@ -62,7 +62,6 @@ $(window).resize(function(){
 
  $("#clone_submit").click(function () {
     var id = $("#clone_select").val();
-    
     $.ajax({
         url: "$cloneUrl",
         type:'post',
@@ -349,6 +348,4 @@ $this->registerCss($css);
             <?php Modal::end(); ?>
         </div>
     </div>
-</div>
-
 </div>

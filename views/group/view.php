@@ -7,7 +7,9 @@ use app\models\GroupUser;
 use yii\widgets\ListView;
 use app\models\Contest;
 use yii\bootstrap\Nav;
-
+use yii\helpers\ArrayHelper;
+use yii\helpers\Url;
+use yii\web\View;
 /* @var $this yii\web\View */
 /* @var $model app\models\Group */
 /* @var $contestDataProvider yii\data\ActiveDataProvider */
@@ -46,7 +48,6 @@ $scoreboardFrozenTime = Yii::$app->setting->get('scoreboardFrozenTime') / 3600;
                     'itemOptions' => ['tag' => false],
                     'layout' => '{items}<p></p>{pager}',
                     'options' => ['class' => 'list-group animate__animated animate__fadeInUp'],
-
                     'pager' => [
                         'firstPageLabel' => Yii::t('app', 'First'),
                         'prevPageLabel' => '« ',
@@ -54,7 +55,10 @@ $scoreboardFrozenTime = Yii::$app->setting->get('scoreboardFrozenTime') / 3600;
                         'lastPageLabel' => Yii::t('app', 'Last'),
                         'linkOptions' => ['class' => 'page-link'],
                         'maxButtonCount' => 10,
-                    ]
+                    ],
+                    'viewParams' => [
+                        'group_datas' => $group_datas
+                    ],
                 ]);
             } else {
 
@@ -146,7 +150,59 @@ $scoreboardFrozenTime = Yii::$app->setting->get('scoreboardFrozenTime') / 3600;
             <?php endif; ?>
         </div>
     </div>
+    <div class="row">
+        <div class="col-md-2 col-md-offset-5">
+            <?php Modal::begin([
+                'id' => 'clone-modal',
+                'header' => '克隆到指定小组',
+                ]); 
+            ?>
+            <div id='clone_cid' style='display:none'>0</div>
+            <div style="padding:10px 20px">
+            <?= Html::dropDownList('clone_select','name[]', ArrayHelper::map($group_datas, 'id', 'name'), ['id'=>'clone_select','class' => 'form-control']);?>
+            </div>
+            <div class="row" style="padding-top:10px"><?= Html::button(Yii::t('app', 'Submit'), ['id'=> 'clone_submit','class' => 'col-md-2 col-md-offset-5 btn btn-success','data-dismiss'=>'modal']) ?></div>
+            <?php Modal::end(); ?>
 
+            <?php Modal::begin([
+                'id' => 'msg-modal',
+                'header' => '信息',
+                ]); 
+            ?>
+            <div id="msg-content" style="padding:20px 30px">
+            </div>
+            <div class="row" style="padding-top:10px"><?= Html::button(Yii::t('app', 'Ok'), ['id'=> 'msg_submit','class' => 'col-md-2 col-md-offset-5 btn btn-success','data-dismiss'=>'modal']) ?></div>
+            <?php Modal::end(); ?>
+        </div>
+    </div>
 </div>
 <?php
+    $js = <<<EOF
+    function clone_click(obj) {
+        $("#clone_cid").html($(obj).attr('data-cid'));
+        $('#clone-modal').modal("show");
+    }
+    EOF;
+    $this->registerJs($js,View::POS_HEAD);
+    $cloneUrl = Url::to(['/homework/clone']);
+    $js = <<<EOT
+     $("#clone_submit").click(function () {
+        var cid = $("#clone_cid").text();
+        var id = $("#clone_select").val();
+        $.ajax({
+            url: "$cloneUrl",
+            type:'post',
+            data: {contest_id:cid ,group_id: id},
+            error: function(){
+                $("#msg-content").html("克隆时发生未知错误。")
+                $('#msg-modal').modal("show");
+            },
+            success:function(html){
+                $("#msg-content").html(html)
+                $('#msg-modal').modal("show");
+            }   
+        });
+    });
+    EOT;
+    $this->registerJs($js);    
 ?>
