@@ -72,7 +72,8 @@ class SolutionController extends BaseController
             'id' => $query['id'],
             'verdict' => $query['result'],
             'waiting' => $query['result'] <= Solution::OJ_WAITING_STATUS ? 'true' : 'false',
-            'result' => Solution::getResultList($query['result'])
+            'result' => Solution::getResultList($query['result']),
+            'css' => Solution::getResultCssClass($query['result']),
         ];
         return json_encode($res);
     }

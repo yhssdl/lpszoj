@@ -250,6 +250,27 @@ class Solution extends ActiveRecord
         return "<span class=" . $cssClass[$this->result] . " $innerHtml>{$res}{$loadingImg}</span>";
     }
 
+    public static function getResultCssClass($res = 0)
+    {
+        $cssClass = [
+            Solution::OJ_WT0 => "text-muted", // Pending
+            Solution::OJ_WT1 =>"text-muted",
+            Solution::OJ_CI =>"text-muted",
+            Solution::OJ_RI =>"text-muted",
+            Solution::OJ_AC =>"text-success", // AC
+            Solution::OJ_PE =>"text-warning", // PE
+            Solution::OJ_WA =>"text-danger",  // WA
+            Solution::OJ_TL =>"text-warning", // TLE
+            Solution::OJ_ML =>"text-warning", // MLE
+            Solution::OJ_OL =>"text-warning", // OLE
+            Solution::OJ_RE =>"text-warning", // RE
+            Solution::OJ_CE =>"text-warning", // CE
+            Solution::OJ_SE =>"text-danger",  // SE
+            Solution::OJ_NT =>"text-danger", // No Test Data
+        ];
+        return $cssClass[$res];
+    }    
+
     public static function getResultList($res = '')
     {
         $results = [

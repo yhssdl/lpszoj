@@ -291,7 +291,7 @@ $nextProblemID = $model->getNextProblemID();
                                     if ($sub['result'] == Solution::OJ_AC) {
                                         $span = '<span class="text-success"' . $innerHtml . '>' . Solution::getResultList($sub['result']) . '</span>';
                                     } else {
-                                        $span = '<span class="text-danger" ' . $innerHtml . '>' . Solution::getResultList($sub['result']) . $loadingImg . '</span>';
+                                        $span = '<span class="text-muted" ' . $innerHtml . '>' . Solution::getResultList($sub['result']) . $loadingImg . '</span>';
                                     }
                                     
                                     if ($solution->canViewResult()) {
@@ -356,10 +356,9 @@ function updateVerdictByKey(submission) {
         success: function(data) {
             var obj = JSON.parse(data);
             submission.attr("waiting", obj.waiting);
+            console.log(obj.result+":"+obj.css);
             submission.text(obj.result);
-            if (obj.verdict === "4") {
-                submission.attr("class", "text-success")
-            }
+            submission.attr("class", obj.css);
             if (obj.waiting === "true") {
                 submission.append('<img src="{$loadingImgUrl}" alt="loading">');
             }
@@ -368,7 +367,6 @@ function updateVerdictByKey(submission) {
 }
 var waitingCount = $("span[waiting=true]").length;
 if (waitingCount > 0) {
-    console.log("There is waitingCount=" + waitingCount + ", starting submissionsEventCatcher...");
     var interval = null;
     var waitingQueue = [];
     $("span[waiting=true]").each(function(){
@@ -388,7 +386,7 @@ if (waitingCount > 0) {
             updateVerdictByKey(waitingQueue[0]);
             waitingCount = $("span[waiting=true]").length;
         }
-        console.log("There is waitingCount=" + waitingCount + ", starting submissionsEventCatcher...");
+
         
         if (interval && waitingCount === 0) {
             console.log("Stopping submissionsEventCatcher.");

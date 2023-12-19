@@ -158,9 +158,7 @@ function updateVerdictByKey(submission) {
             var obj = JSON.parse(data);
             submission.attr("waiting", obj.waiting);
             submission.text(obj.result);
-            if (obj.verdict === "4") {
-                submission.attr("class", "text-success")
-            }
+            submission.attr("class", obj.css);
             if (obj.waiting === "true") {
                 submission.append('<img src="{$loadingImgUrl}" alt="loading">');
             }
