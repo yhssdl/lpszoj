@@ -37,11 +37,13 @@ else
 <?= Html::beginForm('', 'post') ?>
 <div class="row">
         <div class="col-md-9">
-            <?= Html::textInput('q', '', ['class' => 'form-control', 'placeholder' => '题号 / 标题 / 来源']) ?>
+            <div class="form-group">
+                <?= Html::textInput('q', '', ['class' => 'form-control', 'placeholder' => '题号 / 标题 / 来源']) ?>
+            </div>
         </div>
 
         <div class="col-md-3">
-            <div class="btn-group btn-group-justified search-submit">
+            <div class="form-group btn-group btn-group-justified search-submit">
                 <div class="btn-group">
                     <?= Html::submitButton('<span class="fa fa-search"></span> '.Yii::t('app', 'Search'), ['class' => 'btn btn-primary']) ?>
                 </div>
@@ -56,7 +58,6 @@ else
             </div>
         </div>
 </div>
-<br>
 <?= Html::endForm() ?>
 
 <div class="modal fade" id="myModal" tabindex="-1" role="dialog" aria-labelledby="myModalLabel" aria-hidden="true">
