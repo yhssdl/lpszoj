@@ -28,7 +28,7 @@ use yii\bootstrap\ActiveForm;
 
     <div class="col-md-2">
         <?= $form->field($model, 'nickname', [
-            'template' => "{label}\n<div class=\"input-group\"><span class=\"input-group-addon\"><span class='fa fa-user'></span></span>{input}</div>",
+            'template' => "{label}\n<div class=\"input-group\"><span class=\"input-group-addon\"><span class='fa fa-user-o'></span></span>{input}</div>",
         ])->textInput(['maxlength' => 128, 'autocomplete' => 'off', 'placeholder' => Yii::t('app', 'Nickname')])->label(false) ?>
     </div>
 
@@ -40,7 +40,7 @@ use yii\bootstrap\ActiveForm;
 
     <div class="col-md-2">
         <?= $form->field($model, 'pagesize', [
-            'template' => "{label}\n<div class=\"input-group\"><span class=\"input-group-addon\"><span class='fa fa-book'></span></span>{input}</div>",
+            'template' => "{label}\n<div class=\"input-group\"><span class=\"input-group-addon\"><span class='fa fa-list'></span></span>{input}</div>",
         ])->dropDownList([
             50 => '每页50项',
             100 => '每页100项',

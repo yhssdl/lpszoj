@@ -94,11 +94,11 @@ else
         <?php endif; ?>
 
         <div class="btn-group">
-            <?= Html::a('<span class="fa fa-arrow-circle-o-down"></span> '.Yii::t('app', 'Import Problem'), ['import'], ['class' => 'btn btn-default','title' => '从HUSTOJ导入题目', 'data-toggle'=>"tooltip",'data-placement'=>"top" ]) ?>
+            <?= Html::a('<span class="fa fa-arrow-circle-o-down"></span> '.Yii::t('app', 'Import Problem'), ['import'], ['class' => 'btn btn-default','title' => '导入HUSTOJ的xml题目', 'data-toggle'=>"tooltip",'data-placement'=>"top" ]) ?>
         </div>
 
         <div class="btn-group">
-            <a id="export" class="btn btn-default" href="javascript:void(0);" data-toggle="tooltip" data-placement="top" title="将选中的题目导入为xml文件"><span class="fa fa-arrow-circle-o-up"></span><?= Yii::t('app', 'Export Problem') ?></a>
+            <a id="export" class="btn btn-default" href="javascript:void(0);" data-toggle="tooltip" data-placement="top" title="将选中题目导出为xml文件"><span class="fa fa-arrow-circle-o-up"></span><?= Yii::t('app', 'Export Problem') ?></a>
         </div>     
 
         <div class="btn-group">
