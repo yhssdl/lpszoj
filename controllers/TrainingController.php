@@ -347,26 +347,6 @@ class TrainingController extends BaseController
         ]);
     }
 
-    /**
-     * @param $id
-     * @return \yii\web\Response
-     * @throws ForbiddenHttpException
-     * @throws NotFoundHttpException
-     * @throws \Throwable
-     * @throws \yii\db\StaleObjectException
-     */
-    public function actionDelete($id)
-    {
-        $model = $this->findModel($id);
-        if (!Yii::$app->user->isGuest && ($model->created_by === Yii::$app->user->id || Yii::$app->user->identity->isAdmin())) {
-            $model->delete();
-            Yii::$app->session->setFlash('success', '已删除');
-            return $this->redirect(['index']);
-        }
-
-        throw new ForbiddenHttpException(Yii::t('app', 'You are not allowed to perform this action.'));
-    }
-
 
 
     /**

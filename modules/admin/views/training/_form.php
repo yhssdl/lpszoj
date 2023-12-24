@@ -40,7 +40,25 @@ $url = \yii\helpers\Url::toRoute(['/image/mdupload']);
 
     <div class="form-group">
         <div class="row">
-            <div class="col-md-2 col-md-offset-5"><?= Html::submitButton(Yii::t('app', 'Save'), ['class' => 'btn btn-success btn-block']) ?></div>
+            <?php if ($model->id == 0): ?>
+                    <div class="text-center"><?= Html::submitButton(Yii::t('app', 'Save'), ['class' => 'btn btn-success','style'=> "min-width:150px"]) ?></div>
+                <?php else:?>
+
+                <div class="text-center">
+                    <div class="btn-group">
+                        <div class="btn-group" ><?= Html::submitButton(Yii::t('app', 'Save'), ['class' => 'btn btn-success','style'=> "min-width:150px"]) ?></div>
+                        <div class="btn-group">
+                            <button type="button" class="btn btn-default dropdown-toggle" 
+                                data-toggle="dropdown">
+                                <span class="caret"></span>
+                            </button>
+                            <ul class="dropdown-menu" role="menu">
+                                <li><?= Html::a('删除该训练', ['delete', 'id' => $model->id], ['data-confirm' => '此操作会把该训练删除，且不可恢复，你确定要删除吗？','data-method' => 'post']) ?></li>
+                            </ul>
+                        </div>
+                    </div>
+                </div>          
+                <?php endif;?>
         </div>
     </div>
     <?php ActiveForm::end(); ?>
