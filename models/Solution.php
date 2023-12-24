@@ -362,6 +362,11 @@ class Solution extends ActiveRecord
             return true;
         }
 
+        // 管理教师,在只有在不为3选项时,可查看.
+        if (Yii::$app->user->identity->role == User::ROLE_TEACHER  && Yii::$app->setting->get('isShareCode')!=3) {
+            return true;
+        } 
+
         if (!empty($this->contest_id) && Yii::$app->setting->get('isShareCode')!=3) {
             $contest = self::getContestInfo($this->contest_id);
 

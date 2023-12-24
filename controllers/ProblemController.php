@@ -65,8 +65,11 @@ class ProblemController extends BaseController
         }
         $query->andWhere('status<>' . Problem::STATUS_HIDDEN);
 
-        if (Yii::$app->setting->get('isHideVIP') && (Yii::$app->user->isGuest || Yii::$app->user->identity->role === User::ROLE_USER)){
-            $query->andWhere('status<>' . Problem::STATUS_PRIVATE);
+        if (Yii::$app->setting->get('isHideVIP')){
+            if(Yii::$app->user->isGuest || Yii::$app->user->identity->role === User::ROLE_USER)
+                $query->andWhere('status<' . Problem::STATUS_PRIVATE);
+            else if (Yii::$app->user->identity->role === User::ROLE_VIP)
+                $query->andWhere('status<' . Problem::STATUS_TEACHER); 
         }
 
         $dataProvider = new ActiveDataProvider([
@@ -139,8 +142,11 @@ class ProblemController extends BaseController
             $query->andWhere('status<>' . Problem::STATUS_HIDDEN);
         }
         
-        if (Yii::$app->setting->get('isHideVIP') && (Yii::$app->user->isGuest || Yii::$app->user->identity->role === User::ROLE_USER)){
-            $query->andWhere('status<>' . Problem::STATUS_PRIVATE);
+        if (Yii::$app->setting->get('isHideVIP')){
+            if(Yii::$app->user->isGuest || Yii::$app->user->identity->role === User::ROLE_USER)
+                $query->andWhere('status<' . Problem::STATUS_PRIVATE);
+            else if (Yii::$app->user->identity->role === User::ROLE_VIP)
+                $query->andWhere('status<' . Problem::STATUS_TEACHER); 
         }
 
         $dataProvider = new ActiveDataProvider([
@@ -312,11 +318,12 @@ class ProblemController extends BaseController
         if (($model = Problem::findOne($id)) !== null) {
             $isVisible = ($model->status == Problem::STATUS_VISIBLE);
             $isPrivate = ($model->status == Problem::STATUS_PRIVATE);
-            if ($isVisible || ($isPrivate && !Yii::$app->user->isGuest &&
-                               (Yii::$app->user->identity->role === User::ROLE_VIP || Yii::$app->user->identity->role === User::ROLE_ADMIN))) {
+            $isTeacher = ($model->status == Problem::STATUS_TEACHER);
+            if ($isVisible || ($isPrivate && !Yii::$app->user->isGuest && (Yii::$app->user->identity->role >= User::ROLE_VIP))
+                           || ($isTeacher && !Yii::$app->user->isGuest && (Yii::$app->user->identity->role >= User::ROLE_TEACHER))) {
                 return $model;
             } else {
-                throw new ForbiddenHttpException($isPrivate?'当前题目为VIP题目，普通用户没有权限访问。':'不允许执行此操作。');
+                throw new ForbiddenHttpException('没有权限访问当前题目。');
             }
         }
 

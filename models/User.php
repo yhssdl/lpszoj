@@ -40,11 +40,13 @@ class User extends ActiveRecord implements IdentityInterface
      * 比赛账户，该账户用于参加比赛，跟普通用户的区别在于禁止私自修改个人信息，用户名、昵称、密码
      * 普通用户
      * VIP用户
+     * 教师用户
      * 管理员
      */
     const ROLE_PLAYER = 0;
     const ROLE_USER = 10;
     const ROLE_VIP = 20;
+    const ROLE_TEACHER = 25;
     const ROLE_ADMIN = 30;
 
     public $oldPassword;
@@ -92,7 +94,7 @@ class User extends ActiveRecord implements IdentityInterface
             }],
             ['username', 'unique', 'targetClass' => '\app\models\User', 'message' => 'This username has already been taken.'],
             ['status', 'in', 'range' => [self::STATUS_ACTIVE, self::STATUS_DELETED, self::STATUS_INACTIVE]],
-            ['role', 'in', 'range' => [self::ROLE_PLAYER, self::ROLE_USER, self::ROLE_VIP, self::ROLE_ADMIN]],
+            ['role', 'in', 'range' => [self::ROLE_PLAYER, self::ROLE_USER, self::ROLE_VIP,self::ROLE_TEACHER, self::ROLE_ADMIN]],
 
             // oldPassword is validated by validateOldPassword()
             [['oldPassword'], 'validateOldPassword'],

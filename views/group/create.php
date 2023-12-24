@@ -14,7 +14,9 @@ if (!Yii::$app->user->isGuest){
         $DefGp = true;
     } elseif ((Yii::$app->setting->get('isDefGroup') == 2) && (Yii::$app->user->identity->role === User::ROLE_ADMIN)) {
         $DefGp = true;
-    } elseif (Yii::$app->setting->get('isDefGroup') == 3 && (Yii::$app->user->identity->role === User::ROLE_ADMIN || Yii::$app->user->identity->role === User::ROLE_VIP)) {
+    } elseif (Yii::$app->setting->get('isDefGroup') == 3 && Yii::$app->user->identity->role >= User::ROLE_VIP) {
+        $DefGp = true;
+    } elseif (Yii::$app->setting->get('isDefGroup') == 4 && Yii::$app->user->identity->role >= User::ROLE_TEACHER) {
         $DefGp = true;
     }
 }

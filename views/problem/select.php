@@ -99,6 +99,8 @@ $this->registerAssetBundle('yii\bootstrap\BootstrapPluginAsset');
                                 return Html::a($model->id, ['problem/view', 'id' => $key],['class'=>'text-gray']);
                             else if ($model->status == \app\models\Problem::STATUS_PRIVATE)
                                 return Html::a($model->id, ['problem/view', 'id' => $key],['class'=>'text-vip']);
+                            else if ($model->status == \app\models\Problem::STATUS_TEACHER)
+                                return Html::a($model->id, ['problem/view', 'id' => $key],['class'=>'text-teacher']);                            
                             else
                                 return Html::a($model->id, ['problem/view', 'id' => $key]);
                         },
@@ -114,6 +116,8 @@ $this->registerAssetBundle('yii\bootstrap\BootstrapPluginAsset');
                             global $label_i;
                             if($model->status==Problem::STATUS_PRIVATE)
                                 $res = Html::a(Html::encode($model->title), ['/problem/view','id' => $key],['class'=>'text-vip','target'=>'_blank']);
+                            else if($model->status==Problem::STATUS_TEACHER)
+                                $res = Html::a(Html::encode($model->title), ['/problem/view','id' => $key],['class'=>'text-teacher','target'=>'_blank']);                            
                             else
                                 $res = Html::a(Html::encode($model->title), ['/problem/view', 'id' => $key],['class'=>'text-dark','target'=>'_blank']);   
 

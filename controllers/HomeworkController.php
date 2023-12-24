@@ -102,9 +102,8 @@ class HomeworkController extends BaseController
                     ->scalar();
                 if ($problemStatus == null || ($problemStatus == Problem::STATUS_HIDDEN && Yii::$app->user->identity->role != User::ROLE_ADMIN)) {
                     Yii::$app->session->setFlash('error', Yii::t('app', 'No such problem.'));
-                } else if ($problemStatus == Problem::STATUS_PRIVATE && (Yii::$app->user->identity->role == User::ROLE_USER ||
-                                                                            Yii::$app->user->identity->role == User::ROLE_PLAYER)) {
-                        $info_msg = $info_msg.$pid.":".Yii::t('app', '私有题目，仅 VIP 用户可选用')."<br>";
+                } else if ($problemStatus == Problem::STATUS_PRIVATE && (Yii::$app->user->identity->role < User::ROLE_PRIVATE)) {
+                        $info_msg = $info_msg.$pid.":".Yii::t('app', '私有题目，普通用户不能选用')."<br>";
                 } else {
                     $problemInContest = (new Query())->select('problem_id')
                         ->from('{{%contest_problem}}')
@@ -170,7 +169,8 @@ class HomeworkController extends BaseController
                     return $this->redirect(['/homework/update', 'id' => $id]);
                 }
                 if ($newProblemStatus == Problem::STATUS_VISIBLE || Yii::$app->user->identity->role == User::ROLE_ADMIN
-                    || ($newProblemStatus == Problem::STATUS_PRIVATE && Yii::$app->user->identity->role == User::ROLE_VIP)) {
+                    || ($newProblemStatus == Problem::STATUS_PRIVATE && Yii::$app->user->identity->role >= User::ROLE_VIP)
+                    || ($newProblemStatus == Problem::STATUS_TEACHER && Yii::$app->user->identity->role >= User::ROLE_TEACHER)) {
                     Yii::$app->db->createCommand()->update('{{%contest_problem}}', [
                         'problem_id' => $new_pid,
                     ], ['problem_id' => $pid, 'contest_id' => $model->id])->execute();

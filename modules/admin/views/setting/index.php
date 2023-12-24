@@ -22,8 +22,8 @@ if($editorName=='app\\widgets\\kindeditor\\KindEditor'){
 
     <div class="form-group">
         <?= Html::radioList('isNotice', $settings['isNotice'], [
-            1 => '开启全局公告',
-            0 => '关闭全局公告'
+            0 => '关闭全局公告',
+            1 => '开启全局公告'
         ]) ?>
         <p class="hint-block">
             开启后，全局公告将展示在每个页面的上方。
@@ -39,8 +39,8 @@ if($editorName=='app\\widgets\\kindeditor\\KindEditor'){
 
     <div class="form-group">
         <?= Html::radioList('isHomeNotice', $settings['isHomeNotice'], [
-            1 => '开启首页公告',
-            0 => '关闭首页公告'
+           0 => '关闭首页公告',
+           1 => '开启首页公告'
         ]) ?>
         <p class="hint-block">
             开启后，首页公告将展示在首页的右上方。
@@ -87,8 +87,8 @@ if($editorName=='app\\widgets\\kindeditor\\KindEditor'){
 <div class="form-group">
     <?= Html::label(Yii::t('app', 'OI 模式'), 'oiMode') ?>
     <?= Html::radioList('oiMode', $settings['oiMode'], [
-        1 => '是',
-        0 => '否'
+        0 => '否',
+        1 => '是'
     ]) ?>
     <p class="hint-block">
         注意，如需启动 OI 模式，除了在此处选择是外，还需要在启动判题服务时加上 sudo ./dispatcher <code>-o</code>参数。
@@ -98,24 +98,24 @@ if($editorName=='app\\widgets\\kindeditor\\KindEditor'){
 <div class="form-group">
     <?= Html::label(Yii::t('app', 'Show Training'), 'isShowTraining') ?>
     <?= Html::radioList('isShowTraining', $settings['isShowTraining'], [
-        1 => '导航栏中显示训练菜单',
-        0 => '导航栏中关闭训练菜单'
+        0 => '导航栏中关闭训练菜单',
+        1 => '导航栏中显示训练菜单'
     ]) ?>
 </div>
 
 <div class="form-group">
     <?= Html::label(Yii::t('app', 'Show Status'), 'isShowStatus') ?>
     <?= Html::radioList('isShowStatus', $settings['isShowStatus'], [
-        1 => '导航栏中显示状态菜单',
-        0 => '导航栏中关闭状态菜单'
+        0 => '导航栏中关闭状态菜单',
+        1 => '导航栏中显示状态菜单'        
     ]) ?>
 </div>
 
 <div class="form-group">
     <?= Html::label(Yii::t('app', '启用Polygon出题系统'), 'isEnablePolygon') ?>
     <?= Html::radioList('isEnablePolygon', $settings['isEnablePolygon'], [
-        1 => '启用Polygon出现系统',
-        0 => '关闭Polygon出题系统'
+        0 => '关闭Polygon出题系统',
+        1 => '启用Polygon出现系统'        
     ]) ?>
         <p class="hint-block">
         开启该功能后,问题列表界面会显示Polygon出现按钮,普通用户可以自主出题，管理员可以后台导入Polygon题目。
@@ -125,16 +125,16 @@ if($editorName=='app\\widgets\\kindeditor\\KindEditor'){
 <div class="form-group">
     <?= Html::label(Yii::t('app', '用户注册'), 'isUserReg') ?>
     <?= Html::radioList('isUserReg', $settings['isUserReg'], [
-        1 => '开放',
-        0 => '关闭'
+        0 => '关闭',
+        1 => '开放'        
     ]) ?>
 </div>
 
 <div class="form-group">
     <?= Html::label(Yii::t('app', '开启讨论'), 'isDiscuss') ?>
     <?= Html::radioList('isDiscuss', $settings['isDiscuss'], [
-        1 => '开启',
-        0 => '关闭'
+        0 => '关闭',
+        1 => '开启'
     ]) ?>
 </div>
 
@@ -145,7 +145,8 @@ if($editorName=='app\\widgets\\kindeditor\\KindEditor'){
         0 => '用户可以查看其他用户的代码',
         1 => '用户可以查看自己的代码',
         2 => '只有小组组长与管理员可以查看代码',
-        3 => '只有管理员可以查看代码'
+        4 => '只有系统管理员与管理教师可以查看代码',
+        3 => '只有系统管理员可以查看代码'
     ]) ?>
 </div>
 
@@ -155,7 +156,8 @@ if($editorName=='app\\widgets\\kindeditor\\KindEditor'){
         0 => '用户可以查看错误测试数据',
         1 => '用户可查看过题情况，但不能查看错误测试数据',
         2 => '只有小组组长与管理员可查看错误测试数据',
-        3 => '只有管理员可查看错误测试数据'
+        4 => '只有系统管理员与管理教师可查看错误测试数据',    
+        3 => '只有系统管理员可查看错误测试数据'
 
     ]) ?>
 </div>
@@ -165,36 +167,37 @@ if($editorName=='app\\widgets\\kindeditor\\KindEditor'){
 <div class="form-group">
     <?= Html::label(Yii::t('app', '答题界面'), 'showMode') ?>
     <?= Html::radioList('showMode', $settings['showMode'], [
-        1 => '左右模式答题界面',
-        0 => '经典模式答题界面'
+        0 => '经典模式答题界面',
+        1 => '左右模式答题界面'        
     ]) ?>
 </div>
 
 <div class="form-group">
     <?= Html::label(Yii::t('app', '用户昵称'), 'isChangeNickName') ?>
     <?= Html::radioList('isChangeNickName', $settings['isChangeNickName'], [
-        2 => '只允许修改一次',
+        0 => '不允许修改',
         1 => '允许修改',
-        0 => '不允许修改'
+        2 => '只允许修改一次'
     ]) ?>
 </div>
 
 <div class="form-group">
     <?= Html::label(Yii::t('app', '创建小组'), 'isDefGroup') ?>
     <?= Html::radioList('isDefGroup', $settings['isDefGroup'], [
-
-        2 => '仅管理员可创建小组',
-        3 => '管理员与VIP用户可创建小组',
+        0 => '关闭小组功能',
         1 => '所有注册用户可创建小组',
-        0 => '关闭小组功能'
+        3 => '管理员与VIP用户可创建小组',
+        4 => '系统管理员与管理教师可创建小组',
+        2 => '仅系统管理员可创建小组',
+        
     ]) ?>
 </div>
 
 <div class="form-group">
     <?= Html::label(Yii::t('app', '组长直接加成员'), 'isGroupJoin') ?>
     <?= Html::radioList('isGroupJoin', $settings['isGroupJoin'], [
-        1 => '开启',
-        0 => '关闭'
+        0 => '关闭',
+        1 => '开启'        
     ]) ?>
     <p class="hint-block">
         开启该功能后,组长可以直接将用户拉入到小组中,不需要用户确认。
@@ -204,9 +207,10 @@ if($editorName=='app\\widgets\\kindeditor\\KindEditor'){
 <div class="form-group">
     <?= Html::label(Yii::t('app', '小组管理权限'), 'isGroupReset') ?>
     <?= Html::radioList('isGroupReset', $settings['isGroupReset'], [
+        0 => '关闭密码与昵称重置功能',
         1 => '仅组长可重置密码与昵称',
         2 => '组长与助理可重置密码与昵称',
-        0 => '关闭密码与昵称重置功能'
+        
     ]) ?>
 </div>
 
@@ -227,11 +231,11 @@ if($editorName=='app\\widgets\\kindeditor\\KindEditor'){
 <div class="form-group">
     <?= Html::label(Yii::t('app', '私有(VIP)题目'), 'isHideVIP') ?>
     <?= Html::radioList('isHideVIP', $settings['isHideVIP'], [
-        1 => '游客与普通用户不显示私有题目',
-        0 => '所有用户都显示私有题目'
+        0 => '游客与普通用户显示所有类型的题目',
+        1 => '游客与普通用户只显示普通题目'
+        
     ]) ?>
 </div>
-
 
 <div class="form-group">
     <?= Html::label(Yii::t('app', '编辑器'), 'ojEditor') ?>

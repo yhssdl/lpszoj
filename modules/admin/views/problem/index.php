@@ -102,16 +102,20 @@ else
         </div>     
 
         <div class="btn-group">
-            <a id="available" class="btn btn-success" href="javascript:void(0);" data-toggle="tooltip" data-placement="top" title="选中项设为可见，任何用户均能在前台看见题目"><span class="fa fa-eye"></span> 设为可见</a>
+            <a id="available" class="btn btn-success" href="javascript:void(0);" data-toggle="tooltip" data-placement="top" title="选中项设为可见，任何用户均能在前台看见题目"><span class="fa fa-eye"></span> 设为普通题</a>
         </div>
 
+        <div class="btn-group">
+            <a id="private" class="btn btn-success" href="javascript:void(0);" data-toggle="tooltip" data-placement="top" title="选中项设为VIP，前台题目列表会出现题目标题，但只有VIP用户才能查看题目信息"><span class="fa fa-key"></span> 设为VIP题</a>
+        </div>
+
+        <div class="btn-group">
+            <a id="teacher" class="btn btn-success" href="javascript:void(0);" data-toggle="tooltip" data-placement="top" title="选中项设为教师专用题，前台题目列表会出现题目标题，但只有教师组才能查看题目信息"><span class="fa fa-user"></span> 设为教师题</a>
+        </div> 
+        
         <div class="btn-group">
             <a id="reserved" class="btn btn-success" href="javascript:void(0);" data-toggle="tooltip" data-placement="top" title="选中项设为隐藏，题目只能在后台查看"><span class="fa fa-eye-slash"></span> 设为隐藏</a>
-        </div>
-
-        <div class="btn-group">
-            <a id="private" class="btn btn-success" href="javascript:void(0);" data-toggle="tooltip" data-placement="top" title="选中项设为VIP，前台题目列表会出现题目标题，但只有VIP用户才能查看题目信息"><span class="fa fa-key"></span> 设为私有</a>
-        </div>
+        </div>        
 
         <div class="btn-group">
             <a id="delete" class="btn btn-danger" href="javascript:void(0);" data-toggle="tooltip" data-placement="top" title="删除选中题目，不可恢复"><span class="fa fa-trash"></span> 删除</a>
@@ -148,6 +152,8 @@ else
                         return Html::a($model->id, ['problem/view', 'id' => $key],['class'=>'text-gray']);
                     else if ($model->status == \app\models\Problem::STATUS_PRIVATE)
                         return Html::a($model->id, ['problem/view', 'id' => $key],['class'=>'text-vip']);
+                    else if ($model->status == \app\models\Problem::STATUS_TEACHER)
+                        return Html::a($model->id, ['problem/view', 'id' => $key],['class'=>'text-teacher']);                    
                     else
                         return Html::a($model->id, ['problem/view', 'id' => $key]);
                 },
@@ -160,6 +166,8 @@ else
                         return Html::a($model->title, ['problem/view', 'id' => $key],['class'=>'text-gray']);
                     else if ($model->status == \app\models\Problem::STATUS_PRIVATE)
                         return Html::a($model->title, ['problem/view', 'id' => $key],['class'=>'text-vip']);
+                    else if ($model->status == \app\models\Problem::STATUS_TEACHER)
+                        return Html::a($model->title, ['problem/view', 'id' => $key],['class'=>'text-teacher']);                    
                     else
                         return Html::a($model->title, ['problem/view', 'id' => $key]);
                 },
@@ -204,11 +212,14 @@ else
                 'header' => "<label  style='cursor: pointer;'>".Html::checkbox('showStatus', $showStatus, ['id' => 'showStatus','style' => 'vertical-align:text-bottom;'])." ".Yii::t('app', 'Status')."</label>",
                 'value' => function ($model, $key, $index, $column) {
                     if ($model->status == \app\models\Problem::STATUS_VISIBLE) {
-                        return Yii::t('app', 'Visible');
-                    } else if ($model->status == \app\models\Problem::STATUS_HIDDEN) {
-                        return Yii::t('app', 'Hidden');
-                    } else {
-                        return Yii::t('app', 'Private');
+                        return "<a>".Yii::t('app', '普通题目')."</a>";
+                    } else if ($model->status == \app\models\Problem::STATUS_PRIVATE) {
+                       return "<a class='text-vip'>".Yii::t('app', 'VIP题目')."</a>";
+                    } else if ($model->status == \app\models\Problem::STATUS_TEACHER) {
+                        return "<a class='text-teacher'>".Yii::t('app', '教师题目')."</a>";
+                     } else {
+                        return "<a class='text-gray'>".Yii::t('app', 'Hidden')."</a>";
+                        
                     }
                 },
                 'enableSorting' => false,
@@ -272,6 +283,14 @@ else
            data: {keylist: keys}
         });
     });
+    $("#teacher").on("click", function () {
+        var keys = $("#grid").yiiGridView("getSelectedRows");
+        $.post({
+           url: "' . \yii\helpers\Url::to(['/admin/problem/index', 'action' => \app\models\Problem::STATUS_TEACHER]) . '", 
+           dataType: \'json\',
+           data: {keylist: keys}
+        });
+    });    
     $("#delete").on("click", function () {
         if (confirm("确定要删除？此操作不可恢复！")) {
             var keys = $("#grid").yiiGridView("getSelectedRows");

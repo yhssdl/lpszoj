@@ -163,7 +163,8 @@ else
                  User::ROLE_PLAYER => '参赛用户',
                  User::ROLE_USER => '普通用户',
                  User::ROLE_VIP => 'VIP用户',
-                 User::ROLE_ADMIN => '管理员'
+                 User::ROLE_TEACHER => '管理教师',                 
+                 User::ROLE_ADMIN => '系统管理员'
                 ]) ?>
                 <p class="hint-block">
                     不选择就保留原来的角色。
@@ -283,10 +284,14 @@ else
                         $s_str = "<span class='text-success'>";
                         $icon = '<span class="fa fa-user-plus"></span> ';
                         $user_str =  'VIP 用户';
-                    } else if ($model->role == \app\models\User::ROLE_ADMIN) {
+                    } else if ($model->role == \app\models\User::ROLE_TEACHER) {
+                        $s_str = "<span class='text-danger'>";
+                        $icon = '<span class="fa fa-user-plus"></span> ';
+                        $user_str =  '管理教师';
+                    }  else if ($model->role == \app\models\User::ROLE_ADMIN) {
                         $s_str = "<span class='text-info'>";
                         $icon = '<span class="fa fa-user-secret"></span> ';
-                        $user_str =  '管理员';
+                        $user_str =  '系统管理员';
                     }
 
                     if($model->status == \app\models\User::STATUS_DISABLE) {

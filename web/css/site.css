@@ -767,6 +767,18 @@ a.text-vip:focus {
     text-decoration: none;
 }
 
+
+a.text-teacher {
+    color: #800080;
+    text-decoration: none;
+}
+
+a.text-teacher:hover,
+a.text-teacher:focus {
+    color: #000;
+    text-decoration: none;
+}
+
 .navbar-header {
     min-height: 60px;
 
@@ -1014,12 +1026,12 @@ a.status-clone:hover ,a.status-not-start:focus {
 
 
 .status-edit {
-    background: #7b43ff;
+    background: #6A5ACD;
     color: #fff; 
 }
 
 a.status-edit:hover ,a.status-not-start:focus {
-    background: #6f21b4;
+    background: #423882;
     color:#fff;
 }
 

@@ -74,6 +74,8 @@ $this->title = Yii::t('app', 'Contests');
                         return Yii::t('app', 'Public');
                     } else if ($model->status == $model::STATUS_PRIVATE) {
                         return Yii::t('app', 'Private');
+                    } else if ($model->status == $model::STATUS_TEACHER) {
+                        return Yii::t('app', 'Teacher');
                     } else {
                         return Yii::t('app', 'Hidden');
                     }
