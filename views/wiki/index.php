@@ -120,7 +120,7 @@
     <p></p>
     <h3>赛制</h3>
 
-    <div class="list-group">
+    <div class="list-group" id="sz">
         <div class="list-group-item">
             <b>ACM/ICPC</b><br>
             <small>

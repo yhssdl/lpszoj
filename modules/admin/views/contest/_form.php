@@ -65,25 +65,25 @@ $scoreboardFrozenTime = Yii::$app->setting->get('scoreboardFrozenTime') / 3600;
 
 
     <?= $form->field($model, 'status')->radioList([
+        Contest::STATUS_HIDDEN => Yii::t('app', 'Hidden'),
         Contest::STATUS_VISIBLE => Yii::t('app', 'Public'),
         Contest::STATUS_PRIVATE => Yii::t('app', 'Private'),
-        Contest::STATUS_HIDDEN => Yii::t('app', 'Hidden')
     ])->hint('公开：任何用户均可参加比赛（专用赛场景除外）。私有：任何时候比赛均只能由参赛用户访问，且比赛用户需要在后台手动添加。隐藏：前台无法看到比赛') ?>
 
 
     <?= $form->field($model, 'enable_print')->radioList([
-        '1' => '开启打印',
-        '0' => '关闭打印',
+        '0' => '关闭',
+        '1' => '开启',
     ]) ?>
 
     <?= $form->field($model, 'enable_clarify')->radioList([
-        1 => '开启答疑',
-        0 => '关闭答疑',
+        0 => '关闭',
+        1 => '开启',
     ])->hint('答疑界面在比赛中可以根据需要开启或关闭。') ?>
 
     <?= $form->field($model, 'enable_board')->radioList([
-        '1' => '开启榜单',
-        '0' => '关闭榜单',
+        '0' => '关闭',
+        '1' => '开启',
     ])->hint('是否开启榜单功能。关闭榜单后，只能在榜单中看到自己的信息。') ?>
 
     <?= $form->field($model, 'scenario')->radioList([
@@ -97,7 +97,7 @@ $scoreboardFrozenTime = Yii::$app->setting->get('scoreboardFrozenTime') / 3600;
         Contest::TYPE_HOMEWORK => Yii::t('app', 'Homework'),
         Contest::TYPE_OI => Yii::t('app', 'OI'),
         Contest::TYPE_IOI => Yii::t('app', 'IOI'),
-    ])->hint('不同类型的区别只在于榜单的排名方式。如需使用OI比赛，请在后台设置页面启用OI模式。') ?>
+    ])->hint('不同类型的区别只在于榜单的排名方式。如需使用OI比赛，请在后台设置页面启用OI模式。 <a href="/wiki/index#sz" target="_blank">点击查看赛制类型</a>') ?>
 
 
     <?= $form->field($model, 'language')->radioList([

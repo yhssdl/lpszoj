@@ -20,14 +20,14 @@ use yii\helpers\ArrayHelper;
     <?= $form->field($model, 'content')->widget(Yii::$app->setting->get('ojEditor'))->label(false); ?>
 
     <?= $form->field($model, 'status')->radioList([
-        2 => Yii::t('app', '全文显示'),
+        0 => Yii::t('app', 'Hidden'),
         1 => Yii::t('app', '列表显示'),
-        0 => Yii::t('app', 'Hidden')
+        2 => Yii::t('app', '全文显示'),
     ]) ?>
 
     <?= $form->field($model, 'entity_id')->radioList([
+        0 => Yii::t('app', '不固顶'),
         1 => Yii::t('app', '固顶'),
-        0 => Yii::t('app', '不固顶')
     ]) ?>
 
 

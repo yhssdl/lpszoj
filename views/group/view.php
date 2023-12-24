@@ -121,7 +121,7 @@ $scoreboardFrozenTime = Yii::$app->setting->get('scoreboardFrozenTime') / 3600;
                     Contest::TYPE_HOMEWORK => Yii::t('app', 'Homework'),
                     Contest::TYPE_OI => Yii::t('app', 'OI'),
                     Contest::TYPE_IOI => Yii::t('app', 'IOI'),
-                ])->hint('不同类型的区别只在于榜单的排名方式。详见：') ?>
+                ])->hint('不同类型的区别只在于榜单的排名方式。<a href="/wiki/index#sz" target="_blank">点击查看赛制类型</a>') ?>
 
                 <?= $form->field($newContest, 'enable_clarify')->radioList([
                     0 => '关闭',

@@ -27,8 +27,8 @@ $url = \yii\helpers\Url::toRoute(['/image/mdupload']);
     <?= $form->field($model, 'description')->textarea(['maxlength' => true]) ?>
 
     <?= $form->field($model, 'status')->radioList([
+        Group::STATUS_HIDDEN => Yii::t('app', 'Hidden'),
         Group::STATUS_VISIBLE => Yii::t('app', 'Visible'),
-        Group::STATUS_HIDDEN => Yii::t('app', 'Hidden')
     ])->hint('可见：用户可在前台页面查看该训练。') ?>
 
 

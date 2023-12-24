@@ -28,10 +28,11 @@ use yii\helpers\Url;
     ])->textInput(['maxlength' => 128, 'autocomplete'=>'off'])->hint('<i class="fa fa-info-circle"></i> 空间限制：Java 和 Python 有 64MB 额外空间')  ?>
 
     <?= $form->field($model, 'status')->radioList([
-        1 => Yii::t('app', 'Visible'),
         0 => Yii::t('app', 'Hidden'),
-        2 => Yii::t('app', 'Private')
-    ])->hint(Yii::t('app', '<i class="fa fa-info-circle"></i> 可见：题目将在首页展示，任何用户可见。隐藏：题目仅在后台显示。私有：题目标题在前台可见，但信息仅VIP用户可见')) ?>
+        1 => Yii::t('app', 'Visible'),
+        2 => Yii::t('app', 'VIP题目'),
+        3 => Yii::t('app', '教师题目'),
+    ])->hint(Yii::t('app', '<i class="fa fa-info-circle"></i> 隐藏：题目仅在后台显示。可见：题目将在首页展示，任何用户可见。VIP题目：题目标题在前台可见，但信息仅VIP用户可见，教师题目则只有管理教师才能前台查看。')) ?>
 
     <?= $form->field($model, 'description')->widget(Yii::$app->setting->get('ojEditor')); ?>
 
@@ -63,8 +64,8 @@ use yii\helpers\Url;
     </div>
 
     <?= $form->field($model, 'spj')->radioList([
-        '1' => Yii::t('app', 'Yes'),
-        '0' => Yii::t('app', 'No')
+        '0' => Yii::t('app', 'No'),
+        '1' => Yii::t('app', 'Yes'), 
     ]) ?>
 
 

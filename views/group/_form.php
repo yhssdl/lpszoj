@@ -37,8 +37,8 @@ $url = \yii\helpers\Url::toRoute(['/image/mdupload']);
     ]) ?>
 
     <?= $form->field($model, 'status')->radioList([
-        Group::STATUS_VISIBLE => Yii::t('app', 'Visible'),
-        Group::STATUS_HIDDEN => Yii::t('app', 'Hidden')
+        Group::STATUS_HIDDEN => Yii::t('app', 'Hidden'),
+        Group::STATUS_VISIBLE => Yii::t('app', 'Visible')    
     ])->hint('可见：用户可在探索页面发现。') ?>
 
 
