@@ -102,7 +102,7 @@ class HomeworkController extends BaseController
                     ->scalar();
                 if ($problemStatus == null || ($problemStatus == Problem::STATUS_HIDDEN && Yii::$app->user->identity->role != User::ROLE_ADMIN)) {
                     Yii::$app->session->setFlash('error', Yii::t('app', 'No such problem.'));
-                } else if ($problemStatus == Problem::STATUS_PRIVATE && (Yii::$app->user->identity->role < User::ROLE_PRIVATE)) {
+                } else if ($problemStatus == Problem::STATUS_PRIVATE && (Yii::$app->user->identity->role < User::ROLE_VIP)) {
                         $info_msg = $info_msg.$pid.":".Yii::t('app', '私有题目，普通用户不能选用')."<br>";
                 } else {
                     $problemInContest = (new Query())->select('problem_id')
