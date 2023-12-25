@@ -71,7 +71,7 @@ class Homework extends Contest
         if ($this->created_by == Yii::$app->user->id) {
             return true;
         }
-        if ($this->group->hasPermission()) {
+        if ($this->group->hasPermission() && $this->group->role != GroupUser::ROLE_ASSISTANT) {
             return true;
         }
         return false;

@@ -422,8 +422,10 @@ class GroupController extends BaseController
             $groupUser->role = GroupUser::ROLE_REUSE_APPLICATION;
         } else if ($role == 3) { // 重新邀请
             $groupUser->role = GroupUser::ROLE_INVITING;
-        } else if ($role == 4 && $group->getRole() == GroupUser::ROLE_LEADER) { // 设为管理员
+        } else if ($role == 4 && $group->getRole() == GroupUser::ROLE_LEADER) { // 设为助理
             $groupUser->role = GroupUser::ROLE_MANAGER;
+        } else if ($role == 8 && $group->getRole() == GroupUser::ROLE_LEADER) { // 设为助教
+            $groupUser->role = GroupUser::ROLE_ASSISTANT;
         } else if ($role == 5 && $group->getRole() == GroupUser::ROLE_LEADER) { // 设为普通成员
             $groupUser->role = GroupUser::ROLE_MEMBER;
         } else if ($role == 6 && $group->getRole() >= GroupUser::ROLE_MANAGER && $groupUser->role==GroupUser::ROLE_MEMBER) { // 重置密码

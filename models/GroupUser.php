@@ -16,7 +16,7 @@ use Yii;
 class GroupUser extends \yii\db\ActiveRecord
 {
     /**
-     * 权限对应：拒绝邀请，拒绝申请，邀请中，申请中，普通成员，管理员，领导（最高权限）
+     * 权限对应：拒绝邀请，拒绝申请，邀请中，申请中，普通成员，助教，助理，领导（最高权限）
      */
     const ROLE_REUSE_INVITATION = 0;
     const ROLE_REUSE_APPLICATION = 1;
@@ -25,6 +25,7 @@ class GroupUser extends \yii\db\ActiveRecord
     const ROLE_MEMBER = 4;
     const ROLE_MANAGER = 5;
     const ROLE_LEADER = 6;
+    const ROLE_ASSISTANT = 7;
 
     /**
      * @var string 邀请用户时用到
@@ -89,7 +90,8 @@ class GroupUser extends \yii\db\ActiveRecord
             Yii::t('app', 'Apply to join'),
             Yii::t('app', 'Member'),
             Yii::t('app', 'Manager'),
-            Yii::t('app', 'Leader')
+            Yii::t('app', 'Leader'),
+            Yii::t('app', 'Assistant')
         ];
         if (!$color) {
             return $roles[$this->role];
@@ -100,7 +102,8 @@ class GroupUser extends \yii\db\ActiveRecord
             'text-info',
             'text-info',
             'text-info',
-            'text-primary',
+            'text-success',
+            'text-success',
             'text-success'
         ];
         return '<span class="' . $rolesColor[$this->role] . '">' . $roles[$this->role] . '</span>' ;
@@ -115,7 +118,8 @@ class GroupUser extends \yii\db\ActiveRecord
             Yii::t('app', 'Apply to join'),
             Yii::t('app', 'Member'),
             Yii::t('app', 'Manager'),
-            Yii::t('app', 'Leader')
+            Yii::t('app', 'Leader'),
+            Yii::t('app', 'Assistant')
         ];
 
         $rolesColor = [
@@ -124,7 +128,8 @@ class GroupUser extends \yii\db\ActiveRecord
             'text-info',
             'text-info',
             'text-info',
-            'text-primary',
+            'text-success',
+            'text-success',
             'text-success'
         ];
         return '<span class="' . $rolesColor[$role] . '">' . $roles[$role] . '</span>' ;

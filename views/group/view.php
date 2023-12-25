@@ -44,7 +44,7 @@ $scoreboardFrozenTime = Yii::$app->setting->get('scoreboardFrozenTime') / 3600;
             <?php if ($contestDataProvider->count > 0) {
                 echo ListView::widget([
                     'dataProvider' => $contestDataProvider,
-                    'itemView' => $model->hasPermission() ? '_contest_item1' : '_contest_item',
+                    'itemView' => ($model->hasPermission() && $model->role != GroupUser::ROLE_ASSISTANT) ? '_contest_item1' : '_contest_item',
                     'itemOptions' => ['tag' => false],
                     'layout' => '{items}<p></p>{pager}',
                     'options' => ['class' => 'list-group animate__animated animate__fadeInUp'],

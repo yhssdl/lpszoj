@@ -27,16 +27,19 @@ use app\models\User;
         </div>
     <?php elseif ($groupUser->role == GroupUser::ROLE_MEMBER && $model->getRole() == GroupUser::ROLE_LEADER) : ?>
         <div class="btn-group">
-            <?= Html::a('设为助理', ['/group/user-update', 'id' => $groupUser->id, 'role' => 4], ['class' => 'btn btn-default']); ?>
+            <?= Html::a('设为助理', ['/group/user-update', 'id' => $groupUser->id, 'role' => 8], ['class' => 'btn btn-default','title'=>"协助组长重置昵称与密码。"]); ?>
         </div>
-    <?php elseif ($groupUser->role == GroupUser::ROLE_MANAGER && $model->getRole() == GroupUser::ROLE_LEADER) : ?>
+        <div class="btn-group">
+            <?= Html::a('设为助教', ['/group/user-update', 'id' => $groupUser->id, 'role' => 4], ['class' => 'btn btn-default','title'=>"协助组长管理比赛、作业，重置昵称与密码。"]); ?>
+        </div>           
+    <?php elseif ( ($groupUser->role == GroupUser::ROLE_MANAGER || $groupUser->role == GroupUser::ROLE_ASSISTANT) && $model->getRole() == GroupUser::ROLE_LEADER) : ?>
         <div class="btn-group">
             <?= Html::a('设为普通成员', ['/group/user-update', 'id' => $groupUser->id, 'role' => 5], ['class' => 'btn btn-default']); ?>
         </div>
     <?php endif; ?>
 
     <?php if ($groupUser->user->role==User::ROLE_USER && ($groupUser->role == GroupUser::ROLE_MEMBER && $model->getRole() == GroupUser::ROLE_LEADER && Yii::$app->setting->get('isGroupReset') != 0)
-        || ($groupUser->role == GroupUser::ROLE_MEMBER && $model->getRole() == GroupUser::ROLE_MANAGER && Yii::$app->setting->get('isGroupReset') == 2)
+        || ($groupUser->role == GroupUser::ROLE_MEMBER && $model->getRole() >= GroupUser::ROLE_MANAGER && Yii::$app->setting->get('isGroupReset') == 2)
     ) : ?>
 
         <div class="btn-group">

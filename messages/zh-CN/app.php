@@ -11,7 +11,7 @@ return [
     'Group' => '小组',
     'Groups' => '小组',
     'Leader' => '组长',
-    'Manager' => '助理',
+    'Manager' => '助教',
     'Member' => '成员',
     'Inviting' => '邀请中',
     'Invite Member' => '邀请成员',
@@ -306,5 +306,6 @@ return [
     'School' => '学校',
     'The requested page does not exist.' => '请求的页面不存在。',
     'You are not allowed to perform this action.' => '不允许执行此操作。',
-    'Teacher' => '教师'
+    'Teacher' => '教师',
+    'Assistant' => '助理'
 ];

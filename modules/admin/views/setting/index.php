@@ -209,7 +209,7 @@ if($editorName=='app\\widgets\\kindeditor\\KindEditor'){
     <?= Html::radioList('isGroupReset', $settings['isGroupReset'], [
         0 => '关闭密码与昵称重置功能',
         1 => '仅组长可重置密码与昵称',
-        2 => '组长与助理可重置密码与昵称',
+        2 => '组长与助理等可重置密码与昵称',
         
     ]) ?>
 </div>

@@ -196,7 +196,7 @@ class Group extends ActiveRecord
             return false;
         }
         $role = $this->getRole();
-        return $role == GroupUser::ROLE_LEADER || $role == GroupUser::ROLE_MANAGER || Yii::$app->user->identity->isAdmin();
+        return $role == GroupUser::ROLE_LEADER || $role == GroupUser::ROLE_MANAGER || $role == GroupUser::ROLE_ASSISTANT ||Yii::$app->user->identity->isAdmin();
     }
 
     public function isMember()
@@ -205,7 +205,7 @@ class Group extends ActiveRecord
             return false;
         }
         $role = $this->getRole();
-        return $role == GroupUser::ROLE_LEADER || $role == GroupUser::ROLE_MANAGER ||
+        return $role == GroupUser::ROLE_LEADER || $role == GroupUser::ROLE_MANAGER || $role == GroupUser::ROLE_ASSISTANT ||
             $role == GroupUser::ROLE_MEMBER || Yii::$app->user->identity->isAdmin();
     }
 
