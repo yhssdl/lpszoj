@@ -103,8 +103,10 @@ class HomeworkController extends BaseController
                 if ($problemStatus == null || ($problemStatus == Problem::STATUS_HIDDEN && Yii::$app->user->identity->role != User::ROLE_ADMIN)) {
                     Yii::$app->session->setFlash('error', Yii::t('app', 'No such problem.'));
                 } else if ($problemStatus == Problem::STATUS_PRIVATE && (Yii::$app->user->identity->role < User::ROLE_VIP)) {
-                        $info_msg = $info_msg.$pid.":".Yii::t('app', '私有题目，普通用户不能选用')."<br>";
-                } else {
+                        $info_msg = $info_msg.$pid.":".Yii::t('app', '私有题目，普通用户不能选用。')."<br>";
+                } else if ($problemStatus == Problem::STATUS_TEACHER && (Yii::$app->user->identity->role < User::ROLE_TEACHER)) {
+                    $info_msg = $info_msg.$pid.":".Yii::t('app', '私有题目，普通用户不能选用。')."<br>";
+            } else {
                     $problemInContest = (new Query())->select('problem_id')
                         ->from('{{%contest_problem}}')
                         ->where(['problem_id' => $pid, 'contest_id' => $model->id])
