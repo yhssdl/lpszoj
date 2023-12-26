@@ -422,6 +422,11 @@ class Solution extends ActiveRecord
             return true;
         }
 
+        // 管理教师,在只有在不为3选项时,可查看.
+        if (Yii::$app->user->identity->role == User::ROLE_TEACHER  && Yii::$app->setting->get('isShowError')!=3) {
+            return true;
+        } 
+
         if (!empty($this->contest_id) && Yii::$app->setting->get('isShowError')!=3) {
             $contest = self::getContestInfo($this->contest_id);
 
@@ -456,8 +461,12 @@ class Solution extends ActiveRecord
         if (Yii::$app->user->identity->role == User::ROLE_ADMIN) {
             return true;
         }
-
         
+        // 管理教师,在只有在不为3选项时,可查看.
+        if (Yii::$app->user->identity->role == User::ROLE_TEACHER  && Yii::$app->setting->get('isShowError')!=3) {
+            return true;
+        } 
+
         if ($this->created_by == Yii::$app->user->id){
             // 提交代码的作者,在前１个选项时,可查看错误数据情况.
             if(Yii::$app->setting->get('isShowError')<1){
