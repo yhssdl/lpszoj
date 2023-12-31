@@ -17,7 +17,7 @@
  * along with HUSTOJ. if not, see <http://www.gnu.org/licenses/>.
  */
 //c & c++
-int LANG_CV[256] = {0,1,2,3,4,5,8,9,10,11,12,16,20,21,59,63,89,99,158,202,218,231,240,262,267,272,273,275,302,318,334,511, SYS_time, SYS_read, SYS_uname, SYS_write, SYS_open,
+int LANG_CV[256] = {0,1,2,3,4,5,8,9,10,11,12,16,20,21,33,59,63,89,99,158,202,218,231,240,262,267,272,273,275,302,318,334,511, SYS_time, SYS_read, SYS_uname, SYS_write, SYS_open,
                     		SYS_close, SYS_execve, SYS_access, SYS_brk, SYS_munmap, SYS_mprotect,
                     		SYS_mmap, SYS_fstat, SYS_set_thread_area, 252, SYS_arch_prctl, 0 };
 //java
