@@ -12,6 +12,7 @@ LPSZOJ Change Log
 请阅读 [update.md](https://gitee.com/yhssdl/lpszoj/raw/master/docs/update.md) 来获取更新方法。
 
 ---------------------------------------
+- 2024.1.1 Bug: [web] 修正作业或比赛中添加题目时的一个BUG。
 - 2024.1.1 Enh: [web] 更新了CKEditor编辑器版本。
 - 2023.12.31 Bug: [judge] 处理判题机判题时调用API时的一个异常错误。
 - 2023.12.25 Enh: [web] 小组管理中，角色新增助教，可管理比赛及重置密码，助理角色调整为只可重置密码。

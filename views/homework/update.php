@@ -31,7 +31,7 @@ $("#select_submit").click(function () {
     });
     qstr = $("#frmchild1").contents().find("#q").val();
     if(qstr!=""){
-        ss = qstr.replace("，",",").replace(" ",",").split(",");
+        ss = qstr.replace(/，/g,",").replace(/ /g,",").split(",");
         count = ss.length;
         for (i=0;i<count;i++){
             id = parseInt(ss[i]);
