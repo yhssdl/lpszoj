@@ -67,13 +67,18 @@ class UploadForm extends Model
       }  
       
     public static function image_save_file($filepath ,$base64_encoded_img) {
-        $dirpath=dirname($filepath);
-        if (!file_exists($dirpath)) {
-             mkdir($dirpath,0755,true);
+        try{
+            $dirpath=dirname($filepath);
+            if (!file_exists($dirpath)) {
+                mkdir($dirpath,0755,true);
+            }
+            $fp = fopen($filepath ,"wb");
+            fwrite($fp,base64_decode($base64_encoded_img));
+            fclose($fp);
         }
-          $fp = fopen($filepath ,"wb");
-          fwrite($fp,base64_decode($base64_encoded_img));
-          fclose($fp);
+        catch(Exception $e){
+            
+        }
     }   
 
     public static function importImages($images){
