@@ -76,8 +76,8 @@ class UploadForm extends Model
             fwrite($fp,base64_decode($base64_encoded_img));
             fclose($fp);
         }
-        catch(Exception $e){
-            
+        catch(\Exception $e){
+
         }
     }   
 
