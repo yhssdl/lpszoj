@@ -21,7 +21,7 @@ class AppAsset extends AssetBundle
         'css/site.css',
         'css/animate.css',
         'js/katex/katex.min.css',
-        'js/highlight/styles/monokai-sublime.css',
+        'js/highlight/styles/atom-one-dark.css',
     ];
     public $js = [
         'js/highlight/highlight.pack.js',

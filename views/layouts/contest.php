@@ -266,8 +266,8 @@ $status = $model->getRunStatus();
     }
     clock();
 
-    /*$(document).ready(function () {
-        // 连接服务端
+    $(document).ready(function () {
+       /* // 连接服务端
         var socket = io(document.location.protocol + '//' + document.domain + ':2120');
         var uid = '<?= Yii::$app->user->isGuest ? session_id() : Yii::$app->user->id ?>';
         // 连接后登录
@@ -277,12 +277,12 @@ $status = $model->getRunStatus();
         // 后端推送来消息时
         socket.on('msg', function(msg){
             alert(msg);
-        });
+        });*/
 
-        $('.pre p').each(function(i, block) {  // use <pre><p>
+        $('.pre code').each(function(i, block) {  // use <pre><p>
             hljs.highlightBlock(block);
         });
-    });*/
+    });
 </script>
 </body>
 </html>

@@ -24,7 +24,7 @@ $(document).ready(function () {
         $(this).html("<span class=\'err\'>" + err)
       }
     });
-    $('.pre p').each(function(i, block) {  // use <pre><p>
+    $('.pre code').each(function(i, block) {  // use <pre><p>
       hljs.highlightBlock(block);
     });
   }

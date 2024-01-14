@@ -23,12 +23,12 @@ if (!$model->canViewSource()) {
            <div><a type="button" class="btn btn-link" href='javaScript:void(0);' id='code_cpy' data-clipboard-target="#pre_code"><span class="fa fa-copy"></span></a></div>
         </div>
     </div>
-    <div class="pre"><p id="pre_code"><?= Html::encode($model->source) ?></p></div>
+    <div class="pre"><code id="pre_code"><?= Html::encode($model->source) ?></code></div>
 </div>
 <script type="text/javascript">
     (function ($) {
         $(document).ready(function () {
-            $('.pre p').each(function(i, block) {  // use <pre><p>
+            $('.pre code').each(function(i, block) {  // use <pre><p>
                 hljs.highlightBlock(block);
             });
 
