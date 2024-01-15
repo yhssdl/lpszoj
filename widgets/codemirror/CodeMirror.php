@@ -40,7 +40,7 @@ class CodeMirror extends InputWidget
         if(isset($_COOKIE['theme']))
             $theme = $_COOKIE['theme'];
         else 
-            $theme = "solarized";
+            $theme = "one-dark";
         CodeMirrorAsset::register($this->view);
         $id = $this->options['id'];
         $script = <<<EOF
