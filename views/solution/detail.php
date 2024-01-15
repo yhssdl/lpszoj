@@ -95,7 +95,7 @@ $this->params['breadcrumbs'][] = $this->title;
     <div class="row text-right">
            <div><a type="button" class="btn btn-link" href='javaScript:void(0);' id='code_cpy' data-clipboard-target="#pre_code"><span class="fa fa-copy"></span></a>&nbsp;&nbsp;&nbsp;&nbsp;</div>
     </div>
-    <div class="pre"></code><p id="pre_code"><?= Html::encode($model->source) ?></p></code></div>
+    <div class="pre"><code class="language-cpp"><p id="pre_code"><?= Html::encode($model->source) ?></p></code></div>
 <?php endif; ?>
 
 <?php if ($model->solutionInfo != null && $model->canViewResult()) : ?>
