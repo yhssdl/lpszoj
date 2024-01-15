@@ -6,6 +6,10 @@
     Original material color scheme by Mattia Astorino (https://github.com/equinusocio/material-theme)
 
 */
+.cm-s-material{
+font-family:Menlo,Consolas,'DejaVu Sans Mono',monospace;  line-height: 1.6em;font-weight:350;font-size:18px;
+}
+
 
 .cm-s-material.CodeMirror {
   background-color: #263238;

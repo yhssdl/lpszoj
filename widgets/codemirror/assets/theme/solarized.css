@@ -28,7 +28,8 @@ http://ethanschoonover.com/solarized/img/solarized-palette.png
 /* Color scheme for code-mirror */
 
 .cm-s-solarized {
-  line-height: 1.45em;
+  font-family:Menlo,Consolas,'DejaVu Sans Mono',monospace;font-weight:350;font-size:18px;
+  line-height: 1.6em;
   color-profile: sRGB;
   rendering-intent: auto;
 }
@@ -47,15 +48,15 @@ http://ethanschoonover.com/solarized/img/solarized-palette.png
   text-shadow: none;
 }
 
-.cm-s-solarized .cm-header { color: #586e75; }
-.cm-s-solarized .cm-quote { color: #93a1a1; }
+.cm-s-solarized .cm-header { color: #47595f; }
+.cm-s-solarized .cm-quote { color: #708181; }
 
-.cm-s-solarized .cm-keyword { color: #cb4b16; }
-.cm-s-solarized .cm-atom { color: #d33682; }
-.cm-s-solarized .cm-number { color: #d33682; }
-.cm-s-solarized .cm-def { color: #2aa198; }
+.cm-s-solarized .cm-keyword { color: #9a3910; }
+.cm-s-solarized .cm-atom { color: #a32360; }
+.cm-s-solarized .cm-number { color: #a32360; }
+.cm-s-solarized .cm-def { color: #1b6762; }
 
-.cm-s-solarized .cm-variable { color: #839496; }
+.cm-s-solarized .cm-variable { color: #647577; }
 .cm-s-solarized .cm-variable-2 { color: #b58900; }
 .cm-s-solarized .cm-variable-3, .cm-s-solarized .cm-type { color: #6c71c4; }
 
@@ -64,10 +65,10 @@ http://ethanschoonover.com/solarized/img/solarized-palette.png
 
 .cm-s-solarized .cm-comment { color: #586e75; font-style:italic; }
 
-.cm-s-solarized .cm-string { color: #859900; }
+.cm-s-solarized .cm-string { color: #486a15; }
 .cm-s-solarized .cm-string-2 { color: #b58900; }
 
-.cm-s-solarized .cm-meta { color: #859900; }
+.cm-s-solarized .cm-meta { color: #657300; }
 .cm-s-solarized .cm-qualifier { color: #b58900; }
 .cm-s-solarized .cm-builtin { color: #d33682; }
 .cm-s-solarized .cm-bracket { color: #cb4b16; }

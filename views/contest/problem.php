@@ -160,6 +160,7 @@ $loadingImgUrl = Yii::getAlias('@web/images/loading.gif');
                             <div style="float:right;">
                                 <select id="solution-theme" class="form-control" name="solution-theme" style="width: auto" aria-required="true">
                                     <option value="solarized" <?php if ($theme == "solarized") echo "selected=''"; ?>>solarized</option>
+                                    <option value="one-dark" <?php if ($theme == "one-dark") echo "selected=''"; ?>>one-dark</option>
                                     <option value="material" <?php if ($theme == "material") echo "selected=''"; ?>>material</option>
                                     <option value="monokai" <?php if ($theme == "monokai") echo "selected=''"; ?>>monokai</option>
                                 </select>
