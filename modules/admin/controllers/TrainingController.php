@@ -123,6 +123,7 @@ class TrainingController extends Controller
         $newContest->type = Contest::TYPE_HOMEWORK;
         $newContest->language = -1;
         $newContest->enable_clarify = 1;
+        $newContest->show_solution = 0;
         $newContest->punish_time = -1;
         $newContest->start_time = date('Y-m-d H:i:s');
         $newContest->end_time = '9999-12-31 23:59:59';

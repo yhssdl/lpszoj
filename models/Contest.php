@@ -26,6 +26,7 @@ use yii\caching\TagDependency;
  * @property string $ext_link
  * @property string $invite_code
  * @property int $punish_time
+ * @property int $show_solution
  */
 class Contest extends \yii\db\ActiveRecord
 {
@@ -90,7 +91,7 @@ class Contest extends \yii\db\ActiveRecord
             [['title', 'start_time', 'end_time'], 'required'],
             [['start_time', 'end_time', 'lock_board_time'], 'safe'],
             [['description', 'editorial', 'invite_code', 'ext_link'], 'string'],
-            [['id', 'status', 'type', 'scenario', 'created_by', 'group_id', 'enable_print','language', 'enable_clarify', 'enable_board' , 'punish_time'], 'integer'],
+            [['id', 'status', 'type', 'scenario', 'created_by', 'group_id', 'enable_print','language', 'enable_clarify','show_solution','enable_board' , 'punish_time'], 'integer'],
             [['title'], 'string', 'max' => 255],
         ];
     }
@@ -113,6 +114,7 @@ class Contest extends \yii\db\ActiveRecord
             'scenario' => Yii::t('app', 'Scenario'),
             'language' => Yii::t('app', 'Language'),
             'enable_clarify' => Yii::t('app', 'Clarification'),
+            'show_solution' => Yii::t('app', 'Show Solution'),
             'ext_link' => '站外比赛',
             'invite_code' => '邀请码',
             'punish_time' => '罚时' ,
@@ -878,7 +880,7 @@ class Contest extends \yii\db\ActiveRecord
         return Yii::$app->db->cache(function ($db) use ($id, $contestID) {
             return $db->createCommand(
                 "SELECT `cp`.`num`, `p`.`title`, `p`.`id`, `p`.`description`, 
-                `p`.`input`, `p`.`output`, `p`.`sample_input`, `p`.`sample_output`, `p`.`hint`, `p`.`time_limit`, 
+                `p`.`input`, `p`.`output`, `p`.`sample_input`, `p`.`sample_output`, `p`.`hint`, `p`.`time_limit`, `p`.`solution`, 
                 `p`.`memory_limit` 
                 FROM `problem` `p` 
                 LEFT JOIN `contest_problem` `cp` ON cp.problem_id=p.id 

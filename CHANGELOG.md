@@ -12,6 +12,7 @@ LPSZOJ Change Log
 请阅读 [update.md](https://gitee.com/yhssdl/lpszoj/raw/master/docs/update.md) 来获取更新方法。
 
 ---------------------------------------
+- 2024.1.15 Enh: [web、db] 小组作业中增加了查看解题的选项；本次需`./yii migrate` 更新数据库。
 - 2024.1.15 Enh: [web、db] 后台增加了是否允许查看解题的总开关；本次需`./yii migrate` 更新数据库。
 - 2024.1.15 Enh: [web] 代码提交框中增加了one-dark主题，优化了编辑框中的字体效果。
 - 2024.1.14 Enh: [web] 增强了编辑器中代码高亮的支持效果。

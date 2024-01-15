@@ -182,7 +182,7 @@ class GroupController extends BaseController
         $newContest->type = Contest::TYPE_HOMEWORK;
         $newContest->language = -1;
         $newContest->enable_clarify = 1;
-
+        $newContest->show_solution = 0;
         $query = Contest::find();
 
         $contestDataProvider = new ActiveDataProvider([
@@ -211,6 +211,7 @@ class GroupController extends BaseController
             $newContest->group_id = $model->id;
             $newContest->scenario = Contest::SCENARIO_ONLINE;
             $newContest->status = Contest::STATUS_VISIBLE;
+            $newContest->show_solution = 0;
             $newContest->save();
             return $this->redirect(['/homework/update', 'id' => $newContest->id]);;
         }

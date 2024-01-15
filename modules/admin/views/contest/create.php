@@ -14,6 +14,7 @@ $model->scenario = $model::SCENARIO_ONLINE;
 
 $model->language = -1;
 $model->enable_clarify = 1;
+$model->show_source = 0;
 $model->enable_board = 1;
 $model->enable_print = 0;
 $model->punish_time = 20; //罚时初始值

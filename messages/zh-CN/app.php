@@ -307,5 +307,6 @@ return [
     'The requested page does not exist.' => '请求的页面不存在。',
     'You are not allowed to perform this action.' => '不允许执行此操作。',
     'Teacher' => '教师',
-    'Assistant' => '助理'
+    'Assistant' => '助理',
+    'Show Solution' => '查看解题'
 ];

@@ -274,6 +274,7 @@ class HomeworkController extends BaseController
             $newContest->ext_link = $model->ext_link;
             $newContest->enable_print = $model->enable_print;
             $newContest->enable_clarify = $model->enable_clarify;
+            $newContest->show_solution = $model->show_solution;
             $newContest->punish_time = $model->punish_time;
             $newContest->enable_board = $model->enable_board;
             $newContest->save();

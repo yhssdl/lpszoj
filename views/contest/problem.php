@@ -28,6 +28,7 @@ if (!Yii::$app->user->isGuest) {
     $solution->created_by = Yii::$app->user->id;
 }
 $problems = $model->problems;
+$loginUserProblemSolvingStatus = $model->getLoginUserProblemSolvingStatus();
 if (empty($problems)) {
     echo '<br><div class="alert alert-light"><i class=" fa fa-info-circle"></i> 当前没有添加题目，请联系管理员。</div>';
     return;
@@ -203,10 +204,27 @@ $loadingImgUrl = Yii::getAlias('@web/images/loading.gif');
                     </tbody>
                 </table>
             </div>
-
-            <a class="btn btn-success btn-block" href="#submit-code">
-                <span class="fa fa-plus"></span> <?= Yii::t('app', 'Submit') ?>
-            </a>
+            <div class="btn-group btn-group-justified">
+                <div class="btn-group">
+                    <a class="btn btn-success" href="#submit-code">
+                        <span class="fa fa-plus"></span> <?= Yii::t('app', 'Submit') ?>
+                    </a>
+                </div>
+                <?php if (!empty($problem['solution']) && Yii::$app->setting->get('isEnableShowSolution') && $model->show_solution) {
+                    
+                    $bShow = (isset($loginUserProblemSolvingStatus[$problem['id']]) && $loginUserProblemSolvingStatus[$problem['id']] == \app\models\Solution::OJ_AC);
+                    if ($bShow) {
+                        echo '<div class="btn-group">';
+                        echo Html::a(
+                            '<i class="fa fa-dropbox"></i> ' . Yii::t('app', '题解'),
+                            ['/problem/solution', 'id' => $problem['id']],
+                            ['class' => 'btn btn-default']
+                        );
+                        echo "</div>";
+                    } 
+                }
+            ?>
+            </div>
 
             <?php if (!Yii::$app->user->isGuest && !empty($submissions)) : ?>
                 <div class="panel panel-default" style="margin-top: 40px">

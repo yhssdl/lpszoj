@@ -270,6 +270,13 @@ $this->registerCss($css);
         ])->hint('公开：小组成员可以看到该比赛，隐藏：小组成员无法看到该比赛') ?>
 
 
+
+        <?= $form->field($model, 'show_solution')->radioList([
+            0 => '关闭',
+            1 => '开启',
+        ])->hint('是否允许在提交程序正确后，查看题目的解题代码。（前提一：后台打开是否允许查看解题总开关，前提二：题目中存在解题代码。）') ?>
+
+
         <?= $form->field($model, 'enable_clarify')->radioList([
             0 => '关闭',
             1 => '开启',
