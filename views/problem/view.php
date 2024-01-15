@@ -251,17 +251,27 @@ $nextProblemID = $model->getNextProblemID();
                     <?php endif; ?>
                 </div>
                 <div class="problem-footer">
-                    <?= Html::a(
-                        '<span class="fa fa-arrow-left"></span> 上一题',
-                        $previousProblemID ? ['/problem/view', 'id' => $previousProblemID] : 'javascript:void(0);',
-                        ['class' => 'btn btn-default', 'disabled' => !$previousProblemID]
-                    ) ?>&nbsp;
-
-                    <?= Html::a(
-                        '下一题 <span class="fa fa-arrow-right"></span>',
-                        $nextProblemID ? ['/problem/view', 'id' => $nextProblemID] : 'javascript:void(0);',
-                        ['class' => 'btn btn-default', 'disabled' => !$nextProblemID]
-                    ) ?>
+                    <div class="btn-group">
+                        <div class="btn-group">
+                            <?= Html::a(
+                                '<span class="fa fa-arrow-left"></span> 上一题',
+                                $previousProblemID ? ['/problem/view', 'id' => $previousProblemID, 'view' => 'classic'] : 'javascript:void(0);',
+                                ['class' => 'btn btn-default', 'disabled' => !$previousProblemID]
+                            ) ?>
+                        </div>
+                        <?php if (!Yii::$app->user->isGuest && Yii::$app->user->identity->role == User::ROLE_ADMIN) {
+                                echo "<div class='btn-group'>".Html::a('<span class="fa fa-edit"></span> ' . Yii::t('app', 'Edit'),
+                                ['/admin/problem/update', 'id' => $model->id],['class' => 'btn btn-default','target'=>'_blank'])."</div>";
+                            }
+                        ?>
+                        <div class="btn-group">
+                            <?= Html::a(
+                                '下一题 <span class="fa fa-arrow-right"></span>',
+                                $nextProblemID ? ['/problem/view', 'id' => $nextProblemID, 'view' => 'classic'] : 'javascript:void(0);',
+                                ['class' => 'btn btn-default',  'disabled' => !$nextProblemID]
+                            ) ?>
+                        </div>
+                    </div>
                 </div>
             </div>
             <div class="problem-right">

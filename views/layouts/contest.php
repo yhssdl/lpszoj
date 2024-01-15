@@ -150,10 +150,10 @@ $status = $model->getRunStatus();
                <span>                    
                    <b>类型</b>: <?= $model->getType()?>　 <b>状态</b>: <?= $model->getRunStatus(1) ?>　
                    <?php if ($model->group_id != 0 && $model->isContestAdmin()): ?>
-                                <?= Html::a('<span class="fa fa-address-book"></span> ' . Yii::t('app', 'Setting'),
+                                <?= Html::a('<span class="fa fa-cog"></span> ' . Yii::t('app', 'Setting'),
                                     ['/homework/update', 'id' => $model->id]) ?>
                    
-                        <?php endif; ?>
+                    <?php endif; ?>
                 </span>
             </div>
         </div>
