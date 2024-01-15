@@ -342,7 +342,7 @@ $nextProblemID = $model->getNextProblemID();
                             );
                         }
 
-                        if (!empty($model->solution)) {
+                        if (!empty($model->solution) && Yii::$app->setting->get('isEnableShowSolution')) {
                             $bShow = $model->show_solution || ($model->isSolved() && $model->show_solution == 0);
                             if ($bShow)
                                 echo Html::a(

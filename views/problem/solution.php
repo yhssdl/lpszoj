@@ -18,7 +18,7 @@ $this->params['breadcrumbs'][] = ['label' => $this->title, 'url' => ['/problem/v
         ?>
 
         <div class="news-content">   
-        <?php if($bShow): ?>
+        <?php if($bShow && Yii::$app->setting->get('isEnableShowSolution')): ?>
             <?= Yii::$app->formatter->asMarkdown($model->solution) ?>
         <?php else: ?>
             <div class="alert alert-light"><i class=" fa fa-info-circle"></i> 没有权限查看解题。</div>

@@ -222,23 +222,20 @@ $nextProblemID = $model->getNextProblemID();
                     ?>
                 </div>
             <?php endif; ?>
-            <?php if (!empty($model->solution)) {
-                if (!empty($model->solution)) {
+            <?php if (!empty($model->solution) && Yii::$app->setting->get('isEnableShowSolution')) {
+                echo '<div class="btn-group">';
+                $bShow = $model->show_solution || ($model->isSolved() && $model->show_solution == 0);
+                if ($bShow) {
 
-                    echo '<div class="btn-group">';
-                    $bShow = $model->show_solution || ($model->isSolved() && $model->show_solution == 0);
-                    if ($bShow) {
-
-                        echo Html::a(
-                            '<i class="fa fa-dropbox"></i> ' . Yii::t('app', '题解'),
-                            ['/problem/solution', 'id' => $model->id],
-                            ['class' => 'btn btn-default']
-                        );
-                    } else {
-                        echo '<button type="button" class="btn btn-default disabled" title= "提交程序正确后才能查看。"><i class="fa fa-dropbox"></i> ' . Yii::t('app', '题解') . '</button>';
-                    }
-                    echo "</div>";
+                    echo Html::a(
+                        '<i class="fa fa-dropbox"></i> ' . Yii::t('app', '题解'),
+                        ['/problem/solution', 'id' => $model->id],
+                        ['class' => 'btn btn-default']
+                    );
+                } else {
+                    echo '<button type="button" class="btn btn-default disabled" title= "提交程序正确后才能查看。"><i class="fa fa-dropbox"></i> ' . Yii::t('app', '题解') . '</button>';
                 }
+                echo "</div>";
             }
             ?>
             <div class="btn-group">

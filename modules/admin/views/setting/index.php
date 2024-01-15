@@ -151,6 +151,14 @@ if($editorName=='app\\widgets\\kindeditor\\KindEditor'){
 </div>
 
 <div class="form-group">
+    <?= Html::label(Yii::t('app', '是否允许查看解题'), 'isEnableShowSolution') ?>
+    <?= Html::radioList('isEnableShowSolution', $settings['isEnableShowSolution'], [
+        0 => '不允许查看解题（关闭总开关）',
+        1 => '允许根据题目中解题的情况查看',
+    ]) ?>
+</div>
+
+<div class="form-group">
     <?= Html::label(Yii::t('app', '是否可查看错误测试数据'), 'isShowError') ?>
     <?= Html::radioList('isShowError', $settings['isShowError'], [
         0 => '用户可以查看错误测试数据',
