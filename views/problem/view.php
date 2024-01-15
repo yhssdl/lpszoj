@@ -341,17 +341,19 @@ $nextProblemID = $model->getNextProblemID();
                                 ['class' => 'btn btn-default']
                             );
                         }
-
-                        if (!empty($model->solution) && Yii::$app->setting->get('isEnableShowSolution')) {
-                            $bShow = $model->show_solution || ($model->isSolved() && $model->show_solution == 0);
+                        if (!empty($model->solution)) {
+                            $bShow  = false;
+                            if (Yii::$app->setting->get('isEnableShowSolution')==1 && ($model->show_solution || $model->isSolved())){
+                                $bShow  = true;  
+                            } else if( !Yii::$app->user->isGuest && ( (Yii::$app->setting->get('isEnableShowSolution')==2 && Yii::$app->user->identity->role >= User::ROLE_TEACHER) || (Yii::$app->setting->get('isEnableShowSolution')==3 && Yii::$app->user->identity->role == User::ROLE_ADMIN)) ) {
+                                $bShow  = true;  
+                            }
                             if ($bShow)
                                 echo Html::a(
                                     '<i class="fa fa-dropbox"></i> ' . Yii::t('app', '题解'),
                                     ['/problem/solution', 'id' => $model->id],
                                     ['class' => 'btn btn-default']
                                 );
-                            else
-                                echo '<button type="button" class="btn btn-default disabled" title= "提交程序正确后才能查看。"><i class="fa fa-dropbox"></i>' . Yii::t('app', '题解') . '</button>';
                         }
                     }
                     ?>

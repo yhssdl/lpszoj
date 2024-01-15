@@ -155,6 +155,8 @@ if($editorName=='app\\widgets\\kindeditor\\KindEditor'){
     <?= Html::radioList('isEnableShowSolution', $settings['isEnableShowSolution'], [
         0 => '不允许查看解题（关闭总开关）',
         1 => '允许根据题目中解题的情况查看',
+        2 => '允许教师与管理员直接查看解题',
+        3 => '允许管理员直接查看解题',        
     ]) ?>
 </div>
 

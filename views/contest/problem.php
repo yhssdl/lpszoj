@@ -210,9 +210,13 @@ $loadingImgUrl = Yii::getAlias('@web/images/loading.gif');
                         <span class="fa fa-plus"></span> <?= Yii::t('app', 'Submit') ?>
                     </a>
                 </div>
-                <?php if (!empty($problem['solution']) && Yii::$app->setting->get('isEnableShowSolution') && $model->show_solution) {
-                    
-                    $bShow = (isset($loginUserProblemSolvingStatus[$problem['id']]) && $loginUserProblemSolvingStatus[$problem['id']] == \app\models\Solution::OJ_AC);
+                <?php if (!empty($problem['solution'])) {
+                    $bShow  = false;
+                    if (Yii::$app->setting->get('isEnableShowSolution')==1 && $model->show_solution && isset($loginUserProblemSolvingStatus[$problem['id']]) && $loginUserProblemSolvingStatus[$problem['id']] == \app\models\Solution::OJ_AC){
+                        $bShow  = true;  
+                    } else if( !Yii::$app->user->isGuest && ( (Yii::$app->setting->get('isEnableShowSolution')==2 && Yii::$app->user->identity->role >= User::ROLE_TEACHER) || (Yii::$app->setting->get('isEnableShowSolution')==3 && Yii::$app->user->identity->role == User::ROLE_AMDIN)) ) {
+                        $bShow  = true;  
+                    }
                     if ($bShow) {
                         echo '<div class="btn-group">';
                         echo Html::a(
