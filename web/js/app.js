@@ -63,5 +63,5 @@ $(document).ready(function () {
   });
 //do something
 })
-
-$('pre').addClass("line-numbers").css("white-space", "pre-wrap");
+$(".language-plaintext").removeClass("language-plaintext");
+$("pre code[class^='language-']").addClass("line-numbers").css("white-space", "pre-wrap");

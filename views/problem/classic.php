@@ -35,7 +35,13 @@ $nextProblemID = $model->getNextProblemID();
     <?php if ($this->beginCache('problem-' . $model->id)) : ?>
         <div class="col-md-9 problem-view">
 
-            <div class="text-center content-title"><?= Html::encode($this->title) ?></div>
+            <div class="text-center content-title"><?= Html::encode($this->title) ?>
+                <?php if (!Yii::$app->user->isGuest && Yii::$app->user->identity->role == User::ROLE_ADMIN) {
+                    echo Html::a('<span class="fa fa-edit"></span> ',
+                    ['/admin/problem/update', 'id' => $model->id],['class' => 'btn btn-link','target'=>'_blank']);
+                    }
+                ?>
+            </div>
 
             <div class="content-header"><?= Yii::t('app', 'Description') ?></div>
             <div class="content-wrapper">
@@ -259,11 +265,6 @@ $nextProblemID = $model->getNextProblemID();
                     ['class' => 'btn btn-default', 'disabled' => !$previousProblemID]
                 ) ?>
             </div>
-            <?php if (!Yii::$app->user->isGuest && Yii::$app->user->identity->role == User::ROLE_ADMIN) {
-                    echo "<div class='btn-group'>".Html::a('<span class="fa fa-edit"></span> ' . Yii::t('app', 'Edit'),
-                    ['/admin/problem/update', 'id' => $model->id],['class' => 'btn btn-default','target'=>'_blank'])."</div>";
-                }
-            ?>
             <div class="btn-group">
                 <?= Html::a(
                     '下一题 <span class="fa fa-arrow-right"></span>',
