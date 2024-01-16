@@ -67,14 +67,14 @@ $loadingImgUrl = Yii::getAlias('@web/images/loading.gif');
     </div>
     <div class="row animate__animated animate__fadeInUp">
         <div class="col-md-9 problem-view">
-            <?php if ($this->beginCache('contest_problem_view' . $model->id . '_' . $problem['num'] . '_ ' . $problem['id'])) : ?>
-                <div class="text-center content-title"><?= Html::encode('P' . (1 + $problem['num']). '. ' . $problem['title']) ?>
+            <div class="text-center content-title"><?= Html::encode('P' . (1 + $problem['num']). '. ' . $problem['title']) ?>
                 <?php if (!Yii::$app->user->isGuest && Yii::$app->user->identity->role == User::ROLE_ADMIN) {
                     echo Html::a('<span class="fa fa-edit"></span> ',
                     ['/admin/problem/update', 'id' => $problem['id']],['class' => 'btn btn-link linksWithTarget','target'=>'_blank']);
                     }
                 ?>
-                </div>
+            </div>
+            <?php if ($this->beginCache('contest_problem_view' . $model->id . '_' . $problem['num'] . '_ ' . $problem['id'])) : ?>                
 
                 <div class="content-header"><?= Yii::t('app', 'Description') ?></div>
                 <div class="content-wrapper">
