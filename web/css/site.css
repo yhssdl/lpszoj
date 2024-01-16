@@ -3,9 +3,7 @@ body {
     height: 100%;
     background-color: #edf0f2
 }
-pre {
-    border-radius: unset;
-}
+
 .pre {
     white-space:pre-wrap;
     display: block;
@@ -26,8 +24,12 @@ pre {
 }
 
 .pre .language-plaintext{
-
     background-color:#0000 !important; 
+}
+
+.ck-content code[class*="language-"],
+.ck-content pre[class*="language-"] {
+  color: #000;
 }
 
 .pre p {

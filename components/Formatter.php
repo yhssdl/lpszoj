@@ -55,7 +55,7 @@ class Formatter extends \yii\i18n\Formatter
      */
     public function asHtml($value, $config = NULL)
     {
-        $value = str_replace(array("<pre>", "</pre>"), array("<div class='pre'>", "</div>"), $value);
+        //$value = str_replace(array("<pre>", "</pre>"), array("<div class='pre'>", "</div>"), $value);
         $value = HtmlPurifier::process($value, $this->purifierConfig);
         return '<div class="html-output">' . $this->katex($value) . '</div>';
     }

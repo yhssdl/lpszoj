@@ -54,7 +54,7 @@ use yii\bootstrap\Modal;
 <p>以下只是一种示范，数据请勿完全依赖随机生成，应根据题目要求考虑不同情况设定数据，同时应包含题面各个范围的数据情况。</p>
 
 
-<div class="pre"><p>#include &lt;bits/stdc++.h&gt;
+<div><pre><code class="language-cpp"><p>#include &lt;bits/stdc++.h&gt;
 
 using namespace std;
 using ll = long long;
@@ -94,5 +94,5 @@ void begin_gen()
         outfile &lt;&lt; '\n'; // 注意行末不要有多余空格，虽然你可能觉得无所谓
     }
 }
-</p></div>
+</p></code></pre></div>
 

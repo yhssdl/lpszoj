@@ -39,7 +39,7 @@ $this->params['model'] = $model;
 </div>
 <hr>
 <h3>Source:</h3>
-<div class="pre"><p><?= Html::encode($status->source) ?></p></div>
+<div><pre class="line-numbers"><code class="language-cpp"><p><?= Html::encode($status->source) ?></p></code></pre></div>
 
 <?php if ($status->info != null): ?>
     <hr>

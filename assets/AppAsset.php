@@ -18,17 +18,17 @@ class AppAsset extends AssetBundle
     public $basePath = '@webroot';
     public $baseUrl = '@web';
     public $css = [
+        'js/prism/prism.css',
         'css/site.css',
         'css/animate.css',
-        'js/katex/katex.min.css',
-        'js/highlight/styles/atom-one-dark.css',
+        'js/katex/katex.min.css'
     ];
     public $js = [
-        'js/highlight/highlight.pack.js',
         'js/katex/katex.min.js',
         'js/socket.io.js',
         'js/clipboard.min.js',
-        'js/app.js'
+        'js/app.js',
+        'js/prism/prism.js'
     ];
     public $depends = [
         'yii\web\YiiAsset',

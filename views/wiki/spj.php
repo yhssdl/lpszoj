@@ -95,7 +95,7 @@
 <h3>示例</h3>
 
 <p>当标准输出和选手输出的差小于 <span class="katex math inline" style="font: normal 1em KaTeX_Main, Times New Roman, serif !important;">0.01</span>，那么可以 AC，否则 WA：</p>
-<div class="pre"><p>#include "testlib.h"
+<div><pre class="line-numbers"><code class="language-cpp"><p>#include "testlib.h"
 int main(int argc, char *argv[])
 {
     registerTestlibCmd(argc, argv);
@@ -106,10 +106,10 @@ int main(int argc, char *argv[])
     else
         quitf(_wa, "The answer is wrong: expected = %f, found = %f", jans, pans);
 }
-</p></div>
+</p></code></pre></div>
 <p></p>
 <p>如果无法得知选手答案的输出规模（即行数不定），可以参考下面的例子：</p>
-<div class="pre"><p>#include "testlib.h"
+<div><pre class="line-numbers"><code class="language-cpp"><p>#include "testlib.h"
 int main(int argc, char *argv[])
 {
     registerTestlibCmd(argc, argv);
@@ -122,7 +122,7 @@ int main(int argc, char *argv[])
     }
     quitf(_ok, "The answer is correct.");
 }
-</p></div>
+</p></code></pre></div>
 <p></p>
 <p>请注意以上程序仅供参考，实际出题时我们建议相对误差或绝对误差一者小于给定值即算通过，且通常直接使用 <a href="https://github.com/MikeMirzayanov/testlib/blob/master/checkers/rcmp4.cpp"><code>doubleCompare</code></a> 函数。</p>
 

@@ -24,9 +24,6 @@ $(document).ready(function () {
         $(this).html("<span class=\'err\'>" + err)
       }
     });
-    $('.pre code').each(function(i, block) {  // use <pre><p>
-      hljs.highlightBlock(block);
-    });
   }
   renderKatex();
 
@@ -59,17 +56,12 @@ $(document).ready(function () {
       });
     });
   }
-
   addCopyBtn();
-
   $(document).on('pjax:complete', function() {
     renderKatex();
     addCopyBtn();
   });
-
-
-
-
-
 //do something
 })
+
+$('pre').addClass("line-numbers").css("white-space", "pre-wrap");
