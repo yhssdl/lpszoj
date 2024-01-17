@@ -87,7 +87,7 @@ class SolutionController extends BaseController
      */
     public function actionSource($id)
     {
-        $this->layout = false;
+        $this->layout = "basic";
         $model = $this->findModel($id);
 
         return $this->render('source', [

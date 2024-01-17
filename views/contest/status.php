@@ -175,15 +175,22 @@ $isContestEnd = $model->isContestEnd();
     $loadingImgUrl = Yii::getAlias('@web/images/loading.gif');
     $js = <<<EOF
 function solution_info_click(obj) {
-    $.ajax({
-        url: $(obj).attr('data-url'),
-        type:'post',
-        error: function(){alert('error');},
-        success:function(html){
-            $('#solution-content').html(html);
-            $('#solution-info').modal('show');
-        }
-    });
+    url = $(obj).attr('data-url');
+    if(url.indexOf("source") !== -1){
+        html = "<iframe id='modal-iframe' src='"+url+"' frameborder='0' width='100%' onload='this.style.height = this.contentWindow.document.documentElement.scrollHeight + \"px\"' scrolling='no'></iframe>";
+        $('#solution-content').html(html);
+        $('#solution-info').modal('show');
+    }else{
+        $.ajax({
+            url: url,
+            type:'post',
+            error: function(){alert('error');},
+            success:function(html){
+                $('#solution-content').html(html);
+                $('#solution-info').modal('show');
+            }
+        });
+    }
     return false;
 }
 EOF;

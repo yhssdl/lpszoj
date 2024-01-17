@@ -1149,3 +1149,7 @@ a.status-ended:hover ,a.status-ended:focus {
     font-weight:bold;font-size:20px; 
     margin-bottom: 10px;
 }
+
+.solution-view{
+    background-color: #fff;
+}

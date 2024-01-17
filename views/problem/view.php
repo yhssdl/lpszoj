@@ -491,15 +491,22 @@ if($solution->language == 3){
 $url = \yii\helpers\Url::toRoute(['/solution/verdict']);
 $js = <<<EOF
 $('[data-click=solution_info]').click(function() {
-    $.ajax({
-        url: $(this).attr('href'),
-        type:'post',
-        error: function(){alert('error');},
-        success:function(html){
-            $('#solution-content').html(html);
-            $('#solution-info').modal('show');
-        }   
-    });
+    url = $(this).attr('href');
+    if(url.indexOf("source") !== -1){
+        html = "<iframe id='modal-iframe' src='"+url+"' frameborder='0' width='100%' onload='this.style.height = this.contentWindow.document.documentElement.scrollHeight + \"px\"' scrolling='no'></iframe>";
+        $('#solution-content').html(html);
+        $('#solution-info').modal('show');
+    }else{
+        $.ajax({
+            url: $(this).attr('href'),
+            type:'post',
+            error: function(){alert('error');},
+            success:function(html){
+                $('#solution-content').html(html);
+                $('#solution-info').modal('show');
+            }
+        });
+    }
 });
 
 function updateVerdictByKey(submission) {
