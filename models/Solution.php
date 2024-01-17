@@ -529,16 +529,16 @@ class Solution extends ActiveRecord
         $html_str = "";
         if ($caseJsonObject->verdict == Solution::OJ_AC) {
             $html_str = $html_str . '<div class="panel panel-default test-for-popup"> 
-            <div class="panel-heading" role="tab" id="heading' . $id . '"> 
+            <div class="panel-heading" style="background-color:#0000" role="tab" id="heading' . $id . '"> 
             <span class="text-success">  
                         测试点' . $id . ' 
                         : ' . Solution::getResultList($caseJsonObject->verdict) . ', 
                         时间: ' . $caseJsonObject->time . ' 毫秒, 
                         内存: ' . $caseJsonObject->memory . ' KB 
                     </span> 
-            </div>';
+            </div></div>';
         } else {
-            $html_str = $html_str .  '<div class="panel panel-default test-for-popup"><div class="panel-heading" role="tab" id="heading' . $id . '">';
+            $html_str = $html_str .  '<div class="panel panel-default test-for-popup"><div class="panel-heading" style="background-color:#0000" role="tab" id="heading' . $id . '">';
             if ($model->canViewErrorInfo()){
                 $html_str = $html_str .  '<a class="collapsed" role="button" data-toggle="collapse" data-parent="#accordion"
                       href="#test-' . $id . '" aria-expanded="false" aria-controls="test-' . $id . '"><span class=" text-danger">';

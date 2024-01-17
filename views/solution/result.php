@@ -14,7 +14,14 @@ if (!$model->canViewResult()) {
 }
 ?>
 <div class="solution-view">
-    <h3><?= Yii::t('app', 'Run ID') ?>: <?= Html::a($model->id, ['/solution/detail', 'id' => $model->id]) ?></h3>
+    <div class="row">
+            <div class="col-xs-6">
+                <p><?= Yii::t('app', 'Submit Time') ?>：<?= $model->created_at ?></p>
+            </div>
+            <div class="col-xs-6">
+            <p><?= Yii::t('app', 'Run ID') ?>: <?= Html::a($model->id, ['/solution/detail', 'id' => $model->id],['target'=>'_blank']) ?></p>
+            </div>
+        </div>
     <?php if ($model->solutionInfo != null) : ?>
         <?php if ($model->result == Solution::OJ_CE) : ?>
             <pre><?= \yii\helpers\HtmlPurifier::process($model->solutionInfo->run_info) ?></pre>

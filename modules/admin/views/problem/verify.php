@@ -47,22 +47,18 @@ $loadingImgUrl = Yii::getAlias('@web/images/loading.gif');
                         $innerHtml =  'data-verdict="' . $solution['result'] . '" data-submissionid="' . $solution['id'] . '" ' . $waitingHtmlDom;
                         if ($solution['result'] == Solution::OJ_AC) {
                             $span = '<span class="text-success"' . $innerHtml . '>' . Solution::getResultList($solution['result']) . '</span>';
-                            echo Html::a($span,
-                                ['/solution/source', 'id' => $solution['id']],
-                                ['onclick' => 'return false', 'data-click' => "solution_info", 'data-pjax' => 0]
-                            );
                         } else {
                             $span = '<span class="text-danger" ' . $innerHtml . '>' . Solution::getResultList($solution['result']) . $loadingImg . '</span>';
-                            echo Html::a($span,
-                                ['/solution/result', 'id' => $solution['id']],
-                                ['onclick' => 'return false', 'data-click' => "solution_info", 'data-pjax' => 0]
-                            );
                         }
+                        echo Html::a($span,
+                        ['/solution/result', 'id' => $solution['id']],
+                        ['onclick' => 'return false', 'data-click' => "solution_info", 'data-pjax' => 0]
+                    );
                     ?>
 
                     </th>
                     <th>
-                        <?= Html::a(Solution::getLanguageList($solution['language']), ['/solution/detail', 'id' => $solution['id']], ['target' => '_blank']) ?>
+                        <?= Html::a(Solution::getLanguageList($solution['language']), ['/solution/source', 'id' => $solution['id']],['onclick' => 'return false', 'data-click' => "solution_info", 'data-pjax' => 0]) ?>
                     </th>
                     <th>
                         <?= $solution['time']  .' '. Yii::t('app', 'MS')?>
