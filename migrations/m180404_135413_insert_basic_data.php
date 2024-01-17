@@ -20,21 +20,21 @@ class m180404_135413_insert_basic_data extends BaseMigration
             'sample_input' => "a:3:{i:0;s:3:\"1 2\";i:1;s:0:\"\";i:2;s:0:\"\";}",
             'sample_output' => "a:3:{i:0;s:1:\"3\";i:1;s:0:\"\";i:2;s:0:\"\";}",
             'spj' => 0,
-            'hint' => "<p>Q：输入和输出在哪里？</p><p>A：您的程序应始终从 <code>stdin</code>（标准输入）读取输入，并将输出写入 <code>stdout</code>（标准输出）。例如，您可以使用C中的 <code>scanf</code> 或 C++ 中的 <code>cin</code> 从 <code>stdin</code> 中读取，并使用 C 中的 <code>printf</code> 或 C++ 中的 <code>cout</code> 写入 <code>stdout</code>。如果不是题目要求的，您不得输出任何额外的信息到标准输出，否则您会得到一个 <code>Wrong Answer</code>。 用户程序不允许打开和读取/写入文件。如果您尝试这样做，您将收到 <code>Runtime Error</code> 或 <code>Wrong Answer</code>。</p><p>以下是问题 1000 使用 C / C++ / Python / Java 的示例解决方案：&nbsp;</p><pre><code class=\"language-c\"><p>#include &lt;stdio.h&gt;
+            'hint' => "<p>Q：输入和输出在哪里？</p><p>A：您的程序应始终从 <code>stdin</code>（标准输入）读取输入，并将输出写入 <code>stdout</code>（标准输出）。例如，您可以使用C中的 <code>scanf</code> 或 C++ 中的 <code>cin</code> 从 <code>stdin</code> 中读取，并使用 C 中的 <code>printf</code> 或 C++ 中的 <code>cout</code> 写入 <code>stdout</code>。如果不是题目要求的，您不得输出任何额外的信息到标准输出，否则您会得到一个 <code>Wrong Answer</code>。 用户程序不允许打开和读取/写入文件。如果您尝试这样做，您将收到 <code>Runtime Error</code> 或 <code>Wrong Answer</code>。</p><p>以下是问题 1000 使用 C / C++ / Python / Java 的示例解决方案：&nbsp;</p><pre><code class=\"language-c\">#include &lt;stdio.h&gt;
 int main(){
     int a, b;
     scanf(\"%d %d\", &amp;a, &amp;b);
     printf(\"%d\\n\", a + b);
     return 0;
-}</p></code></pre><pre><code class=\"language-cpp\"><p>#include &lt;iostream&gt;
+}</code></pre><pre><code class=\"language-cpp\">#include &lt;iostream&gt;
 using namespace std;
 int  main(){
     int a, b;
     cin &gt;&gt; a &gt;&gt; b;
     cout &lt;&lt; a + b &lt;&lt; endl;
     return 0;
-}</p></code></pre><pre><code class=\"language-python\"><p>a,b = map(int,input().split())
-print(a+b)</p></code></pre><pre><code class=\"language-java\"><p>import java.util.Scanner;
+}</code></pre><pre><code class=\"language-python\">a,b = map(int,input().split())
+print(a+b)</code></pre><pre><code class=\"language-java\">import java.util.Scanner;
 public class Main {
     public static void main(String[] args) {
         Scanner in = new Scanner(System.in);
@@ -42,7 +42,7 @@ public class Main {
         int b = in.nextInt();
         System.out.print(a + b + \"\\n\");
     }
-}</p></code></pre>",
+}</code></pre>",
             'time_limit' => 1,
             'memory_limit' => 128,
             'status' => 1,
@@ -59,14 +59,14 @@ public class Main {
             'sample_input' => "a:3:{i:0;s:7:\"10\r\n100\";i:1;N;i:2;N;}",
             'sample_output' => "a:3:{i:0;s:8:\"55\r\n5050\";i:1;N;i:2;N;}",
             'spj' => 0,
-            'hint' => "<p>通常，题目会要求多组样例输入。对于多组样例输入，一般会是读到 <code>EOF</code> 结束。 <code>EOF</code> 的意思是 <code>End Of File</code>，表示读到文件尾，结束输入。 <code>scanf</code> 函数的返回值如果为 <code>EOF</code> 的话，就表示输入结束了。比如题目输入一个数，以 <code>EOF</code> 结束，你就可以这样写：</p><p>C 语言：</p><pre><code class=\"language-c\"><p>#include&lt;stdio.h&gt;
+            'hint' => "<p>通常，题目会要求多组样例输入。对于多组样例输入，一般会是读到 <code>EOF</code> 结束。 <code>EOF</code> 的意思是 <code>End Of File</code>，表示读到文件尾，结束输入。 <code>scanf</code> 函数的返回值如果为 <code>EOF</code> 的话，就表示输入结束了。比如题目输入一个数，以 <code>EOF</code> 结束，你就可以这样写：</p><p>C 语言：</p><pre><code class=\"language-c\">#include&lt;stdio.h&gt;
 int main(){
     int n;
     while (scanf(\"%d\", &amp;n) != EOF) {
          //解题代码
     }
     return 0;
-}</p></code></pre><p>C++:&nbsp;</p><pre><code class=\"language-cpp\"><p>#include &lt;iostream&gt;
+}</code></pre><p>C++:&nbsp;</p><pre><code class=\"language-cpp\">#include &lt;iostream&gt;
 using namespace std;
 int main(){
     int n;
@@ -74,14 +74,14 @@ int main(){
         //解题代码
     }
     return 0;
-}</p></code></pre><p>所以，这道题的 Accepted 代码是（以Ｃ语言为例）：</p><pre><code class=\"language-c\"><p>#include&lt;stdio.h&gt;
+}</code></pre><p>所以，这道题的 Accepted 代码是（以Ｃ语言为例）：</p><pre><code class=\"language-c\">#include&lt;stdio.h&gt;
 int main(){
     int n;
     while (scanf(\"%d\", &amp;n) != EOF) {
         printf(\"%d\\n\", n * (n + 1) / 2 );
     }
     return 0;
-}</p></code></pre>",
+}</code></pre>",
             'time_limit' => 1,
             'memory_limit' => 128,
             'status' => 1,
@@ -98,7 +98,7 @@ int main(){
             'sample_input' => "a:3:{i:0;s:31:\"5\r\n2016\r\n2017\r\n2018\r\n2019\r\n2020\";i:1;N;i:2;N;}",
             'sample_output' => "a:3:{i:0;s:20:\"Yes\r\nNo\r\nNo\r\nNo\r\nYes\";i:1;N;i:2;N;}",
             'spj' => 0,
-            'hint' =>  "<p>题目要求输入 \$t\$ 组样例，那么我们可以这样写：</p><pre><code class=\"language-c\"><p>#include &lt;stdio.h&gt;
+            'hint' =>  "<p>题目要求输入 \$t\$ 组样例，那么我们可以这样写：</p><pre><code class=\"language-c\">#include &lt;stdio.h&gt;
 int main(){
     int t, n;
     scanf(\"%d\", &amp;t);
@@ -107,7 +107,7 @@ int main(){
         //在这里写判断 n 是否为闰年的代码及输出结果
     }
     return 0;
-}</p></code></pre><p>这道题的解题方法就靠大家发挥了．</p><p>提示：在处理多组样例时，可以一组样例、一组样例地输出，而不必等处理完所有样例才统一输出。</p>",
+}</code></pre><p>这道题的解题方法就靠大家发挥了．</p><p>提示：在处理多组样例时，可以一组样例、一组样例地输出，而不必等处理完所有样例才统一输出。</p>",
             'time_limit' => 1,
             'memory_limit' => 128,
             'status' => 1,
