@@ -298,8 +298,8 @@ class ProblemController extends BaseController
      */
     public function actionSolution($id)
     {
+        $this->layout = "basic";
         $model = $this->findModel($id);
-
         return $this->render('solution', [
             'model' => $model,
         ]);

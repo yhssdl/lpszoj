@@ -241,7 +241,7 @@ $nextProblemID = $model->getNextProblemID();
                     echo Html::a(
                         '<i class="fa fa-dropbox"></i> ' . Yii::t('app', '题解'),
                         ['/problem/solution', 'id' => $model->id],
-                        ['class' => 'btn btn-default']
+                        ['class' => 'btn btn-default','title' => '查看源码', 'onclick' => 'return false', 'data-click' => "solution_info", 'data-pjax' => 0]
                     );
                     echo "</div>";
                 }
@@ -347,7 +347,7 @@ $url = \yii\helpers\Url::toRoute(['/solution/verdict']);
 $js = <<<EOF
 $('[data-click=solution_info]').click(function() {
     url = $(this).attr('href');
-    if(url.indexOf("source") !== -1){
+    if(url.indexOf("result") == -1){
         html = "<iframe id='modal-iframe' src='"+url+"' frameborder='0' width='100%' scrolling='no'></iframe>";
         $('#solution-content').html(html);
         $('#solution-info').modal('show');
