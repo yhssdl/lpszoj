@@ -20,3 +20,15 @@ if (!$model->canViewSource()) {
         </div>
         <div><pre class="line-numbers"><code id="pre_code" class="language-cpp"><?= Html::encode($model->source) ?></code></pre></div>
 </div>
+<?php
+$js = <<<EOF
+    var obj = $("#modal-iframe",parent.document);
+
+    $(window).resize(function(){
+        obj.height(document.body.scrollHeight);
+     });
+     obj.height(document.body.scrollHeight);
+   
+EOF;
+$this->registerJs($js);
+?>

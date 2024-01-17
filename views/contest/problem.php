@@ -326,7 +326,7 @@ $js = <<<EOF
 $('[data-click=solution_info]').click(function() {
     url = $(this).attr('href');
     if(url.indexOf("source") !== -1){
-        html = "<iframe id='modal-iframe' src='"+url+"' frameborder='0' width='100%' onload='this.style.height = this.contentWindow.document.documentElement.scrollHeight + \"px\"' scrolling='no'></iframe>";
+        html = "<iframe id='modal-iframe' src='"+url+"' frameborder='0' width='100%' scrolling='no'></iframe>";
         $('#solution-content').html(html);
         $('#solution-info').modal('show');
     }else{
