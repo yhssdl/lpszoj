@@ -34,6 +34,10 @@ $this->registerCss("
         overflow: hidden;
     }
 
+    .container{
+        width:100%;
+    }
+
     .container > .radius {
         display: flex;
         flex-direction: column;
@@ -61,6 +65,13 @@ $this->registerCss("
         display: flex;
         flex-direction: column;
         flex: 1 0 0;
+    }
+
+    .flex-title{
+        align-items:center;
+        padding:0 8px;
+        display: flex;
+        justify-content:space-between;
     }
     
     .problem-left, .problem-right {
@@ -97,6 +108,7 @@ $this->registerCss("
         background: rgb(238, 238, 238);
     }
     .problem-right > .problem-editor {
+        padding-left:12px;
         display: flex;
         flex-direction: column;
         height: 100%;
@@ -115,12 +127,17 @@ $this->registerCss("
         display: flex;
         padding: 5px;
         border-top: 1px solid #eee;
+        width:100%;
     }
     .problem-left .problem-footer {
         justify-content: flex-end;
     }
     .problem-right .problem-footer {
         justify-content: space-between;
+    }
+    .modal-body .table td{
+        border-top:unset;
+        border-bottom:1px solid #ddd;
     }
     .CodeMirror {
         height: 100%;
@@ -301,28 +318,25 @@ $nextProblemID = $model->getNextProblemID();
             </div>
             <div class="problem-right">
                 <?php $form = ActiveForm::begin(['options' => ['class' => 'problem-editor']]); ?>
-                <div>
-                    <div style="float:left;height: 34px;padding: 6px 12px;">
-                        <?= Yii::t('app', 'Language') ?>：
-                    </div>
-                    <div style="float:left;">
-                        <?= $form->field($solution, 'language', ['options' => ['style' => 'margin: 0']])
+                <div class="flex-title">
+                    <div>
+                        <div style="display: inline-block;"><?= Yii::t('app', 'Language') ?>：</div>
+                        <?= $form->field($solution, 'language', ['options' =>['style' => 'margin: 0;display: inline-block;']])
                             ->dropDownList($solution::getLanguageList(), ['style' => 'width: auto'])->label(false) ?>
                     </div>
-
                     <div style="float:right;">
-                        <select id="solution-theme" class="form-control" name="solution-theme" style="width: auto" aria-required="true">
-                            <option value="one-dark" <?php if ($theme == "one-dark") echo "selected=''"; ?>>one-dark</option>
-                            <option value="solarized" <?php if ($theme == "solarized") echo "selected=''"; ?>>solarized</option>
-                            <option value="material" <?php if ($theme == "material") echo "selected=''"; ?>>material</option>
-                            <option value="monokai" <?php if ($theme == "monokai") echo "selected=''"; ?>>monokai</option>
-                        </select>
-                    </div>
-                    <div style="float:right;height: 20px;padding: 6px 12px;">
-                        <?= Yii::t('app', 'Theme') ?>：
+                        <div style="display: inline-block;"><?= Yii::t('app', 'Theme') ?>：</div>
+                        <div style="margin: 0;display: inline-block;">
+                            <select id="solution-theme" class="form-control" name="solution-theme" style="width: auto" aria-required="true">
+                                <option value="one-dark" <?php if ($theme == "one-dark") echo "selected=''"; ?>>one-dark</option>
+                                <option value="solarized" <?php if ($theme == "solarized") echo "selected=''"; ?>>solarized</option>
+                                <option value="material" <?php if ($theme == "material") echo "selected=''"; ?>>material</option>
+                                <option value="monokai" <?php if ($theme == "monokai") echo "selected=''"; ?>>monokai</option>
+                            </select>
+                            <div class="help-block"></div>
+                        </div>
                     </div>
                 </div>
-
                 <?= $form->field($solution, 'source', ['options' => ['class' => 'code-input']])
                     ->widget('app\widgets\codemirror\CodeMirror')->label(false); ?>
 
