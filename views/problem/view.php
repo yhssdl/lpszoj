@@ -131,10 +131,16 @@ $this->registerCss("
     .gutter.gutter-vertical {
         background-image: url('data:image/png;base64,iVBORw0KGgoAAAANSUhEUgAAAB4AAAAFAQMAAABo7865AAAABlBMVEVHcEzMzMzyAv2sAAAAAXRSTlMAQObYZgAAABBJREFUeF5jOAMEEAIEEFwAn3kMwcB6I2AAAAAASUVORK5CYII=');
     }
-
     .gutter.gutter-horizontal {
         background-image: url('data:image/png;base64,iVBORw0KGgoAAAANSUhEUgAAAAUAAAAeCAYAAADkftS9AAAAIklEQVQoU2M4c+bMfxAGAgYYmwGrIIiDjrELjpo5aiZeMwF+yNnOs5KSvgAAAABJRU5ErkJggg==');
     }
+    .radius {
+        margin-bottom: 0px;
+    }
+    .container{
+        width:100%;
+    }
+
 ");
 
 if (!Yii::$app->user->isGuest) {
