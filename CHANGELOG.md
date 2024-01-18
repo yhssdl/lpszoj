@@ -12,6 +12,7 @@ LPSZOJ Change Log
 请阅读 [update.md](https://gitee.com/yhssdl/lpszoj/raw/master/docs/update.md) 来获取更新方法。
 
 ---------------------------------------
+- 2024.1.18 Enh: [web] 优化左右界面排版，比赛与小组作业中加入左右布局支持。
 - 2024.1.17 Bug: [web] 修复了prism.js的弹出框中的复制按钮无效的情况。
 - 2024.1.16 Enh: [web] 高亮代码的插件highlight更换为prism.js，内置行号与复制功能。
 - 2024.1.15 Enh: [web、db] 小组作业中增加了查看解题的选项；本次需`./yii migrate` 更新数据库。
