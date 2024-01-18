@@ -43,8 +43,13 @@ body {
 }
 
 .wrap > .container {
-    padding: 25px 15px 20px;
-    background-color: #FFF;
+    padding: 0 16px 0 16px;
+
+}
+
+.container > .main_body {
+    padding: 22px 16px 22px 16px;
+    background-color: #fff;
 }
 
 .footer {

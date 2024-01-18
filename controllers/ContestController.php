@@ -625,15 +625,18 @@ class ContestController extends BaseController
                 ->limit(10)
                 ->all();
         }
+
+        $view = (Yii::$app->setting->get('showMode') ? '/contest/problem' : '/contest/classic');
+
         if (Yii::$app->request->isPjax) {
-            return $this->renderAjax('/contest/problem', [
+            return $this->renderAjax($view, [
                 'model' => $model,
                 'solution' => $solution,
                 'problem' => $problem,
                 'submissions' => $submissions
             ]);
         } else {
-            return $this->render('/contest/problem', [
+            return $this->render($view, [
                 'model' => $model,
                 'solution' => $solution,
                 'problem' => $problem,

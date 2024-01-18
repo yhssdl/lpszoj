@@ -103,21 +103,23 @@ AppAsset::register($this);
 
 
 
-    <div class="container radius">
-        <?php
-            if (!Yii::$app->user->isGuest && Yii::$app->setting->get('mustVerifyEmail') && !Yii::$app->user->identity->isVerifyEmail()) {
-                $a = Html::a('个人设置', ['/user/setting', 'action' => 'account']);
-                echo "<div class=\"alert alert-light\"><i class=\" fa fa-info-circle\"></i> 请前往设置页面验证您的邮箱：{$a}</div>";
-            }
-        ?>
-        <?php if (Yii::$app->setting->get('isNotice')): ?>    
-            <div class="alert alert-light"><?= Yii::$app->formatter->asMarkdown( Yii::$app->setting->get('notice')) ?></div>
-        <?php endif; ?>    
-        <?= Breadcrumbs::widget([
-            'links' => isset($this->params['breadcrumbs']) ? $this->params['breadcrumbs'] : [],
-        ]) ?>
-        <?= Alert::widget() ?>
-        <?= $content ?>
+    <div class="container">
+        <div class="main_body radius">
+            <?php
+                if (!Yii::$app->user->isGuest && Yii::$app->setting->get('mustVerifyEmail') && !Yii::$app->user->identity->isVerifyEmail()) {
+                    $a = Html::a('个人设置', ['/user/setting', 'action' => 'account']);
+                    echo "<div class=\"alert alert-light\"><i class=\" fa fa-info-circle\"></i> 请前往设置页面验证您的邮箱：{$a}</div>";
+                }
+            ?>
+            <?php if (Yii::$app->setting->get('isNotice')): ?>    
+                <div class="alert alert-light"><?= Yii::$app->formatter->asMarkdown( Yii::$app->setting->get('notice')) ?></div>
+            <?php endif; ?>    
+            <?= Breadcrumbs::widget([
+                'links' => isset($this->params['breadcrumbs']) ? $this->params['breadcrumbs'] : [],
+            ]) ?>
+            <?= Alert::widget() ?>
+            <?= $content ?>
+        </div>
     </div>
 </div>
 

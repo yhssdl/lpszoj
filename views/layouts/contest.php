@@ -113,113 +113,115 @@ $status = $model->getRunStatus();
     NavBar::end();
     ?>
 
-    <div class="container radius">
-        <?= Breadcrumbs::widget([
-            'links' => isset($this->params['breadcrumbs']) ? $this->params['breadcrumbs'] : [],
-        ]) ?>
-        <?= Alert::widget() ?>
-        <div class="contest-info">
-            <div class="row">
-                <div class="col-md-3 text-left hidden-print">
-                    <strong><?= Yii::t('app', 'Start') ?>: </strong>
-                    <?= $model->start_time ?>
+    <div class="container">
+        <div class="main_body radius">
+            <?= Breadcrumbs::widget([
+                'links' => isset($this->params['breadcrumbs']) ? $this->params['breadcrumbs'] : [],
+            ]) ?>
+            <?= Alert::widget() ?>
+            <div class="contest-info">
+                <div class="row">
+                    <div class="col-md-3 text-left hidden-print">
+                        <strong><?= Yii::t('app', 'Start') ?>: </strong>
+                        <?= $model->start_time ?>
+                    </div>
+                    <div class="col-md-6 text-center">
+                        <h2 class="contest-title">
+                            <?= Html::encode($model->title) ?>
+                        </h2>
+                    </div>
+                    <div class="col-md-3 text-right hidden-print">
+                        <strong><?= Yii::t('app', 'End') ?>: </strong>
+                        <?php
+                            if (strtotime($model->end_time) >= Contest::TIME_INFINIFY)
+                                echo "一直开放";
+                            else
+                                echo $model->end_time
+                            ?>
+                    </div>
                 </div>
-                <div class="col-md-6 text-center">
-                    <h2 class="contest-title">
-                        <?= Html::encode($model->title) ?>
-                    </h2>
-                </div>
-                <div class="col-md-3 text-right hidden-print">
-                    <strong><?= Yii::t('app', 'End') ?>: </strong>
-                    <?php
-                        if (strtotime($model->end_time) >= Contest::TIME_INFINIFY)
-                            echo "一直开放";
-                        else
-                            echo $model->end_time
-                        ?>
-                </div>
-            </div>
-            <div class="progress hidden-print">
-                <div class="progress-bar progress-bar-success" id="contest-progress" role="progressbar" aria-valuenow="60" aria-valuemin="0" aria-valuemax="100" style="width: 1%;">
+                <div class="progress hidden-print">
+                    <div class="progress-bar progress-bar-success" id="contest-progress" role="progressbar" aria-valuenow="60" aria-valuemin="0" aria-valuemax="100" style="width: 1%;">
 
+                    </div>
+                </div>
+                <div class="text-center hidden-print">
+                    <b><?= Yii::t('app', 'Now') ?>　</b>
+                    <span id="nowdate"><?= date("Y-m-d H:i:s") ?></span>　
+                <span>                    
+                    <b>类型</b>: <?= $model->getType()?>　 <b>状态</b>: <?= $model->getRunStatus(1) ?>　
+                    <?php if ($model->group_id != 0 && $model->isContestAdmin()): ?>
+                                    <?= Html::a('<span class="fa fa-cog"></span> ' . Yii::t('app', 'Setting'),
+                                        ['/homework/update', 'id' => $model->id]) ?>
+                    
+                        <?php endif; ?>
+                    </span>
                 </div>
             </div>
-            <div class="text-center hidden-print">
-                <b><?= Yii::t('app', 'Now') ?>　</b>
-                <span id="nowdate"><?= date("Y-m-d H:i:s") ?></span>　
-               <span>                    
-                   <b>类型</b>: <?= $model->getType()?>　 <b>状态</b>: <?= $model->getRunStatus(1) ?>　
-                   <?php if ($model->group_id != 0 && $model->isContestAdmin()): ?>
-                                <?= Html::a('<span class="fa fa-cog"></span> ' . Yii::t('app', 'Setting'),
-                                    ['/homework/update', 'id' => $model->id]) ?>
-                   
-                    <?php endif; ?>
-                </span>
-            </div>
-        </div>
-        <br>
-        <?php if ($status == $model::STATUS_NOT_START): ?>
-            <div class="contest-countdown text-center">
-                <div id="countdown"></div>
-            </div>
-            <?php if (!empty($model->description)): ?>
-                <div class="contest-desc">
-                    <?= Yii::$app->formatter->asMarkdown($model->description) ?>
+            <br>
+            <?php if ($status == $model::STATUS_NOT_START): ?>
+                <div class="contest-countdown text-center">
+                    <div id="countdown"></div>
+                </div>
+                <?php if (!empty($model->description)): ?>
+                    <div class="contest-desc">
+                        <?= Yii::$app->formatter->asMarkdown($model->description) ?>
+                    </div>
+                <?php endif; ?>
+            <?php elseif (!$model->canView()): ?>
+                <?= $content ?>
+            <?php else: ?>
+                <div class="contest-view">
+                    <?php
+                    $menuItems = [
+                        [
+                            'label' => '<span class="fa fa-home"></span> ' . Yii::t('app', 'Information'),
+                            'url' => ['contest/view', 'id' => $model->id],
+                        ],
+                        [
+                            'label' => '<span class="fa fa-book"></span> ' . Yii::t('app', 'Problem'),
+                            'url' => ['contest/problem', 'id' => $model->id],
+                            'linkOptions' => ['data-pjax' => 0]
+                        ],
+                        [
+                            'label' => '<span class="fa fa-tasks"></span> ' . Yii::t('app' , 'Status'),
+                            'url' => ['contest/status', 'id' => $model->id],
+                            'linkOptions' => ['data-pjax' => 0],
+                        ],
+                        [
+                            'label' => '<span class="fa fa-glass"></span> ' . Yii::t('app', 'Standing'),
+                            'url' => ['contest/standing', 'id' => $model->id],
+                        ],
+                    ];
+                    if($model->enable_clarify==1 || ($model->enable_clarify==2 && $model->isContestEnd())){
+                        $menuItems[] = [
+                            'label' => '<span class="fa fa-comment"></span> ' . Yii::t('app', 'Clarification'),
+                            'url' => ['contest/clarify', 'id' => $model->id],
+                        ];
+                    }
+                    if ($model->enable_print == 1 && $model->getRunStatus() == $model::STATUS_RUNNING) {
+                        $menuItems[] = [
+                            'label' => '<span class="fa fa-print"></span> 打印服务',
+                            'url' => ['/contest/print', 'id' => $model->id]
+                        ];
+                    }
+                    if ($model->isContestEnd()) {
+                        $menuItems[] = [
+                            'label' => '<i class="fa fa-info-circle"></i> ' . Yii::t('app', 'Editorial'),
+                            'url' => ['contest/editorial', 'id' => $model->id]
+                        ];
+                    }
+                    echo Nav::widget([
+                        'items' => $menuItems,
+                        'options' => ['class' => 'nav nav-tabs hidden-print'],
+                        'encodeLabels' => false
+                    ]) ?>
+                    <?php \yii\widgets\Pjax::begin(['linkSelector' => 'a:not(.linksWithTarget)']) ?>
+                    <?= $content ?>
+                    <?php \yii\widgets\Pjax::end() ?>
                 </div>
             <?php endif; ?>
-        <?php elseif (!$model->canView()): ?>
-            <?= $content ?>
-        <?php else: ?>
-            <div class="contest-view">
-                <?php
-                $menuItems = [
-                    [
-                        'label' => '<span class="fa fa-home"></span> ' . Yii::t('app', 'Information'),
-                        'url' => ['contest/view', 'id' => $model->id],
-                    ],
-                    [
-                        'label' => '<span class="fa fa-book"></span> ' . Yii::t('app', 'Problem'),
-                        'url' => ['contest/problem', 'id' => $model->id],
-                        'linkOptions' => ['data-pjax' => 0]
-                    ],
-                    [
-                        'label' => '<span class="fa fa-tasks"></span> ' . Yii::t('app' , 'Status'),
-                        'url' => ['contest/status', 'id' => $model->id],
-                        'linkOptions' => ['data-pjax' => 0],
-                    ],
-                    [
-                        'label' => '<span class="fa fa-glass"></span> ' . Yii::t('app', 'Standing'),
-                        'url' => ['contest/standing', 'id' => $model->id],
-                    ],
-                ];
-                if($model->enable_clarify==1 || ($model->enable_clarify==2 && $model->isContestEnd())){
-                    $menuItems[] = [
-                        'label' => '<span class="fa fa-comment"></span> ' . Yii::t('app', 'Clarification'),
-                        'url' => ['contest/clarify', 'id' => $model->id],
-                    ];
-                }
-                if ($model->enable_print == 1 && $model->getRunStatus() == $model::STATUS_RUNNING) {
-                    $menuItems[] = [
-                        'label' => '<span class="fa fa-print"></span> 打印服务',
-                        'url' => ['/contest/print', 'id' => $model->id]
-                    ];
-                }
-                if ($model->isContestEnd()) {
-                    $menuItems[] = [
-                        'label' => '<i class="fa fa-info-circle"></i> ' . Yii::t('app', 'Editorial'),
-                        'url' => ['contest/editorial', 'id' => $model->id]
-                    ];
-                }
-                echo Nav::widget([
-                    'items' => $menuItems,
-                    'options' => ['class' => 'nav nav-tabs hidden-print'],
-                    'encodeLabels' => false
-                ]) ?>
-                <?php \yii\widgets\Pjax::begin(['linkSelector' => 'a:not(.linksWithTarget)']) ?>
-                <?= $content ?>
-                <?php \yii\widgets\Pjax::end() ?>
-            </div>
-        <?php endif; ?>
+        </div>
     </div>
 </div>
 

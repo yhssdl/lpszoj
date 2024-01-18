@@ -14,7 +14,7 @@ use app\models\User;
 $this->title = $model->id . ' - ' . $model->title;
 $label_i = 0;
 $this->registerJsFile(Yii::getAlias('@web/js/splitter.min.js'));
-$this->registerJs("Split(['.problem-left', '.problem-right'], {sizes: [55, 45],});");
+$this->registerJs("Split(['.problem-left', '.problem-right'], {sizes: [60, 40],});");
 $this->registerCss("
     body {
         overflow: hidden;
@@ -24,16 +24,23 @@ $this->registerCss("
         flex-direction: column;
         padding: 0;
         margin: 0;
-        height: 100%;
     }
-  
+
     .wrap > .container {
-        padding: 0;
+        width:100%;
         display: flex;
         flex-direction: column;
         flex: 1 1 0;
         overflow: hidden;
     }
+
+    .container > .radius {
+        display: flex;
+        flex-direction: column;
+        flex: 1 1 0;
+        overflow: hidden;
+    }
+
     .main-container {
         height: 100%;
     }
@@ -50,14 +57,10 @@ $this->registerCss("
         overflow: hidden;
     }
     .problem-left {
-        padding: 16px 0px 16px 16px;
         overflow: hidden;
         display: flex;
         flex-direction: column;
         flex: 1 0 0;
-    }
-  .problem-right {
-        padding: 16px;
     }
     
     .problem-left, .problem-right {
@@ -134,13 +137,6 @@ $this->registerCss("
     .gutter.gutter-horizontal {
         background-image: url('data:image/png;base64,iVBORw0KGgoAAAANSUhEUgAAAAUAAAAeCAYAAADkftS9AAAAIklEQVQoU2M4c+bMfxAGAgYYmwGrIIiDjrELjpo5aiZeMwF+yNnOs5KSvgAAAABJRU5ErkJggg==');
     }
-    .radius {
-        margin-bottom: 0px;
-    }
-    .container{
-        width:100%;
-    }
-
 ");
 
 if (!Yii::$app->user->isGuest) {
