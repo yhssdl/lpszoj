@@ -12,7 +12,7 @@ class m220507_201732_add_setting extends Migration
      */
     public function safeUp()
     {
-        $this->insert('{{%setting}}', ['key' => 'showMode', 'value' => '0']); 
+        $this->insert('{{%setting}}', ['key' => 'showMode', 'value' => '1']); 
     }
 
     /**
