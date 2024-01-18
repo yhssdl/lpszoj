@@ -216,7 +216,7 @@ $status = $model->getRunStatus();
                         'options' => ['class' => 'nav nav-tabs hidden-print'],
                         'encodeLabels' => false
                     ]) ?>
-                    <?php \yii\widgets\Pjax::begin(['linkSelector' => 'a:not(.linksWithTarget)']) ?>
+                    <?php \yii\widgets\Pjax::begin() ?>
                     <?= $content ?>
                     <?php \yii\widgets\Pjax::end() ?>
                 </div>

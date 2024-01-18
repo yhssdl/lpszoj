@@ -224,7 +224,7 @@ $loadingImgUrl = Yii::getAlias('@web/images/loading.gif');
                     <div class="content-title text-left"><?= Html::encode('P' . (1 + $problem['num']). '. ' . $problem['title']) ?>
                         <?php if (!Yii::$app->user->isGuest && Yii::$app->user->identity->role == User::ROLE_ADMIN) {
                             echo Html::a('<span class="fa fa-edit"></span> ',
-                            ['/admin/problem/update', 'id' => $problem['id']],['class' => 'btn btn-link linksWithTarget','target'=>'_blank']);
+                            ['/admin/problem/update', 'id' => $problem['id']],['class' => 'btn btn-link','target'=>'_blank','data-pjax' => '0',]);
                             }
                         ?>
                             <div class="btn btn-link">
