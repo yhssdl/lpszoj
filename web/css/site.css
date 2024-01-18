@@ -814,33 +814,29 @@ a.text-teacher:focus {
     border-top: 3px solid transparent;
 }
 
-.problem-right {
-    padding: 6px;
+.float-left {
+float: left !important;
 }
 
-  .float-left {
-    float: left !important;
-  }
-  
-  .float-right {
-    float: right !important;
-  }
-  
-  .float-none {
-    float: none !important;
-  }
+.float-right {
+float: right !important;
+}
 
-  .lead{
-    color: #868e96;
-  }
+.float-none {
+float: none !important;
+}
 
-  .custom-file {
-    position: relative;
-    display: inline-block;
-    width: 100%;
-    height: calc(1.5em + 1rem + 2px);
-    margin-bottom: 0;
-  }
+.lead{
+color: #868e96;
+}
+
+.custom-file {
+position: relative;
+display: inline-block;
+width: 100%;
+height: calc(1.5em + 1rem + 2px);
+margin-bottom: 0;
+}
 
   
 .custom-file-label {
