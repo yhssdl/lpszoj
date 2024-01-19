@@ -16,6 +16,27 @@ use app\models\User;
 $this->title = Html::encode($model->title) . ' - ' . ($problem['title'] ?? null);
 $this->params['model'] = $model;
 
+$this->registerCss("
+.flex-title{
+    align-items:center;
+    padding:0 8px;
+    display: flex;
+    justify-content:space-between;
+}
+.pagination{
+    margin:0 0 12px 0;
+}
+.pagination > li > a {
+    padding:6px 6px;
+}
+.content-title{
+    margin:0;
+}
+.problem-view{
+    padding-top:20px;
+}
+");
+
 if (isset($_COOKIE['theme']))
     $theme = $_COOKIE['theme'];
 else
@@ -35,17 +56,6 @@ if (empty($problems)) {
     return;
 }
 
-$nav = [];
-foreach ($problems as $key => $p) {
-    $nav[] = [
-        'label' => 'P' . ($key + 1),
-        'url' => [
-            'problem',
-            'id' => $model->id,
-            'pid' => $key,
-        ]
-    ];
-}
 try{
     $sample_input = unserialize($problem['sample_input']);
     $sample_output = unserialize($problem['sample_output']);
@@ -59,21 +69,30 @@ if($sample_output==false) $sample_output =  array("无","","");
 $loadingImgUrl = Yii::getAlias('@web/images/loading.gif');
 ?>
 <div class="problem-view">
-    <div class="text-center">
-        <?= Nav::widget([
-            'items' => $nav,
-            'options' => ['class' => 'pagination']
-        ]) ?>
-    </div>
     <div class="row animate__animated animate__fadeInUp">
-        <div class="col-md-9 problem-view">
-            <div class="text-center content-title"><?= Html::encode('P' . (1 + $problem['num']). '. ' . $problem['title']) ?>
-                <?php if (!Yii::$app->user->isGuest && Yii::$app->user->identity->role == User::ROLE_ADMIN) {
-                    echo Html::a('<span class="fa fa-edit"></span> ',
-                    ['/admin/problem/update', 'id' => $problem['id']],['class' => 'btn btn-link','target'=>'_blank','data-pjax' => '0',]);
-                    }
-                ?>
-            </div>
+        <div class="col-md-9">
+            <div class="flex-title">
+                    <div class="content-title text-left"><?= Html::encode('P' . (1 + $problem['num']). '. ' . $problem['title']) ?>&nbsp;&nbsp;
+                        <?php if (!Yii::$app->user->isGuest && Yii::$app->user->identity->role == User::ROLE_ADMIN) {
+                            echo Html::a('<span class="fa fa-edit"></span>',
+                            ['/admin/problem/update', 'id' => $problem['id']],['class' => 'btn btn-link','target'=>'_blank','data-pjax' => '0']);
+                            }
+                        ?>
+                    </div>
+                    <div class="text-right">
+                        <ul id="w0" class="pagination nav">
+                            <?php 
+                                foreach ($problems as $key => $p) {
+                                    $p = $key + 1;
+                                    if($problem['num']== $key)
+                                        echo "<li class='active'><a href='problem?id=$model->id&amp;pid=$key'>P$p</a></li>";
+                                    else
+                                        echo "<li><a href='problem?id=$model->id&amp;pid=$key'>P$p</a></li>";
+                                }
+                            ?>
+                        </ul>
+                    </div>
+                </div>
                 <div class="content-header"><?= Yii::t('app', 'Description') ?></div>
                 <div class="content-wrapper">
                     <?= Yii::$app->formatter->asMarkdown($problem['description']) ?>

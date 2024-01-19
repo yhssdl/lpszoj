@@ -172,6 +172,9 @@ $this->registerCss("
     .pagination > li > a {
         padding:6px 6px;
     }
+    .content-title{
+        margin:0;
+    }
     .content-title .btn{
         padding:6px 3px;
     }
@@ -200,17 +203,6 @@ if (empty($problems)) {
     return;
 }
 
-$nav = [];
-foreach ($problems as $key => $p) {
-    $nav[] = [
-        'label' => 'P' . ($key + 1),
-        'url' => [
-            'problem',
-            'id' => $model->id,
-            'pid' => $key,
-        ]
-    ];
-}
 try{
     $sample_input = unserialize($problem['sample_input']);
     $sample_output = unserialize($problem['sample_output']);
@@ -223,7 +215,6 @@ if($sample_output==false) $sample_output =  array("无","","");
 
 $loadingImgUrl = Yii::getAlias('@web/images/loading.gif');
 ?>
-
 <div class="main-container animate__animated animate__fadeInUp">
     <div class="problem-container">
         <div class="problem-splitter">
@@ -244,10 +235,17 @@ $loadingImgUrl = Yii::getAlias('@web/images/loading.gif');
                         </div>
                     </div>
                     <div class="text-right">
-                        <?= Nav::widget([
-                            'items' => $nav,
-                            'options' => ['class' => 'pagination']
-                        ]) ?>
+                        <ul id="w0" class="pagination nav">
+                            <?php 
+                                foreach ($problems as $key => $p) {
+                                    $p = $key + 1;
+                                    if($problem['num']== $key)
+                                        echo "<li class='active'><a href='problem?id=$model->id&amp;pid=$key'>P$p</a></li>";
+                                    else
+                                        echo "<li><a href='problem?id=$model->id&amp;pid=$key'>P$p</a></li>";
+                                }
+                            ?>
+                        </ul>
                     </div>
                 </div>
                 
