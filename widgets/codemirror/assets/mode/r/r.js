@@ -1,5 +1,5 @@
 // CodeMirror, copyright (c) by Marijn Haverbeke and others
-// Distributed under an MIT license: https://codemirror.net/LICENSE
+// Distributed under an MIT license: https://codemirror.net/5/LICENSE
 
 (function(mod) {
   if (typeof exports == "object" && typeof module == "object") // CommonJS
@@ -19,7 +19,7 @@ CodeMirror.defineMode("r", function(config) {
     for (var i = 0; i < words.length; ++i) res[words[i]] = true;
     return res;
   }
-  var commonAtoms = ["NULL", "NA", "Inf", "NaN", "NA_integer_", "NA_real_", "NA_complex_", "NA_character_"];
+  var commonAtoms = ["NULL", "NA", "Inf", "NaN", "NA_integer_", "NA_real_", "NA_complex_", "NA_character_", "TRUE", "FALSE"];
   var commonBuiltins = ["list", "quote", "bquote", "eval", "return", "call", "parse", "deparse"];
   var commonKeywords = ["if", "else", "repeat", "while", "function", "for", "in", "next", "break"];
   var commonBlockKeywords = ["if", "else", "repeat", "while", "function", "for"];
@@ -54,9 +54,9 @@ CodeMirror.defineMode("r", function(config) {
     } else if (ch == "`") {
       stream.match(/[^`]+`/);
       return "variable-3";
-    } else if (ch == "." && stream.match(/.[.\d]+/)) {
+    } else if (ch == "." && stream.match(/.(?:[.]|\d+)/)) {
       return "keyword";
-    } else if (/[\w\.]/.test(ch) && ch != "_") {
+    } else if (/[a-zA-Z\.]/.test(ch)) {
       stream.eatWhile(/[\w\.]/);
       var word = stream.current();
       if (atoms.propertyIsEnumerable(word)) return "atom";
