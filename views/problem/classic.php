@@ -150,7 +150,7 @@ $nextProblemID = $model->getNextProblemID();
                     </tr>
                     <tr>
                         <td><?= Yii::t('app', 'Memory Limit') ?></td>
-                        <td><i class="fa fa-save"></i> <?= $model->memory_limit ?> MB</td>
+                        <td><i class="fa fa-microchip"></i> <?= $model->memory_limit ?> MB</td>
                     </tr>
                     <tr>
                         <td><?= Yii::t('app', '提交次数') ?></td>

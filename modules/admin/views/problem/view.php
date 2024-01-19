@@ -89,7 +89,7 @@ $this->params['model'] = $model;
                 </tr>
                 <tr>
                     <td><?= Yii::t('app', 'Memory Limit') ?></td>
-                    <td><i class="fa fa-save"></i> <?= $model->memory_limit ?> MB</td>
+                    <td><i class="fa fa-microchip"></i> <?= $model->memory_limit ?> MB</td>
                 </tr>
                 </tbody>
             </table>

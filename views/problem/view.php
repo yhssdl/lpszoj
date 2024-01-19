@@ -190,11 +190,11 @@ $nextProblemID = $model->getNextProblemID();
                     <div class="col-md-6">
                         <div class="text-right">
                             <div class="btn btn-link" style="cursor:unset">
-                                <i class="fa fa-clock-o" title="时间限制: <?= intval($model->time_limit) ?> 秒"></i>
+                                <i class="fa fa-clock-o" title="<?= Yii::t('app', 'Time Limit') ?>: <?= intval($model->time_limit) ?> 秒"></i>
                             </div>
 
                             <div class="btn btn-link" style="cursor:unset">
-                                <i class="fa fa-save" title="内存限制: <?= $model->memory_limit ?> MB"></i>
+                                <i class="fa fa-microchip" title="<?= Yii::t('app', 'Memory Limit') ?>: <?= $model->memory_limit ?> MB"></i>
                             </div>
                             <div class="btn btn-link" style="cursor:unset">
                                 <i class="fa fa-share-square-o" title="通过次数: <?= $model->accepted ?>"></i>

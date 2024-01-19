@@ -197,7 +197,7 @@ $loadingImgUrl = Yii::getAlias('@web/images/loading.gif');
                         </tr>
                         <tr>
                             <td><?= Yii::t('app', 'Memory Limit') ?></td>
-                            <td><i class="fa fa-save"></i> <?= $problem['memory_limit'] ?> MB</td>
+                            <td><i class="fa fa-microchip"></i> <?= $problem['memory_limit'] ?> MB</td>
                         </tr>
                     </tbody>
                 </table>
