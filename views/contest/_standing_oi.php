@@ -40,7 +40,7 @@ if (Yii::$app->user->isGuest || !Yii::$app->user->identity->isAdmin()) {
             </th>
             <?php foreach ($problems as $key => $p) : ?>
                 <th>
-                    <?= Html::a('P' . ($key + 1), ['/contest/problem', 'id' => $model->id, 'pid' => $key]) ?>
+                    <?= Html::a('P' . ($key + 1), ['/contest/problem', 'id' => $model->id, 'pid' => $key],['data-pjax' => '0']) ?>
                     <br>
                     <span style="color:#7a7a7a; font-size:12px">
                         <?php

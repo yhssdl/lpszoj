@@ -74,8 +74,6 @@ $loadingImgUrl = Yii::getAlias('@web/images/loading.gif');
                     }
                 ?>
             </div>
-            <?php if ($this->beginCache('contest_problem_view' . $model->id . '_' . $problem['num'] . '_ ' . $problem['id'])) : ?>                
-
                 <div class="content-header"><?= Yii::t('app', 'Description') ?></div>
                 <div class="content-wrapper">
                     <?= Yii::$app->formatter->asMarkdown($problem['description']) ?>
@@ -132,8 +130,6 @@ $loadingImgUrl = Yii::getAlias('@web/images/loading.gif');
                         <?= Yii::$app->formatter->asMarkdown($problem['hint']) ?>
                     </div>
                 <?php endif; ?>
-                <?php $this->endCache(); ?>
-            <?php endif; ?>
             <div class="content-header" id="submit-code"><?= Yii::t('app', 'Submit') ?></div><br>
             <div class="content-wrapper">
                 <?php if ($model->isContestEnd() && time() < strtotime($model->end_time) + 5 * 60 && !Yii::$app->user->isGuest && $model->isUserInContest() && !Yii::$app->user->identity->isAdmin() && !Yii::$app->user->identity->isVip()) : ?>

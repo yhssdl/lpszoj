@@ -224,7 +224,7 @@ if($sample_output==false) $sample_output =  array("无","","");
 $loadingImgUrl = Yii::getAlias('@web/images/loading.gif');
 ?>
 
-<div class="main-container">
+<div class="main-container animate__animated animate__fadeInUp">
     <div class="problem-container">
         <div class="problem-splitter">
             <div class="problem-left">
@@ -232,7 +232,7 @@ $loadingImgUrl = Yii::getAlias('@web/images/loading.gif');
                     <div class="content-title text-left"><?= Html::encode('P' . (1 + $problem['num']). '. ' . $problem['title']) ?>&nbsp;&nbsp;
                         <?php if (!Yii::$app->user->isGuest && Yii::$app->user->identity->role == User::ROLE_ADMIN) {
                             echo Html::a('<span class="fa fa-edit"></span>',
-                            ['/admin/problem/update', 'id' => $problem['id']],['class' => 'btn btn-link','target'=>'_blank','data-pjax' => '0',]);
+                            ['/admin/problem/update', 'id' => $problem['id']],['class' => 'btn btn-link','target'=>'_blank','data-pjax' => '0']);
                             }
                         ?>
                         <div class="btn btn-link" style="cursor:unset">
@@ -252,65 +252,63 @@ $loadingImgUrl = Yii::getAlias('@web/images/loading.gif');
                 </div>
                 
                 <div class="problem-description">
-                    <?php if ($this->beginCache('contest_problem_view' . $model->id . '_' . $problem['num'] . '_ ' . $problem['id'])) : ?>                
+        
 
-                        <div class="content-header"><?= Yii::t('app', 'Description') ?></div>
-                        <div class="content-wrapper">
-                            <?= Yii::$app->formatter->asMarkdown($problem['description']) ?>
-                        </div>
+                    <div class="content-header"><?= Yii::t('app', 'Description') ?></div>
+                    <div class="content-wrapper">
+                        <?= Yii::$app->formatter->asMarkdown($problem['description']) ?>
+                    </div>
 
-                        <div class="content-header"><?= Yii::t('app', 'Input') ?></div>
-                        <div class="content-wrapper">
-                            <?= Yii::$app->formatter->asMarkdown($problem['input']) ?>
-                        </div>
+                    <div class="content-header"><?= Yii::t('app', 'Input') ?></div>
+                    <div class="content-wrapper">
+                        <?= Yii::$app->formatter->asMarkdown($problem['input']) ?>
+                    </div>
 
-                        <div class="content-header"><?= Yii::t('app', 'Output') ?></div>
-                        <div class="content-wrapper">
-                            <?= Yii::$app->formatter->asMarkdown($problem['output']) ?>
-                        </div>
+                    <div class="content-header"><?= Yii::t('app', 'Output') ?></div>
+                    <div class="content-wrapper">
+                        <?= Yii::$app->formatter->asMarkdown($problem['output']) ?>
+                    </div>
 
-                        <div class="content-header"><?= Yii::t('app', 'Examples') ?></div>
-                        <div class="content-wrapper">
-                            <div class="sample-test">
+                    <div class="content-header"><?= Yii::t('app', 'Examples') ?></div>
+                    <div class="content-wrapper">
+                        <div class="sample-test">
+                            <div class="input">
+                                <h4><?= Yii::t('app', 'Input') ?></h4>
+                                <pre><?= $sample_input[0] ?></pre>
+                            </div>
+                            <div class="output">
+                                <h4><?= Yii::t('app', 'Output') ?></h4>
+                                <pre><?= $sample_output[0] ?></pre>
+                            </div>
+
+                            <?php if ($sample_input[1] != '' || $sample_output[1] != '') : ?>
                                 <div class="input">
                                     <h4><?= Yii::t('app', 'Input') ?></h4>
-                                    <pre><?= $sample_input[0] ?></pre>
+                                    <pre><?= $sample_input[1] ?></pre>
                                 </div>
                                 <div class="output">
                                     <h4><?= Yii::t('app', 'Output') ?></h4>
-                                    <pre><?= $sample_output[0] ?></pre>
+                                    <pre><?= $sample_output[1] ?></pre>
                                 </div>
+                            <?php endif; ?>
 
-                                <?php if ($sample_input[1] != '' || $sample_output[1] != '') : ?>
-                                    <div class="input">
-                                        <h4><?= Yii::t('app', 'Input') ?></h4>
-                                        <pre><?= $sample_input[1] ?></pre>
-                                    </div>
-                                    <div class="output">
-                                        <h4><?= Yii::t('app', 'Output') ?></h4>
-                                        <pre><?= $sample_output[1] ?></pre>
-                                    </div>
-                                <?php endif; ?>
-
-                                <?php if ($sample_input[2] != '' || $sample_output[2] != '') : ?>
-                                    <div class="input">
-                                        <h4><?= Yii::t('app', 'Input') ?></h4>
-                                        <pre><?= $sample_input[2] ?></pre>
-                                    </div>
-                                    <div class="output">
-                                        <h4><?= Yii::t('app', 'Output') ?></h4>
-                                        <pre><?= $sample_output[2] ?></pre>
-                                    </div>
-                                <?php endif; ?>
-                            </div>
+                            <?php if ($sample_input[2] != '' || $sample_output[2] != '') : ?>
+                                <div class="input">
+                                    <h4><?= Yii::t('app', 'Input') ?></h4>
+                                    <pre><?= $sample_input[2] ?></pre>
+                                </div>
+                                <div class="output">
+                                    <h4><?= Yii::t('app', 'Output') ?></h4>
+                                    <pre><?= $sample_output[2] ?></pre>
+                                </div>
+                            <?php endif; ?>
                         </div>
-                        <?php if (!empty($problem['hint'])) : ?>
-                            <div class="content-header"><?= Yii::t('app', 'Hint') ?></div>
-                            <div class="content-wrapper">
-                                <?= Yii::$app->formatter->asMarkdown($problem['hint']) ?>
-                            </div>
-                        <?php endif; ?>
-                        <?php $this->endCache(); ?>
+                    </div>
+                    <?php if (!empty($problem['hint'])) : ?>
+                        <div class="content-header"><?= Yii::t('app', 'Hint') ?></div>
+                        <div class="content-wrapper">
+                            <?= Yii::$app->formatter->asMarkdown($problem['hint']) ?>
+                        </div>
                     <?php endif; ?>
                 </div>
             </div>
