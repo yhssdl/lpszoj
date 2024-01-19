@@ -208,14 +208,14 @@ $nextProblemID = $model->getNextProblemID();
                             <div class="btn btn-link">
                                 <?= Html::a(
                                     '<i class="fa fa-arrow-left"></i>',
-                                    $previousProblemID ? ['/problem/view', 'id' => $previousProblemID, 'view' => 'classic'] : 'javascript:void(0);',
+                                    $previousProblemID ? ['/problem/view', 'id' => $previousProblemID] : 'javascript:void(0);',
                                     ['title'=>'上一题','disabled' => !$previousProblemID]
                                 ) ?>
                             </div>
                             <div class="btn btn-link">
                             <?= Html::a(
                                 '<i class="fa fa-arrow-right"></i>',
-                                $nextProblemID ? ['/problem/view', 'id' => $nextProblemID, 'view' => 'classic'] : 'javascript:void(0);',
+                                $nextProblemID ? ['/problem/view', 'id' => $nextProblemID] : 'javascript:void(0);',
                                 ['title' => '下一题',  'disabled' => !$nextProblemID]
                             ) ?>
                             </div>                            

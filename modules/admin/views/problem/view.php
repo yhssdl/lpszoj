@@ -7,11 +7,36 @@ use yii\helpers\Html;
 
 $this->title = $model->title;
 $this->params['model'] = $model;
+$previousProblemID = $model->getPreviousProblemID();
+$nextProblemID = $model->getNextProblemID();
 ?>
 
 <div class="row animate__animated animate__fadeInUp">
     <div class="col-md-9 problem-view">
-    <div class="text-center content-title"><?= Html::encode($this->title) ?></div>
+
+        <div class="row">
+            <div class="col-md-9 text-left">
+                <div class="content-title"><?= $model->id . "：".Html::encode($this->title) ?></div>
+            </div>
+            <div class="col-md-3 text-right">
+                <div class="btn btn-link">
+                    <?= Html::a(
+                        '<i class="fa fa-arrow-left"></i>',
+                        $previousProblemID ? ['view', 'id' => $previousProblemID] : 'javascript:void(0);',
+                        ['title'=>'上一题','disabled' => !$previousProblemID]
+                    ) ?>
+                </div>
+                <div class="btn btn-link">
+                    <?= Html::a(
+                    '<i class="fa fa-arrow-right"></i>',
+                    $nextProblemID ? ['view', 'id' => $nextProblemID] : 'javascript:void(0);',
+                    ['title' => '下一题',  'disabled' => !$nextProblemID]
+                    ) ?>
+                </div>      
+            </div>
+        </div>
+
+
         <div class="content-header"><?= Yii::t('app', 'Description') ?></div>
         <div class="content-wrapper">
             <?= Yii::$app->formatter->asMarkdown($model->description) ?>

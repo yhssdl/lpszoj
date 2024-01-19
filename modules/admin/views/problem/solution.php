@@ -8,8 +8,30 @@ use yii\widgets\ActiveForm;
 
 $this->title = Yii::t('app', $model->title);
 $this->params['model'] = $model;
+$previousProblemID = $model->getPreviousProblemID();
+$nextProblemID = $model->getNextProblemID();
 ?>
-<p class="lead"><?= Html::encode($this->title) ?></p>
+<div class="row">
+    <div class="col-md-9 text-left">
+        <div class="content-title"><?= $model->id . "：".Html::encode($this->title) ?></div>
+    </div>
+    <div class="col-md-3 text-right">
+        <div class="btn btn-link">
+            <?= Html::a(
+                '<i class="fa fa-arrow-left"></i>',
+                $previousProblemID ? ['solution', 'id' => $previousProblemID] : 'javascript:void(0);',
+                ['title'=>'上一题','disabled' => !$previousProblemID]
+            ) ?>
+        </div>
+        <div class="btn btn-link">
+            <?= Html::a(
+            '<i class="fa fa-arrow-right"></i>',
+            $nextProblemID ? ['solution', 'id' => $nextProblemID] : 'javascript:void(0);',
+            ['title' => '下一题',  'disabled' => !$nextProblemID]
+            ) ?>
+        </div>      
+    </div>
+</div>
 <div class="problem-solution animate__animated animate__fadeInUp">
 
     <div class="alert alert-light">
