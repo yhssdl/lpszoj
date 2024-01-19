@@ -227,13 +227,13 @@ $loadingImgUrl = Yii::getAlias('@web/images/loading.gif');
                             ['/admin/problem/update', 'id' => $problem['id']],['class' => 'btn btn-link','target'=>'_blank','data-pjax' => '0',]);
                             }
                         ?>
-                            <div class="btn btn-link">
-                                <i class="fa fa-clock-o" title="时间限制: <?= intval($problem['time_limit']) ?> 秒"></i>
-                            </div>
+                        <div class="btn btn-link" style="cursor:unset">
+                            <i class="fa fa-clock-o" title="时间限制: <?= intval($problem['time_limit']) ?> 秒"></i>
+                        </div>
 
-                            <div class="btn btn-link">
-                                <i class="fa fa-save" title="内存限制: <?=$problem['memory_limit'] ?> MB"></i>
-                            </div>
+                        <div class="btn btn-link" style="cursor:unset">
+                            <i class="fa fa-save" title="内存限制: <?=$problem['memory_limit'] ?> MB"></i>
+                        </div>
                     </div>
                     <div class="text-right">
                         <?= Nav::widget([

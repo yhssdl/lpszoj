@@ -182,21 +182,21 @@ $nextProblemID = $model->getNextProblemID();
                         <div class="text-left content-title"><?= Html::encode($this->title) ?>
                             <?php if (!Yii::$app->user->isGuest && Yii::$app->user->identity->role == User::ROLE_ADMIN) {
                                 echo Html::a('<span class="fa fa-edit"></span> ',
-                                ['/admin/problem/update', 'id' => $model->id],['class' => 'btn btn-link','target'=>'_blank']);
+                                ['/admin/problem/update', 'id' => $model->id],['class' => 'btn btn-link','target'=>'_blank','title'=>'编辑']);
                                 }
                             ?>
                         </div>
                     </div>
                     <div class="col-md-6">
                         <div class="text-right">
-                            <div class="btn btn-link">
+                            <div class="btn btn-link" style="cursor:unset">
                                 <i class="fa fa-clock-o" title="时间限制: <?= intval($model->time_limit) ?> 秒"></i>
                             </div>
 
-                            <div class="btn btn-link">
+                            <div class="btn btn-link" style="cursor:unset">
                                 <i class="fa fa-save" title="内存限制: <?= $model->memory_limit ?> MB"></i>
                             </div>
-                            <div class="btn btn-link">
+                            <div class="btn btn-link" style="cursor:unset">
                                 <i class="fa fa-share-square-o" title="通过次数: <?= $model->accepted ?>"></i>
                             </div>
                             <div class="btn btn-link">
