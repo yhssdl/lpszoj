@@ -175,6 +175,9 @@ $this->registerCss("
     .content-title .btn{
         padding:6px 3px;
     }
+    .footer{
+        display: none;
+    }
 ");
 
 
@@ -220,7 +223,6 @@ if($sample_output==false) $sample_output =  array("无","","");
 
 $loadingImgUrl = Yii::getAlias('@web/images/loading.gif');
 ?>
-
 
 <div class="main-container">
     <div class="problem-container">

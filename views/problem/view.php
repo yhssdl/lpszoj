@@ -154,6 +154,9 @@ $this->registerCss("
     .gutter.gutter-horizontal {
         background-image: url('data:image/png;base64,iVBORw0KGgoAAAANSUhEUgAAAAUAAAAeCAYAAADkftS9AAAAIklEQVQoU2M4c+bMfxAGAgYYmwGrIIiDjrELjpo5aiZeMwF+yNnOs5KSvgAAAABJRU5ErkJggg==');
     }
+    .footer{
+        display: none;
+    }
 ");
 
 if (!Yii::$app->user->isGuest) {
