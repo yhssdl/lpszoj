@@ -880,7 +880,7 @@ class Contest extends \yii\db\ActiveRecord
         return Yii::$app->db->cache(function ($db) use ($id, $contestID) {
             return $db->createCommand(
                 "SELECT `cp`.`num`, `p`.`title`, `p`.`id`, `p`.`description`, 
-                `p`.`input`, `p`.`output`, `p`.`sample_input`, `p`.`sample_output`, `p`.`hint`, `p`.`time_limit`, `p`.`solution`, 
+                `p`.`input`, `p`.`output`, `p`.`sample_input`, `p`.`sample_output`, `p`.`hint`, `p`.`time_limit`, `p`.`solution`, `p`.`show_solution`, 
                 `p`.`memory_limit` 
                 FROM `problem` `p` 
                 LEFT JOIN `contest_problem` `cp` ON cp.problem_id=p.id 
