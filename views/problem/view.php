@@ -19,6 +19,7 @@ $this->registerCss("
     body {
         overflow: hidden;
     }
+
     .wrap {
         display: flex;
         flex-direction: column;
@@ -26,19 +27,33 @@ $this->registerCss("
         margin: 0;
     }
 
-    .wrap > .container {
+    .container{
         width:100%;
+    }
+
+    .wrap > .container {
         display: flex;
         flex-direction: column;
         flex: 1 1 0;
         overflow: hidden;
     }
 
-    .container{
-        width:100%;
+    .flex-col{
+        display: flex;
+        flex-direction: column;
+        flex: 1 1 0;
+        overflow: hidden;        
     }
 
-    .container > .radius {
+    .flex-row{
+        display: flex;
+        flex-direction: row;
+        flex: 1 1 0;
+        overflow: hidden;        
+    }
+
+
+    .container > .main_body {
         display: flex;
         flex-direction: column;
         flex: 1 1 0;
@@ -48,24 +63,12 @@ $this->registerCss("
     .main-container {
         height: 100%;
     }
+
     .problem-container {
-        display: flex;
-        flex-direction: column;
         height: 100%;
         background: #fff;
     }
-    .problem-splitter {
-        display: flex;
-        flex-direction: row;
-        flex: 1 1 0;
-        overflow: hidden;
-    }
-    .problem-left {
-        overflow: hidden;
-        display: flex;
-        flex-direction: column;
-        flex: 1 0 0;
-    }
+
 
     .flex-title{
         align-items:center;
@@ -73,40 +76,12 @@ $this->registerCss("
         display: flex;
         justify-content:space-between;
     }
-    
-    .problem-left, .problem-right {
-        display: -webkit-box;
-        display: -webkit-flex;
-        display: -ms-flexbox;
-        display: flex;
-        -webkit-box-orient: vertical;
-        -webkit-flex-direction: column;
-        -ms-flex-direction: column;
-        flex-direction: column;
-        height: 100%;
-    }
+
     .problem-description {
         overflow-x: hidden;
         height: 100%;
     }
-    .problem-header {
-        display: flex;
-        justify-content: space-between;
-        border-bottom: 1px solid rgb(225, 228, 232);
-    }
-    .problem-header .problem-meta {
-        display: flex;
-        text-align: center;
-        color: #666;
-        font-size: 12px;
-        margin: 0px;
-    }
-    .problem-header .separator {
-        width: 1px;
-        height: 100%;
-        margin: 0px 20px;
-        background: rgb(238, 238, 238);
-    }
+
     .problem-right > .problem-editor {
         padding-left:12px;
         display: flex;
@@ -117,24 +92,8 @@ $this->registerCss("
         height: 100%;
         overflow: hidden;
     }
-    .problem-wrap {
-        display: flex;
-        flex-direction: column;
-        flex: 1 1 auto;
-        overflow: hidden;
-    }
-    .problem-footer {
-        display: flex;
-        padding: 5px;
-        border-top: 1px solid #eee;
-        width:100%;
-    }
-    .problem-left .problem-footer {
-        justify-content: flex-end;
-    }
-    .problem-right .problem-footer {
-        justify-content: space-between;
-    }
+
+
     .modal-body .table td{
         border-top:unset;
         border-bottom:1px solid #ddd;
@@ -154,6 +113,7 @@ $this->registerCss("
     .gutter.gutter-horizontal {
         background-image: url('data:image/png;base64,iVBORw0KGgoAAAANSUhEUgAAAAUAAAAeCAYAAADkftS9AAAAIklEQVQoU2M4c+bMfxAGAgYYmwGrIIiDjrELjpo5aiZeMwF+yNnOs5KSvgAAAABJRU5ErkJggg==');
     }
+
     .footer{
         display: none;
     }
@@ -176,10 +136,10 @@ $previousProblemID = $model->getPreviousProblemID();
 $nextProblemID = $model->getNextProblemID();
 ?>
 
-<div class="main-container">
-    <div class="problem-container">
-        <div class="problem-splitter">
-            <div class="problem-left">
+<div class="main-container flex-col">
+    <div class="problem-container flex-col">
+        <div class="problem-splitter  flex-row">
+            <div class="problem-left flex-col">
                 <div class="row">
                     <div class="col-md-6">
                         <div class="text-left content-title"><?= Html::encode($this->title) ?>

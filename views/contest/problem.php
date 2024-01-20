@@ -34,14 +34,26 @@ $this->registerCss("
     }
 
     .wrap > .container {
-        width:100%;
         display: flex;
         flex-direction: column;
         flex: 1 1 0;
         overflow: hidden;
     }
-    
 
+    .flex-col{
+        display: flex;
+        flex-direction: column;
+        flex: 1 1 0;
+        overflow: hidden;        
+    }
+
+    .flex-row{
+        display: flex;
+        flex-direction: row;
+        flex: 1 1 0;
+        overflow: hidden;        
+    }    
+    
     .flex-title{
         align-items:center;
         padding:0 8px;
@@ -53,21 +65,27 @@ $this->registerCss("
         margin:12px 0;
     }
 
-    .main_body,.contest-view{
-        display: flex;
-        flex-direction: column;  
-        height: 100%;
-    }
-
-    .container > .radius {
+    .container > .main_body ,.contest-view{
         display: flex;
         flex-direction: column;
         flex: 1 1 0;
         overflow: hidden;
     }
 
-    .main-container ,#p0{
+    .contest-view{
+        margin-top:-15px;
+    }
+
+    .contest-info > .progress {
+        margin-bottom:10px;
+    }
+
+
+    #p0{
         height: 100%;
+        display: flex;
+        flex-direction: column;
+        flex: 1 1 0;
     }
     .problem-container {
         display: flex;
@@ -81,46 +99,12 @@ $this->registerCss("
         flex: 1 1 0;
         overflow: hidden;
     }
-    .problem-left {
-        overflow: hidden;
-        display: flex;
-        flex-direction: column;
-        flex: 1 0 0;
-    }
-    
-    .problem-left, .problem-right {
-        display: -webkit-box;
-        display: -webkit-flex;
-        display: -ms-flexbox;
-        display: flex;
-        -webkit-box-orient: vertical;
-        -webkit-flex-direction: column;
-        -ms-flex-direction: column;
-        flex-direction: column;
-        height: 100%;
-    }
+
     .problem-description {
         overflow-x: hidden;
         height: 100%;
     }
-    .problem-header {
-        display: flex;
-        justify-content: space-between;
-        border-bottom: 1px solid rgb(225, 228, 232);
-    }
-    .problem-header .problem-meta {
-        display: flex;
-        text-align: center;
-        color: #666;
-        font-size: 12px;
-        margin: 0px;
-    }
-    .problem-header .separator {
-        width: 1px;
-        height: 100%;
-        margin: 0px 20px;
-        background: rgb(238, 238, 238);
-    }
+
     .problem-right > .problem-editor {
         padding:12px 0 0 12px;
         display: flex;
@@ -131,22 +115,9 @@ $this->registerCss("
         height: 100%;
         overflow: hidden;
     }
-    .problem-wrap {
-        display: flex;
-        flex-direction: column;
-        flex: 1 1 auto;
-        overflow: hidden;
-    }
+
     .problem-footer {
-        display: flex;
         padding: 5px;
-        border-top: 1px solid #eee;
-    }
-    .problem-left .problem-footer {
-        justify-content: flex-end;
-    }
-    .problem-right .problem-footer {
-        justify-content: space-between;
     }
 
     .modal-body .table td{
@@ -215,10 +186,10 @@ if($sample_output==false) $sample_output =  array("无","","");
 
 $loadingImgUrl = Yii::getAlias('@web/images/loading.gif');
 ?>
-<div class="main-container animate__animated animate__fadeInUp">
-    <div class="problem-container">
-        <div class="problem-splitter">
-            <div class="problem-left">
+<div class="main-container flex-col">
+    <div class="problem-container flex-col">
+        <div class="problem-splitter flex-row">
+            <div class="problem-left flex-col">
                 <div class="flex-title">
                     <div class="content-title text-left"><?= Html::encode('P' . (1 + $problem['num']). '. ' . $problem['title']) ?>&nbsp;&nbsp;
                         <?php if (!Yii::$app->user->isGuest && Yii::$app->user->identity->role == User::ROLE_ADMIN) {
