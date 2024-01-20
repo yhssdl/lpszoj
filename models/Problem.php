@@ -264,7 +264,13 @@ class Problem extends ActiveRecord
      * @return false|string|null
      * @throws \yii\db\Exception
      */
-    public function getPreviousProblemID() {
+    public function getPreviousProblemID($showAll=false) {
+
+        if($showAll){
+            return Yii::$app->db->createCommand('SELECT id FROM {{%problem}} WHERE id < :id ORDER BY id DESC limit 1')
+            ->bindValues([':id' => $this->id])
+            ->queryScalar(); 
+        }
 
         if (Yii::$app->setting->get('isHideVIP') && (Yii::$app->user->isGuest || Yii::$app->user->identity->role === User::ROLE_USER)){
             return Yii::$app->db->createCommand('SELECT id FROM {{%problem}} WHERE id < :id AND status = :status ORDER BY id DESC limit 1')
@@ -281,7 +287,14 @@ class Problem extends ActiveRecord
      * @return false|string|null
      * @throws \yii\db\Exception
      */
-    public function getNextProblemID() {
+    public function getNextProblemID($showAll=false) {
+
+        if($showAll){
+            return Yii::$app->db->createCommand('SELECT id FROM {{%problem}} WHERE id > :id LIMIT 1')
+            ->bindValues([':id' => $this->id])
+            ->queryScalar(); 
+        }
+
         if (Yii::$app->setting->get('isHideVIP') && (Yii::$app->user->isGuest || Yii::$app->user->identity->role === User::ROLE_USER)){
             return Yii::$app->db->createCommand('SELECT id FROM {{%problem}} WHERE id > :id AND status = :status LIMIT 1')
             ->bindValues([':id' => $this->id, ':status' => Problem::STATUS_VISIBLE])

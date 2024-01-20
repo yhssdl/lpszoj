@@ -7,8 +7,8 @@ use yii\helpers\Html;
 
 $this->title = Yii::t('app', $model->title);
 $this->params['model'] = $model;
-$previousProblemID = $model->getPreviousProblemID();
-$nextProblemID = $model->getNextProblemID();
+$previousProblemID = $model->getPreviousProblemID(true);
+$nextProblemID = $model->getNextProblemID(true);
 ?>
 
 <div class="problem-update">
