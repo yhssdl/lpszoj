@@ -334,7 +334,7 @@ $loadingImgUrl = Yii::getAlias('@web/images/loading.gif');
 
                                     if (!empty($problem['solution'])) {
                                         $bShow  = false;
-                                        if (Yii::$app->setting->get('isEnableShowSolution')==1 && ($problem['show_solution']==1 || (isset($loginUserProblemSolvingStatus[$problem['id']]) && $loginUserProblemSolvingStatus[$problem['id']] == \app\models\Solution::OJ_AC))){
+                                        if (Yii::$app->setting->get('isEnableShowSolution')==1 && ($model->show_solution==1 && (isset($loginUserProblemSolvingStatus[$problem['id']]) && $loginUserProblemSolvingStatus[$problem['id']] == \app\models\Solution::OJ_AC))){
                                             $bShow  = true;  
                                         } else if( !Yii::$app->user->isGuest && ( (Yii::$app->setting->get('isAdminShowSolution')==1 && Yii::$app->user->identity->role >= User::ROLE_TEACHER) || (Yii::$app->setting->get('isAdminShowSolution')==2 && Yii::$app->user->identity->role == User::ROLE_ADMIN)) ) {
                                             $bShow  = true;  

@@ -45,6 +45,12 @@ $this->title = $model->name;
                         1 => '显示下一小节',
                     ])->label(false) ?>
 
+                    <?= $form->field($newContest, 'show_solution')->radioList([
+                        0 => '关闭',
+                        1 => '开启',
+                    ])->hint('是否允许在提交程序正确后，查看题目的解题代码。（前提一：后台打开是否允许查看解题总开关，前提二：题目中存在解题代码。）') ?>
+
+
                     <?= $form->field($newContest, 'language')->radioList([
                         -1 => 'All',
                         0 => 'C',
