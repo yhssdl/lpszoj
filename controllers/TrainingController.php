@@ -414,15 +414,18 @@ class TrainingController extends BaseController
                 ->limit(10)
                 ->all();
         }
+
+        $view = (Yii::$app->setting->get('showMode') ? '/training/problem' : '/training/classic');
+
         if (Yii::$app->request->isPjax) {
-            return $this->renderAjax('/training/problem', [
+            return $this->renderAjax($view, [
                 'model' => $model,
                 'solution' => $solution,
                 'problem' => $problem,
                 'submissions' => $submissions
             ]);
         } else {
-            return $this->render('/training/problem', [
+            return $this->render($view, [
                 'model' => $model,
                 'solution' => $solution,
                 'problem' => $problem,
