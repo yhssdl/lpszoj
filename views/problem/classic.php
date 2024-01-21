@@ -406,7 +406,7 @@ if (waitingCount > 0) {
             interval = null;
         }
     }
-    interval = setInterval(testWaitingsDone, 1000);
+    interval = setInterval(testWaitingsDone, 500);
 }
 $("#solution-theme").on("change", function () {
     var sel_theme = document.getElementById("solution-theme").value;
