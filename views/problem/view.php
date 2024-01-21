@@ -69,6 +69,12 @@ $this->registerCss("
         background: #fff;
     }
 
+    .problem-footer > .flex-row{
+        align-items:center;
+        padding-top:12px;
+        justify-content:space-between;
+        flex-wrap:wrap;
+    }
 
     .flex-title{
         align-items:center;
@@ -92,8 +98,7 @@ $this->registerCss("
         height: 100%;
         overflow: hidden;
     }
-
-
+    
     .modal-body .table td{
         border-top:unset;
         border-bottom:1px solid #ddd;
@@ -304,141 +309,141 @@ $nextProblemID = $model->getNextProblemID();
                     ->widget('app\widgets\codemirror\CodeMirror')->label(false); ?>
 
                 <div class="problem-footer">
-                    <?php if (Yii::$app->user->isGuest): ?> 
-                        <span><i class=" fa fa-info-circle"></i> 登录以提交代码</span>;
-                    <?php else: ?> 
-                        <div class="btn-group">
-                        <?php
-                            echo Html::submitButton('<span class="fa fa-send"></span> ' . Yii::t('app', 'Submit'), ['class' => 'btn btn-success']);
+                    <div class="flex-row">
+                        <?php if (Yii::$app->user->isGuest): ?> 
+                            <span><i class=" fa fa-info-circle"></i> 登录以提交代码</span>;
+                        <?php else: ?> 
+                            <div class="btn-group">
+                            <?php
+                                echo Html::submitButton('<span class="fa fa-send"></span> ' . Yii::t('app', 'Submit'), ['class' => 'btn btn-success']);
 
-                            if (Yii::$app->setting->get('isDiscuss')) {
-                                echo Html::a(
-                                    '<span class="fa fa-comment"></span> ' . Yii::t('app', 'Discuss'),
-                                    ['/problem/discuss', 'id' => $model->id],
-                                    ['class' => 'btn btn-default']
-                                );
-                            }
-                            if (!empty($model->solution)) {
-                                $bShow  = false;
-                                if (Yii::$app->setting->get('isEnableShowSolution')==1 && ($model->show_solution || $model->isSolved())){
-                                    $bShow  = true;  
-                                } else if( !Yii::$app->user->isGuest && ( (Yii::$app->setting->get('isEnableShowSolution')==2 && Yii::$app->user->identity->role >= User::ROLE_TEACHER) || (Yii::$app->setting->get('isEnableShowSolution')==3 && Yii::$app->user->identity->role == User::ROLE_ADMIN)) ) {
-                                    $bShow  = true;  
-                                }
-                                if ($bShow)
+                                if (Yii::$app->setting->get('isDiscuss')) {
                                     echo Html::a(
-                                        '<i class="fa fa-dropbox"></i> ' . Yii::t('app', '题解'),
-                                        ['/problem/solution', 'id' => $model->id],
-                                        ['class' => 'btn btn-default','title' => '查看源码', 'onclick' => 'return false', 'data-click' => "solution_info", 'data-pjax' => 0]
+                                        '<span class="fa fa-comment"></span> ' . Yii::t('app', 'Discuss'),
+                                        ['/problem/discuss', 'id' => $model->id],
+                                        ['class' => 'btn btn-default']
                                     );
-                            }
-                        ?>
-                        <?php if (!empty($submissions)) : ?>
-                                <?php Modal::begin([
-                                    'header' => Yii::t('app', 'Submit') . '：' . Html::encode($model->id . '. ' . $model->title),
-                                    'toggleButton' => [
-                                        'label' => '我的提交',
-                                        'class' => 'btn btn-default'
-                                    ]
-                                ]); ?>
-                                <table class="table">
-                                    <tbody>
-                                        <?php foreach ($submissions as $sub) : ?>
-                                            <tr>
-                                                <td title="<?= $sub['created_at'] ?>">
-                                                    <?= Yii::$app->formatter->asRelativeTime($sub['created_at']) ?>
-                                                </td>
-                                                <td>
-                                                    <?php
-                                                    if ($sub['result'] <= Solution::OJ_WAITING_STATUS) {
-                                                        $waitingHtmlDom = 'waiting="true"';
-                                                        $loadingImg = "<img src=\"{$loadingImgUrl}\">";
-                                                    } else {
-                                                        $waitingHtmlDom = 'waiting="false"';
-                                                        $loadingImg = "";
-                                                    }
-                                                    $innerHtml =  'data-verdict="' . $sub['result'] . '" data-submissionid="' . $sub['id'] . '" ' . $waitingHtmlDom;
-                                                    if ($sub['result'] == Solution::OJ_AC) {
-                                                        $span = '<span class="text-success"' . $innerHtml . '>' . Solution::getResultList($sub['result']) . '</span>';
-                                                    } else {
-                                                        $span = '<span class="text-danger" ' . $innerHtml . '>' . Solution::getResultList($sub['result']) . $loadingImg . '</span>';
-                                                    }
-                                                    if ($solution->canViewResult()) {
-                                                        echo Html::a(
-                                                            $span,
-                                                            ['/solution/result', 'id' => $sub['id']],
-                                                            ['onclick' => 'return false', 'data-click' => "solution_info", 'data-pjax' => 0]
-                                                        );
-                                                        }else{
-                                                            echo $span;
+                                }
+                                if (!empty($model->solution)) {
+                                    $bShow  = false;
+                                    if (Yii::$app->setting->get('isEnableShowSolution')==1 && ($model->show_solution || $model->isSolved())){
+                                        $bShow  = true;  
+                                    } else if( !Yii::$app->user->isGuest && ( (Yii::$app->setting->get('isEnableShowSolution')==2 && Yii::$app->user->identity->role >= User::ROLE_TEACHER) || (Yii::$app->setting->get('isEnableShowSolution')==3 && Yii::$app->user->identity->role == User::ROLE_ADMIN)) ) {
+                                        $bShow  = true;  
+                                    }
+                                    if ($bShow)
+                                        echo Html::a(
+                                            '<i class="fa fa-dropbox"></i> ' . Yii::t('app', '题解'),
+                                            ['/problem/solution', 'id' => $model->id],
+                                            ['class' => 'btn btn-default','title' => '查看源码', 'onclick' => 'return false', 'data-click' => "solution_info", 'data-pjax' => 0]
+                                        );
+                                }
+                            ?>
+                            <?php if (!empty($submissions)) : ?>
+                                    <?php Modal::begin([
+                                        'header' => Yii::t('app', 'Submit') . '：' . Html::encode($model->id . '. ' . $model->title),
+                                        'toggleButton' => [
+                                            'label' => '我的提交',
+                                            'class' => 'btn btn-default'
+                                        ]
+                                    ]); ?>
+                                    <table class="table">
+                                        <tbody>
+                                            <?php foreach ($submissions as $sub) : ?>
+                                                <tr>
+                                                    <td title="<?= $sub['created_at'] ?>">
+                                                        <?= Yii::$app->formatter->asRelativeTime($sub['created_at']) ?>
+                                                    </td>
+                                                    <td>
+                                                        <?php
+                                                        if ($sub['result'] <= Solution::OJ_WAITING_STATUS) {
+                                                            $waitingHtmlDom = 'waiting="true"';
+                                                            $loadingImg = "<img src=\"{$loadingImgUrl}\">";
+                                                        } else {
+                                                            $waitingHtmlDom = 'waiting="false"';
+                                                            $loadingImg = "";
                                                         }
-                                                    
-                                                    ?>
-                                                </td>
-                                                <?php if ($solution->canViewSource()) : ?>
-                                                <td>
-                                                    <?= Html::a(
+                                                        $innerHtml =  'data-verdict="' . $sub['result'] . '" data-submissionid="' . $sub['id'] . '" ' . $waitingHtmlDom;
+                                                        if ($sub['result'] == Solution::OJ_AC) {
+                                                            $span = '<span class="text-success"' . $innerHtml . '>' . Solution::getResultList($sub['result']) . '</span>';
+                                                        } else {
+                                                            $span = '<span class="text-danger" ' . $innerHtml . '>' . Solution::getResultList($sub['result']) . $loadingImg . '</span>';
+                                                        }
+                                                        if ($solution->canViewResult()) {
+                                                            echo Html::a(
+                                                                $span,
+                                                                ['/solution/result', 'id' => $sub['id']],
+                                                                ['onclick' => 'return false', 'data-click' => "solution_info", 'data-pjax' => 0]
+                                                            );
+                                                            }else{
+                                                                echo $span;
+                                                            }
+                                                        
+                                                        ?>
+                                                    </td>
+                                                    <?php if ($solution->canViewSource()) : ?>
+                                                    <td>
+                                                        <?= Html::a(
+                                                            '<span class="fa fa-pencil-square-o"></span>',
+                                                            ['/solution/source', 'id' => $sub['id']],
+                                                            ['title' => '查看源码', 'onclick' => 'return false', 'data-click' => "solution_info", 'data-pjax' => 0]
+                                                        ) ?>
+                                                    </td>
+                                                    <?php endif; ?>
+                                                </tr>
+                                            <?php endforeach; ?>
+                                        </tbody>
+                                    </table>
+                                    <?php Modal::end(); ?>
+                                <?php endif; ?>
+                            </div>
+                        
+
+                            <?php if (!empty($submissions)) : ?>
+                                <div>
+                                    <?php $sub = $submissions[0]; ?>
+                                    <span>&nbsp;&nbsp;<?= Yii::$app->formatter->asRelativeTime($sub['created_at']) ?>&nbsp;&nbsp;</span>
+                                    <span>
+                                        <?php
+                                        if ($sub['result'] <= Solution::OJ_WAITING_STATUS) {
+                                            $waitingHtmlDom = 'waiting="true"';
+                                            $loadingImg = "<img src=\"{$loadingImgUrl}\">";
+                                        } else {
+                                            $waitingHtmlDom = 'waiting="false"';
+                                            $loadingImg = "";
+                                        }
+                                        $innerHtml =  'data-verdict="' . $sub['result'] . '" data-submissionid="' . $sub['id'] . '" ' . $waitingHtmlDom;
+                                        if ($sub['result'] == Solution::OJ_AC) {
+                                            $span = '<span class="text-success"' . $innerHtml . '>' . Solution::getResultList($sub['result']) . '</span>';
+                                        } else {
+                                            $span = '<span class="text-danger" ' . $innerHtml . '>' . Solution::getResultList($sub['result']) . $loadingImg . '</span>';  
+                                        }
+                                        if ($solution->canViewResult()) {
+                                            echo Html::a(
+                                                $span,
+                                                ['/solution/result', 'id' => $sub['id']],
+                                                ['onclick' => 'return false', 'data-click' => "solution_info", 'data-pjax' => 0]
+                                            );
+                                        }else{
+                                            echo $span;
+                                        }
+                                    
+                                        ?>
+                                    </span>
+                                    <?php if ($solution->canViewSource()) : ?>
+                                    <span>
+                                        &nbsp;<?= Html::a(
                                                         '<span class="fa fa-pencil-square-o"></span>',
                                                         ['/solution/source', 'id' => $sub['id']],
                                                         ['title' => '查看源码', 'onclick' => 'return false', 'data-click' => "solution_info", 'data-pjax' => 0]
-                                                    ) ?>
-                                                </td>
-                                                <?php endif; ?>
-                                            </tr>
-                                        <?php endforeach; ?>
-                                    </tbody>
-                                </table>
-                                <?php Modal::end(); ?>
+                                                    )
+                                                    ?>
+                                    </span>
+                                    <?php endif; ?>
+                                </div>
                             <?php endif; ?>
-                        </div>
-                    
-
-                        <?php if (!empty($submissions)) : ?>
-                            <div style="padding:6px 12px">
-                                <?php $sub = $submissions[0]; ?>
-                                <span>&nbsp;&nbsp;<?= Yii::$app->formatter->asRelativeTime($sub['created_at']) ?>&nbsp;&nbsp;</span>
-                                <span>
-                                    <?php
-                                    if ($sub['result'] <= Solution::OJ_WAITING_STATUS) {
-                                        $waitingHtmlDom = 'waiting="true"';
-                                        $loadingImg = "<img src=\"{$loadingImgUrl}\">";
-                                    } else {
-                                        $waitingHtmlDom = 'waiting="false"';
-                                        $loadingImg = "";
-                                    }
-                                    $innerHtml =  'data-verdict="' . $sub['result'] . '" data-submissionid="' . $sub['id'] . '" ' . $waitingHtmlDom;
-                                    if ($sub['result'] == Solution::OJ_AC) {
-                                        $span = '<span class="text-success"' . $innerHtml . '>' . Solution::getResultList($sub['result']) . '</span>';
-                                    } else {
-                                        $span = '<span class="text-danger" ' . $innerHtml . '>' . Solution::getResultList($sub['result']) . $loadingImg . '</span>';  
-                                    }
-                                    if ($solution->canViewResult()) {
-                                        echo Html::a(
-                                            $span,
-                                            ['/solution/result', 'id' => $sub['id']],
-                                            ['onclick' => 'return false', 'data-click' => "solution_info", 'data-pjax' => 0]
-                                        );
-                                    }else{
-                                        echo $span;
-                                    }
-                                 
-                                    ?>
-                                </span>
-                                <?php if ($solution->canViewSource()) : ?>
-                                <span>
-                                    &nbsp;<?= Html::a(
-                                                    '<span class="fa fa-pencil-square-o"></span>',
-                                                    ['/solution/source', 'id' => $sub['id']],
-                                                    ['title' => '查看源码', 'onclick' => 'return false', 'data-click' => "solution_info", 'data-pjax' => 0]
-                                                )
-                                                ?>
-                                </span>
-                                <?php endif; ?>
-                            </div>
                         <?php endif; ?>
-                    <?php endif; ?>
-
-
+                    </div>
                 </div>
                 <?php ActiveForm::end(); ?>
             </div>
