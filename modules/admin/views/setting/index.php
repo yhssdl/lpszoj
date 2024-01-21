@@ -151,12 +151,19 @@ if($editorName=='app\\widgets\\kindeditor\\KindEditor'){
 </div>
 
 <div class="form-group">
-    <?= Html::label(Yii::t('app', '是否允许查看解题'), 'isEnableShowSolution') ?>
+    <?= Html::label(Yii::t('app', '是否允许用户查看解题'), 'isEnableShowSolution') ?>
     <?= Html::radioList('isEnableShowSolution', $settings['isEnableShowSolution'], [
         0 => '不允许查看解题（关闭总开关）',
-        1 => '允许根据题目中解题的情况查看',
-        2 => '允许教师与管理员直接查看解题',
-        3 => '允许管理员直接查看解题',        
+        1 => '根据题目解题选项查看解题'  
+    ]) ?>
+</div>
+
+<div class="form-group">
+    <?= Html::label(Yii::t('app', '是否允许管理员查看解题'), 'isAdminShowSolution') ?>
+    <?= Html::radioList('isAdminShowSolution', $settings['isAdminShowSolution'], [
+        0 => '不允许查看解题（关闭总开关）',
+        1 => '教师与管理员都可以直接查看解题',
+        2 => '仅管理员可直接查看解题',        
     ]) ?>
 </div>
 

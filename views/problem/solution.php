@@ -19,7 +19,7 @@ $this->params['breadcrumbs'][] = ['label' => $this->title, 'url' => ['/problem/v
                 $bShow  = false;
                 if (Yii::$app->setting->get('isEnableShowSolution')==1 && ($model->show_solution || $model->isSolved())){
                     $bShow  = true;  
-                } else if( !Yii::$app->user->isGuest && ( (Yii::$app->setting->get('isEnableShowSolution')==2 && Yii::$app->user->identity->role >= User::ROLE_TEACHER) || (Yii::$app->setting->get('isEnableShowSolution')==3 && Yii::$app->user->identity->role == User::ROLE_ADMIN)) ) {
+                } else if( !Yii::$app->user->isGuest && ( (Yii::$app->setting->get('isAdminShowSolution')==1 && Yii::$app->user->identity->role >= User::ROLE_TEACHER) || (Yii::$app->setting->get('isAdminShowSolution')==2 && Yii::$app->user->identity->role == User::ROLE_ADMIN)) ) {
                     $bShow  = true;  
                 }
             ?>
