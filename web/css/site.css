@@ -796,6 +796,17 @@ a.text-teacher:focus {
     text-decoration: none;
 }
 
+a.text-train {
+    color: #9932CC;
+    text-decoration: none;
+}
+
+a.text-train:hover,
+a.text-train:focus {
+    color: #000;
+    text-decoration: none;
+}
+
 .navbar-header {
     min-height: 60px;
 

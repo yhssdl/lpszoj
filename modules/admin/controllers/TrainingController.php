@@ -244,7 +244,7 @@ class TrainingController extends Controller
                 } else if ($problemStatus == Problem::STATUS_PRIVATE 
                         && (Yii::$app->user->identity->role < User::ROLE_VIP)) {
                     $info_msg = $info_msg.$pid.":".Yii::t('app', '私有题目，仅 VIP 用户可选用')."<br>";
-                }else if ($problemStatus == Problem::STATUS_TEACHER 
+                }else if ($problemStatus >= Problem::STATUS_TEACHER 
                         && (Yii::$app->user->identity->role < User::ROLE_TEQACHER)) {
                     $info_msg = $info_msg.$pid.":".Yii::t('app', '私有题目，仅教师可选用')."<br>";
                 }
@@ -314,7 +314,7 @@ class TrainingController extends Controller
                 }
                 if ($newProblemStatus == Problem::STATUS_VISIBLE || Yii::$app->user->identity->role == User::ROLE_ADMIN
                     || ($newProblemStatus == Problem::STATUS_PRIVATE && Yii::$app->user->identity->role >= User::ROLE_VIP)
-                    || ($newProblemStatus == Problem::STATUS_TEACHER && Yii::$app->user->identity->role >= User::TEACHER)) {
+                    || ($newProblemStatus >= Problem::STATUS_TEACHER && Yii::$app->user->identity->role >= User::TEACHER)) {
                     Yii::$app->db->createCommand()->update('{{%contest_problem}}', [
                         'problem_id' => $new_pid,
                     ], ['problem_id' => $pid, 'contest_id' => $model->id])->execute();

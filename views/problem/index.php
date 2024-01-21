@@ -135,7 +135,9 @@ $label_i = 0;
                         if($model->status==Problem::STATUS_PRIVATE)
                         	$res = Html::a(Html::encode($model->title), ['/problem/view','id' => $key],['class'=>'text-vip']);
                         else if($model->status==Problem::STATUS_TEACHER)
-                        	$res = Html::a(Html::encode($model->title), ['/problem/view','id' => $key],['class'=>'text-teacher']);                        
+                        	$res = Html::a(Html::encode($model->title), ['/problem/view','id' => $key],['class'=>'text-teacher']);
+                        else if($model->status==Problem::STATUS_TRAIN)
+                        	$res = Html::a(Html::encode($model->title), ['/problem/view','id' => $key],['class'=>'text-train']);                                                    
                       	else
                         	$res = Html::a(Html::encode($model->title), ['/problem/view', 'id' => $key],['class'=>'text-dark']);   
 

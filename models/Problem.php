@@ -37,6 +37,7 @@ class Problem extends ActiveRecord
     const STATUS_VISIBLE = 1;
     const STATUS_PRIVATE = 2;
     const STATUS_TEACHER = 3;
+    const STATUS_TRAIN = 4;
 
     public $contest_id;
     public $test_status;
