@@ -59,6 +59,7 @@ $this->registerCss("
         padding:0 8px;
         display: flex;
         justify-content:space-between;
+        flex-wrap:wrap;
     }
 
     .pagination{
