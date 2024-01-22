@@ -17794,31 +17794,20 @@ UE.plugins["lineheight"] = function () {
 UE.plugins["insertcode"] = function () {
     var me = this;
     me.setOpt("insertcode", {
-        as3: "ActionScript3",
-        bash: "Bash/Shell",
-        cpp: "C/C++",
+        plaintext: "纯文本",
+        c: "C",
+        cs: "C#",
+        cpp: "C++",
         css: "Css",
-        // cf: "CodeFunction",
-        "c#": "C#",
-        delphi: "Delphi",
-        // diff: "Diff",
-        erlang: "Erlang",
-        groovy: "Groovy",
-        html: "Html",
+        diff: "Diff",
+        html: "HTML",
         java: "Java",
-        // jfx: "JavaFx",
-        js: "Javascript",
-        pl: "Perl",
+        javascript: "Javascript",
         php: "PHP",
-        plain: "Text",
-        ps: "PowerShell",
         python: "Python",
         ruby: "Ruby",
-        scala: "Scala",
-        sql: "SQL",
-        vb: "VB",
+        typescript: "TypeScript",
         xml: "XML",
-        mind: "Mind",
     });
 
     /**
@@ -17851,7 +17840,8 @@ UE.plugins["insertcode"] = function () {
                 rng = me.selection.getRange(),
                 pre = domUtils.findParentByTagName(rng.startContainer, "pre", true);
             if (pre) {
-                pre.className = "brush:" + lang + ";toolbar:false;";
+                node = domUtils.getElementsByTagName(pre, 'code');
+                if(node.length) node[0].className = "language-" + lang + ";";
             } else {
                 var code = "";
                 if (rng.collapsed) {
@@ -17937,11 +17927,11 @@ UE.plugins["insertcode"] = function () {
                 }
                 me.execCommand(
                     "inserthtml",
-                    '<pre id="coder"class="brush:' +
+                    '<pre id="coder"><code class="language-' +
                     lang +
-                    ';toolbar:false">' +
+                    '">' +
                     code +
-                    "</pre>",
+                    "</code></pre>",
                     true
                 );
 
@@ -17983,47 +17973,50 @@ UE.plugins["insertcode"] = function () {
 
     me.addInputRule(function (root) {
         utils.each(root.getNodesByTagName("pre"), function (pre) {
-            var brs = pre.getNodesByTagName("br");
-            if (brs.length) {
-                browser.ie &&
-                browser.ie11below &&
-                browser.version > 8 &&
-                utils.each(brs, function (br) {
-                    var txt = UE.uNode.createText("\n");
-                    br.parentNode.insertBefore(txt, br);
-                    br.parentNode.removeChild(br);
-                });
-                return;
-            }
-            if (browser.ie && browser.ie11below && browser.version > 8) return;
-            var code = pre.innerText().split(/\n/);
-            pre.innerHTML("");
-            utils.each(code, function (c) {
-                if (c.length) {
-                    pre.appendChild(UE.uNode.createText(c));
+            utils.each(pre.getNodesByTagName("code"), function (node) {
+                var brs = node.getNodesByTagName("br");
+                if (brs.length) {
+                    browser.ie &&
+                    browser.ie11below &&
+                    browser.version > 8 &&
+                    utils.each(brs, function (br) {
+                        var txt = UE.uNode.createText("\n");
+                        br.parentNode.insertBefore(txt, br);
+                        br.parentNode.removeChild(br);
+                    });
+                    return;
                 }
-                pre.appendChild(UE.uNode.createElement("br"));
+                if (browser.ie && browser.ie11below && browser.version > 8) return;
+                var code = node.innerText().split(/\n/);
+                node.innerHTML("");
+                utils.each(code, function (c) {
+                    if (c.length) {
+                        node.appendChild(UE.uNode.createText(c));
+                    }
+                    node.appendChild(UE.uNode.createElement("br"));
+                }); 
             });
         });
     });
     me.addOutputRule(function (root) {
         utils.each(root.getNodesByTagName("pre"), function (pre) {
-            var code = "";
-            utils.each(pre.children, function (n) {
-                if (n.type == "text") {
-                    //在ie下文本内容有可能末尾带有\n要去掉
-                    //trace:3396
-                    code += n.data.replace(/[ ]/g, "&nbsp;").replace(/\n$/, "");
-                } else {
-                    if (n.tagName == "br") {
-                        code += "\n";
+            utils.each(pre.getNodesByTagName("code"), function (node) {
+                var code = "";
+                utils.each(node.children, function (n) {
+                    if (n.type == "text") {
+                        //在ie下文本内容有可能末尾带有\n要去掉
+                        //trace:3396
+                        code += n.data.replace(/[ ]/g, "&nbsp;").replace(/\n$/, "");
                     } else {
-                        code += !dtd.$empty[n.tagName] ? "" : n.innerText();
+                        if (n.tagName == "br") {
+                            code += "\n";
+                        } else {
+                            code += !dtd.$empty[n.tagName] ? "" : n.innerText();
+                        }
                     }
-                }
+                });
+                node.innerText(code.replace(/(&nbsp;|\n)+$/, ""));
             });
-
-            pre.innerText(code.replace(/(&nbsp;|\n)+$/, ""));
         });
     });
     //不需要判断highlight的command列表
@@ -21586,6 +21579,11 @@ UE.plugins["list"] = function () {
                                     }
                                     break;
                                 case "pre":
+                                    if (node.children && node.children.length == 1) {
+                                        if (node.firstChild().tagName == "code") {
+                                           node = node.firstChild();
+                                        }
+                                    }
                                     node.innerText(node.innerText().replace(/&nbsp;/g, " "));
                             }
                         }
