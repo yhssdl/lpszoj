@@ -32,6 +32,7 @@ use yii\helpers\Url;
         1 => Yii::t('app', 'Visible'),
         2 => Yii::t('app', 'VIP题目'),
         3 => Yii::t('app', '教师题目'),
+        4 => Yii::t('app', '训练题目'),        
     ])->hint(Yii::t('app', '<i class="fa fa-info-circle"></i> 隐藏：题目仅在后台显示。可见：题目将在首页展示，任何用户可见。VIP题目：题目标题在前台可见，但信息仅VIP用户可见，教师题目则只有管理教师才能前台查看。')) ?>
 
     <?= $form->field($model, 'description')->widget(Yii::$app->setting->get('ojEditor')); ?>
