@@ -125,7 +125,7 @@ class TrainingController extends Controller
         $newContest->enable_clarify = 1;
         $newContest->show_solution = 0;
         $newContest->punish_time = -1;
-        $newContest->start_time = date('Y-m-d H:i:s');
+        $newContest->start_time = '2000-01-01 00:00:01';
         $newContest->end_time = '9999-12-31 23:59:59';
         $contestDataProvider = new ActiveDataProvider([
             'query' => Contest::find()->where([
@@ -183,8 +183,15 @@ class TrainingController extends Controller
     {
 
         $model = $this->findModel($id);
-
-        if ($model->load(Yii::$app->request->post()) && $model->save()) {
+        if ($model->load(Yii::$app->request->post())) {
+            $model->type = Contest::TYPE_HOMEWORK;
+            $model->language = -1;
+            $model->enable_clarify = 1;
+            $model->show_solution = 0;
+            $model->punish_time = -1;
+            $model->start_time = '2000-01-01 00:00:01';
+            $model->end_time = '9999-12-31 23:59:59';
+            $model->save()
             return $this->redirect(['view', 'id' => $model->group_id]);
             //return $this->refresh();
         }
@@ -195,7 +202,6 @@ class TrainingController extends Controller
     }
 
 
-    
     /**
      * 删除一个问题
      * @param $id
