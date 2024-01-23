@@ -17,42 +17,20 @@
     
 		// for CodeBlock dialog select
 		var codeLanguages = exports.codeLanguages = {
-			asp           : ["ASP", "vbscript"],
-			actionscript  : ["ActionScript(3.0)/Flash/Flex", "clike"],
-			bash          : ["Bash/Bat", "shell"],
-			css           : ["CSS", "css"],
+			plaintext:["纯文本", "plaintext"],
 			c             : ["C", "clike"],
+			cs        : ["C#", "clike"],				
 			cpp           : ["C++", "clike"],
-			csharp        : ["C#", "clike"],
-			coffeescript  : ["CoffeeScript", "coffeescript"],
-			d             : ["D", "d"],
-			dart          : ["Dart", "dart"],
-			delphi        : ["Delphi/Pascal", "pascal"],
-			erlang        : ["Erlang", "erlang"],
-			go            : ["Golang", "go"],
-			groovy        : ["Groovy", "groovy"],
+			css           : ["CSS", "css"],
+			diff            : ["Diff", "diff"],
 			html          : ["HTML", "text/html"],
 			java          : ["Java", "clike"],
-			json          : ["JSON", "text/json"],
-			javascript    : ["Javascript", "javascript"],
-			lua           : ["Lua", "lua"],
-			less          : ["LESS", "css"],
-			markdown      : ["Markdown", "gfm"],
-			"objective-c" : ["Objective-C", "clike"],
+			javascript    : ["JavaScript", "javascript"],
 			php           : ["PHP", "php"],
-			perl          : ["Perl", "perl"],
 			python        : ["Python", "python"],
-			r             : ["R", "r"],
-			rst           : ["reStructedText", "rst"],
 			ruby          : ["Ruby", "ruby"],
-			sql           : ["SQL", "sql"],
-			sass          : ["SASS/SCSS", "sass"],
-			shell         : ["Shell", "shell"],
-			scala         : ["Scala", "clike"],
-			swift         : ["Swift", "clike"],
-			vb            : ["VB/VBScript", "vb"],
-			xml           : ["XML", "text/xml"],
-			yaml          : ["YAML", "yaml"]
+			typescript           : ["TypeScript", "typescript"],
+			xml           : ["XML", "text/xml"]
 		};
 
 		exports.fn.codeBlockDialog = function() {
@@ -85,7 +63,7 @@
                 var dialogHTML = "<div class=\"" + classPrefix + "code-toolbar\">" +
                                         dialogLang.selectLabel + "<select><option selected=\"selected\" value=\"\">" + dialogLang.selectDefaultText + "</option></select>" +
                                     "</div>" +
-                                    "<textarea placeholder=\"coding now....\" style=\"display:none;\">" + selection + "</textarea>";
+                                    "<textarea placeholder=\"请输入代码....\" style=\"display:none;\">" + selection + "</textarea>";
 
                 dialog = this.createDialog({
                     name   : dialogName,
