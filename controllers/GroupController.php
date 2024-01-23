@@ -188,7 +188,7 @@ class GroupController extends BaseController
         $contestDataProvider = new ActiveDataProvider([
             'query' => $query,
             'pagination' => [
-                'pageSize' => 20,
+                'pageSize' => 10,
              ]
         ]);
         if(!$model->hasPermission())
