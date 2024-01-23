@@ -153,15 +153,15 @@ else
                 'attribute' => 'id',
                 'value' => function ($model, $key, $index, $column) {              
                     if ($model->status == \app\models\Problem::STATUS_HIDDEN)
-                        return Html::a($model->id, ['problem/view', 'id' => $key],['class'=>'text-gray']);
+                        return Html::a($model->id, ['problem/view', 'id' => $key],['class'=>'text-gray','target'=>"_blank"]);
                     else if ($model->status == \app\models\Problem::STATUS_PRIVATE)
-                        return Html::a($model->id, ['problem/view', 'id' => $key],['class'=>'text-vip']);
+                        return Html::a($model->id, ['problem/view', 'id' => $key],['class'=>'text-vip','target'=>"_blank"]);
                     else if ($model->status == \app\models\Problem::STATUS_TEACHER)
-                        return Html::a($model->id, ['problem/view', 'id' => $key],['class'=>'text-teacher']);    
+                        return Html::a($model->id, ['problem/view', 'id' => $key],['class'=>'text-teacher','target'=>"_blank"]);    
                     else if ($model->status == \app\models\Problem::STATUS_TRAIN)
-                        return Html::a($model->id, ['problem/view', 'id' => $key],['class'=>'text-train']);                                        
+                        return Html::a($model->id, ['problem/view', 'id' => $key],['class'=>'text-train','target'=>"_blank"]);                                        
                     else
-                        return Html::a($model->id, ['problem/view', 'id' => $key]);
+                        return Html::a($model->id, ['problem/view', 'id' => $key],['target'=>"_blank"]);
                 },
                 'format' => 'raw'
             ],
@@ -169,15 +169,15 @@ else
                 'attribute' => 'title',
                 'value' => function ($model, $key, $index, $column) {
                     if ($model->status == \app\models\Problem::STATUS_HIDDEN)
-                        return Html::a($model->title, ['problem/view', 'id' => $key],['class'=>'text-gray']);
+                        return Html::a($model->title, ['problem/update', 'id' => $key],['class'=>'text-gray','target'=>"_blank"]);
                     else if ($model->status == \app\models\Problem::STATUS_PRIVATE)
-                        return Html::a($model->title, ['problem/view', 'id' => $key],['class'=>'text-vip']);
+                        return Html::a($model->title, ['problem/update', 'id' => $key],['class'=>'text-vip','target'=>"_blank"]);
                     else if ($model->status == \app\models\Problem::STATUS_TEACHER)
-                        return Html::a($model->title, ['problem/view', 'id' => $key],['class'=>'text-teacher']);     
+                        return Html::a($model->title, ['problem/update', 'id' => $key],['class'=>'text-teacher','target'=>"_blank"]);     
                     else if ($model->status == \app\models\Problem::STATUS_TRAIN)
-                        return Html::a($model->title, ['problem/view', 'id' => $key],['class'=>'text-train']);                                      
+                        return Html::a($model->title, ['problem/update', 'id' => $key],['class'=>'text-train','target'=>"_blank"]);                                      
                     else
-                        return Html::a($model->title, ['problem/view', 'id' => $key]);
+                        return Html::a($model->title, ['problem/update', 'id' => $key],['target'=>"_blank"]);
                 },
                 'enableSorting' => false,
                 'contentOptions' => ['style' => 'text-align:left;'],
