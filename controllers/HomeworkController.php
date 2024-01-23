@@ -187,6 +187,30 @@ class HomeworkController extends BaseController
     }
 
     /**
+     * 从题目中导入解题
+     * @param $id
+     * @return \yii\web\Response
+     * @throws ForbiddenHttpException
+     * @throws NotFoundHttpException
+     * @throws \yii\db\Exception
+     */
+    public function actionImport_solution($id)
+    {
+        $model = $this->findModel($id);
+        $solutions = $model->problems_solution;
+        $html = "";
+        foreach ($solutions as $key => $p){
+            if(!empty($p['solution'])){
+                $html = $html . '<p>P' . ($key + 1).':</p>'.$p['solution'].'<p>&nbsp;</p>';
+            }
+        }
+
+        $model->editorial = $html;
+        $model->save();
+        return $this->redirect(['/homework/update', 'id' => $id]);
+    }
+
+    /**
      * 删除指定的公告。
      * @param integer $contest_id; 比赛id
      * @param integer $id 删除的公告id

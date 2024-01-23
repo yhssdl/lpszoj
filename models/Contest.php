@@ -281,6 +281,26 @@ class Contest extends \yii\db\ActiveRecord
         }, 60, $dependency);
     }
 
+       /**
+     * 获取比赛问题的解题
+     */
+    public function getProblems_solution()
+    {
+        $dependency = new \yii\caching\DbDependency([
+            'sql'=>'SELECT COUNT(*) FROM {{%contest_problem}} WHERE contest_id=:cid',
+            'params' => [':cid' => $this->id]
+        ]);
+        return Yii::$app->db->cache(function ($db) {
+            return $db->createCommand('
+                SELECT `p`.`solution`
+                FROM `problem` `p`
+                LEFT JOIN `contest_problem` `c` ON `c`.`contest_id`=:cid
+                WHERE p.id=c.problem_id
+                ORDER BY `c`.`num`
+            ', [':cid' => $this->id])->queryAll();
+        }, 60, $dependency);
+    } 
+
     /**
      * 获取用户提交
      * @param boolean $betweenContest

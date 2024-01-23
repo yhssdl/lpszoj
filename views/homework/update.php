@@ -259,9 +259,9 @@ $this->registerCss($css);
             ]
         ]) ?>
 
-        <?= $form->field($model, 'description')->widget(Yii::$app->setting->get('ojEditor')); ?>
+        <?= $form->field($model, 'description')->widget(Yii::$app->setting->get('ojEditor'));?>
 
-        <?= $form->field($model, 'editorial')->widget(Yii::$app->setting->get('ojEditor')); ?>
+        <?= $form->field($model, 'editorial')->widget(Yii::$app->setting->get('ojEditor'))->label(Yii::t('app', 'Editorial')."&nbsp;&nbsp;".Html::a('<span class="fa fa-download"></span>', Url::toRoute(['homework/import_solution', 'id' => $contest_id]),['title' => '从题目中导入解题过程。','data-pjax' => '0'])); ?>
 
 
         <?= $form->field($model, 'status')->radioList([
