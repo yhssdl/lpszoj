@@ -12,7 +12,7 @@ LPSZOJ Change Log
 请阅读 [update.md](https://gitee.com/yhssdl/lpszoj/raw/master/docs/update.md) 来获取更新方法。
 
 ---------------------------------------
-- 2024.1.22 Enh: [web] 更新UEditor编辑器版本，同时修改了插件代码方式，用于支持代码高亮。
+- 2024.1.22 Enh: [web] 更新UEditor编辑器版本，同时修改了插件代码方式，用于支持代码高亮。[更新后需删除web/assets下的所有子文件夹，新的编辑器才可生效]
 - 2024.1.19 Enh: [web、db] 查看解题的后台选项分为用户与管理员2项，方便控制，本次需`./yii migrate` 更新数据库。
 - 2024.1.19 Enh: [web] 更新了CodeMirror版本到5.65.16。
 - 2024.1.19 Enh: [web] 后台编辑题目界面中，增加前一题与后一题功能。
