@@ -11,6 +11,9 @@ use app\models\Problem;
 $this->title = Yii::t('app', 'Problems');
 $label_i = 0;
 
+$page_count = $dataProvider->getTotalCount()>=1000?20:10;
+
+
 $js = <<<EOT
     function set_cookie(cookie_name,val) {
         var expires = new Date();
@@ -136,7 +139,7 @@ else
             'prevPageLabel' => '« ',
             'nextPageLabel' => '» ',
             'lastPageLabel' => Yii::t('app', 'Last'),
-            'maxButtonCount' => 10
+            'maxButtonCount' => $page_count
         ],
         'dataProvider' => $dataProvider,
         'tableOptions' => ['class' => 'table table-striped table-bordered table-text-center'],

@@ -27,6 +27,7 @@ $("#showTags").click(function () {
 });
 EOT;
 $this->registerJs($js);
+$page_count = $dataProvider->getTotalCount()>=1000?20:10;
 
 if(isset($_COOKIE['showtags']))
     $showTags = $_COOKIE['showtags'];
@@ -107,7 +108,7 @@ $label_i = 0;
                 'prevPageLabel' => '« ',
                 'nextPageLabel' => '» ',
                 'lastPageLabel' => Yii::t('app', 'Last'),
-                'maxButtonCount' => 10
+                'maxButtonCount' => $page_count
             ],
             'dataProvider' => $dataProvider,
             'rowOptions' => function($model, $key, $index, $grid) {
