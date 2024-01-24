@@ -199,10 +199,18 @@ class HomeworkController extends BaseController
         $model = $this->findModel($id);
         $solutions = $model->problems_solution;
         $html = "";
-        foreach ($solutions as $key => $p){
-            if(!empty($p['solution'])){
-                $html = $html . '<p>P' . ($key + 1).':</p>'.$p['solution'].'<p>&nbsp;</p>';
+        if(Yii::$app->setting->get('ojEditor')=='app\widgets\editormd\Editormd'){
+            foreach ($solutions as $key => $p){
+                if(!empty($p['solution'])){
+                    $html = $html . 'P' . ($key + 1).':'.PHP_EOL.PHP_EOL.$p['solution'].PHP_EOL.PHP_EOL;
+                }
             }
+        }else{
+            foreach ($solutions as $key => $p){
+                if(!empty($p['solution'])){
+                    $html = $html . '<p>P' . ($key + 1).':</p>'.$p['solution'].'<p>&nbsp;</p>';
+                }
+            }  
         }
 
         return $html;
