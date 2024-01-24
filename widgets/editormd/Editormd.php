@@ -65,9 +65,9 @@ class Editormd extends InputWidget
     {
         EditormdAsset::register($this->view);
         $id = $this->options['id'];
+        $editname = $this->attribute;
         $jsonOptions = Json::encode($this->clientOptions);
-        $varName = Inflector::classify('editor' . $id);
-        $script = "var {$varName} = editormd('{$id}', {$jsonOptions});";
+        $script = "$.editor_{$editname} = editormd('{$id}', {$jsonOptions});";
         $this->view->registerJs($script);
     }
 }

@@ -49,7 +49,7 @@ class CKeditor extends InputWidget
             }
         }).then( editor => {
             $.editor_$editname = editor;
-            //console.log( editor_$editname );
+            console.log( editor_$editname );
         }).catch( error => {
             console.error( error );
         });

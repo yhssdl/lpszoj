@@ -23,6 +23,13 @@ $requestUrl = Url::toRoute('/problem/select');
 $addUrl = Url::to(['/homework/addproblem', 'id' => $contest_id]);
 $importUrl = Url::to(['/homework/import_solution', 'id' => $contest_id]);
 $cloneUrl = Url::to(['/homework/clone']);
+if(Yii::$app->setting->get('ojEditor')=='app\widgets\ueditor\UEditor'){
+    $func='setContent';
+}else if(Yii::$app->setting->get('ojEditor')=='app\widgets\ckeditor\CKeditor'){
+    $func='setData';
+}else{
+    $func='setMarkdown';
+}
 
 $js = <<<EOT
 $("#select_submit").click(function () {
@@ -53,7 +60,7 @@ $("#import_solution").click(function () {
         url: "$importUrl",
         type:'post',
         success:function(html){
-            $.editor_editorial.setData(html);
+            $.editor_editorial.$func(html);
         }   
     });
 });
