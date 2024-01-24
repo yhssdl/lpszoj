@@ -205,9 +205,7 @@ class HomeworkController extends BaseController
             }
         }
 
-        $model->editorial = $html;
-        $model->save();
-        return $this->redirect(['/homework/update', 'id' => $id]);
+        return $html;
     }
 
     /**

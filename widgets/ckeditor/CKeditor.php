@@ -40,20 +40,20 @@ class CKeditor extends InputWidget
     {
         CKeditorAsset::register($this->view);
         $id = $this->options['id'];
+        $editname = $this->attribute;
         $uploadUrl = \yii\helpers\Url::toRoute(['/image/upload']);
         $script = <<<EOF
-ClassicEditor.create( document.querySelector('#{$id}'), {
-   ckfinder: {
-       uploadUrl: "{$uploadUrl}"
-   }
-})
-.then( editor => {
-    console.log( editor );
-})
-.catch( error => {
-    console.error( error );
-});
-EOF;
+        ClassicEditor.create( document.querySelector('#{$id}'), {
+            ckfinder: {
+                uploadUrl: "{$uploadUrl}"
+            }
+        }).then( editor => {
+            $.editor_$editname = editor;
+            //console.log( editor_$editname );
+        }).catch( error => {
+            console.error( error );
+        });
+        EOF;
         $this->view->registerJs($script);
     }
 }

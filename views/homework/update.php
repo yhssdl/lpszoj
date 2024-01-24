@@ -21,6 +21,7 @@ $scoreboardFrozenTime = Yii::$app->setting->get('scoreboardFrozenTime') / 3600;
 $contest_id = $model->id;
 $requestUrl = Url::toRoute('/problem/select');
 $addUrl = Url::to(['/homework/addproblem', 'id' => $contest_id]);
+$importUrl = Url::to(['/homework/import_solution', 'id' => $contest_id]);
 $cloneUrl = Url::to(['/homework/clone']);
 
 $js = <<<EOT
@@ -47,7 +48,15 @@ $("#select_submit").click(function () {
        data: {problem_ids: keys}
     });
 });
-
+$("#import_solution").click(function () {
+    $.ajax({
+        url: "$importUrl",
+        type:'post',
+        success:function(html){
+            $.editor_editorial.setData(html);
+        }   
+    });
+});
 function resize_iframe(){
     var iframe = document.getElementById("frmchild1");
     try {
@@ -261,7 +270,7 @@ $this->registerCss($css);
 
         <?= $form->field($model, 'description')->widget(Yii::$app->setting->get('ojEditor'));?>
 
-        <?= $form->field($model, 'editorial')->widget(Yii::$app->setting->get('ojEditor'))->label(Yii::t('app', 'Editorial')."&nbsp;&nbsp;".Html::a('<span class="fa fa-download"></span>', Url::toRoute(['homework/import_solution', 'id' => $contest_id]),['title' => '从题目中导入解题过程，此操作将直接替换原有解题并保存到数据库中。','data-pjax' => '0'])); ?>
+        <?= $form->field($model, 'editorial')->widget(Yii::$app->setting->get('ojEditor'))->label(Yii::t('app', 'Editorial').'&nbsp;&nbsp;<a id="import_solution"  href="javascript:void(0);"  title="从题目中导入解题过程。"><span class="fa fa-download"></span></a>'); ?>
 
 
         <?= $form->field($model, 'status')->radioList([
