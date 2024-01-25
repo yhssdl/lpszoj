@@ -19,16 +19,13 @@ $submissionStatistics = $model->getSubmissionStatistics();
 ?>
 <br>
 <div class="contest-overview ">
-    <div class="alert alert-light">
-        <?php
-            if ($model->description){
-                echo Yii::$app->formatter->asMarkdown($model->description);
-            }else {
-                echo "管理员还没有上传比赛描述信息哦。";
-            }
-        ?>
-        
-    </div>
+    <?php
+        if ($model->description){
+            echo '<div class="alert alert-light">';
+            echo Yii::$app->formatter->asMarkdown($model->description);
+            echo '</div>';
+        }
+    ?>
     <div>
         <table class="table table-bordered table-problem-list table-striped ">
             <thead>

@@ -21,7 +21,7 @@ if ($discuss != null) {
 }
 ?>
 <div style="margin-top: 20px">
-    <?php
+<?php
     if ($dataProvider->count > 0) {
         echo GridView::widget([
             'layout' => '{items}{pager}',
@@ -33,27 +33,26 @@ if ($discuss != null) {
                 'maxButtonCount' => 10
             ],
             'dataProvider' => $dataProvider,
-            'tableOptions' => ['class' => 'table table-striped table-bordered table-text-center'],
             'rowOptions' => function ($model, $key, $index, $grid) {
                 return ['class' => 'animate__animated animate__fadeInUp'];
             },
-            'options' => ['class' => 'table-responsive', 'style' => 'margin:0 auto;width:50%;min-width:600px'],
+            'options' => ['class' => 'table-responsive'],
             'columns' => [
+
                 [
                     'attribute' => Yii::t('app', 'Announcement'),
                     'value' => function ($model, $key, $index, $column) {
                         return Yii::$app->formatter->asMarkdown($model->content);
                     },
-                    'format' => 'html'
+                    'format' => 'html',
                 ],
                 [
                     'attribute' => 'created_at',
                     'options' => ['width' => '150px'],
                     'format' => 'datetime'
-                ]
+                ],
             ],
         ]);
-        echo '<hr>';
     }
     ?>
     <div class="alert alert-light"><i class=" fa fa-info-circle"></i> 如果你认为题目存在歧义，可以在这里提出。</div>
