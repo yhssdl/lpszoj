@@ -37,12 +37,10 @@ $this->params['breadcrumbs'][] = ['label' => $this->title, 'url' => ['/problem/v
 <?php
 $js = <<<EOF
     var obj = $("#modal-iframe",parent.document);
-
     $(window).resize(function(){
         obj.height(document.body.scrollHeight);
      });
      obj.height(document.body.scrollHeight);
-   
 EOF;
 $this->registerJs($js);
 ?>

@@ -299,7 +299,7 @@ class ProblemController extends BaseController
     public function actionSolution($id)
     {
         $this->layout = "basic";
-        $model = $this->findModel($id);
+        $model = $this->findModel($id,false);
         return $this->render('solution', [
             'model' => $model,
         ]);
@@ -313,9 +313,11 @@ class ProblemController extends BaseController
      * @throws NotFoundHttpException if the model cannot be found
      * @throws ForbiddenHttpException if the model cannot be viewed
      */
-    protected function findModel($id)
+    protected function findModel($id,$testCan=true)
     {
-        if (($model = Problem::findOne($id)) !== null) {
+        $model = Problem::findOne($id);
+        if ($model!== null) {
+            if(!$testCan) return $model;
             $isVisible = ($model->status == Problem::STATUS_VISIBLE);
             $isPrivate = ($model->status == Problem::STATUS_PRIVATE);
             $isTeacher = ($model->status == Problem::STATUS_TEACHER);
@@ -326,7 +328,6 @@ class ProblemController extends BaseController
                 throw new ForbiddenHttpException('没有权限访问当前题目。');
             }
         }
-
         throw new NotFoundHttpException(Yii::t('app', 'The requested page does not exist.'));
     }
 }
