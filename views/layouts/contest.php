@@ -126,39 +126,32 @@ $status = $model->getRunStatus();
                         <?= $model->start_time ?>
                     </div>
                     <div class="col-md-6 text-center">
-                        <h2 class="contest-title">
-                            <?= Html::encode($model->title) ?>
-                        </h2>
+                        <h4 class="contest-title"><?= Html::encode($model->title) ?></h4>
                     </div>
                     <div class="col-md-3 text-right hidden-print">
-                        <strong><?= Yii::t('app', 'End') ?>: </strong>
-                        <?php
-                            if (strtotime($model->end_time) >= Contest::TIME_INFINIFY)
-                                echo "一直开放";
-                            else
-                                echo $model->end_time
+                        <strong><?= Yii::t('app', 'End') ?>:</strong>
+                            <?php
+                                if (strtotime($model->end_time) >= Contest::TIME_INFINIFY)
+                                    echo "一直开放";
+                                else
+                                    echo $model->end_time
                             ?>
                     </div>
                 </div>
-                <div class="progress hidden-print">
+                <div class="progress hidden-print" style="margin-bottom:10px;height: 6px;">
                     <div class="progress-bar progress-bar-success" id="contest-progress" role="progressbar" aria-valuenow="60" aria-valuemin="0" aria-valuemax="100" style="width: 1%;">
-
                     </div>
                 </div>
                 <div class="text-center hidden-print">
-                    <b><?= Yii::t('app', 'Now') ?>　</b>
-                    <span id="nowdate"><?= date("Y-m-d H:i:s") ?></span>　
-                <span>                    
-                    <b>类型</b>: <?= $model->getType()?>　 <b>状态</b>: <?= $model->getRunStatus(1) ?>　
-                    <?php if ($model->group_id != 0 && $model->isContestAdmin()): ?>
-                                    <?= Html::a('<span class="fa fa-cog"></span> ' . Yii::t('app', 'Setting'),
-                                        ['/homework/update', 'id' => $model->id]) ?>
-                    
+                    <strong><?= Yii::t('app', 'Now') ?>:</strong>
+                        <span id="nowdate"><?= date("Y-mm-dd H:i:s") ?></span>　
+                        <strong>类型</strong>:<?= $model->getType()?>　<strong>状态</strong>:<?= $model->getRunStatus(1)?>　
+                        
+                        <?php if ($model->group_id != 0 && $model->isContestAdmin()): ?>
+                            <?= Html::a('<span class="fa fa-cog"></span> '. Yii::t('app', 'Setting'), ['/homework/update', 'id' => $model->id]) ?>
                         <?php endif; ?>
-                    </span>
                 </div>
             </div>
-            <br>
             <?php if ($status == $model::STATUS_NOT_START): ?>
                 <div class="contest-countdown text-center">
                     <div id="countdown"></div>
@@ -255,7 +248,7 @@ $status = $model->getRunStatus();
         m = x.getMinutes();
         s = x.getSeconds();
 
-        n = y + "-" + mon + "-" + d + " " + (h >= 10 ? h : "0" + h) + ":" + (m >= 10 ? m : "0" + m) + ":" + (s >= 10 ? s : "0" + s);
+        n = y + "-" + (mon >= 10 ? mon : "0" + mon)  + "-" + (d >= 10 ? d : "0" + d)  + " " + (h >= 10 ? h : "0" + h) + ":" + (m >= 10 ? m : "0" + m) + ":" + (s >= 10 ? s : "0" + s);
         document.getElementById('nowdate').innerHTML = n;
         var now_time = new Date(n);
         if (now_time < end_time) {

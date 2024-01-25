@@ -73,10 +73,6 @@ $this->registerCss("
         overflow: hidden;
     }
 
-    .contest-view{
-        margin-top:-15px;
-    }
-
     .contest-info > .progress {
         margin-bottom:10px;
     }
