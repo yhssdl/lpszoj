@@ -338,7 +338,7 @@ $loadingImgUrl = Yii::getAlias('@web/images/loading.gif');
                                         if ($bShow) {
                                             echo '<div class="btn-group">';
                                             echo Html::a(
-                                                '<i class="fa fa-dropbox"></i> ' . Yii::t('app', '题解'),
+                                                '<i class="fa fa-file-code-o"></i> ' . Yii::t('app', '题解'),
                                                 ['/problem/solution', 'id' => $problem['id']],
                                                 ['class' => 'btn btn-default','title' => '查看源码', 'onclick' => 'return false', 'data-click' => "solution_info", 'data-pjax' => 0]
                                             );

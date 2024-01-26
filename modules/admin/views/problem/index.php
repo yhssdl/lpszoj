@@ -171,14 +171,18 @@ else
             [
                 'attribute' => 'title',
                 'value' => function ($model, $key, $index, $column) {
+                    if(!empty($model->solution))
+                        $code = ' <span class="fa fa-file-code-o" title="题目中含解题代码！"></span>';
+                    else
+                        $code = '';
                     if ($model->status == \app\models\Problem::STATUS_HIDDEN)
-                        return Html::a($model->title, ['problem/update', 'id' => $key],['class'=>'text-gray','target'=>"_blank"]);
+                        return Html::a($model->title, ['problem/update', 'id' => $key],['class'=>'text-gray','target'=>"_blank"]).$code;
                     else if ($model->status == \app\models\Problem::STATUS_PRIVATE)
-                        return Html::a($model->title, ['problem/update', 'id' => $key],['class'=>'text-vip','target'=>"_blank"]);
+                        return Html::a($model->title, ['problem/update', 'id' => $key],['class'=>'text-vip','target'=>"_blank"]).$code;
                     else if ($model->status == \app\models\Problem::STATUS_TEACHER)
-                        return Html::a($model->title, ['problem/update', 'id' => $key],['class'=>'text-teacher','target'=>"_blank"]);     
+                        return Html::a($model->title, ['problem/update', 'id' => $key],['class'=>'text-teacher','target'=>"_blank"]).$code;     
                     else if ($model->status == \app\models\Problem::STATUS_TRAIN)
-                        return Html::a($model->title, ['problem/update', 'id' => $key],['class'=>'text-train','target'=>"_blank"]);                                      
+                        return Html::a($model->title, ['problem/update', 'id' => $key],['class'=>'text-train','target'=>"_blank"]).$code;                                      
                     else
                         return Html::a($model->title, ['problem/update', 'id' => $key],['target'=>"_blank"]);
                 },
