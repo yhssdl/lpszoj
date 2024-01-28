@@ -248,7 +248,7 @@ class TrainingController extends Controller
                         && (Yii::$app->user->identity->role < User::ROLE_VIP)) {
                     $info_msg = $info_msg.$pid.":".Yii::t('app', '私有题目，仅 VIP 用户可选用')."<br>";
                 }else if ($problemStatus >= Problem::STATUS_TEACHER 
-                        && (Yii::$app->user->identity->role < User::ROLE_TEQACHER)) {
+                        && (Yii::$app->user->identity->role < User::ROLE_TEACHER)) {
                     $info_msg = $info_msg.$pid.":".Yii::t('app', '私有题目，仅教师可选用')."<br>";
                 }
                 else {
