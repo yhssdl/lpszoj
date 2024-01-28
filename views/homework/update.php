@@ -275,10 +275,6 @@ $this->registerCss($css);
             ]
         ]) ?>
 
-        <?= $form->field($model, 'description')->widget(Yii::$app->setting->get('ojEditor'));?>
-
-        <?= $form->field($model, 'editorial')->widget(Yii::$app->setting->get('ojEditor'))->label(Yii::t('app', 'Editorial').'&nbsp;&nbsp;<a id="import_solution"  href="javascript:void(0);"  title="从题目中导入解题过程。"><span class="fa fa-download"></span></a>'); ?>
-
 
         <?= $form->field($model, 'status')->radioList([
             Contest::STATUS_HIDDEN => Yii::t('app', 'Hidden'),
@@ -321,6 +317,12 @@ $this->registerCss($css);
             2 => 'Java',
             3 => 'Python3',
         ])->hint('为 All 时可以使用任意的语言编程，否则在比赛中只能以指定的语言编程并提交。') ?>
+
+
+        <?= $form->field($model, 'description')->widget(Yii::$app->setting->get('ojEditor'));?>
+
+        <?= $form->field($model, 'editorial')->widget(Yii::$app->setting->get('ojEditor'))->label(Yii::t('app', 'Editorial').'&nbsp;&nbsp;<a id="import_solution"  href="javascript:void(0);"  title="从题目中导入解题过程。"><span class="fa fa-download"></span></a>'); ?>
+
 
         <div class="form-group">
             <div class="row">
