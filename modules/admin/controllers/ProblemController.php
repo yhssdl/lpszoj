@@ -98,7 +98,7 @@ class ProblemController extends Controller
             }
             
             if($msg!="") Yii::$app->session->setFlash('info', $msg);
-            return $this->refresh();
+            return $this->redirect(Yii::$app->request->getReferrer());
         }else {
             $keys = Yii::$app->request->get('keylist');
             if ($action == 'export') {
