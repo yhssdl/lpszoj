@@ -62,9 +62,9 @@ $this->registerCss($css);
             <tbody>
                 <?php foreach ($problems as $key => $p) : ?>
                     <tr>
-                        <th><?= Html::a('P' . ($key + 1), ['view', 'id' => $model->id, 'action' => 'problem', 'problem_id' => $key]) ?></th>
-                        <th><?= Html::a($p['problem_id'], '') ?></th>
-                        <td><?= Html::a(Html::encode($p['title']), ['view', 'id' => $model->id, 'action' => 'problem', 'problem_id' => $key]) ?></td>
+                        <th><?= Html::a('P' . ($key + 1), ['/training/view', 'id' => $model->id, 'action' => 'problem', 'problem_id' => $key],['target'=>'_blank']) ?></th>
+                        <th><?= Html::a($p['problem_id'], ['/p/'.$p['problem_id']],['target'=>'_blank']) ?></th>
+                        <td><?= Html::a(Html::encode($p['title']), ['/training/view', 'id' => $model->id, 'action' => 'problem', 'problem_id' => $key],['target'=>'_blank']) ?></td>
                         <th>
 
                             <?php Modal::begin([
