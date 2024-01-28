@@ -316,13 +316,14 @@ class ProblemController extends BaseController
     protected function findModel($id,$testCan=true)
     {
         $model = Problem::findOne($id);
+        
         if ($model!== null) {
             if(!$testCan) return $model;
+            if(Yii::$app->user->identity->role >= User::ROLE_TEACHER) return $model;
             $isVisible = ($model->status == Problem::STATUS_VISIBLE);
             $isPrivate = ($model->status == Problem::STATUS_PRIVATE);
-            $isTeacher = ($model->status == Problem::STATUS_TEACHER);
-            if ($isVisible || ($isPrivate && !Yii::$app->user->isGuest && (Yii::$app->user->identity->role >= User::ROLE_VIP))
-                           || ($isTeacher && !Yii::$app->user->isGuest && (Yii::$app->user->identity->role >= User::ROLE_TEACHER))) {
+
+            if ($isVisible || ($isPrivate && !Yii::$app->user->isGuest && (Yii::$app->user->identity->role >= User::ROLE_VIP))) {
                 return $model;
             } else {
                 throw new ForbiddenHttpException('没有权限访问当前题目。');
