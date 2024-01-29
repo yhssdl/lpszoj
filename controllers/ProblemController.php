@@ -319,10 +319,9 @@ class ProblemController extends BaseController
         
         if ($model!== null) {
             if(!$testCan) return $model;
-            if(Yii::$app->user->identity->role >= User::ROLE_TEACHER) return $model;
+            if(!Yii::$app->user->isGuest && Yii::$app->user->identity->role >= User::ROLE_TEACHER) return $model;
             $isVisible = ($model->status == Problem::STATUS_VISIBLE);
             $isPrivate = ($model->status == Problem::STATUS_PRIVATE);
-
             if ($isVisible || ($isPrivate && !Yii::$app->user->isGuest && (Yii::$app->user->identity->role >= User::ROLE_VIP))) {
                 return $model;
             } else {
