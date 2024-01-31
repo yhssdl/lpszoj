@@ -54,7 +54,7 @@ class UserController extends BaseController
     {
         $model = $this->findModel($id);
 
-        if(Yii::$app->user->identity->role == User::ROLE_ADMIN){
+        if(!Yii::$app->user->isGuest && Yii::$app->user->identity->role == User::ROLE_ADMIN){
             if($reset==1 && $model->username != $model->nickname){
                 $model->nickname = $model->username;
                 $model->save();

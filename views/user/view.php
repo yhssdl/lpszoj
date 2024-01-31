@@ -128,7 +128,7 @@ $this->registerJs($plotJS);
                             'attribute' => Yii::t('app', 'nickname'),
                             'value' => function ($model,  $widget) {
                                 $resetNickname = '';
-                                if (Yii::$app->user->identity->role == User::ROLE_ADMIN) {
+                                if (!Yii::$app->user->isGuest && Yii::$app->user->identity->role == User::ROLE_ADMIN) {
                                     
                                     $resetNickname = Html::a('<span class="fa fa-repeat" style="float:right"></span>', ['/user/view', 'id' => $model->id, 'reset' => '1'], ['title' =>'重置昵称']);
                                 }
@@ -142,7 +142,7 @@ $this->registerJs($plotJS);
                             'label' =>  Yii::t('app', 'QQ'),
                             'value' => function ($model,  $widget) {
                                 $resetQQ = '';
-                                if (Yii::$app->user->identity->role == User::ROLE_ADMIN) {
+                                if (!Yii::$app->user->isGuest && Yii::$app->user->identity->role == User::ROLE_ADMIN) {
                                     
                                     $resetQQ = Html::a('<span class="fa fa-repeat" style="float:right"></span>', ['/user/view', 'id' => $model->id, 'reset' => '2'], ['title' =>'重置QQ']);
                                 }
@@ -154,7 +154,7 @@ $this->registerJs($plotJS);
                             'attribute' => Yii::t('app', 'Major'),
                             'value' => function ($model,  $widget) {
                                 $resetMajor = '';
-                                if (Yii::$app->user->identity->role == User::ROLE_ADMIN) {
+                                if (!Yii::$app->user->isGuest && Yii::$app->user->identity->role == User::ROLE_ADMIN) {
                                     
                                     $resetMajor = Html::a('<span class="fa fa-repeat" style="float:right"></span>', ['/user/view', 'id' => $model->id, 'reset' => '3'], ['title' =>'重置专业']);
                                 }
@@ -166,7 +166,7 @@ $this->registerJs($plotJS);
                             'attribute' => Yii::t('app', 'Student Number'),
                             'value' => function ($model,  $widget) {
                                 $resetNumber = '';
-                                if (Yii::$app->user->identity->role == User::ROLE_ADMIN) {
+                                if (!Yii::$app->user->isGuest && Yii::$app->user->identity->role == User::ROLE_ADMIN) {
                                     
                                     $resetNumber = Html::a('<span class="fa fa-repeat" style="float:right"></span>', ['/user/view', 'id' => $model->id, 'reset' => '4'], ['title' =>'重置学号']);
                                 }
