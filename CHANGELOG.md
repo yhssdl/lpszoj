@@ -12,6 +12,7 @@ LPSZOJ Change Log
 请阅读 [update.md](https://gitee.com/yhssdl/lpszoj/raw/master/docs/update.md) 来获取更新方法。
 
 ---------------------------------------
+- 2024.2.2 Bug: [web] 修正后台训练题目编辑界面中，超链接URL错误的BUG。
 - 2024.1.23 Bug: [web] 修正小组作业中，过题后查看解题时显示无权限的情况。
 - 2024.1.23 Enh: [web] 小组作业中，增加了导入题目解题过程的功能。
 - 2024.1.22 Enh: [web] 更新UEditor编辑器版本，同时修改了插件代码方式，用于支持代码高亮。[更新后需删除web/assets下的所有子文件夹，新的编辑器才可生效]
