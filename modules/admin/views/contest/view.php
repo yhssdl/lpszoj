@@ -55,7 +55,7 @@ $(window).resize(function(){
 EOT;
 $this->registerJs($js);
 $css = <<< EOT
- .modal-dialog {
+#select_modal .modal-dialog {
     width:90%!important;
  }
 EOT;
