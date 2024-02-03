@@ -348,7 +348,7 @@ $loadingImgUrl = Yii::getAlias('@web/images/loading.gif');
                             ->widget('app\widgets\codemirror\CodeMirror')->label(false); ?>
 
                         <div class="problem-footer">
-                            <div class="flex-row">
+                            <div class="flex-row flex-row1">
                                 <div class="btn-group">
                                 <?php
                                     echo Html::submitButton('<span class="fa fa-send"></span> ' . Yii::t('app', 'Submit'), ['class' => 'btn btn-success']);
