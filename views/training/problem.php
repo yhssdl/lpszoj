@@ -17,8 +17,9 @@ $this->title = Html::encode($model->title) . ' - ' . ($problem['title'] ?? null)
 $this->params['model'] = $model;
 
 $this->registerJsFile(Yii::getAlias('@web/js/splitter.min.js'));
-$this->registerJs("Split(['.problem-left', '.problem-right'], {sizes: [60, 40],});");
+$this->registerJs("Split(['.problem-left', '.problem-right'], { minSize: 200,sizes: [60, 40],});");
 $this->registerCss("
+@media screen and (min-width: 768px) {
     body {
         overflow: hidden;
     }
@@ -156,6 +157,26 @@ $this->registerCss("
     .footer{
         display: none;
     }
+}
+@media screen and (max-width: 767px) {
+    .problem-left,.problem-right{
+        width:100% !important;
+    }
+    .flex-title{
+        align-items:center;
+        padding:0 8px;
+        display: flex;
+        justify-content:space-between;
+    }
+    .flex-row1{
+        display: flex;
+        flex-direction: row;
+        flex: 1 1 0;
+        overflow: hidden;   
+        justify-content:space-between;    
+        align-items:center;
+    }    
+}     
 ");
 
 

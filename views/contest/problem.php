@@ -17,8 +17,9 @@ $this->title = Html::encode($model->title) . ' - ' . ($problem['title'] ?? null)
 $this->params['model'] = $model;
 
 $this->registerJsFile(Yii::getAlias('@web/js/splitter.min.js'));
-$this->registerJs("Split(['.problem-left', '.problem-right'], {sizes: [60, 40],});");
+$this->registerJs("Split(['.problem-left', '.problem-right'], { minSize: 200,sizes: [60, 40],});");
 $this->registerCss("
+@media screen and (min-width: 768px) {
     body {
         overflow: hidden;
     }
@@ -134,9 +135,6 @@ $this->registerCss("
         background-repeat: no-repeat;
         background-position: 50%;
     }
-    .gutter.gutter-vertical {
-        background-image: url('data:image/png;base64,iVBORw0KGgoAAAANSUhEUgAAAB4AAAAFAQMAAABo7865AAAABlBMVEVHcEzMzMzyAv2sAAAAAXRSTlMAQObYZgAAABBJREFUeF5jOAMEEAIEEFwAn3kMwcB6I2AAAAAASUVORK5CYII=');
-    }
     .gutter.gutter-horizontal {
         background-image: url('data:image/png;base64,iVBORw0KGgoAAAANSUhEUgAAAAUAAAAeCAYAAADkftS9AAAAIklEQVQoU2M4c+bMfxAGAgYYmwGrIIiDjrELjpo5aiZeMwF+yNnOs5KSvgAAAABJRU5ErkJggg==');
     }
@@ -152,6 +150,26 @@ $this->registerCss("
     .footer{
         display: none;
     }
+}
+@media screen and (max-width: 767px) {
+    .problem-left,.problem-right{
+        width:100% !important;
+    }
+    .flex-title{
+        align-items:center;
+        padding:0 8px;
+        display: flex;
+        justify-content:space-between;
+    }
+    .flex-row1{
+        display: flex;
+        flex-direction: row;
+        flex: 1 1 0;
+        overflow: hidden;   
+        justify-content:space-between;    
+        align-items:center;
+    }    
+}    
 ");
 
 

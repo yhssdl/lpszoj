@@ -14,8 +14,9 @@ use app\models\User;
 $this->title = $model->id . ' - ' . $model->title;
 $label_i = 0;
 $this->registerJsFile(Yii::getAlias('@web/js/splitter.min.js'));
-$this->registerJs("Split(['.problem-left', '.problem-right'], {sizes: [60, 40],});");
+$this->registerJs("Split(['.problem-left', '.problem-right'], { minSize: 200,sizes: [60, 40],});");
 $this->registerCss("
+@media screen and (min-width: 768px) {
     body {
         overflow: hidden;
     }
@@ -112,9 +113,7 @@ $this->registerCss("
         background-repeat: no-repeat;
         background-position: 50%;
     }
-    .gutter.gutter-vertical {
-        background-image: url('data:image/png;base64,iVBORw0KGgoAAAANSUhEUgAAAB4AAAAFAQMAAABo7865AAAABlBMVEVHcEzMzMzyAv2sAAAAAXRSTlMAQObYZgAAABBJREFUeF5jOAMEEAIEEFwAn3kMwcB6I2AAAAAASUVORK5CYII=');
-    }
+
     .gutter.gutter-horizontal {
         background-image: url('data:image/png;base64,iVBORw0KGgoAAAANSUhEUgAAAAUAAAAeCAYAAADkftS9AAAAIklEQVQoU2M4c+bMfxAGAgYYmwGrIIiDjrELjpo5aiZeMwF+yNnOs5KSvgAAAABJRU5ErkJggg==');
     }
@@ -122,6 +121,26 @@ $this->registerCss("
     .footer{
         display: none;
     }
+}
+@media screen and (max-width: 767px) {
+    .problem-left,.problem-right{
+        width:100% !important;
+    }
+    .flex-title{
+        align-items:center;
+        padding:0 8px;
+        display: flex;
+        justify-content:space-between;
+    }
+    .flex-row1{
+        display: flex;
+        flex-direction: row;
+        flex: 1 1 0;
+        overflow: hidden;   
+        justify-content:space-between;    
+        align-items:center;
+    }    
+}
 ");
 
 if (!Yii::$app->user->isGuest) {
@@ -146,7 +165,7 @@ $nextProblemID = $model->getNextProblemID();
         <div class="problem-splitter  flex-row">
             <div class="problem-left flex-col">
                 <div class="row">
-                    <div class="col-md-6">
+                    <div class="col-md-6 col-xs-6">
                         <div class="text-left content-title"><?= Html::encode($this->title) ?>
                             <?php if (!Yii::$app->user->isGuest && Yii::$app->user->identity->role == User::ROLE_ADMIN) {
                                 echo Html::a('<span class="fa fa-edit"></span> ',
@@ -155,7 +174,7 @@ $nextProblemID = $model->getNextProblemID();
                             ?>
                         </div>
                     </div>
-                    <div class="col-md-6">
+                    <div class="col-md-6 col-xs-6">
                         <div class="text-right">
                             <div class="btn btn-link" style="cursor:unset">
                                 <i class="fa fa-clock-o" title="<?= Yii::t('app', 'Time Limit') ?>: <?= intval($model->time_limit) ?> 秒"></i>
@@ -309,7 +328,7 @@ $nextProblemID = $model->getNextProblemID();
                     ->widget('app\widgets\codemirror\CodeMirror')->label(false); ?>
 
                 <div class="problem-footer">
-                    <div class="flex-row">
+                    <div class="flex-row flex-row1">
                         <?php if (Yii::$app->user->isGuest): ?> 
                             <span><i class=" fa fa-info-circle"></i> 登录以提交代码</span>;
                         <?php else: ?> 
