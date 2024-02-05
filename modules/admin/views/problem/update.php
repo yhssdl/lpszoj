@@ -14,7 +14,7 @@ $nextProblemID = $model->getNextProblemID(true);
 <div class="problem-update">
     <div class="row">
         <div class="col-md-9 text-left">
-            <div class="content-title"><?= $model->id . "：".Html::encode($this->title) ?></div>
+            <div class="content-title"><?= $model->id . " : ".Html::encode($this->title) ?></div>
         </div>
         <div class="col-md-3 text-right">
             <div class="btn btn-link">
