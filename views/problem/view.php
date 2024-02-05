@@ -11,7 +11,7 @@ use app\models\User;
 /* @var $solution app\models\Solution */
 /* @var $submissions array */
 
-$this->title = $model->id . ' - ' . $model->title;
+$this->title = $model->id . ' : ' . $model->title;
 $label_i = 0;
 $this->registerJsFile(Yii::getAlias('@web/js/splitter.min.js'));
 $this->registerJs("Split(['.problem-left', '.problem-right'], { minSize: 200,sizes: [60, 40],});");

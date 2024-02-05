@@ -12,7 +12,7 @@ use app\models\User;
 /* @var $solution app\models\Solution */
 /* @var $submissions array */
 
-$this->title = $model->id . ' - ' . $model->title;
+$this->title = $model->id . ' : ' . $model->title;
 
 if (!Yii::$app->user->isGuest) {
     $solution->language = Yii::$app->user->identity->language;
