@@ -9,9 +9,9 @@ if($t_model->punish_time==0 && $passProblem<$problemSum ) $pass = false;
 <div>
     <div class="panel panel-<?php if($pass) echo "success"; else echo "info"; ?>">
         <div class="panel-heading">
-            <h4 class="panel-title">
-                <a data-toggle="collapse" data-parent="#accordion" href="#collapse<?= $pos ?>" aria-expanded="true" class=""><?= $t_model->title ?></a>
-                <a class="pull-right openswitch" data-toggle="collapse" data-parent="#accordion" href="#collapse<?= $pos ?>" aria-expanded="true"><span class="fa fa-angle-double-<?php if($showDown) echo "down"; else echo "up";?>" title="<?php if($showDown) echo "展开"; else echo "收起";?>"></span></a>
+            <h4 class="panel-title" style="cursor:pointer" data-toggle="collapse" data-parent="#accordion" href="#collapse<?= $pos ?>" aria-expanded="true">
+                <?= $t_model->title ?>
+                <a class="pull-right openswitch"><span class="fa fa-angle-double-<?php if($showDown) echo "down"; else echo "up";?>" title="<?php if($showDown) echo "展开"; else echo "收起";?>"></span></a>
                 <span class="pull-right" style="margin-right:20px;"> 共<?= $problemSum ?>题<?php if($pass) echo "，已完成";?> </span>
             </h4>
         </div>
