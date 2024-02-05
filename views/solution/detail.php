@@ -33,7 +33,7 @@ $this->params['breadcrumbs'][] = $this->title;
             <tr>
                 <th><?= $model->id ?></th>
                 <th><?= Html::a(Html::encode($model->user->nickname), ['/user/view', 'id' => $model->created_by]) ?></th>
-                <th><?= Html::a(Html::encode($model->problem_id . ' - ' . $model->problem->title), ['/problem/view', 'id' => $model->problem_id]) ?></th>
+                <th><?= Html::a(Html::encode($model->problem_id . ' : ' . $model->problem->title), ['/problem/view', 'id' => $model->problem_id]) ?></th>
                 <th><?= Solution::getLanguageList($model->language) ?></th>
                 <th>
                     <?php if ($model->canViewResult()) {

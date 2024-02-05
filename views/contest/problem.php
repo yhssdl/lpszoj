@@ -13,7 +13,7 @@ use app\models\User;
 /* @var $problem array */
 /* @var $submissions array */
 
-$this->title = Html::encode($model->title) . ' - ' . ($problem['title'] ?? null);
+$this->title = Html::encode($model->title) . ' : ' . ($problem['title'] ?? null);
 $this->params['model'] = $model;
 
 $this->registerJsFile(Yii::getAlias('@web/js/splitter.min.js'));

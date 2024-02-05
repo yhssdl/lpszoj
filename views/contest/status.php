@@ -77,7 +77,7 @@ $isContestEnd = $model->isContestEnd();
                         return $model->problem->title;
                     }
                     return Html::a(
-                        'P' . ($res->num + 1) . ' - ' . $model->problem->title,
+                        'P' . ($res->num + 1) . ' : ' . $model->problem->title,
                         ['/contest/problem', 'id' => $res->contest_id, 'pid' => $res->num],['data-pjax' => '0']
                     );
                 },

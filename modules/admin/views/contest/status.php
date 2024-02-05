@@ -108,7 +108,7 @@ foreach ($problems as $key => $p) {
                             $cur_id = $res->num + 1;
                         }
                         return Html::a(
-                            $cur_id . ' - ' . $model->problem->title,
+                            $cur_id . ' : ' . $model->problem->title,
                             ['/contest/problem', 'id' => $res->contest_id, 'pid' => $res->num],
                             ['class' => 'text-dark']
                         );
