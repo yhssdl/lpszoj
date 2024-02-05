@@ -69,7 +69,7 @@ $loadingImgUrl = Yii::getAlias('@web/images/loading.gif');
     <div class="row animate__animated animate__fadeInUp">
         <div class="col-md-9">
         <div class="flex-title">
-                <div class="content-title text-left"><?= Html::encode('P' . (1 + $problem['num']). '. ' . $problem['title']) ?>&nbsp;&nbsp;
+                <div class="content-title text-left"><?= Html::encode('P' . (1 + $problem['num']). ' : ' . $problem['title']) ?>&nbsp;&nbsp;
                     <?php if (!Yii::$app->user->isGuest && Yii::$app->user->identity->role == User::ROLE_ADMIN) {
                         echo Html::a('<span class="fa fa-edit"></span>',
                         ['/admin/problem/update', 'id' => $problem['id']],['class' => 'btn btn-link','target'=>'_blank','data-pjax' => '0']);
