@@ -12,7 +12,7 @@ use app\models\User;
 $this->title = $model->name;
 ?>
 <?php 
-if(!Yii::$app->user->isGuest && Yii::$app->user->identity->role == User::ROLE_ADMIN){
+if(!Yii::$app->user->isGuest && Yii::$app->user->identity->role >= User::ROLE_TEACHER){
    echo Nav::widget([
         'items' => [
             [

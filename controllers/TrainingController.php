@@ -18,7 +18,8 @@ use yii\db\Expression;
 use yii\data\ActiveDataProvider;
 use app\models\Solution;
 use app\models\User;
-
+use app\models\Contest;
+use yii\data\Pagination;
 /**
  * GroupController implements the CRUD actions for Group model.
  */
@@ -141,7 +142,7 @@ class TrainingController extends BaseController
     public function actionUser($id,$sort=0)
     {
 
-        if(!Yii::$app->user->isGuest && Yii::$app->user->identity->role != User::ROLE_ADMIN){
+        if(!Yii::$app->user->isGuest && Yii::$app->user->identity->role < User::ROLE_TEACHER){
             return $this->redirect(['view', 'id' => $id]);
         }
 
@@ -433,6 +434,44 @@ class TrainingController extends BaseController
             ]);
         }
     }
+
+
+        /**
+     * 训练榜单
+     * @param $id
+     * @return string
+     * @throws ForbiddenHttpException
+     * @throws NotFoundHttpException
+     * @throws \yii\db\Exception
+     */
+    public function actionStanding($id)
+    {
+
+        if (Yii::$app->user->isGuest || Yii::$app->user->identity->role < User::ROLE_TEACHER) {
+            throw new ForbiddenHttpException(Yii::t('app', 'You are not allowed to perform this action.'));
+        }
+
+        $model = Contest::findOne($id);
+        $rankResult = $model->getRankData(true);
+   
+        if ($model->enable_board == 1) {
+            $pages = new Pagination([
+                'totalCount' => count($rankResult['rank_result']),
+                'pageSize' => 100
+            ]);
+        } else {
+            $pages = new Pagination([
+                'totalCount' => count($rankResult['rank_result']),
+                'pageSize' => PHP_INT_MAX
+            ]);
+        }
+        $rankResult['rank_result'] = array_slice($rankResult['rank_result'], $pages->offset, $pages->limit);
+        return $this->render('/training/standing', [
+            'model' => $model,
+            'pages' => $pages,
+            'rankResult' => $rankResult
+        ]);
+    }    
 
     /**
      * Finds the Contest model based on its primary key value.

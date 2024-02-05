@@ -1,6 +1,7 @@
 <?php
-
 use yii\helpers\Html;
+use app\models\User;
+
 $problems = $model->problems;
 $showDown = $pass;
 if($t_model->punish_time==0 && $passProblem<$problemSum ) $pass = false;
@@ -30,7 +31,15 @@ if($t_model->punish_time==0 && $passProblem<$problemSum ) $pass = false;
                     <th width="80px">#</th>
                     <th><?= Yii::t('app', 'Problem Name') ?></th>
                     <th width="160px">正确 / 提交</th>
-                    <th width="120px">解答状态</th>
+                    <th width="120px">
+                        <?php 
+                            if(!Yii::$app->user->isGuest && Yii::$app->user->identity->role >= User::ROLE_TEACHER){
+                                echo Html::a('解答状态 <span class="fa fa-eye"><span>', ['/training/standing', 'id' => $t_model->id],['target' => '_blank']);
+                            }else{
+                                echo "解答状态";
+                            }
+                        ?>
+                    </th>
                 </tr>
             </thead>
                     <tbody>

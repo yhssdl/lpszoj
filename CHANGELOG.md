@@ -12,6 +12,7 @@ LPSZOJ Change Log
 请阅读 [update.md](https://gitee.com/yhssdl/lpszoj/raw/master/docs/update.md) 来获取更新方法。
 
 ---------------------------------------
+- 2024.2.5 Enh: [web] 训练模块中教师与管理员功能增强，可查看过题榜单。
 - 2024.2.3 Enh: [web] 优化了左右答题界面时在手机上的布局效果。
 - 2024.2.2 Bug: [web] 修正后台训练题目编辑界面中，超链接URL错误的BUG。
 - 2024.1.23 Bug: [web] 修正小组作业中，过题后查看解题时显示无权限的情况。
