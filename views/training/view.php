@@ -40,8 +40,8 @@ if(!Yii::$app->user->isGuest && Yii::$app->user->identity->role == User::ROLE_AD
 
                 <?php if ($trainingDataProvider->count > 0) {
 
-                    if(!Yii::$app->user->isGuest && Yii::$app->user->identity->role == User::ROLE_ADMIN){
-                        echo '<br><div class="alert alert-light"><i class=" fa fa-info-circle"></i> 当前为管理员账号，可直接查看所有小节。</div>';
+                    if(!Yii::$app->user->isGuest && Yii::$app->user->identity->role >= User::ROLE_TEACHER){
+                        echo '<br><div class="alert alert-light"><i class=" fa fa-info-circle"></i> 当前为管理员或教师账号，可直接查看所有小节。</div>';
                     }
 
                     $trainings = $trainingDataProvider->getModels();
@@ -83,7 +83,7 @@ if(!Yii::$app->user->isGuest && Yii::$app->user->identity->role == User::ROLE_AD
                             'pos' => $pos
                             ]);
 
-                            if($pass_sum < $training->punish_time && (Yii::$app->user->isGuest || Yii::$app->user->identity->role != User::ROLE_ADMIN)) $bShow = false;
+                            if($pass_sum < $training->punish_time && (Yii::$app->user->isGuest || Yii::$app->user->identity->role < User::ROLE_TEACHER)) $bShow = false;
 
                            
                             if(!$bShow && $training->enable_clarify==0 && $pos>1){
