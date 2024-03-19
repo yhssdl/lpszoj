@@ -8,10 +8,16 @@ use yii\bootstrap\ActiveForm;
 
 $this->title = Yii::t('app', 'Signup');
 $this->registerCss("
-    .wrap > .container {
+    .wrap > .container,  .main_body {
         background-color: transparent !important;
         max-width:1170px;
     }
+
+    .alert{
+        max-width:83.33%;
+        margin-left:8.33%;
+    }
+
     .radius {
         border-radius: 0px !important;
         box-shadow: none !important;
