@@ -32,7 +32,7 @@ return [
     'Comments' => '评论',
     'Stats' => '统计',
     'Search' => '搜索',
-    'Logout' => '注销',
+    'Logout' => '退出',
     'Clarification' => '答疑',
     'Operation' => '操作',
     'Reply' => '回复',
