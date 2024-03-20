@@ -14,7 +14,7 @@
 
 > 适合在新装的系统或未运行 Web (nginx、mysql)有关服务的系统中。
 
-**注意！！！此方法目前仅在 Ubuntu 20/22/23、Debian 10/11/12、Alpine 3.18/3.19 中测试通过。其它 Linux 系统还未测试。**
+**注意！！！此方法目前仅在 Ubuntu 20/22/23、Debian 10/11/12、Alpine 3.18/3.19、CentOS9/Rocky Linux9 中测试通过。其它 Linux 系统还未测试。**
 
 执行以下命令，进行安装(如果安装过程中出现错误，可以再次尝试运行安装命令)：
 
@@ -118,11 +118,11 @@ Debian 11 + 宝塔面板 + OJ系统安装WORD教程：[点击下载教程](bt_in
     此时还不能进行判题，需配置判题机才能判题。
     
 3. 配置判题机
-    1. 安装编译的依赖，运行命令：`sudo apt install libmysqlclient-dev libmysql++-dev`（如果是CentOS，可以运行 `yum install -y mysql-devel`）(如果是Debian 11，可以运行`apt install libmariadb-dev-compat libmariadb-dev`）
+    1. 安装编译的依赖，运行命令：`sudo apt install libmysqlclient-dev libmysql++-dev`（如果是CentOS，可以运行 `yum install -y mysql-devel`，如果是CentOS9/Rocky9中，运行`yum install -y mariadb-connector-c-devel`）(如果是Debian 11，可以运行`apt install libmariadb-dev-compat libmariadb-dev`）
     2. 创建一个用于判题的用户，运行命令：`sudo useradd -m -u 1536 judge`
     3. 将控制台切换到 `judge` 目录（即运行 `cd judge`命令），然后运行 `make` 命令
     4. 运行 `sudo ./dispatcher` 命令
-    5. 如果在CentOS中编译C或C++程序时，出现“找不到-lm，-lc”等情况，可以运行命令：yum install glibc-static libstdc++-static（如果是CentOS 8中安装失败，可以先运行yum install -y yum-utils，再运行yum-config-manager --enable powertools与yum-config-manager --enable PowerTools后，再次尝试安装）
+    5. 如果在CentOS中编译C或C++程序时，出现“找不到-lm，-lc”等情况，可以运行命令：yum install glibc-static libstdc++-static（如果是CentOS 8中安装失败，可以先运行yum install -y yum-utils，再运行yum-config-manager --enable powertools与yum-config-manager --enable PowerTools后，再次尝试安装，如果是CentOS 9中，，可以先运行yum install -y yum-utils，再运行yum-config-manager --enable crb）
 
 4. 配置配置多边形系统
     
