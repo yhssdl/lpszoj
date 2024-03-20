@@ -161,6 +161,7 @@ install_dependencies(){
              error_detect_depends "yum -y install python3.11" 
              ln -s /usr/bin/python3.11 /usr/bin/python3 > /dev/null 2>&1
              error_detect_depends "yum -y install mariadb-connector-c-devel"
+             error_detect_depends "yum -y install net-tools"
 
         elif [ "$main_ver" == "8" ]; then
              error_detect_depends "yum -y install python38" 
