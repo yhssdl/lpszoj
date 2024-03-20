@@ -137,7 +137,9 @@ install_dependencies(){
         [ ! "$(command -v yum-config-manager)" ] && yum install -y yum-utils > /dev/null 2>&1
         [ x"$(yum-config-manager epel | grep -w enabled | awk '{print $3}')" != x"True" ] && yum-config-manager --enable epel > /dev/null 2>&1
 
-        if [ "$main_ver" == "8" ]; then
+        if [ "$main_ver" == "9" ]; then
+            yum-config-manager --enable crb > /dev/null 2>&1
+        elif [ "$main_ver" == "8" ]; then
             yum-config-manager --enable powertools > /dev/null 2>&1
             yum-config-manager --enable PowerTools > /dev/null 2>&1
         fi
@@ -154,12 +156,20 @@ install_dependencies(){
             error_detect_depends "yum -y install ${depend}"
         done
 
-        if [ "$main_ver" == "8" ]; then
+
+        if [ "$main_ver" == "9" ]; then
+             error_detect_depends "yum -y install python3.11" 
+             ln -s /usr/bin/python3.11 /usr/bin/python3 > /dev/null 2>&1
+             error_detect_depends "yum -y install mariadb-connector-c-devel"
+
+        elif [ "$main_ver" == "8" ]; then
              error_detect_depends "yum -y install python38" 
              ln -s /usr/bin/python3.8 /usr/bin/python3 > /dev/null 2>&1
+             error_detect_depends "yum -y install mariadb-devel"
         else
              error_detect_depends "yum -y install python36" 
              ln -s /usr/bin/python3.6 /usr/bin/python3 > /dev/null 2>&1
+             error_detect_depends "yum -y install mariadb-devel"
         fi
 
        
