@@ -331,7 +331,7 @@ class User extends ActiveRecord implements IdentityInterface
         $data = Yii::$app->db->createCommand(
             'SELECT `s`.`problem_id`, `s`.`language`, `s`.`result` FROM {{%solution}} `s`
              LEFT JOIN {{%contest}} `c` ON `c`.`id`=`s`.`contest_id`
-             WHERE  (`s`.`contest_id` IS NULL OR (`s`.`contest_id` IS NOT NULL AND NOW()>`c`.`end_time`)) AND  `s`.`created_by`=:uid',
+             WHERE  (`s`.`contest_id` IS NULL OR (`s`.`contest_id` IS NOT NULL AND (NOW()>`c`.`end_time` OR  `c`.`end_time`>="9999-1-1"))) AND  `s`.`created_by`=:uid',
             [':uid' => $this->id]
         )->queryAll();
 
