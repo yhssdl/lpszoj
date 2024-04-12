@@ -22,8 +22,10 @@ class Group extends ActiveRecord
     const MODE_GROUP = 0;
     const MODE_TRAIN = 1;
 
+ 
     const STATUS_HIDDEN = 0;
     const STATUS_VISIBLE = 1;
+    const STATUS_GRADUATION = 2;
 
     const JOIN_POLICY_INVITE = 0;
     const JOIN_POLICY_APPLICATION = 1;
@@ -129,7 +131,8 @@ class Group extends ActiveRecord
     {
         $status = [
             Yii::t('app', 'Hidden'),
-            Yii::t('app', 'Visible')
+            Yii::t('app', 'Visible'),
+            Yii::t('app', 'Graduation')
         ];
         return $status[$this->status];
     }
@@ -227,4 +230,20 @@ class Group extends ActiveRecord
         ])->queryScalar();
         return User::findOne($id);
     }
+
+      /**
+     * 判断用户是否是结业小组组长
+     * @return boolean
+     * @throws \yii\db\Exception
+     */
+    public static function isGraduationLeader($user_id)
+    {
+        if($user_id==null) return false;
+        $count = Yii::$app->db->createCommand('
+        SELECT COUNT(*) FROM {{%group}} AS g LEFT JOIN {{%group_user}} AS u ON u.group_id=g.id WHERE u.user_id=:id and g.is_train=:is_train and g.status=:status AND role=:role',
+        [':id' => Yii::$app->user->id,':is_train' => Group::MODE_GROUP,':status' => Group::STATUS_GRADUATION,':role' => GroupUser::ROLE_LEADER]
+        )->queryScalar();
+
+        return $count > 0;
+    }  
 }

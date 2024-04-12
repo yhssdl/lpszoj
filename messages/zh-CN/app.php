@@ -308,5 +308,6 @@ return [
     'You are not allowed to perform this action.' => '不允许执行此操作。',
     'Teacher' => '教师',
     'Assistant' => '助理',
-    'Show Solution' => '查看解题'
+    'Show Solution' => '查看解题',
+    'Graduation' => '结业'
 ];

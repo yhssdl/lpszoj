@@ -35,6 +35,11 @@ if (!Yii::$app->user->isGuest){
                 'visible' => !Yii::$app->user->isGuest
             ],
             [
+                'label' => Yii::t('app', 'Graduation').Yii::t('app', 'Group'),
+                'url' => ['group/graduation'],
+                'visible' => $isShowGraduation
+            ],            
+            [
                 'label' => Yii::t('app', 'Explore'),
                 'url' => ['group/index']
             ],

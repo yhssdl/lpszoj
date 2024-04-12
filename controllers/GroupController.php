@@ -56,13 +56,15 @@ class GroupController extends BaseController
      */
     public function actionMyGroup()
     {
+        $isShowGraduation = Group::isGraduationLeader(Yii::$app->user->id);
+
         $count = Yii::$app->db->createCommand('
-            SELECT COUNT(*) FROM {{%group}} AS g LEFT JOIN {{%group_user}} AS u ON u.group_id=g.id WHERE u.user_id=:id and g.is_train=:is_train',
-            [':id' => Yii::$app->user->id,':is_train' => Group::MODE_GROUP]
+            SELECT COUNT(*) FROM {{%group}} AS g LEFT JOIN {{%group_user}} AS u ON u.group_id=g.id WHERE u.user_id=:id and g.is_train=:is_train and g.status<>:status',
+            [':id' => Yii::$app->user->id,':is_train' => Group::MODE_GROUP,':status' => Group::STATUS_GRADUATION]
         )->queryScalar();
         $dataProvider = new SqlDataProvider([
-            'sql' => 'SELECT g.id,g.name,g.description,g.join_policy,g.logo_url FROM {{%group}} AS g LEFT JOIN {{%group_user}} AS u ON u.group_id=g.id WHERE u.user_id=:id AND g.is_train=:is_train AND u.role <> 0',
-            'params' => [':id' => Yii::$app->user->id,':is_train' => Group::MODE_GROUP],
+            'sql' => 'SELECT g.id,g.name,g.description,g.join_policy,g.logo_url FROM {{%group}} AS g LEFT JOIN {{%group_user}} AS u ON u.group_id=g.id WHERE u.user_id=:id AND g.is_train=:is_train AND u.role <> 0 AND g.status<>:status',
+            'params' => [':id' => Yii::$app->user->id,':is_train' => Group::MODE_GROUP,':status' => Group::STATUS_GRADUATION],
             'totalCount' => $count,
             'pagination' => [
                 'pageSize' => 20,
@@ -73,8 +75,44 @@ class GroupController extends BaseController
         return $this->render('index', [
             'searchModel' => $searchModel,
             'dataProvider' => $dataProvider,
+            'isShowGraduation' => $isShowGraduation,
         ]);
     }
+
+
+    /**
+     * 显示结业小组
+     * @return string
+     * @throws \yii\db\Exception
+     */
+    public function actionGraduation()
+    {
+        if(Yii::$app->user->isGuest) $this->redirect(['/group/index']);
+ 
+        $count = Yii::$app->db->createCommand('
+            SELECT COUNT(*) FROM {{%group}} AS g LEFT JOIN {{%group_user}} AS u ON u.group_id=g.id WHERE u.user_id=:id and g.is_train=:is_train and g.status=:status AND role=:role',
+            [':id' => Yii::$app->user->id,':is_train' => Group::MODE_GROUP,':status' => Group::STATUS_GRADUATION,':role' => GroupUser::ROLE_LEADER]
+        )->queryScalar();
+
+        
+        if($count<=0) $this->redirect(['/group/index']);
+
+        $dataProvider = new SqlDataProvider([
+            'sql' => 'SELECT g.id,g.name,g.description,g.join_policy,g.logo_url FROM {{%group}} AS g LEFT JOIN {{%group_user}} AS u ON u.group_id=g.id WHERE u.user_id=:id AND g.is_train=:is_train AND u.role <> 0 AND g.status=:status',
+            'params' => [':id' => Yii::$app->user->id,':is_train' => Group::MODE_GROUP,':status' => Group::STATUS_GRADUATION],
+            'totalCount' => $count,
+            'pagination' => [
+                'pageSize' => 20,
+            ],
+        ]);
+
+        $searchModel = null;
+        return $this->render('index', [
+            'searchModel' => $searchModel,
+            'dataProvider' => $dataProvider,
+            'isShowGraduation' => true,
+        ]);
+    }    
 
     /**
      * Lists all Group models.
@@ -82,12 +120,15 @@ class GroupController extends BaseController
      */
     public function actionIndex()
     {
+        $isShowGraduation = Group::isGraduationLeader(Yii::$app->user->id);
+
         $searchModel = new GroupSearch();
         $dataProvider = $searchModel->search(Yii::$app->request->queryParams);
 
         return $this->render('index', [
             'searchModel' => $searchModel,
             'dataProvider' => $dataProvider,
+            'isShowGraduation' => $isShowGraduation,
         ]);
     }
 
