@@ -18,7 +18,6 @@ $this->title = Html::encode($model->name);
 <?php if (Yii::$app->user->isGuest) : ?>
     <div class="alert alert-light"><i class=" fa fa-info-circle"></i> 请先登录后再尝试加入小组</div>
 <?php else : ?>
-
     <div class="row">
     <?php if ($model->getRole() == GroupUser::ROLE_INVITING) : ?>
         <p class="lead">邀请你加入小组：</p>
@@ -31,46 +30,4 @@ $this->title = Html::encode($model->name);
         <div class="col-md-2"><?= Html::a('加入小组', ['/group/accept', 'id' => $model->id, 'accept' => 2], ['class' => 'btn btn-success btn-block']) ?></div>
     <?php endif; ?>
     </div>
-
-    <br>
-    <?= GridView::widget([
-        'layout' => '{items}{pager}',
-        'pager' => [
-            'firstPageLabel' => Yii::t('app', 'First'),
-            'prevPageLabel' => '« ',
-            'nextPageLabel' => '» ',
-            'lastPageLabel' => Yii::t('app', 'Last'),
-            'maxButtonCount' => 10
-        ],
-        'rowOptions' => function ($model, $key, $index, $grid) {
-            return ['class' => 'animate__animated animate__fadeInUp'];
-        },
-        'dataProvider' => $userDataProvider,
-        'options' => ['class' => 'table-responsive'],
-        'columns' => [
-            [
-                'attribute' => 'role',
-                'value' => function ($model, $key, $index, $column) {
-                    return $model->getRole(true);
-                },
-                'format' => 'raw',
-                'options' => ['width' => '150px']
-            ],
-            [
-                'attribute' => Yii::t('app', 'Nickname'),
-                'value' => function ($model, $key, $index, $column) {
-                    return Html::a(Html::encode($model->user->nickname), ['/user/view', 'id' => $model->user->id]);
-                },
-                'format' => 'raw',
-            ],
-            [
-                'attribute' => 'created_at',
-                'value' => function ($model, $key, $index, $column) {
-                    return Yii::$app->formatter->asRelativeTime($model->created_at);
-                },
-                'options' => ['width' => '150px']
-            ]
-        ],
-    ]); ?>
-
 <?php endif; ?>
