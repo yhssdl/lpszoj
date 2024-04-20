@@ -309,5 +309,6 @@ return [
     'Teacher' => '教师',
     'Assistant' => '助理',
     'Show Solution' => '查看解题',
-    'Graduation' => '结业'
+    'Graduation' => '结业',
+    'Sort ID' => '排序 ID'
 ];

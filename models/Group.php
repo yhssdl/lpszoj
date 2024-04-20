@@ -55,7 +55,7 @@ class Group extends ActiveRecord
     {
         return [
             [['name', 'status', 'join_policy'], 'required'],
-            [['created_by','is_train','status'], 'integer'],
+            [['created_by','is_train','status','sort_id'], 'integer'],
             [['created_at', 'updated_at'], 'safe'],
             [['name'], 'string', 'max' => 32],
             [['description'], 'string', 'max' => 255],
@@ -78,7 +78,8 @@ class Group extends ActiveRecord
             'updated_at' => Yii::t('app', 'Updated At'),
             'kanban' => Yii::t('app', 'Kanban'),
             'logo_url' => Yii::t('app', 'Logo Url'),
-            'created_by' => Yii::t('app', 'Created By')
+            'created_by' => Yii::t('app', 'Created By'),
+            'sort id' => Yii::t('app', 'Sort ID')
         ];
     }
 

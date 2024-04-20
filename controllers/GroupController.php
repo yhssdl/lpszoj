@@ -63,7 +63,7 @@ class GroupController extends BaseController
             [':id' => Yii::$app->user->id,':is_train' => Group::MODE_GROUP,':status' => Group::STATUS_GRADUATION]
         )->queryScalar();
         $dataProvider = new SqlDataProvider([
-            'sql' => 'SELECT g.id,g.name,g.description,g.join_policy,g.logo_url FROM {{%group}} AS g LEFT JOIN {{%group_user}} AS u ON u.group_id=g.id WHERE u.user_id=:id AND g.is_train=:is_train AND u.role <> 0 AND g.status<>:status',
+            'sql' => 'SELECT g.id,g.name,g.description,g.join_policy,g.logo_url FROM {{%group}} AS g LEFT JOIN {{%group_user}} AS u ON u.group_id=g.id WHERE u.user_id=:id AND g.is_train=:is_train AND u.role <> 0 AND g.status<>:status  ORDER BY sort_id',
             'params' => [':id' => Yii::$app->user->id,':is_train' => Group::MODE_GROUP,':status' => Group::STATUS_GRADUATION],
             'totalCount' => $count,
             'pagination' => [
@@ -98,7 +98,7 @@ class GroupController extends BaseController
         if($count<=0) $this->redirect(['/group/index']);
 
         $dataProvider = new SqlDataProvider([
-            'sql' => 'SELECT g.id,g.name,g.description,g.join_policy,g.logo_url FROM {{%group}} AS g LEFT JOIN {{%group_user}} AS u ON u.group_id=g.id WHERE u.user_id=:id AND g.is_train=:is_train AND u.role <> 0 AND g.status=:status',
+            'sql' => 'SELECT g.id,g.name,g.description,g.join_policy,g.logo_url FROM {{%group}} AS g LEFT JOIN {{%group_user}} AS u ON u.group_id=g.id WHERE u.user_id=:id AND g.is_train=:is_train AND u.role <> 0 AND g.status=:status  ORDER BY sort_id',
             'params' => [':id' => Yii::$app->user->id,':is_train' => Group::MODE_GROUP,':status' => Group::STATUS_GRADUATION],
             'totalCount' => $count,
             'pagination' => [
@@ -380,6 +380,7 @@ class GroupController extends BaseController
     {
         $model = new Group();
         $model->is_train = 0;
+        $model->sort_id = 0;
         $model->id = 0;
         $model->status = Group::STATUS_VISIBLE;
         $model->join_policy = Group::JOIN_POLICY_FREE;

@@ -22,7 +22,7 @@ $url = \yii\helpers\Url::toRoute(['/image/mdupload']);
     <?= $form->field($model, 'logo_url', [
         'template' => '<div class="input-group"><span class="input-group-addon">' . Yii::t('app', 'Logo Url') . '</span>{input}<span id="upload_img" class="input-group-addon btn btn-success btn-block">' . Yii::t('app', 'Upload') . '...</span></div>',
     ])->textInput(['maxlength' => 128, 'autocomplete' => 'off']) ?>
-    <p class="hint-block">可以上传或填写训练LOGO的URL地址，如果留空就显示默认图标。</p>
+    <p class="hint-block" style="margin-top:-10px;margin-bottom:15px;"><i class="fa fa-info-circle"></i> 可以上传或填写小组LOGO的URL地址，如果留空就显示默认图标。</p>
 
     <?= $form->field($model, 'description')->textarea(['maxlength' => true]) ?>
 

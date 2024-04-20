@@ -74,6 +74,8 @@ class GroupSearch extends Group
         $query->andFilterWhere(['like', 'name', $this->name])
             ->andFilterWhere(['like', 'description', $this->description]);
 
+        $query->orderBy('sort_id');
+
         return $dataProvider;
     }
 }

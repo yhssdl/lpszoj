@@ -26,7 +26,11 @@ $url = \yii\helpers\Url::toRoute(['/image/mdupload']);
     ])->textInput(['maxlength' => 128, 'autocomplete' => 'off']) ?>
 
 
-    <p class="hint-block">可以上传或填写小组LOGO的URL地址，如果留空就显示默认图标。</p>
+    <p class="hint-block" style="margin-top:-10px;margin-bottom:15px;"><i class="fa fa-info-circle"></i> 可以上传或填写小组LOGO的URL地址，如果留空就显示默认图标。</p>
+
+    
+    <?= $form->field($model, 'sort_id', ['template' => '<div class="input-group"><span class="input-group-addon">'.Yii::t('app', 'Sort ID').'</span>{input}</div>{hint}'])->textInput()
+        ->hint('<i class="fa fa-info-circle"></i> 此处用于指定小组排序顺序，值越大就排在越后面。') ?>
 
     <?= $form->field($model, 'description')->textarea(['maxlength' => true]) ?>
 
