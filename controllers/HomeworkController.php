@@ -257,11 +257,21 @@ class HomeworkController extends BaseController
         }
 
         if (!Yii::$app->user->isGuest && Yii::$app->user->identity->isAdmin()) {
-            $group_datas = Yii::$app->db->createCommand('SELECT g.id,g.name FROM {{%group}}  AS g LEFT JOIN {{%group_user}} AS u ON u.group_id=g.id WHERE g.id<>:gid AND u.user_id=:id AND is_train=:is_train',
-            [':gid' => $model->group->id,':id' => Yii::$app->user->id,':is_train' => Group::MODE_GROUP] )->queryAll();       
+            if($model->group->status==Group::STATUS_GRADUATION) {
+                $sql1 = "g.status=:status";
+            }else{
+                $sql1 = "g.status<>:status";
+            }
+            $group_datas = Yii::$app->db->createCommand('SELECT g.id,g.name FROM {{%group}}  AS g LEFT JOIN {{%group_user}} AS u ON u.group_id=g.id WHERE g.id<>:gid AND u.user_id=:id AND is_train=:is_train AND '.$sql1,
+            [':gid' => $model->group->id,':id' => Yii::$app->user->id,':is_train' => Group::MODE_GROUP,':status'=>Group::STATUS_GRADUATION] )->queryAll();       
         }else{
-            $group_datas = Yii::$app->db->createCommand('SELECT id,name FROM {{%group}}  WHERE id<>:gid AND created_by=:id AND is_train=:is_train',
-            [':gid' => $model->group->id,':id' => Yii::$app->user->id,':is_train' => Group::MODE_GROUP] )->queryAll();         
+            if($model->group->status==Group::STATUS_GRADUATION) {
+                $sql1 = "status=:status";
+            }else{
+                $sql1 = "status<>:status";
+            }
+            $group_datas = Yii::$app->db->createCommand('SELECT id,name FROM {{%group}}  WHERE id<>:gid AND created_by=:id AND is_train=:is_train AND '.$sql1,
+            [':gid' => $model->group->id,':id' => Yii::$app->user->id,':is_train' => Group::MODE_GROUP,':status'=>Group::STATUS_GRADUATION] )->queryAll();         
         }
 
         return $this->render('update', [
