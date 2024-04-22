@@ -330,11 +330,12 @@ class ProblemController extends Controller
             } catch (ErrorException $e) {
                 Yii::$app->session->setFlash('error', '更新失败：无法移动数据目录');
                 $transaction->rollBack();
+                $model->id = $oldID;
             } catch (Exception $e) {
                 $transaction->rollBack();
+                $model->id = $oldID;
                 Yii::$app->session->setFlash('error', '更新失败：ID冲突');
             }
-            $model->id = $oldID;
         }
         $model->setSamples();
 
