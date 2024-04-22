@@ -326,7 +326,7 @@ class ProblemController extends Controller
                 }
                 $transaction->commit();
                 Yii::$app->session->setFlash('success', Yii::t('app', 'Submitted successfully'));
-                //return $this->redirect(['view', 'id' => $model->id]);
+                return $this->redirect(['update', 'id' => $model->id]);
             } catch (ErrorException $e) {
                 Yii::$app->session->setFlash('error', '更新失败：无法移动数据目录');
                 $transaction->rollBack();
