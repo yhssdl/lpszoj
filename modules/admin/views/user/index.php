@@ -285,7 +285,7 @@ else
                         $icon = '<span class="fa fa-user-plus"></span> ';
                         $user_str =  'VIP 用户';
                     } else if ($model->role == \app\models\User::ROLE_TEACHER) {
-                        $s_str = "<span class='text-danger'>";
+                        $s_str = "<span class='text-primary'>";
                         $icon = '<span class="fa fa-user-plus"></span> ';
                         $user_str =  '管理教师';
                     }  else if ($model->role == \app\models\User::ROLE_ADMIN) {
