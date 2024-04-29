@@ -245,7 +245,7 @@ config_lpszoj(){
     DBNAME="ojdate"
     DBUSER="root"
     DBPASS=$pass
-    PHP_VERSION=7.`php -v>&1|awk '{print $2}'|awk -F '.' '{print $2}'`
+    PHP_VERSION=`php -v>&1|awk 'NR==1{print}'|awk -F ' ' '{print $2}'|awk -F '.' '{printf "%s.%s\n", $1, $2}'`
 
     if check_sys sysRelease centos; then
         mv /etc/nginx/conf.d/default.conf /etc/nginx/conf.d/default.back
@@ -279,11 +279,6 @@ EOF
         chmod 755 /var/www
         chown nginx -R /var/www/lpszoj
     elif check_sys sysRelease debian; then
-        local version="$(getversion)"
-        local main_ver=${version%%.*}
-        if [ "$main_ver" == "12" ]; then
-            PHP_VERSION=8.`php -v>&1|awk '{print $2}'|awk -F '.' '{print $2}'`
-        fi
         mv /etc/nginx/conf.d/default.conf /etc/nginx/conf.d/default.back
         cat>/etc/nginx/conf.d/lpszoj.conf<<EOF
 server {
@@ -311,9 +306,7 @@ EOF
         systemctl restart nginx
         systemctl restart php${PHP_VERSION}-fpm
     elif check_sys sysRelease alpine; then
-        local version="$(getversion)"
-        local main_ver=${version%%.*}
-        PHP_VERSION=82
+        PHP_VERSION=`php -v>&1|awk 'NR==1{print}'|awk -F ' ' '{print $2}'|awk -F '.' '{printf "%s%s\n", $1, $2}'`
         mv /etc/nginx/http.d/default.conf /etc/nginx/http.d/default.back
         cat>/etc/nginx/http.d/lpszoj.conf<<EOF
 server {
@@ -350,7 +343,6 @@ EOF
         sed -i "s/upload_max_filesize = 2M/upload_max_filesize = 128M/g" /etc/php${PHP_VERSION}/php.ini
         rc-service nginx start
     else
-        PHP_VERSION=8.`php -v>&1|awk '{print $2}'|awk -F '.' '{print $2}'`
         cat>/etc/nginx/conf.d/lpszoj.conf<<EOF
 server {
         listen 80 default_server;
@@ -464,7 +456,7 @@ config_firewall(){
 }
 
 enable_server(){
-    PHP_VERSION=7.`php -v>&1|awk '{print $2}'|awk -F '.' '{print $2}'`
+    PHP_VERSION=`php -v>&1|awk 'NR==1{print}'|awk -F ' ' '{print $2}'|awk -F '.' '{printf "%s.%s\n", $1, $2}'`
     local version="$(getversion)"
     local main_ver=${version%%.*}
     if check_sys sysRelease centos; then
@@ -473,12 +465,12 @@ enable_server(){
         systemctl enable php74-php-fpm
         systemctl enable mariadb
     elif check_sys sysRelease debian; then
-        if [ "$main_ver" -ge "12" ]; then
-            systemctl start php8.2-fpm
-            systemctl enable php8.2-fpm
-        else        
+        if [ "$PHP_VERSION" -ge "7.4" ]; then
             systemctl start php74-php-fpm
             systemctl enable php74-php-fpm
+        else
+            systemctl start php${PHP_VERSION}-fpm
+            systemctl enable php${PHP_VERSION}-fpm
         fi
         systemctl start mariadb
         systemctl enable mariadb
@@ -488,19 +480,17 @@ enable_server(){
         rc-service mariadb restart
         rc-service php-fpm82 restart
     else
-        if [ "$main_ver" -ge 23 ]; then
-            PHP_VERSION=8.`php -v>&1|awk '{print $2}'|awk -F '.' '{print $2}'`
-        fi
         systemctl enable php${PHP_VERSION}-fpm
         systemctl enable mysql
     fi
 
     if check_sys sysRelease alpine; then
+        PHP_VERSION=`php -v>&1|awk 'NR==1{print}'|awk -F ' ' '{print $2}'|awk -F '.' '{printf "%s%s\n", $1, $2}'`
         rc-update add nginx
         rc-update add mariadb
-        rc-update add php-fpm82
-         rc-update add judge
-          rc-update add polygon
+        rc-update add php-fpm${PHP_VERSION}
+        rc-update add judge
+        rc-update add polygon
     else
         systemctl daemon-reload
 
