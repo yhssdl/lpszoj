@@ -206,9 +206,9 @@ install_dependencies(){
         apt -y update
         apt_depends=(
             nginx
-            mysql-server
-            php-fpm php-mysql php-common php-gd php-zip php-mbstring php-xml php-fileinfo php-opcache 
-            libmysqlclient-dev libmysql++-dev git make gcc g++
+            php-mysql php-common php-gd php-zip php-xml php-mbstring php-fileinfo php-opcache php-fpm
+            mysql-server libmysqlclient-dev libmysql++-dev
+            git make gcc g++
             default-jdk
             net-tools
         )
