@@ -12,6 +12,7 @@ LPSZOJ Change Log
 请阅读 [update.md](https://gitee.com/yhssdl/lpszoj/raw/master/docs/update.md) 来获取更新方法。
 
 ---------------------------------------
+- 2024.5.1 Chg: [web] 优化一键安装脚本。
 - 2024.4.20 Enh: [web、db] 小组设置中，增加了排序ID，方便对小组进行排序显示，请执行 `./yii migrate` 来更新数据库。
 - 2024.4.20 Enh: [web] 优化克隆功能的目标小组。
 - 2024.4.12 Enh: [web] 小组中增加了结业小组页面，当组长的小组较多时，可以将不再使用的小组移到结业小组页面，方便管理。

@@ -203,14 +203,11 @@ install_dependencies(){
             error_detect_depends "apk add ${depend}"
         done
     elif check_sys packageManager apt; then   
-        apt-get install software-properties-common
-        echo -e "\n" | add-apt-repository ppa:ondrej/php
         apt -y update
-
         apt_depends=(
             nginx
             mysql-server
-            php8.1-fpm php8.1-mysql php8.1-common php8.1-gd php8.1-zip php8.1-mbstring php8.1-xml php8.1-fileinfo php8.1-opcache 
+            php-fpm php-mysql php-common php-gd php-zip php-mbstring php-xml php-fileinfo php-opcache 
             libmysqlclient-dev libmysql++-dev git make gcc g++
             default-jdk
             net-tools
@@ -235,7 +232,7 @@ install_check(){
 config_lpszoj(){
 	key="abcdefghijklmnopqrstuvwxyzABCDEFGHIJKLMNOPQRSTUVWXYZ0123456789"
 	pass=""
-	for i in {1..10}
+	for i in {1..12}
 	do
 	  num=$[RANDOM%${#key}]
 	  tmp=${key:num:1}
