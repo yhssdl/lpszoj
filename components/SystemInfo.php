@@ -124,7 +124,7 @@ class SystemInfo
     {
         $info = [];
         if (!($strs = @file('/proc/net/dev')))
-            return false;
+            return $info;
 
         for ($i = 2; $i < count($strs); $i++) {
             $parts = preg_split('/\s+/', trim($strs[$i]));
