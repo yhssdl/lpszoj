@@ -46,17 +46,17 @@ class DefaultController extends Controller
      */
     public function actionIndex()
     {
-
-        if(strtoupper(substr(PHP_OS,0,3))==='WIN'){
-            return $this->redirect(array('setting/index'));
-            
+        $meminfo = SystemInfo::getMemInfo();
+        if(!$meminfo){
+            return $this->redirect(array('setting/index')); 
         }
+
         if (Yii::$app->request->get('method') == 'sysinfo') {
             return json_encode([
                 'stat' => SystemInfo::getStat(),
                 'stime' => date('Y-m-d H:i:s'),
                 'uptime' => SystemInfo::getUpTime(),
-                'meminfo' => SystemInfo::getMemInfo(),
+                'meminfo' => $meminfo,
                 'loadavg' => SystemInfo::getLoadAvg(),
                 'diskinfo' => SystemInfo::getDiskInfo(),
                 'netdev' => SystemInfo::getNetDev()
@@ -68,7 +68,7 @@ class DefaultController extends Controller
             'stat' => SystemInfo::getStat(),
             'stime' => date('Y-m-d H:i:s'),
             'uptime' => SystemInfo::getUpTime(),
-            'meminfo' => SystemInfo::getMemInfo(),
+            'meminfo' => $meminfo,
             'loadavg' => SystemInfo::getLoadAvg(),
             'diskinfo' => SystemInfo::getDiskInfo(),
             'netdev' => SystemInfo::getNetDev()

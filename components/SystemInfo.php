@@ -22,7 +22,8 @@ class SystemInfo
 
     public static function getStat()
     {
-        $content = file('/proc/stat');
+        if (!($content = @file('/proc/stat')))
+            return false;
         $array = array_shift($content);
         $array = preg_split('/\s+/', trim($array));
         return array_slice($array, 1);
@@ -122,8 +123,9 @@ class SystemInfo
     public static function getNetDev()
     {
         $info = [];
+        if (!($strs = @file('/proc/net/dev')))
+            return false;
 
-        $strs = @file('/proc/net/dev');
         for ($i = 2; $i < count($strs); $i++) {
             $parts = preg_split('/\s+/', trim($strs[$i]));
             $dev = trim($parts[0], ':');
