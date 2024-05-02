@@ -1,0 +1,38 @@
+1. 安卓手机上安装termux软件
+2. 运行后，使用 tremux-change-repo 选择国内源
+3. apt update 和 apt upgrade 更新系统
+4. apt install proot proot-distro
+5. proot-distro install alpine
+6. proot-distro login alpine
+7. alpine 换国内源：
+sed -i 's/dl-cdn.alpinelinux.org/mirrors.ustc.edu.cn/g' /etc/apk/repositories
+sed -i 's/#http/http/g' /etc/apk/repositories
+8. apk update 和 apk upgrade 更新系统
+9. apk add openrc --no-cache
+10. openrc
+11. touch /run/openrc/softlevel
+12. 使用一键安装脚本安装OJ系统，装完后，要手动修改一个nginx的配置文件中的端口，将80改为如8080端口（手机不支持80端口访问）
+apk add bash wget && wget https://gitee.com/yhssdl/lpszoj/raw/master/docs/install.sh && bash install.sh
+nano /etc/nginx/http.d/lpszoj.conf
+13. 修改nginx与php的配置文件，解决不能启动服务的情况，nano中修改后，按CTRL+X，再按y键，回车保存退出。.
+nano /etc/init.d/nginx
+将depend 中的 need net 删除
+nano /etc/init.d/php-fpm82
+将depend 中的 need net 删除
+14. 再运行 openrc 启动所有的服务。
+
+15. 以后重新运行termunx后，可以通过以下命令，启动OJ：
+proot-distro login alpine
+openrc
+
+
+16.如果想使用SSH远程，可以先安装openssh
+apk add openssh
+然后修改配置文件
+nano /etc/ssh/sshd_config，将#PermitRootLogin一个行前的#去除，改为
+PermitRootLogin yes
+再将#Port 22，改为比较大的端口号，比如3388
+Port 3388
+rc-update add sshd
+rc-service sshd start
+使用passwd设置一下root的密码。
