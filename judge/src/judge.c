@@ -36,9 +36,6 @@
 #include <sys/resource.h>
 #include <sys/signal.h>
 #include <sys/stat.h>
-#if defined(__aarch64__) ||  defined(__asm__)
-#include <asm/ptrace.h>
-#endif
 #include <sys/ptrace.h>
 #include <sys/uio.h>
 #include <unistd.h>
@@ -67,17 +64,6 @@
 
 #if defined(__i386__) ||  defined(__amd64__)    
 #define pt_regs         user_regs_struct    
-#elif defined(__aarch64__)
-#define pt_regs         user_pt_regs  
-#define uregs	regs
-#define ARM_pc	pc
-#define ARM_sp	sp
-#define ARM_cpsr	pstate
-#define ARM_lr		regs[30]
-#define ARM_r0		regs[0]  
-#define ARM_r7		regs[7]  
-#define PTRACE_GETREGS PTRACE_GETREGSET
-#define PTRACE_SETREGS PTRACE_SETREGSET
 #else 
 struct pt_regs {
 	long uregs[18];
