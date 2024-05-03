@@ -51,6 +51,12 @@ yum install wget -y && wget https://gitee.com/yhssdl/lpszoj/raw/master/docs/inst
 
 **初始默认密码过于简单，请立即登陆修改**。
 
+Docker 安装脚本
+-----------
+- 1.lpszoj系统已经制作了docker镜像，可直接使用docker来运行，镜像名称为:yhssdl/lpszoj。
+```
+docker run -dt -p 80:80 yhssdl/lpszoj 
+```
 
 手动安装过程
 ------------
