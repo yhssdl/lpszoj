@@ -62,6 +62,11 @@ docker run -d -p 8080:80 --name lpszoj yhssdl/lpszoj
 - 2.如果你想将一些关键数据同步保存到主机中，可以将相应的目录挂载出来，运行以下命令就是将数据库备份目录、图片上传目录、判题数据目录、logo图像映射到主机root中的相应目录.
 注意：root中的目录与logo.png需提前创建好，并且设置好写入权限。
 ```
+mkdir /root/lpszoj/db
+mkdir /root/lpszoj/uploads
+mkdir /root/lpszoj/data
+```
+```
 docker run -d -v /root/lpszoj/db:/var/www/lpszoj/db -v /root/lpszoj/uploals:/var/www/lpszoj/web/uploads -v /root/lpszoj/data:/var/www/lpszoj/judge/data -v /root/lpszoj/logo.png:/var/www/lpszoj/web/images/logo.png -p 8080:80 --name lpszoj yhssdl/lpszoj 
 ```
 
