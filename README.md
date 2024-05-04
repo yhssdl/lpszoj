@@ -13,7 +13,7 @@ LPSZOJ 可对用户在线提交的源代码进行编译和执行，并通过预�
 帮助文档
 --------
 
-1. [安装教程](docs/install.md)
+1. [安装教程](docs/install.md) （支持一键安装、docker 方式安装、宝塔面板安装等）
 2. [更新教程](docs/update.md)
 3. 如有任何问题，可新建 Issue 或联系 [yhssdl](https://gitee.com/yhssdl/lpszoj)
 

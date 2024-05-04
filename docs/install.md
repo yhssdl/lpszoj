@@ -53,14 +53,14 @@ yum install wget -y && wget https://gitee.com/yhssdl/lpszoj/raw/master/docs/inst
 
 Docker 安装脚本
 -----------
-- 1.lpszoj系统已经制作了 docker 镜像，可直接使用 docker 来运行，镜像名称为:yhssdl/lpszoj
+- 1.lpszoj 系统已经制作了 docker 镜像，可直接使用 docker 来运行，镜像名称为：yhssdl/lpszoj
 ```
 docker run -d -p 8080:80 --name lpszoj yhssdl/lpszoj 
 ```
 以上命令中，映射到 8080 端口，你可以通过 http://主机IP:8080 来访问，当然你也可以修改映射端口。
 
-- 2.如果你想将一些关键数据同步保存到主机中，可以将相应的目录挂载出来，运行以下命令就是将数据库备份目录、图片上传目录、判题数据目录、logo图像映射到主机root中的相应目录.
-注意：root中的目录与logo.png需提前创建好，并且设置好写入权限。
+- 2.如果你想将一些关键数据同步保存到主机中，可以将相应的目录挂载出来，运行以下命令就是将数据库备份目录、图片上传目录、判题数据目录、logo 图像映射到主机 root 中的相应目录.
+注意：root 中的目录与 logo.png 需提前创建好，并且设置好写入权限。
 ```
 mkdir /root/lpszoj/db
 mkdir /root/lpszoj/uploads
@@ -75,7 +75,7 @@ docker run -d -v /root/lpszoj/db:/var/www/lpszoj/db -v /root/lpszoj/uploals:/var
 
 手动安装过程
 ------------
-Debian 11 + 宝塔面板 + OJ系统安装WORD教程：[点击下载教程](bt_install.docx)
+Debian + 宝塔面板 + OJ系统安装WORD教程：[点击下载教程](宝塔面板+OJ系统安装教程.docx)
 
 搭建 LNMP (或 LAMP) 环境，可以参考：[LNMP 环境搭建](environment.md)。
 
