@@ -57,9 +57,9 @@ Docker 安装脚本
 ```
 docker run -d -p 8080:80 --name lpszoj yhssdl/lpszoj 
 ```
-以上命令中，映射到 8080 端口，你可以通过http://主机IP:8080来访问，当然你也可以修改映射端口。
+以上命令中，映射到 8080 端口，你可以通过 http://主机IP:8080 来访问，当然你也可以修改映射端口。
 
-如果你想将一些关键数据同步保存到主机中，可以将相应的目录挂载出来，运行以下命令就是将数据库备份目录、图片上传目录、判题数据目录、logo图像映射到主机root中的相应目录.
+- 2.如果你想将一些关键数据同步保存到主机中，可以将相应的目录挂载出来，运行以下命令就是将数据库备份目录、图片上传目录、判题数据目录、logo图像映射到主机root中的相应目录.
 注意：root中的目录与logo.png需提前创建好，并且设置好写入权限。
 ```
 docker run -d -v /root/lpszoj/db:/var/www/lpszoj/db -v /root/lpszoj/uploals:/var/www/lpszoj/web/uploads -v /root/lpszoj/data:/var/www/lpszoj/judge/data -v /root/lpszoj/logo.png:/var/www/lpszoj/web/images/logo.png -p 8080:80 --name lpszoj yhssdl/lpszoj 
