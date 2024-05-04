@@ -65,6 +65,9 @@ docker run -d -p 8080:80 --name lpszoj yhssdl/lpszoj
 mkdir /root/lpszoj/db
 mkdir /root/lpszoj/uploads
 mkdir /root/lpszoj/data
+chmod 777 /root/lpszoj/db
+chmod 777 /root/lpszoj/uploads
+chmod 777 /root/lpszoj/data
 ```
 ```
 docker run -d -v /root/lpszoj/db:/var/www/lpszoj/db -v /root/lpszoj/uploals:/var/www/lpszoj/web/uploads -v /root/lpszoj/data:/var/www/lpszoj/judge/data -v /root/lpszoj/logo.png:/var/www/lpszoj/web/images/logo.png -p 8080:80 --name lpszoj yhssdl/lpszoj 
