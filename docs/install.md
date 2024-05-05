@@ -32,14 +32,14 @@ apt install -y wget && wget https://gitee.com/yhssdl/lpszoj/raw/master/docs/inst
 
 **Alpine运行(root账号)**：
 
-- 1.将软件源更换为国内的源。
+> 将软件源更换为国内的源。
   
 ```sh
 sed -i 's/dl-cdn.alpinelinux.org/mirrors.ustc.edu.cn/g' /etc/apk/repositories
 sed -i 's/#http/http/g' /etc/apk/repositories
 ```
 
-- 2.运行安装脚本
+> 运行安装脚本
   
 ```sh
 apk add bash wget && wget https://gitee.com/yhssdl/lpszoj/raw/master/docs/install.sh && bash install.sh
@@ -71,6 +71,8 @@ docker run -d -p 8080:80 --name lpszoj yhssdl/lpszoj
 - 3.如果你想将一些关键数据同步保存到主机中，可以将相应的目录挂载出来，运行以下命令就是将数据库备份目录、图片上传目录、判题数据目录、logo 图像映射到主机 root 中的相应目录.
 注意：root 中的目录与 logo.png 需提前创建好，并且设置好写入权限。
 
+> 创建挂载文件夹。
+
 ```sh
 mkdir /root/lpszoj
 mkdir /root/lpszoj/db
@@ -83,6 +85,7 @@ apk add wget
 apt install wget
 wget https://gitee.com/yhssdl/lpszoj/raw/master/web/images/logo.png -O /root/lpszoj/logo.png
 ```
+> 运行 lpszoj 镜像。
 
 ```sh
 docker run -d -v /root/lpszoj/db:/var/www/lpszoj/db -v /root/lpszoj/uploads:/var/www/lpszoj/web/uploads -v /root/lpszoj/data:/var/www/lpszoj/judge/data -v /root/lpszoj/logo.png:/var/www/lpszoj/web/images/logo.png -p 8080:80 --name lpszoj yhssdl/lpszoj 
