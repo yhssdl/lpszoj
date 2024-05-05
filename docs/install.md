@@ -63,32 +63,29 @@ Docker 安装脚本
 - 2.lpszoj 系统已经制作了 docker 镜像，可直接使用 docker 来运行，镜像名称为：yhssdl/lpszoj
 
 ```sh
-docker run -d -p 8080:80 --name lpszoj yhssdl/lpszoj 
+docker run -d -p 8088:80 --name lpszoj yhssdl/lpszoj 
 ```
 
-以上命令中，映射到 8080 端口，你可以通过 http://主机IP:8080 来访问，当然你也可以修改映射端口。
+以上命令中，映射到 8088 端口，你可以通过 http://主机IP:8088 来访问，当然你也docker可以修改映射端口。
 
-- 3.如果你想将一些关键数据同步保存到主机中，可以将相应的目录挂载出来，运行以下命令就是将数据库备份目录、图片上传目录、判题数据目录、logo 图像映射到主机 root 中的相应目录.
-注意：root 中的目录与 logo.png 需提前创建好，并且设置好写入权限。
+- 3.如果你想将一些关键数据同步保存到主机中，可以先创建挂载卷，位置是在 /var/lib/docker/volume 中，以后在备份或修改文件就可以在该目录中进行，无需进入 Docker 容器中。
 
-> 创建挂载文件夹。
+> 创建挂载卷。
 
 ```sh
-mkdir /root/lpszoj
-mkdir /root/lpszoj/db
-mkdir /root/lpszoj/uploads
-mkdir /root/lpszoj/data
-chmod 777 /root/lpszoj/db
-chmod 777 /root/lpszoj/uploads
-chmod 777 /root/lpszoj/data
-apk add wget
-apt install wget
-wget https://gitee.com/yhssdl/lpszoj/raw/master/web/images/logo.png -O /root/lpszoj/logo.png
+docker volume create lpszoj_db
+docker volume create lpszoj_web
+docker volume create lpszoj_data
 ```
+
 > 运行 lpszoj 镜像。
 
 ```sh
-docker run -d -v /root/lpszoj/db:/var/www/lpszoj/db -v /root/lpszoj/uploads:/var/www/lpszoj/web/uploads -v /root/lpszoj/data:/var/www/lpszoj/judge/data -v /root/lpszoj/logo.png:/var/www/lpszoj/web/images/logo.png -p 8080:80 --name lpszoj yhssdl/lpszoj 
+docker run -d -p 8088:80 \
+--mount type=volume,source=lpszoj_db,destination=/var/www/lpszoj/db \
+--mount type=volume,source=lpszoj_web,destination=/var/www/lpszoj/web \
+--mount type=volume,source=lpszoj_data,destination=/var/www/lpszoj/judge/data \
+--name lpszoj yhssdl/lpszoj
 ```
 
 - 3.将 lpszoj 的容器设置为自启动。
