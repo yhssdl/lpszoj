@@ -59,7 +59,8 @@ yum install wget -y && wget https://gitee.com/yhssdl/lpszoj/raw/master/docs/inst
 
 Docker 安装脚本
 -----------
-- 1.lpszoj 系统已经制作了 docker 镜像，可直接使用 docker 来运行，镜像名称为：yhssdl/lpszoj
+- 1.先安装好 Docker 环境，[详见教程](https://gitee.com/yhssdl/docs/blob/master/docker.md)
+- 2.lpszoj 系统已经制作了 docker 镜像，可直接使用 docker 来运行，镜像名称为：yhssdl/lpszoj
 
 ```sh
 docker run -d -p 8080:80 --name lpszoj yhssdl/lpszoj 
@@ -67,20 +68,24 @@ docker run -d -p 8080:80 --name lpszoj yhssdl/lpszoj
 
 以上命令中，映射到 8080 端口，你可以通过 http://主机IP:8080 来访问，当然你也可以修改映射端口。
 
-- 2.如果你想将一些关键数据同步保存到主机中，可以将相应的目录挂载出来，运行以下命令就是将数据库备份目录、图片上传目录、判题数据目录、logo 图像映射到主机 root 中的相应目录.
+- 3.如果你想将一些关键数据同步保存到主机中，可以将相应的目录挂载出来，运行以下命令就是将数据库备份目录、图片上传目录、判题数据目录、logo 图像映射到主机 root 中的相应目录.
 注意：root 中的目录与 logo.png 需提前创建好，并且设置好写入权限。
 
 ```sh
+mkdir /root/lpszoj
 mkdir /root/lpszoj/db
 mkdir /root/lpszoj/uploads
 mkdir /root/lpszoj/data
 chmod 777 /root/lpszoj/db
 chmod 777 /root/lpszoj/uploads
 chmod 777 /root/lpszoj/data
+apk add wget
+apt install wget
+wget https://gitee.com/yhssdl/lpszoj/raw/master/web/images/logo.png -O /root/lpszoj/logo.png
 ```
 
 ```sh
-docker run -d -v /root/lpszoj/db:/var/www/lpszoj/db -v /root/lpszoj/uploals:/var/www/lpszoj/web/uploads -v /root/lpszoj/data:/var/www/lpszoj/judge/data -v /root/lpszoj/logo.png:/var/www/lpszoj/web/images/logo.png -p 8080:80 --name lpszoj yhssdl/lpszoj 
+docker run -d -v /root/lpszoj/db:/var/www/lpszoj/db -v /root/lpszoj/uploads:/var/www/lpszoj/web/uploads -v /root/lpszoj/data:/var/www/lpszoj/judge/data -v /root/lpszoj/logo.png:/var/www/lpszoj/web/images/logo.png -p 8080:80 --name lpszoj yhssdl/lpszoj 
 ```
 
 - 3.将 lpszoj 的容器设置为自启动。
